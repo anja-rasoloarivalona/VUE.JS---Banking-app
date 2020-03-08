@@ -23,6 +23,10 @@ const routes = [
   {
     path: '/savings-plan',
     component: SavingsPlan
+  },
+  {
+    path: '*',
+    redirect: '/'
   }
 ]
 

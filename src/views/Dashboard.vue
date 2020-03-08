@@ -27,11 +27,15 @@
     </div>
     <div class="row row--2">
       <h2 class="color-grey-main">Wallet</h2>
+      <ul class="dashboard__cardsList">
+        <app-card v-for="(card,index) in cards" :key="index" :card="card"></app-card>
+      </ul>
     </div>
   </div>
 </template>
 
 <script>
+import Card from '@/components/Card.vue'
 export default {
   data () {
     return {
@@ -39,14 +43,38 @@ export default {
       cashFlow: {
         income: 1400,
         expenses: 1200
-      }
+      },
+      cards: [
+        {
+          type: 'Visa',
+          amount: 2000,
+          supplier: 'Desjardins',
+          _id: 1234
+        },
+        {
+          type: 'Debit',
+          amount: 3000,
+          supplier: 'Desjardins',
+          _id: 5678
+        },
+        {
+          type: 'Cash',
+          amount: 2000,
+          supplier: 'Wallet'
+        }
+      ]
     }
+  },
+  components: {
+    appCard: Card
   }
 }
 </script>
 
 <style lang='scss' scoped>
 .dashboard {
+  width: 70vw;
+  max-width: 130rem;
   grid-column: 2 / 3;
   & h1,
   & h2,
@@ -91,9 +119,19 @@ export default {
       }
     }
   }
+  &__cardsList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 25rem);
+    grid-template-rows: 12rem;
+    grid-auto-rows: 12rem;
+    column-gap: 1rem;
+    row-gap: 1rem;
+    align-items: center;
+  }
 }
 .row--1 {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 3rem;
 }
 </style>

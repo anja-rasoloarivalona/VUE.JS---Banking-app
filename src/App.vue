@@ -41,12 +41,12 @@ body {
   display: grid;
   grid-template-columns: 25rem minmax(8rem, 1fr) max-content minmax(8rem, 1fr);
   grid-template-rows: 9rem max-content;
-  background: $color-primary;
+  background: $color-grey--light;
   max-width: 100vw;
   .app__view {
     grid-row: 2 / 3;
     grid-column: 2 / -1;
-    background: $color-white;
+    background: $color-grey--light;
     height: calc(100vh - 9rem);
     display: grid;
     grid-template-columns: minmax(8rem, 1fr) max-content minmax(8rem, 1fr);

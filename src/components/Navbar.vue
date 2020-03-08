@@ -22,6 +22,7 @@
   align-items: center;
   padding-left: 8rem;
   border-top-left-radius: 4rem;
+  border-bottom: 1px solid $color-line;
   &__list {
     display: flex;
     div {

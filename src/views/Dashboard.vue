@@ -33,12 +33,38 @@
     </div>
     <div class="row row--3">
       <h2 class="color-grey-main">Recent transactions</h2>
+      <div class="dashboard__transactions">
+        <header class="dashboard__transactions__header">
+          Date
+        </header>
+        <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Counterparty</th>
+            <th>Details</th>
+            <th>Used wallet</th>
+            <th>Amount</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <app-transaction
+            v-for="transaction in transactions"
+            :key="transaction.shortId"
+            :transaction="transaction"
+          ></app-transaction>
+        </tbody>
+      </table>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import Card from '@/components/Card.vue'
+import Transaction from '@/components/Transaction.vue'
 export default {
   data () {
     return {
@@ -65,11 +91,32 @@ export default {
           amount: 2000,
           supplier: 'Wallet'
         }
+      ],
+      transactions: [
+        {
+          shortId: 123,
+          date: '2 Nov 2019',
+          counterparty: 'Pierre',
+          details: 'November rent',
+          usedWallet: 'Debit Desjardins',
+          amount: 300,
+          status: 'paid'
+        },
+        {
+          shortId: 423,
+          date: '2 Nov 2019',
+          counterparty: 'Pierre',
+          details: 'November rent',
+          usedWallet: 'Debit Desjardins',
+          amount: 300,
+          status: 'paid'
+        }
       ]
     }
   },
   components: {
-    appCard: Card
+    appCard: Card,
+    appTransaction: Transaction
   }
 }
 </script>
@@ -92,10 +139,7 @@ export default {
     }
   }
   &__monthResume {
-    background: $color-grey--light;
-    padding: 1.7rem 2rem;
     width: 38%;
-    border-radius: 1rem;
     &__data {
       display: flex;
       justify-content: space-between;
@@ -131,13 +175,38 @@ export default {
     row-gap: 1rem;
     align-items: center;
   }
+  &__transactions {
+    background: $color-white;
+    border-radius: 3rem;
+    padding: 1rem;
+    padding-bottom: 3rem;
+    &__header {
+      padding: 2rem 0;
+    }
+  }
 }
 .row {
- margin-bottom: 3rem;
- &--1 {
-  display: flex;
-  justify-content: space-between;
- }
+  margin-bottom: 3rem;
+  &--1 {
+    display: flex;
+    justify-content: space-between;
+  }
 }
-
+table,
+table th, td {
+  border-top: 1px solid $color-line;
+  border-bottom: 1px solid $color-line;
+  border-collapse: collapse;
+}
+table {
+  width: 100%;
+  & th, & td {
+    padding: 1.5rem;
+  }
+  & th {
+    text-align: start;
+    background: $color-grey--light;
+    font-size: $font-s;
+  }
+}
 </style>

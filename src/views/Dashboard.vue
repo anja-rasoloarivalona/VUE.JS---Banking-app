@@ -31,6 +31,9 @@
         <app-card v-for="(card,index) in cards" :key="index" :card="card"></app-card>
       </ul>
     </div>
+    <div class="row row--3">
+      <h2 class="color-grey-main">Recent transactions</h2>
+    </div>
   </div>
 </template>
 
@@ -129,9 +132,12 @@ export default {
     align-items: center;
   }
 }
-.row--1 {
+.row {
+ margin-bottom: 3rem;
+ &--1 {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 3rem;
+ }
 }
+
 </style>

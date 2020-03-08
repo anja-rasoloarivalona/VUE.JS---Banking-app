@@ -1,32 +1,52 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <sidebar></sidebar>
+    <navbar></navbar>
+    <div class="app__view">
+      <router-view/>
     </div>
-    <router-view/>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+<script>
+import Sidebar from './components/Sidebar.vue'
+import Navbar from './components/Navbar.vue'
+export default {
+  components: {
+    Sidebar,
+    Navbar
   }
 }
+</script>
+
+<style lang="scss">
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
+}
+
+#app {
+  display: grid;
+  grid-template-columns: 25rem 1fr;
+  grid-template-rows: 9rem max-content;
+
+  .app__view {
+    grid-row: 2 / 3;
+    grid-column: 2 / 3;
+    background: $color-primary;
+  }
+}
+
 </style>

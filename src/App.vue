@@ -41,11 +41,13 @@ body {
   display: grid;
   grid-template-columns: 25rem 1fr;
   grid-template-rows: 9rem max-content;
+  background: $color-primary;
 
   .app__view {
     grid-row: 2 / 3;
     grid-column: 2 / 3;
-    background: $color-primary;
+    background: $color-white;
+    height: calc(100vh - 9rem);
   }
 }
 

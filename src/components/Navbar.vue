@@ -16,21 +16,24 @@
 .nav {
   grid-row: 1 / 2;
   grid-column: 2 / 3;
-  width: calc(100vw - 20rem);
-  background: $color-secondary;
+  width: calc(100vw - 25rem);
+  background: $color-grey--light;
   display: flex;
   align-items: center;
   padding-left: 10rem;
+  border-top-left-radius: 4rem;
   &__list {
-    background: blue;
     display: flex;
     div {
          width: 10rem;
          text-align: center;
       a {
-        color: $color-white;
+        color: $color-grey--dark;
         text-decoration: none;
         font-size: $font-m;
+      }
+      &.router-link-exact-active a {
+            color: $color-primary;
       }
     }
   }

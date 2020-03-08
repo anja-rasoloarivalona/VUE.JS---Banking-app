@@ -13,7 +13,7 @@
     position: fixed;
     width: 25rem;
     height: 100vh;
-    background: red;
+    background: $color-primary;
 }
 
 </style>

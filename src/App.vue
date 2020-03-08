@@ -39,15 +39,20 @@ body {
 
 #app {
   display: grid;
-  grid-template-columns: 25rem 1fr;
+  grid-template-columns: 25rem minmax(8rem, 1fr) minmax(70vw, 150rem) minmax(8rem, 1fr);
   grid-template-rows: 9rem max-content;
   background: $color-primary;
+  max-width: 100vw;
   .app__view {
     grid-row: 2 / 3;
-    grid-column: 2 / 3;
+    grid-column: 2 / -1;
     background: $color-white;
     height: calc(100vh - 9rem);
-    padding: 2rem;
+    display: grid;
+    grid-template-columns: minmax(8rem, 1fr) minmax(70vw, 150rem) minmax(8rem, 1fr);
+    grid-template-rows: max-content;
+    grid-auto-rows: max-content;
+    padding-top: 2rem;
   }
   .app__title {
     &--md {

@@ -15,12 +15,12 @@
 <style lang="scss" scoped>
 .nav {
   grid-row: 1 / 2;
-  grid-column: 2 / 3;
+  grid-column: 2 / -1;
   width: calc(100vw - 25rem);
   background: $color-grey--light;
   display: flex;
   align-items: center;
-  padding-left: 10rem;
+  padding-left: 8rem;
   border-top-left-radius: 4rem;
   &__list {
     display: flex;

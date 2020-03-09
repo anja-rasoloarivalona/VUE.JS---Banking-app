@@ -6,28 +6,36 @@
       <router-link to="/wallet" tag="div"><a>Wallet</a></router-link>
       <router-link to="/savings-plan" tag="div"><a>Savings plan</a></router-link>
     </ul>
+    <div class="nav__cta">
+      <icon name='settings' size="large" color='grey'/>
+      <icon name='bell' size="large" color='grey'/>
+    </div>
   </div>
 </template>
 
 <script>
+import Icon from './Icon'
+export default {
+  components: {
+    Icon
+  }
+}
 </script>
 
 <style lang="scss" scoped>
 .nav {
   grid-row: 1 / 2;
-  grid-column: 2 / -1;
-  width: calc(100vw - 25rem);
+  grid-column: 3 / 4;
   background: $color-grey--light;
   display: flex;
   align-items: center;
-  padding-left: 8rem;
+  justify-content: space-between;
   border-top-left-radius: 4rem;
   border-bottom: 1px solid $color-line;
   &__list {
     display: flex;
     div {
          width: 10rem;
-         text-align: center;
       a {
         color: $color-grey--dark;
         text-decoration: none;
@@ -37,6 +45,12 @@
             color: $color-primary;
       }
     }
+  }
+  &__cta {
+      min-width: 10rem;
+      background: yellow;
+      display: flex;
+      justify-content: space-between;
   }
 }
 </style>

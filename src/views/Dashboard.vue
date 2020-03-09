@@ -123,8 +123,8 @@ export default {
 
 <style lang='scss' scoped>
 .dashboard {
-  width: 70vw;
-  max-width: 130rem;
+  // width: 70vw;
+  // max-width: 130rem;
   grid-column: 2 / 3;
   & h1,
   & h2,

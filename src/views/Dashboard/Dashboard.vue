@@ -8,7 +8,7 @@
         </div>
       </div>
       <div class="dashboard__monthResume">
-        <h2 class="color-primary">This month</h2>
+        <h2 class="color-primary">Monthly summary</h2>
         <div class="dashboard__monthResume__data">
           <div class="dashboard__monthResume__data__group">
             <h3 class="dashboard__monthResume__data__group__key">Income</h3>
@@ -20,7 +20,7 @@
             <h3 class="dashboard__monthResume__data__group__key">Expenses</h3>
             <div
               class="dashboard__monthResume__data__group__value dashboard__monthResume__data__group__value--expense"
-            >+${{cashFlow.expenses | amount }}</div>
+            >-${{cashFlow.expenses | amount }}</div>
           </div>
         </div>
       </div>
@@ -32,6 +32,10 @@
       </ul>
     </div>
     <div class="row row--3">
+      <h2 class="color-grey-main">Budget</h2>
+      <app-budget></app-budget>
+    </div>
+    <div class="row row--4">
       <h2 class="color-grey-main">Recent transactions</h2>
       <div class="dashboard__transactions">
         <header class="dashboard__transactions__header">
@@ -65,6 +69,8 @@
 <script>
 import Card from '@/components/Card.vue'
 import Transaction from '@/components/Transaction.vue'
+import Budget from './Budget.vue'
+
 export default {
   data () {
     return {
@@ -116,7 +122,8 @@ export default {
   },
   components: {
     appCard: Card,
-    appTransaction: Transaction
+    appTransaction: Transaction,
+    appBudget: Budget
   }
 }
 </script>
@@ -140,6 +147,9 @@ export default {
   }
   &__monthResume {
     width: 38%;
+    background: $color-white;
+    padding: 1.5rem;
+    border-radius: 1.5rem;
     &__data {
       display: flex;
       justify-content: space-between;

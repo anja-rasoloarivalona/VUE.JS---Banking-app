@@ -50,7 +50,7 @@ body {
     grid-row: 2 / 3;
     grid-column: 3 / 4;
     background: $color-grey--light;
-    height: calc(100vh - 9rem);
+    min-height: calc(100vh - 9rem);
     max-width: 120rem;
     padding-top: 2rem;
   }

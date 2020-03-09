@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Dashboard from '../views/Dashboard.vue'
+import Dashboard from '../views/Dashboard/Dashboard.vue'
 import Transactions from '../views/Transactions.vue'
 import Wallet from '../views/Wallet.vue'
 import SavingsPlan from '../views/SavingsPlan.vue'

@@ -31,12 +31,13 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-top-left-radius: 4rem;
   border-bottom: 1px solid $color-line;
+  position: relative;
+  z-index: 3;
   &__list {
     display: flex;
     div {
-         width: 10rem;
+      margin-right: 3rem;
       a {
         color: $color-grey--dark;
         text-decoration: none;

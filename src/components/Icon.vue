@@ -36,6 +36,7 @@ export default {
   width: 1rem;
   height: 1rem;
   fill: currentColor;
+  cursor: pointer;
 }
 
 /* sizes */

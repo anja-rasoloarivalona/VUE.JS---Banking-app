@@ -7,8 +7,9 @@
       <router-link to="/savings-plan" tag="div"><a>Savings plan</a></router-link>
     </ul>
     <div class="nav__cta">
-      <icon name='settings' size="large" color='grey'/>
       <icon name='bell' size="large" color='grey'/>
+      <icon name='settings' size="large" color='grey'/>
+      <div class="nav__cta__userImg"></div>
     </div>
   </div>
 </template>
@@ -47,10 +48,18 @@ export default {
     }
   }
   &__cta {
-      min-width: 10rem;
-      background: yellow;
       display: flex;
+      align-items: center;
       justify-content: space-between;
+      min-width: 10rem;
+      &__userImg {
+        width: 3rem;
+        height: 3rem;
+        background-image: url('../assets/profile.jpg');
+        background-position: center;
+        background-size: cover;
+        border-radius: 50%;
+      }
   }
 }
 </style>

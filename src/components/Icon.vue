@@ -49,6 +49,7 @@ export default {
   height: 3rem;
 }
 
+/* colors */
 .grey {
  fill:#b1afaf
 }

@@ -19,7 +19,7 @@ export default {
     Sidebar,
     Navbar
   },
-  created () {
+  async created () {
     const graphqlQuery = {
       query: `
       query {
@@ -31,12 +31,13 @@ export default {
       }
       `
     }
-    this.$http.post('http://localhost:8000/graphql', graphqlQuery)
-      .then(response => {
-        console.log(response)
-      }, err => {
-        console.log(err)
-      })
+    try {
+      const response = await this.$http.post('http://localhost:8000/graphql', graphqlQuery)
+      const resData = await response.json()
+      console.log(resData)
+    } catch (err) {
+      console.log(err)
+    }
   }
 }
 </script>

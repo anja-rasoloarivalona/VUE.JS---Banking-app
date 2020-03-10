@@ -5,7 +5,7 @@
       <div class="card__header__supplier">{{card.supplier}}</div>
     </header>
     <div class="card__amount">${{card.amount | amount }}</div>
-    <div class="card__id" v-if="card._id">**** **** **** {{card._id}}</div>
+    <div class="card__id" v-if="card.shortId">**** **** **** {{card.shortId}}</div>
     <div v-else></div>
   </div>
 </template>
@@ -28,6 +28,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    cursor: pointer;
     &__header {
         display: flex;
         justify-content: space-between;

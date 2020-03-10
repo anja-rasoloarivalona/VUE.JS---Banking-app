@@ -18,6 +18,25 @@ export default {
   components: {
     Sidebar,
     Navbar
+  },
+  created () {
+    const graphqlQuery = {
+      query: `
+      query {
+        getUser {
+          _id
+          email
+          name
+        }
+      }
+      `
+    }
+    this.$http.post('http://localhost:8000/graphql', graphqlQuery)
+      .then(response => {
+        console.log(response)
+      }, err => {
+        console.log(err)
+      })
   }
 }
 </script>

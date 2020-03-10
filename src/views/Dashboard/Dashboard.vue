@@ -84,13 +84,13 @@ export default {
           type: 'Visa',
           amount: 2000,
           supplier: 'Desjardins',
-          _id: 1234
+          shortId: 1234
         },
         {
           type: 'Debit',
           amount: 3000,
           supplier: 'Desjardins',
-          _id: 5678
+          shortId: 5678
         },
         {
           type: 'Cash',
@@ -181,7 +181,7 @@ export default {
     grid-template-columns: repeat(auto-fit, 25rem);
     grid-template-rows: 12rem;
     grid-auto-rows: 12rem;
-    column-gap: 1rem;
+    column-gap: 6rem;
     row-gap: 1rem;
     align-items: center;
   }

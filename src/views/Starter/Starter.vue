@@ -5,8 +5,18 @@
             <h1>Of your personnal finance</h1>
         </div>
         <div class="starter__login">
-            <form @submit="login">
-                <div class="starter__login__title">Login</div>
+            <div class="starter__login__header">
+                <div class="starter__login__header__cta">
+                    <span v-if="action === 'Login'" @click="action = 'Create'">Create account</span>
+                    <span v-else @click="action = 'Login'">Login</span>
+                </div>
+            </div>
+             <form @submit="login">
+               <div class="starter__login__title" v-text="actionValue"></div>
+               <label v-if="action === 'Create'" for="name">
+                    <span>name</span>
+                    <input id="name" v-model="userInput.name"/>
+                </label>
                 <label for="email">
                     <span>email</span>
                     <input id="email" v-model="userInput.email"/>
@@ -28,14 +38,27 @@ export default {
   data () {
     return {
       userInput: {
+        name: '',
         email: '',
         password: ''
       },
-      submitted: false
+      submitted: false,
+      action: 'Login'
     }
   },
   methods: {
     login () {
+    }
+  },
+  computed: {
+    actionValue () {
+      let action
+      if (this.action === 'Login') {
+        action = 'Login'
+      } else {
+        action = 'Create account'
+      }
+      return action
     }
   }
 }
@@ -76,6 +99,24 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
+        position: relative;
+        &__header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 3rem;
+            padding-right: 10rem;
+            text-align: end;
+            font-size: $font-m;
+            color: $color-primary;
+            & span {
+                cursor: pointer;
+            }
+            & span:hover {
+                text-decoration: underline;
+            }
+        }
         &__title {
             margin-bottom: 5rem;
             font-size: 4rem;

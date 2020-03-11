@@ -4,7 +4,7 @@
         <div class="success__board">
             <h2>Congratulations! Your account has been created successfully</h2>
         </div>
-        <app-btn normal>
+        <app-btn normal primary>
             Get started
         </app-btn>
     </div>

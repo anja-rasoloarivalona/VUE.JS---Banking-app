@@ -2,7 +2,10 @@
     <router-link v-if="link" :to="'/' + link">
         <slot></slot>
     </router-link>
-    <button v-else :class="{'app-btn': normal}">
+    <button
+        v-else
+        :class="{'app-btn': normal, 'primary': primary, 'secondary': secondary}"
+    >
         <slot></slot>
     </button>
 </template>
@@ -11,7 +14,9 @@
 export default {
   props: {
     link: String,
-    normal: Boolean
+    normal: Boolean,
+    primary: Boolean,
+    secondary: Boolean
   }
 }
 </script>
@@ -25,5 +30,12 @@ button:focus {
     padding: 1rem 0;
     border: none;
     border-radius: .5rem;
+    color: $color-white;
+    &.primary{
+        background: $color-primary;
+    }
+    &.secondary{
+        background: $color-secondary;
+    }
 }
 </style>

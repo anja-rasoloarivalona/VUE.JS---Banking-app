@@ -5,7 +5,7 @@
             <h1>Of your personnal finance</h1>
         </div>
         <div class="starter__login">
-            <form>
+            <form @submit="login">
                 <div class="starter__login__title">Login</div>
                 <label for="email">
                     <span>email</span>
@@ -15,6 +15,9 @@
                     <span>password</span>
                     <input id="password" v-model="userInput.password"/>
                 </label>
+                <app-btn @click.prevent="login">
+                    Submit
+                </app-btn>
             </form>
         </div>
     </div>
@@ -27,7 +30,12 @@ export default {
       userInput: {
         email: '',
         password: ''
-      }
+      },
+      submitted: false
+    }
+  },
+  methods: {
+    login () {
     }
   }
 }
@@ -98,6 +106,13 @@ export default {
                 &:focus {
                     outline: none;
                 }
+            }
+            & button {
+                background: $color-primary;
+                padding: 1rem 0;
+                border: none;
+                border-radius: .5rem;
+                color: $color-white
             }
         }
     }

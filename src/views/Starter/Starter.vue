@@ -11,43 +11,36 @@
                     <span v-else @click="action = 'Login'">Login</span>
                 </div>
             </div>
-             <form @submit="login">
-               <div class="starter__login__title" v-text="actionValue"></div>
-               <label v-if="action === 'Create'" for="name">
-                    <span>name</span>
-                    <input id="name" v-model="userInput.name"/>
-                </label>
-                <label for="email">
-                    <span>email</span>
-                    <input id="email" v-model="userInput.email"/>
-                </label>
-                <label for="password">
-                    <span>password</span>
-                    <input id="password" v-model="userInput.password"/>
-                </label>
-                <app-btn @click.prevent="login">
-                    Submit
-                </app-btn>
-            </form>
+            <component
+                :is="mode"
+                :action="action"
+                :userInput="userInput"
+                :loading="loading"
+                :login="login">
+            </component>
         </div>
     </div>
 </template>
 
 <script>
+import Form from './Form.vue'
 export default {
   data () {
     return {
+      loading: false,
       userInput: {
         name: '',
         email: '',
         password: ''
       },
       submitted: false,
-      action: 'Login'
+      action: 'Login',
+      mode: 'starter-form'
     }
   },
   methods: {
     login: async function () {
+      this.loading = true
       const graphqlQuery = {
         query: `mutation {
                     createUser(userInput: {
@@ -63,22 +56,16 @@ export default {
       try {
         const response = await this.$http.post('', graphqlQuery)
         const resData = await response.json()
+        this.loading = false
         console.log(resData)
       } catch (err) {
+        this.loading = false
         console.log(err)
       }
     }
   },
-  computed: {
-    actionValue () {
-      let action
-      if (this.action === 'Login') {
-        action = 'Login'
-      } else {
-        action = 'Create account'
-      }
-      return action
-    }
+  components: {
+    starterForm: Form
   }
 }
 </script>
@@ -134,48 +121,6 @@ export default {
             }
             & span:hover {
                 text-decoration: underline;
-            }
-        }
-        &__title {
-            margin-bottom: 5rem;
-            font-size: 4rem;
-            color: $color-grey--dark;
-        }
-        & form {
-            display: flex;
-            flex-direction: column;
-            width: 50%;
-            & label {
-                display: flex;
-                flex-direction: column;
-                margin-bottom: 2rem;
-            }
-            & span {
-                width: 10rem;
-                margin-bottom: .5rem;
-                font-size: $font-m;
-                color: $color-grey--dark;
-            }
-
-            & input {
-                height: 4rem;
-                background: $color-grey--light;
-                border:none;
-                padding-left: 1rem;
-                border-radius: .5rem;
-                &:focus {
-                    outline: none;
-                }
-            }
-            & button {
-                background: $color-primary;
-                padding: 1rem 0;
-                border: none;
-                border-radius: .5rem;
-                color: $color-white;
-                :focus {
-                    outline: none;
-                }
             }
         }
     }

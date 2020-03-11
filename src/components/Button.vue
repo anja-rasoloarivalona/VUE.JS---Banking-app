@@ -17,6 +17,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+button:focus {
+    outline: none !important;
+}
 .app-btn {
     width: 11rem;
     padding: 1rem 0;

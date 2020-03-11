@@ -59,6 +59,7 @@ export default {
       try {
         const response = await this.$http.post('', graphqlQuery)
         const resData = await response.json()
+        this.$store.state.user = resData.data.createUser
         this.loading = false
         this.mode = 'create-success'
         console.log(resData)

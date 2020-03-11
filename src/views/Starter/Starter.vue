@@ -11,19 +11,22 @@
                     <span v-else @click="action = 'Login'">Login</span>
                 </div>
             </div>
-            <component
-                :is="mode"
-                :action="action"
-                :userInput="userInput"
-                :loading="loading"
-                :login="login">
-            </component>
+            <transition name="flip" mode="out-in">
+                <component
+                    :is="mode"
+                    :action="action"
+                    :userInput="userInput"
+                    :loading="loading"
+                    :login="login">
+                </component>
+            </transition>
         </div>
     </div>
 </template>
 
 <script>
 import Form from './Form.vue'
+import CreateAccountSuccess from './CreateAccountSuccess'
 export default {
   data () {
     return {
@@ -57,6 +60,7 @@ export default {
         const response = await this.$http.post('', graphqlQuery)
         const resData = await response.json()
         this.loading = false
+        this.mode = 'create-success'
         console.log(resData)
       } catch (err) {
         this.loading = false
@@ -65,7 +69,8 @@ export default {
     }
   },
   components: {
-    starterForm: Form
+    starterForm: Form,
+    createSuccess: CreateAccountSuccess
   }
 }
 </script>
@@ -123,6 +128,28 @@ export default {
                 text-decoration: underline;
             }
         }
+    }
+}
+.flip-enter-active {
+    animation: flip-in .5s ease-out forwards;
+}
+.flip-leave-active {
+    animation: flip-out .5s ease-out forwards;
+}
+@keyframes flip-out {
+    from {
+        transform: rotateY(0deg);
+    }
+    to {
+        transform: rotateY(90deg);
+    }
+}
+@keyframes flip-in {
+    from {
+        transform: rotateY(90deg);
+    }
+    to {
+        transform: rotateY(0deg);
     }
 }
 </style>

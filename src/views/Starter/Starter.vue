@@ -47,7 +47,26 @@ export default {
     }
   },
   methods: {
-    login () {
+    login: async function () {
+      const graphqlQuery = {
+        query: `mutation {
+                    createUser(userInput: {
+                        email: "${this.userInput.email}",
+                        name: "${this.userInput.name}",
+                        password: "${this.userInput.password}"
+                    }) {
+                        email
+                        name
+                    }
+                }`
+      }
+      try {
+        const response = await this.$http.post('', graphqlQuery)
+        const resData = await response.json()
+        console.log(resData)
+      } catch (err) {
+        console.log(err)
+      }
     }
   },
   computed: {
@@ -153,7 +172,10 @@ export default {
                 padding: 1rem 0;
                 border: none;
                 border-radius: .5rem;
-                color: $color-white
+                color: $color-white;
+                :focus {
+                    outline: none;
+                }
             }
         }
     }

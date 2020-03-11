@@ -38,11 +38,10 @@ export default {
             status
           }
         }
-      }
-      `
+      }`
     }
     try {
-      const response = await this.$http.post('http://localhost:8000/graphql', graphqlQuery)
+      const response = await this.$http.post('', graphqlQuery)
       const resData = await response.json()
       console.log(resData)
     } catch (err) {

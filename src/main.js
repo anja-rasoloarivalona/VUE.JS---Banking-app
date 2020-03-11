@@ -9,6 +9,7 @@ import Button from './components/Button.vue'
 Vue.config.productionTip = false
 
 Vue.use(VueResource)
+Vue.http.options.root = 'http://localhost:8000/graphql'
 
 Vue.filter('amount', function (value) {
   return value.toLocaleString()

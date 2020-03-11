@@ -1,12 +1,15 @@
 <template>
   <div id="app">
-    <sidebar></sidebar>
-    <navbar></navbar>
-    <div class="app__navbarFiller">
-      <div class="app__navbarFiller__in"></div>
-    </div>
-    <div class="app__view">
-      <router-view />
+    <router-view name="starter" v-if="status === 'starter'"/>
+    <div v-else>
+      <sidebar></sidebar>
+      <navbar></navbar>
+      <div class="app__navbarFiller">
+        <div class="app__navbarFiller__in"></div>
+      </div>
+      <div class="app__view">
+        <router-view/>
+      </div>
     </div>
   </div>
 </template>
@@ -15,6 +18,11 @@
 import Sidebar from './components/Sidebar.vue'
 import Navbar from './components/Navbar.vue'
 export default {
+  data () {
+    return {
+      status: 'starter'
+    }
+  },
   components: {
     Sidebar,
     Navbar

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Starter from '../views/Starter/Starter.vue'
 import Dashboard from '../views/Dashboard/Dashboard.vue'
 import Transactions from '../views/Transactions.vue'
 import Wallet from '../views/Wallet.vue'
@@ -10,7 +11,10 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    component: Dashboard
+    components: {
+      default: Dashboard,
+      starter: Starter
+    }
   },
   {
     path: '/transactions',

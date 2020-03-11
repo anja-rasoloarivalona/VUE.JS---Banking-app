@@ -21,12 +21,14 @@ export default {
   },
   async created () {
     const graphqlQuery = {
-      query: `
-      query {
-        getUser {
+      query: `{
+        user {
           _id
           email
           name
+          transactions {
+            status
+          }
         }
       }
       `

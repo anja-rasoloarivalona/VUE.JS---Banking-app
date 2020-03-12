@@ -26,28 +26,28 @@ export default {
   components: {
     Sidebar,
     Navbar
-  },
-  async created () {
-    const graphqlQuery = {
-      query: `{
-        user {
-          _id
-          email
-          name
-          transactions {
-            status
-          }
-        }
-      }`
-    }
-    try {
-      const response = await this.$http.post('', graphqlQuery)
-      const resData = await response.json()
-      console.log(resData)
-    } catch (err) {
-      console.log(err)
-    }
   }
+  // async created () {
+  //   const graphqlQuery = {
+  //     query: `{
+  //       user {
+  //         _id
+  //         email
+  //         name
+  //         transactions {
+  //           status
+  //         }
+  //       }
+  //     }`
+  //   }
+  //   try {
+  //     const response = await this.$http.post('', graphqlQuery)
+  //     const resData = await response.json()
+  //     console.log(resData)
+  //   } catch (err) {
+  //     console.log(err)
+  //   }
+  // }
 }
 </script>
 

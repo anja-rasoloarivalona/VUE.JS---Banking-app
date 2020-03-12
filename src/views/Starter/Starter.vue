@@ -25,8 +25,9 @@
 </template>
 
 <script>
-import Form from './Form.vue'
+import Form from './Form'
 import CreateAccountSuccess from './CreateAccountSuccess'
+import Setup from './Setup'
 export default {
   data () {
     return {
@@ -71,7 +72,8 @@ export default {
   },
   components: {
     starterForm: Form,
-    createSuccess: CreateAccountSuccess
+    createSuccess: CreateAccountSuccess,
+    startedSetup: Setup
   }
 }
 </script>

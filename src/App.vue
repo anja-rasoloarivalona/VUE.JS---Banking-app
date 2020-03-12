@@ -26,6 +26,23 @@ export default {
   components: {
     Sidebar,
     Navbar
+  },
+  created () {
+    const localData = localStorage.getItem('bank-data')
+    console.log(localData)
+    if (!localData) {
+      return true
+    }
+    const data = JSON.parse(localData)
+    if (!data.token || !data.expiryDate) {
+      console.log('NO TOKEN')
+      return
+    }
+    if (new Date(data.expiryDate) <= new Date()) {
+      console.log('Token not valid anymore')
+      return
+    }
+    this.$store.commit('authUser', data)
   }
   // async created () {
   //   const graphqlQuery = {

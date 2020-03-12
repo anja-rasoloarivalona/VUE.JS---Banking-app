@@ -46,6 +46,42 @@ export default {
     login: async function () {
       this.loading = true
       const graphqlQuery = {
+        query: `{
+              login(email: "${this.userInput.email}", password: "${this.userInput.password}") {
+                  token
+                  user {
+                      _id
+                      name
+                      status
+                  }
+              }
+          }`
+      }
+      try {
+        const response = await this.$http.post('', graphqlQuery)
+        const resData = await response.json()
+        const responseData = resData.data.login
+        const data = {
+          token: responseData.token,
+          userId: responseData.user._id,
+          userName: responseData.user.name,
+          status: responseData.user.status
+        }
+        this.$store.commit('authUser', data)
+        const remainingMilliseconds = 24 * 60 * 60 * 1000
+        const expiryDate = new Date(new Date().getTime() + remainingMilliseconds).toISOString()
+        const localData = { ...data, expiryDate }
+        localStorage.setItem('bank-data', JSON.stringify(localData))
+        this.loading = false
+        console.log(resData)
+      } catch (err) {
+        this.loading = false
+        console.log(err)
+      }
+    },
+    signup: async function () {
+      this.loading = true
+      const graphqlQuery = {
         query: `mutation {
                     createUser(userInput: {
                         email: "${this.userInput.email}",
@@ -60,7 +96,6 @@ export default {
       try {
         const response = await this.$http.post('', graphqlQuery)
         const resData = await response.json()
-        this.$store.state.user = resData.data.createUser
         this.loading = false
         this.mode = 'create-success'
         console.log(resData)

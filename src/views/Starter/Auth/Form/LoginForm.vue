@@ -10,7 +10,7 @@
           <span>password</span>
           <input id="password" v-model="userInput.password" />
         </label>
-        <app-btn @click.prevent="submit">
+        <app-btn :click="submit">
           <span v-if="!loading">Submit</span>
           <app-spinner v-else></app-spinner>
         </app-btn>

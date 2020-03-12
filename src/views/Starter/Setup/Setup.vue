@@ -1,6 +1,6 @@
 <template>
-    <div>
-
+    <div class="setup">
+        Setup
     </div>
 </template>
 
@@ -18,5 +18,11 @@
 </script>
 
 <style lang="scss" scoped>
-
+.setup {
+    grid-row: 1 / -1;
+    grid-column: 1 / -1;
+    width: 100vw;
+    height: 100vh;
+    background: yellow;
+}
 </style>

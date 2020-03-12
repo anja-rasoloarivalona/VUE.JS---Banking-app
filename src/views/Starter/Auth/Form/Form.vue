@@ -1,10 +1,11 @@
 <template>
-    <form @submit="submitForm" class="form">
+    <form @submit="submitForm" class="form" v-if="authMode !== ''">
         <transition name="flip" mode="out-in">
             <component
-                :is="authMode"
+                :is="activeForm"
                 :userInput="userInput"
                 :submit="submitForm"
+                :loading="loading"
             >
             </component>
         </transition>
@@ -21,15 +22,22 @@ export default {
         name: '',
         email: '',
         password: ''
-      }
+      },
+      loading: false
     }
   },
   props: {
-    authMode: String
+    authMode: String,
+    submitSucceeded: Function
+  },
+  computed: {
+    activeForm () {
+      return `${this.authMode}-form`
+    }
   },
   methods: {
     submitForm () {
-      if (this.mode === 'login-form') {
+      if (this.authMode === 'login') {
         this.login()
       } else {
         this.signup()
@@ -65,6 +73,7 @@ export default {
         const localData = { ...data, expiryDate }
         localStorage.setItem('bank-data', JSON.stringify(localData))
         this.loading = false
+        this.submitSucceeded()
       } catch (err) {
         this.loading = false
         console.log(err)
@@ -79,17 +88,32 @@ export default {
                         name: "${this.userInput.name}",
                         password: "${this.userInput.password}"
                     }) {
-                        email
-                        name
+                        token
+                        user {
+                            _id
+                            name
+                            status
+                        }
                     }
                 }`
       }
       try {
         const response = await this.$http.post('', graphqlQuery)
         const resData = await response.json()
+        const responseData = resData.data.createUser
+        const data = {
+          token: responseData.token,
+          userId: responseData.user._id,
+          userName: responseData.user.name,
+          status: responseData.user.status
+        }
+        this.$store.commit('authUser', data)
+        const remainingMilliseconds = 24 * 60 * 60 * 1000
+        const expiryDate = new Date(new Date().getTime() + remainingMilliseconds).toISOString()
+        const localData = { ...data, expiryDate }
+        localStorage.setItem('bank-data', JSON.stringify(localData))
         this.loading = false
-        this.mode = 'create-success'
-        console.log(resData)
+        this.submitSucceeded()
       } catch (err) {
         this.loading = false
         console.log(err)
@@ -139,11 +163,13 @@ export default {
     & button {
         background: $color-primary;
         height: 4.5rem;
+        width: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
         border: none;
         border-radius: 0.5rem;
+        cursor: pointer;
         & span {
         color: $color-white;
         margin-bottom: 0;

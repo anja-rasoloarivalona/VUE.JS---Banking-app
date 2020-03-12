@@ -3,6 +3,7 @@
         <slot></slot>
     </router-link>
     <button
+        @click="click"
         v-else
         :class="{'app-btn': normal, 'primary': primary, 'secondary': secondary}"
     >
@@ -16,7 +17,8 @@ export default {
     link: String,
     normal: Boolean,
     primary: Boolean,
-    secondary: Boolean
+    secondary: Boolean,
+    click: Function
   }
 }
 </script>
@@ -31,6 +33,7 @@ button:focus {
     border: none;
     border-radius: .5rem;
     color: $color-white;
+    cursor: pointer;
     &.primary{
         background: $color-primary;
     }

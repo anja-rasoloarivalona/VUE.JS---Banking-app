@@ -5,15 +5,11 @@
             <h1>Personnal finance</h1>
         </div>
         <div class="auth__cta">
-            <header class="auth__cta__header">
-                <div v-if="authMode === 'login-form'" @click="authMode = 'signup-form'">Create account</div>
-                <div v-else-if="authMode === 'signup-form'" @click="authMode = 'login-form'">Login</div>
-                <div v-else>Logout</div>
-            </header>
             <transition name="flip" mode="out-in">
                 <component
-                    :is="mode"
-                    :authMode="authMode"
+                    :is="authState"
+                    :authMode="action"
+                    :submitSucceeded="submitSucceeded"
                 >
                 </component>
             </transition>
@@ -24,19 +20,26 @@
 
 <script>
 import AuthForm from './Form/Form'
-import LoginSuccess from './Success/LoginSucces'
-import SignupSuccess from './Success/SignupSuccess'
+import SuccessForm from './Success/Success'
+
 export default {
-  data () {
-    return {
-      mode: 'auth-form',
-      authMode: 'login-form'
+  props: {
+    action: String,
+    submitSuccess: Boolean,
+    submitSucceeded: Function
+  },
+  computed: {
+    authState () {
+      if (this.submitSuccess) {
+        return 'success-form'
+      } else {
+        return 'auth-form'
+      }
     }
   },
   components: {
     authForm: AuthForm,
-    signupSuccess: SignupSuccess,
-    loginSuccess: LoginSuccess
+    successForm: SuccessForm
   }
 }
 </script>
@@ -72,23 +75,6 @@ export default {
         align-items: center;
         justify-content: center;
         position: relative;
-        &__header {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 3rem;
-            padding-right: 10rem;
-            text-align: end;
-            font-size: $font-m;
-            color: $color-primary;
-            & div {
-                cursor: pointer;
-            }
-            & div:hover {
-                text-decoration: underline;
-            }
-        }
     }
 }
 .flip-enter-active {

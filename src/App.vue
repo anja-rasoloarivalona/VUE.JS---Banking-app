@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view name="starter" v-if="status === 'starter'"/>
-    <div v-else>
+    <div v-else class="app-main">
       <sidebar></sidebar>
       <navbar></navbar>
       <div class="app__navbarFiller">
@@ -86,7 +86,7 @@ body {
   font-family: "Open Sans", sans-serif;
 }
 
-#app {
+.app-main {
   display: grid;
   grid-template-columns: 25rem minmax(8rem, 1fr) minmax(70vw, 120rem) minmax(8rem, 1fr);
   grid-template-rows: 9rem max-content;

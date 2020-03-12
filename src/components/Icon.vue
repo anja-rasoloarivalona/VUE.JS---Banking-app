@@ -2,9 +2,10 @@
   <svg class="icon"
        :viewBox="$options.methods.getViewBox(props)"
        :class="$options.methods.getStyleClasses(props)"
+       v-html="$options.methods.getPath(props)"
        v-bind="data.attrs"
        v-on="listeners">
-    <path :d="$options.methods.getPath(props)"/>
+    <!-- <path :d="$options.methods.getPath(props)"/> -->
   </svg>
 </template>
 
@@ -53,5 +54,8 @@ export default {
 /* colors */
 .grey {
  fill:#b1afaf
+}
+.primary {
+  fill: #027a66;
 }
 </style>

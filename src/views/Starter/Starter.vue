@@ -70,8 +70,10 @@ export default {
             position: absolute;
             top: 0;
             right: 0;
-            padding: 3rem;
-            padding-right: 10rem;
+            height: 7rem;
+            width: 14rem;
+            display: flex;
+            align-items: center;
             text-align: end;
             font-size: $font-m;
             color: $color-primary;

@@ -6,6 +6,7 @@ import router from './router'
 import store from './store'
 import Button from './components/Button.vue'
 import Spinner from './components/Spinner.vue'
+import Icon from './components/Icon.vue'
 
 Vue.config.productionTip = false
 
@@ -18,6 +19,7 @@ Vue.filter('amount', function (value) {
 
 Vue.component('app-btn', Button)
 Vue.component('app-spinner', Spinner)
+Vue.component('app-icon', Icon)
 
 new Vue({
   router,

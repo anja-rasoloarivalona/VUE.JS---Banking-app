@@ -7,20 +7,14 @@
       <router-link to="/savings-plan" tag="div"><a>Savings plan</a></router-link>
     </ul>
     <div class="nav__cta">
-      <icon name='bell' size="large" color='grey'/>
-      <icon name='settings' size="large" color='grey'/>
+      <app-icon name='bell' size="large" color='grey'/>
+      <app-icon name='settings' size="large" color='grey'/>
       <div class="nav__cta__userImg"></div>
     </div>
   </div>
 </template>
 
 <script>
-import Icon from './Icon'
-export default {
-  components: {
-    Icon
-  }
-}
 </script>
 
 <style lang="scss" scoped>

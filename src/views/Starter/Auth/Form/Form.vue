@@ -152,7 +152,7 @@ export default {
 
     & input {
         height: 4rem;
-        background: #e6e6e6;
+        background: $color-grey--light;
         border: none;
         padding-left: 1rem;
         border-radius: 0.5rem;

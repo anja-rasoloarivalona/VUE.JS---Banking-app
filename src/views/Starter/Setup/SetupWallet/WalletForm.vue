@@ -1,7 +1,7 @@
 <template>
     <div class="walletForm">
         <form>
-            Hello
+            <select-input :options="cardType"/>
         </form>
         <div class="walletForm__preview">
 
@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import SelectInput from '@/components/SelectInput.vue'
 export default {
   data () {
     return {
@@ -18,8 +19,12 @@ export default {
         amount: 0,
         supplier: '',
         shortId: ''
-      }
+      },
+      cardType: ['Visa', 'MasterCard', 'Debit', 'Cash']
     }
+  },
+  components: {
+    'select-input': SelectInput
   }
 }
 </script>
@@ -28,6 +33,5 @@ export default {
 .walletForm {
     margin-top: 4rem;
     width: 100%;
-    background: red;
 }
 </style>

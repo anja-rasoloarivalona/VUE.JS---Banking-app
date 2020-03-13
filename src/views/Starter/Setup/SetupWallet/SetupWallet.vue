@@ -1,7 +1,7 @@
 <template>
     <div class="setup__view">
         <div class="setup__view__next">
-            <app-btn normal primary>
+            <app-btn normal primary :click="next">
                 Next
             </app-btn>
         </div>
@@ -30,6 +30,11 @@ export default {
   },
   components: {
     walletForm: WalletForm
+  },
+  methods: {
+    next () {
+      console.log('next')
+    }
   }
 }
 </script>

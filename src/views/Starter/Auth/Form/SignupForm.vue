@@ -1,24 +1,13 @@
 <template>
 <span>
     <div class="form__title">Signup</div>
-    <div class="form__group">
-        <label for="name">
-            <span>name</span>
-            <input id="name" v-model="userInput.name" />
-        </label>
-        <label for="email">
-            <span>email</span>
-            <input id="email" v-model="userInput.email" />
-        </label>
-        <label for="password">
-            <span>password</span>
-            <input id="password" v-model="userInput.password" />
-        </label>
-        <app-btn :click="submit">
-            <span v-if="!loading">Submit</span>
-            <app-spinner v-else></app-spinner>
-        </app-btn>
-    </div>
+    <app-input v-model="userInput.name" :id="'name'"/>
+    <app-input v-model="userInput.email" :id="'email'"/>
+    <app-input v-model="userInput.password" :id="'password'"/>
+    <app-btn :click="submit">
+        <span v-if="!loading">Submit</span>
+        <app-spinner v-else></app-spinner>
+    </app-btn>
 </span>
 </template>
 

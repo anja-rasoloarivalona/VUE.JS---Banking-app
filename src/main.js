@@ -1,12 +1,15 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
-import App from './App.vue'
+import App from './App'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
-import Button from './components/Button.vue'
-import Spinner from './components/Spinner.vue'
-import Icon from './components/Icon.vue'
+
+import Button from './components/Button'
+import Input from './components/Input'
+import SelectInput from './components/SelectInput'
+import Spinner from './components/Spinner'
+import Icon from './components/Icon'
 
 Vue.config.productionTip = false
 
@@ -18,6 +21,8 @@ Vue.filter('amount', function (value) {
 })
 
 Vue.component('app-btn', Button)
+Vue.component('app-input', Input)
+Vue.component('app-select-input', SelectInput)
 Vue.component('app-spinner', Spinner)
 Vue.component('app-icon', Icon)
 

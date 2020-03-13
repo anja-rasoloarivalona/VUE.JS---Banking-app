@@ -137,30 +137,7 @@ export default {
     font-size: 4rem;
     color: $color-grey--dark;
   }
-  &__group {
-    & label {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 2rem;
-    }
-    & span {
-        width: 10rem;
-        margin-bottom: 0.5rem;
-        font-size: $font-m;
-        color: $color-grey--dark;
-    }
-
-    & input {
-        height: 4rem;
-        background: $color-grey--light;
-        border: none;
-        padding-left: 1rem;
-        border-radius: 0.5rem;
-        &:focus {
-        outline: none;
-        }
-    }
-    & button {
+  & button {
         background: $color-primary;
         height: 4.5rem;
         width: 100%;
@@ -174,7 +151,6 @@ export default {
         color: $color-white;
         margin-bottom: 0;
         }
-    }
   }
 }
 </style>

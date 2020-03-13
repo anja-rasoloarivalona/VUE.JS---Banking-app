@@ -1,7 +1,10 @@
 <template>
     <label :for="id">
       <span>{{ id }}</span>
-      <div class="select" v-click-outside="closeList">
+      <div
+        class="select"
+        :class="{'bg-white': bgWhite, 'all-radius': !showList, 'top-radius': showList}"
+        v-click-outside="closeList">
           <div class="select__value" @click.stop="showList = !showList">{{ selected }}</div>
           <ul class="select__list" v-show="showList">
               <li v-for="(option, index) in options"
@@ -38,7 +41,8 @@ export default {
       type: Array,
       required: true
     },
-    id: String
+    id: String,
+    bgWhite: Boolean
   },
   created () {
     this.selected = this.options[0]
@@ -62,6 +66,16 @@ label {
     width: 100%;
     background: $color-grey--light;
     position: relative;
+    &.bg-white {
+      background: $color-white;
+    }
+    &.all-radius {
+      border-radius: .5rem;
+    }
+    &.top-radius {
+      border-top-left-radius: .5rem;
+      border-top-right-radius: .5rem;
+    }
     &__value {
         height: 4rem;
         display: flex;
@@ -86,6 +100,8 @@ label {
         border: 1px solid $color-grey--dark;
         background: $color-white;
         width: 100%;
+        border-bottom-left-radius: .5rem;
+        border-bottom-right-radius: .5rem;
         &__item {
             height: 4rem;
             display: flex;

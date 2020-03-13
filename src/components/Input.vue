@@ -2,7 +2,11 @@
     <div class="input">
         <label :for="id">
             <span>{{ id }}</span>
-            <input @input="updateSelf($event.target.value)" :value="value"/>
+            <input
+              @input="updateSelf($event.target.value)"
+              :value="value"
+              :class="{'bgWhite': bgWhite }"
+            />
         </label>
     </div>
 </template>
@@ -13,7 +17,11 @@ export default {
     prop: 'value',
     event: 'input'
   },
-  props: ['value', 'id'],
+  props: {
+    value: [String, Number],
+    id: String,
+    bgWhite: Boolean
+  },
   methods: {
     updateSelf (name) {
       this.$emit('input', name)
@@ -47,6 +55,9 @@ export default {
         border-radius: 0.5rem;
         &:focus {
         outline: none;
+        }
+        &.bgWhite {
+          background: $color-white;
         }
     }
 }

@@ -16,22 +16,29 @@
                 </li>
             </ul>
         </header>
-        <div class="setup__view">
-        </div>
+        <component
+            :is="mode"
+        >
+        </component>
     </div>
 </template>
 
 <script>
-// import SetupWallet from './SetupWallet'
-// import SetupBudget from './SetupBuget'
-// import SetupSavingsPlan from './SetupSavingsPlan'
-// export default {
-//   components: {
-//     setupWallet: SetupWallet,
-//     setupBudget: SetupBudget,
-//     setupSavingsPlan: SetupSavingsPlan
-//   }
-// }
+import SetupWallet from './SetupWallet/SetupWallet'
+import SetupBudget from './SetupBuget'
+import SetupSavingsPlan from './SetupSavingsPlan'
+export default {
+  data () {
+    return {
+      mode: 'setup-wallet'
+    }
+  },
+  components: {
+    setupWallet: SetupWallet,
+    setupBudget: SetupBudget,
+    setupSavingsPlan: SetupSavingsPlan
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -74,6 +81,9 @@
                 background: $color-grey--main;
             }
         }
+    }
+    &__view {
+        margin: 2rem 8rem;
     }
 }
 </style>

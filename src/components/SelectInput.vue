@@ -82,6 +82,7 @@ label {
         align-items: center;
         padding-left: 1rem;
         position: relative;
+        font-size: $font-m;
         cursor: pointer;
         &::after {
             content: '';
@@ -107,6 +108,7 @@ label {
             display: flex;
             align-items: center;
             padding-left: 1rem;
+            font-size: $font-m;
             cursor: pointer;
             &:hover {
                 background: $color-grey--light;

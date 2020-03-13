@@ -20,7 +20,8 @@ export default {
   props: {
     value: [String, Number],
     id: String,
-    bgWhite: Boolean
+    bgWhite: Boolean,
+    amount: Boolean
   },
   methods: {
     updateSelf (name) {

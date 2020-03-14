@@ -27,9 +27,8 @@ export default {
     Sidebar,
     Navbar
   },
-  created () {
+  created: async function () {
     const localData = localStorage.getItem('bank-data')
-    console.log(localData)
     if (!localData) {
       return true
     }
@@ -43,28 +42,29 @@ export default {
       return
     }
     this.$store.commit('authUser', data)
+    const graphqlQuery = {
+      query: `{
+        user(userId: "${this.$store.state.userId}") {
+          wallets {
+            cardType
+            amount
+            supplier
+            shortId
+            color
+          }
+        }
+      }`
+    }
+    try {
+      const response = await this.$http.post('', graphqlQuery)
+      const resData = await response.json()
+      console.log(resData)
+      const responseData = resData.data.user
+      this.$store.commit('initWallets', responseData.wallets)
+    } catch (err) {
+      console.log(err)
+    }
   }
-  // async created () {
-  //   const graphqlQuery = {
-  //     query: `{
-  //       user {
-  //         _id
-  //         email
-  //         name
-  //         transactions {
-  //           status
-  //         }
-  //       }
-  //     }`
-  //   }
-  //   try {
-  //     const response = await this.$http.post('', graphqlQuery)
-  //     const resData = await response.json()
-  //     console.log(resData)
-  //   } catch (err) {
-  //     console.log(err)
-  //   }
-  // }
 }
 </script>
 

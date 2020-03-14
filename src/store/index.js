@@ -8,7 +8,8 @@ export default new Vuex.Store({
     token: null,
     userId: null,
     userName: null,
-    status: null
+    status: null,
+    wallets: []
   },
   mutations: {
     authUser (state, userData) {
@@ -16,6 +17,9 @@ export default new Vuex.Store({
       state.userId = userData.userId
       state.userName = userData.userName
       state.status = userData.status
+    },
+    initWallets (state, wallets) {
+      state.wallets = wallets
     }
   },
   actions: {

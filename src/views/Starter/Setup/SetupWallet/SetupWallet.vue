@@ -10,12 +10,18 @@
                     <app-icon name="add" size="extra-large" color="grey"/>
                 </div>
             </li>
+            <li v-for="(card, index) in this.$store.state.wallets"
+                :key="index"
+                class="setup__walletList__item">
+              <app-card :card="card"></app-card>
+            </li>
         </ul>
         <wallet-form v-else @hideForm="showForm = false"/>
     </div>
 </template>
 
 <script>
+import Card from '@/components/Card'
 import WalletForm from './WalletForm'
 export default {
   data () {
@@ -24,7 +30,8 @@ export default {
     }
   },
   components: {
-    walletForm: WalletForm
+    'wallet-form': WalletForm,
+    'app-card': Card
   },
   methods: {
     next () {
@@ -49,6 +56,12 @@ export default {
     &__walletList {
         list-style: none;
         margin-top: 4rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, 25rem);
+        grid-template-rows: 11rem;
+        grid-auto-rows: 11rem;
+        column-gap: 2rem;
+        row-gap: 2rem;
         &__item {
             width: 25rem;
             height: 11rem;

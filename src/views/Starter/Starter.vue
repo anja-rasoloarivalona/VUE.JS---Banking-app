@@ -30,7 +30,6 @@ export default {
   },
   created () {
     EventBus.$on('setupStarted', () => {
-      console.log('started')
       this.mode = 'app-setup'
       this.action = 'login'
       this.submitSuccess = false

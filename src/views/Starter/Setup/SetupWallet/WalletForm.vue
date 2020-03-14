@@ -19,8 +19,9 @@
                         </ul>
                       </div>
                 </div>
-                <app-btn normal :click="addCard">
-                    Add
+                <app-btn normal @click.native="addCard">
+                    <span v-if="!loading">Add</span>
+                    <app-spinner v-else></app-spinner>
                 </app-btn>
         </form>
         <div class="walletForm__preview">
@@ -40,7 +41,7 @@ export default {
   data () {
     return {
       walletInput: {
-        type: 'Visa',
+        cardType: 'Visa',
         amount: 0,
         supplier: 'Bank',
         shortId: 1234,
@@ -48,7 +49,8 @@ export default {
       },
       cardType: ['Visa', 'MasterCard', 'Debit', 'Cash'],
       showColorList: false,
-      colorList: ['Brown', 'Chocolate', 'Coral', 'Crimson', 'DarkCyan', 'DarkBlue', 'FireBrick', 'OrangeRed', 'Teal']
+      colorList: ['Brown', 'Chocolate', 'Coral', 'Crimson', 'DarkCyan', 'DarkBlue', 'FireBrick', 'OrangeRed', 'Teal'],
+      loading: false
     }
   },
   methods: {
@@ -56,8 +58,36 @@ export default {
       this.walletInput.color = value
       this.showColorList = false
     },
-    addCard () {
-      console.log('yes')
+    addCard: async function () {
+      this.loading = true
+      const graphqlQuery = {
+        query: `mutation {
+                    createNewCard(cardInput: {
+                        userId: "${this.$store.state.userId}",
+                        cardType: "${this.walletInput.cardType}",
+                        amount: "${this.walletInput.amount}",
+                        supplier: "${this.walletInput.supplier}",
+                        shortId: "${this.walletInput.shortId}",
+                        color: "${this.walletInput.color}"
+                    }) {
+                        cardType
+                        amount
+                        supplier
+                        shortId
+                        color
+                    }
+              }`
+      }
+      try {
+        const response = await this.$http.post('', graphqlQuery)
+        const resData = await response.json()
+        const responseData = resData.data.createNewCard
+        this.loading = false
+        console.log('card added', responseData)
+      } catch (err) {
+        this.loading = false
+        console.log(err)
+      }
     }
   },
   components: {

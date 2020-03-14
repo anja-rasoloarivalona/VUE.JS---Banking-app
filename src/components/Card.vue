@@ -1,7 +1,7 @@
 <template>
   <div class="card" :class="{xl:large}" :style="{background: card.color}">
     <header class="card__header">
-      <div class="card__header__type">{{card.type}}</div>
+      <div class="card__header__type">{{card.cardType}}</div>
       <div class="card__header__supplier">{{card.supplier}}</div>
     </header>
     <div class="card__amount">${{card.amount | amount }}</div>

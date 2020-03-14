@@ -15,7 +15,6 @@ import { EventBus } from '@/utilities/event-bus.js'
 export default {
   methods: {
     startSetup () {
-      console.log('clicked')
       EventBus.$emit('setupStarted')
     }
   }

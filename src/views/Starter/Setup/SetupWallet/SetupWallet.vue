@@ -13,10 +13,10 @@
             <li v-for="(card, index) in this.$store.state.wallets"
                 :key="index"
                 class="setup__walletList__item">
-              <app-card :card="card"></app-card>
+              <app-card :card="card" @click.native="passEditCardData(card)"></app-card>
             </li>
         </ul>
-        <wallet-form v-else @hideForm="showForm = false"/>
+        <wallet-form v-else @hideForm="hideForm" :editedCard="editedCard"/>
     </div>
 </template>
 
@@ -26,7 +26,8 @@ import WalletForm from './WalletForm'
 export default {
   data () {
     return {
-      showForm: false
+      showForm: false,
+      editedCard: null
     }
   },
   components: {
@@ -34,6 +35,14 @@ export default {
     'app-card': Card
   },
   methods: {
+    passEditCardData (card) {
+      this.editedCard = card
+      this.showForm = true
+    },
+    hideForm () {
+      this.showForm = false
+      this.editedCard = null
+    },
     next () {
       console.log('next')
     }

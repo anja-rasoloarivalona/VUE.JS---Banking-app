@@ -1,5 +1,5 @@
 <template>
-  <div class="card" :class="{xl:large}" :style="{background: card.color}">
+  <div class="card" :class="{xl:large}" :style="{background: card.color}" v-bind="$attrs">
     <header class="card__header">
       <div class="card__header__type">{{card.cardType}}</div>
       <div class="card__header__supplier">{{card.supplier}}</div>

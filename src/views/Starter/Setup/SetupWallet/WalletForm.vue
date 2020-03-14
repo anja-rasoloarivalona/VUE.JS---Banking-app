@@ -20,7 +20,7 @@
                       </div>
                 </div>
                 <app-btn normal @click.native="addCard">
-                    <span v-if="!loading">Add</span>
+                    <span v-if="!loading" v-text="editedCard ? 'Edit': 'Add'">Add</span>
                     <app-spinner v-else></app-spinner>
                 </app-btn>
         </form>
@@ -51,6 +51,14 @@ export default {
       showColorList: false,
       colorList: ['Brown', 'Chocolate', 'Coral', 'Crimson', 'DarkCyan', 'DarkBlue', 'FireBrick', 'OrangeRed', 'Teal'],
       loading: false
+    }
+  },
+  props: {
+    editedCard: Object
+  },
+  mounted () {
+    if (this.editedCard) {
+      this.walletInput = this.editedCard
     }
   },
   methods: {

@@ -58,7 +58,6 @@ export default {
     try {
       const response = await this.$http.post('', graphqlQuery)
       const resData = await response.json()
-      console.log(resData)
       const responseData = resData.data.user
       this.$store.commit('initWallets', responseData.wallets)
     } catch (err) {

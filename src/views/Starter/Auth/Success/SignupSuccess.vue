@@ -4,7 +4,7 @@
         <div class="signupSuccess__board">
             <h2>Congratulations! Your account has been created successfully</h2>
         </div>
-        <app-btn normal primary :click="startSetup">
+        <app-btn normal primary @click="startSetup">
             Get started
         </app-btn>
     </div>

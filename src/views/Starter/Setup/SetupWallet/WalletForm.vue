@@ -25,6 +25,9 @@
         </form>
         <div class="walletForm__preview">
           <div class="walletForm__preview__card">
+              <div class="walletForm__preview__card__close" @click="$emit('hideForm')">
+                  <app-icon name="close" size="large" color="grey"/>
+              </div>
               <app-card :card="walletInput" large></app-card>
           </div>
         </div>
@@ -48,9 +51,6 @@ export default {
       colorList: ['Brown', 'Chocolate', 'Coral', 'Crimson', 'DarkCyan', 'DarkBlue', 'FireBrick', 'OrangeRed', 'Teal']
     }
   },
-  components: {
-    'app-card': Card
-  },
   methods: {
     chooseColor (value) {
       this.walletInput.color = value
@@ -59,6 +59,9 @@ export default {
     addCard () {
       console.log('yes')
     }
+  },
+  components: {
+    'app-card': Card
   }
 }
 </script>
@@ -70,10 +73,10 @@ export default {
     display: flex;
     background: $color-grey--light;
     border-radius: .5rem;
-
     & .form {
       width: 30%;
       padding: 2rem;
+      padding-bottom: 4rem;
       &__color {
         display: flex;
         align-items: center;
@@ -116,21 +119,27 @@ export default {
         height: 3.5rem;
       }
     }
-
     &__preview {
       width: 100%;
       background: $color-grey--light;
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 4rem;
       &__card {
-        width: 80%;
-        height: 80%;
+        width: 100%;
+        height: 100%;
         background: $color-white;
         display: flex;
         align-items: center;
         justify-content: center;
         border-radius: .5rem;
+        position: relative;
+        &__close {
+          position: absolute !important;
+          top: 1rem;
+          right: 1rem;
+        }
       }
     }
 }

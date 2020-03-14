@@ -3,7 +3,7 @@
         <slot></slot>
     </router-link>
     <button
-        @click="click"
+        v-bind="$attrs"
         v-else
         :class="{'app-btn': normal, 'primary': primary, 'secondary': secondary}"
     >
@@ -17,8 +17,7 @@ export default {
     link: String,
     normal: Boolean,
     primary: Boolean,
-    secondary: Boolean,
-    click: Function
+    secondary: Boolean
   }
 }
 </script>

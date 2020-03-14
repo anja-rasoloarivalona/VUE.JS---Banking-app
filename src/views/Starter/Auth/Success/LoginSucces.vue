@@ -4,7 +4,7 @@
         <div class="loginSuccess__para">
             Let's setup your account and give you the control of your pesonnal finance.
         </div>
-        <app-btn normal primary :click="startSetup">
+        <app-btn @click.native="startSetup" normal primary>
             Setup
         </app-btn>
     </div>
@@ -15,6 +15,7 @@ import { EventBus } from '@/utilities/event-bus.js'
 export default {
   methods: {
     startSetup () {
+      console.log('clicked')
       EventBus.$emit('setupStarted')
     }
   }

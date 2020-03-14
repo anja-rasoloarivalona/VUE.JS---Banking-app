@@ -2,7 +2,7 @@
     <div class="setup">
         <setup-side-nav />
         <div class="setup__next">
-            <app-btn normal primary :click="next">
+            <app-btn normal primary @click="next">
                 Next
             </app-btn>
         </div>

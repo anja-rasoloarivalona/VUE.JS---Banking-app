@@ -13,7 +13,7 @@
                 </li>
                 <div class="setup__sidenav__stepsList__bar"></div>
                 <li class="setup__sidenav__stepsList__item">
-                    <div class="setup__sidenav__stepsList__item__text">Savings Plan</div>
+                    <div class="setup__sidenav__stepsList__item__text">Savings</div>
                     <app-icon name="savings-plan" size="large" color="grey"/>
                 </li>
         </ul>
@@ -39,7 +39,7 @@ export default {
         justify-content: center;
         &__title {
             text-align: center;
-            padding: 2rem 0;
+            padding: 4rem 0;
             color: $color-white;
         }
         &__stepsList {

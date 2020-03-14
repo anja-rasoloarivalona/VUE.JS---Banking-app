@@ -4,7 +4,7 @@
     <app-input v-model="userInput.name" :id="'name'"/>
     <app-input v-model="userInput.email" :id="'email'"/>
     <app-input v-model="userInput.password" :id="'password'"/>
-    <app-btn :click="submit">
+    <app-btn @click="submit">
         <span v-if="!loading">Submit</span>
         <app-spinner v-else></app-spinner>
     </app-btn>

@@ -11,7 +11,7 @@
                 </div>
             </li>
         </ul>
-        <wallet-form v-else/>
+        <wallet-form v-else @hideForm="showForm = false"/>
     </div>
 </template>
 

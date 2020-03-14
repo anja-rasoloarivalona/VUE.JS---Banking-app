@@ -1,29 +1,17 @@
 <template>
     <div class="setup">
-        <header class="setup__header">
-            <h1 class="setup__header__title">Setup</h1>
-            <ul class="setup__header__stepsList">
-                <li class="setup__header__stepsList__item">
-                    <app-icon name="wallet" size="large" color="primary"/>
-                </li>
-                <div class="setup__header__stepsList__bar"></div>
-                <li class="setup__header__stepsList__item">
-                    <app-icon name="budget" size="large" color="grey"/>
-                </li>
-                <div class="setup__header__stepsList__bar"></div>
-                <li class="setup__header__stepsList__item">
-                    <app-icon name="savings-plan" size="large" color="grey"/>
-                </li>
-            </ul>
-        </header>
-        <component
-            :is="mode"
-        >
-        </component>
+        <setup-side-nav />
+        <div class="setup__next">
+            <app-btn normal primary :click="next">
+                Next
+            </app-btn>
+        </div>
+        <component :is="mode" />
     </div>
 </template>
 
 <script>
+import SetupSideNav from './SetupSideNav'
 import SetupWallet from './SetupWallet/SetupWallet'
 import SetupBudget from './SetupBuget'
 import SetupSavingsPlan from './SetupSavingsPlan'
@@ -33,10 +21,16 @@ export default {
       mode: 'setup-wallet'
     }
   },
+  methods: {
+    next () {
+      console.log('a')
+    }
+  },
   components: {
     setupWallet: SetupWallet,
     setupBudget: SetupBudget,
-    setupSavingsPlan: SetupSavingsPlan
+    setupSavingsPlan: SetupSavingsPlan,
+    setupSideNav: SetupSideNav
   }
 }
 </script>
@@ -45,45 +39,25 @@ export default {
 .setup {
     grid-row: 1 / -1;
     grid-column: 1 / -1;
-    width: 100vw;
-    height: 100vh;
-    &__header {
-        height: 7rem;
-        display: flex;
-        align-items: center;
-        width: 100%;
-        padding-left: 8rem;
-        background: $color-grey--light;
-        &__title {
-            color: $color-primary
-        }
-        &__stepsList {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding-right: 14rem;
-            list-style: none;
-            &__item {
-                display: flex;
-                justify-content: center;
-                border: 2px solid $color-grey--main;
-                padding: 1rem;
-                border-radius: 50%;
-                &:first-child {
-                    border: 2px solid $color-primary;
-                    background: $color-white;
-                }
-            }
-            &__bar {
-                width: 5rem;
-                height: 2px;
-                background: $color-grey--main;
-            }
-        }
-    }
+    max-width: 100vw;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 25rem minmax(8rem, 1fr) minmax(70vw, 120rem) minmax(8rem, 1fr);
+    grid-template-rows: max-content;
+    background: $color-grey--light;
+    position: relative;
+    overflow: hidden;
     &__view {
-        margin: 2rem 8rem;
+        grid-column: 3 / 4;
+        grid-row: 1 / 2;
+        min-height: 100vh;
+        max-width: 120rem;
+        padding: 3rem 0;
+    }
+    &__next {
+        position: absolute;
+        bottom: 3rem;
+        right: 3rem;
     }
 }
 </style>

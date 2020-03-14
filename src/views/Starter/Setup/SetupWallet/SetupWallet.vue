@@ -1,10 +1,5 @@
 <template>
     <div class="setup__view">
-        <div class="setup__view__next">
-            <app-btn normal primary :click="next">
-                Next
-            </app-btn>
-        </div>
         <h2 class="setup__view__title">Wallet</h2>
         <br>
         <p class="setup__view__desc">Let's begin with your wallet. Here you can provide information about all the different methods you use to make a transaction.</p>
@@ -42,12 +37,6 @@ export default {
 <style lang="scss" scoped>
 .setup {
     &__view {
-        position: relative;
-        &__next {
-            position: absolute;
-            right: 0;
-            top: 0;
-        }
         &__title {
             font-size: 3.5rem;
             color: $color-grey--dark;

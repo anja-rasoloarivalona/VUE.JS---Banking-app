@@ -13,7 +13,7 @@
 <script>
 import SetupSideNav from './SetupSideNav'
 import SetupWallet from './SetupWallet/SetupWallet'
-import SetupBudget from './SetupBuget'
+import SetupBudget from './SetupBudget/SetupBuget'
 import SetupSavingsPlan from './SetupSavingsPlan'
 export default {
   data () {

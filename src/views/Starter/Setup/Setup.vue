@@ -2,11 +2,11 @@
     <div class="setup">
         <setup-side-nav />
         <div class="setup__next">
-            <app-btn normal primary @click="next">
-                Next
-            </app-btn>
         </div>
-        <component :is="mode" />
+        <component
+          :is="mode"
+          @startSetupBudget="mode = 'setup-budget'"
+        />
     </div>
 </template>
 
@@ -19,11 +19,6 @@ export default {
   data () {
     return {
       mode: 'setup-wallet'
-    }
-  },
-  methods: {
-    next () {
-      console.log('a')
     }
   },
   components: {
@@ -53,11 +48,6 @@ export default {
         min-height: 100vh;
         max-width: 120rem;
         padding: 3rem 0;
-    }
-    &__next {
-        position: absolute;
-        bottom: 3rem;
-        right: 3rem;
     }
 }
 </style>

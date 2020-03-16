@@ -17,6 +17,9 @@
             </li>
         </ul>
         <wallet-form v-else @hideForm="hideForm" :editedWallet="editedWallet"/>
+        <app-btn normal primary @click.native="next" v-if="!showForm" :disabled="this.$store.state.wallets < 1">
+                Next
+        </app-btn>
     </div>
 </template>
 
@@ -44,7 +47,7 @@ export default {
       this.editedWallet = null
     },
     next () {
-      console.log('next')
+      this.$emit('startSetupBudget')
     }
   }
 }
@@ -64,7 +67,7 @@ export default {
     }
     &__walletList {
         list-style: none;
-        margin-top: 4rem;
+        margin: 4rem 0;
         display: grid;
         grid-template-columns: repeat(auto-fit, 25rem);
         grid-template-rows: 11rem;

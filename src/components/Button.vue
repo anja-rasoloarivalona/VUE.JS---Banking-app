@@ -33,8 +33,14 @@ button:focus {
     border-radius: .5rem;
     color: $color-white;
     cursor: pointer;
+    transition: all .3 ease-in;
     &.primary{
         background: $color-primary;
+        &:disabled {
+        background: $color-grey--main;
+        color: $color-grey--dark;
+        cursor: not-allowed;
+    }
     }
     &.secondary{
         background: $color-secondary;

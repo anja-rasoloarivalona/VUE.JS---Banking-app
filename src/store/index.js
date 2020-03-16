@@ -20,6 +20,9 @@ export default new Vuex.Store({
     },
     initWallets (state, wallets) {
       state.wallets = wallets
+    },
+    addWallet (state, wallet) {
+      state.wallets = [...state.wallets, wallet]
     }
   },
   actions: {

@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import Sidebar from './components/Sidebar.vue'
 import Navbar from './components/Navbar.vue'
 export default {
@@ -30,7 +31,7 @@ export default {
   created: async function () {
     const localData = localStorage.getItem('bank-data')
     if (!localData) {
-      return true
+      return
     }
     const data = JSON.parse(localData)
     if (!data.token || !data.expiryDate) {
@@ -42,11 +43,13 @@ export default {
       return
     }
     this.$store.commit('authUser', data)
+    Vue.http.headers.common.Authorization = 'Bearer ' + data.token
     const graphqlQuery = {
       query: `{
-        user(userId: "${this.$store.state.userId}") {
+        user {
           wallets {
-            cardType
+            _id
+            walletType
             amount
             supplier
             shortId

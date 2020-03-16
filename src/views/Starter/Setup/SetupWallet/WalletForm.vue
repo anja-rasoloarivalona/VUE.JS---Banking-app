@@ -1,7 +1,7 @@
 <template>
     <div class="walletForm">
         <form class="form">
-                <app-select-input :id="'type'"  :options="cardType" @selectInput="walletInput.type = $event" bgWhite/>
+                <app-select-input :id="'type'"  :options="walletTypes" @selectInput="walletInput.walletType = $event" bgWhite/>
                 <app-input v-model="walletInput.supplier" :id="'supplier'" bgWhite/>
                 <app-input v-model="walletInput.amount" :id="'amount'" bgWhite/>
                 <app-input v-model="walletInput.shortId" :id="'Last  4 numbers'" bgWhite/>
@@ -19,46 +19,46 @@
                         </ul>
                       </div>
                 </div>
-                <app-btn normal @click.native="addCard">
-                    <span v-if="!loading" v-text="editedCard ? 'Edit': 'Add'">Add</span>
+                <app-btn normal @click.native="walletAction">
+                    <span v-if="!loading" v-text="editedWallet ? 'Edit': 'Add'">Add</span>
                     <app-spinner v-else></app-spinner>
                 </app-btn>
         </form>
         <div class="walletForm__preview">
-          <div class="walletForm__preview__card">
-              <div class="walletForm__preview__card__close" @click="$emit('hideForm')">
+          <div class="walletForm__preview__wallet">
+              <div class="walletForm__preview__wallet__close" @click="$emit('hideForm')">
                   <app-icon name="close" size="large" color="grey"/>
               </div>
-              <app-card :card="walletInput" large></app-card>
+              <app-wallet :wallet="walletInput" large></app-wallet>
           </div>
         </div>
     </div>
 </template>
 
 <script>
-import Card from '@/components/Card'
+import Wallet from '@/components/Wallet'
 export default {
   data () {
     return {
       walletInput: {
-        cardType: 'Visa',
+        walletType: 'Visa',
         amount: 0,
         supplier: 'Bank',
         shortId: 1234,
         color: 'Brown'
       },
-      cardType: ['Visa', 'MasterCard', 'Debit', 'Cash'],
+      walletTypes: ['Visa', 'MasterCard', 'Debit', 'Cash'],
       showColorList: false,
       colorList: ['Brown', 'Chocolate', 'Coral', 'Crimson', 'DarkCyan', 'DarkBlue', 'FireBrick', 'OrangeRed', 'Teal'],
       loading: false
     }
   },
   props: {
-    editedCard: Object
+    editedWallet: Object
   },
   mounted () {
-    if (this.editedCard) {
-      this.walletInput = this.editedCard
+    if (this.editedWallet) {
+      this.walletInput = this.editedWallet
     }
   },
   methods: {
@@ -66,19 +66,26 @@ export default {
       this.walletInput.color = value
       this.showColorList = false
     },
-    addCard: async function () {
+    walletAction () {
+      if (!this.editedWallet) {
+        this.addWalletHandler()
+      } else {
+        this.editWalletHandler()
+      }
+    },
+    addWalletHandler: async function () {
       this.loading = true
       const graphqlQuery = {
         query: `mutation {
-                    createNewCard(cardInput: {
-                        userId: "${this.$store.state.userId}",
-                        cardType: "${this.walletInput.cardType}",
+                    addWallet(walletInput: {
+                        walletType: "${this.walletInput.walletType}",
                         amount: "${this.walletInput.amount}",
                         supplier: "${this.walletInput.supplier}",
                         shortId: "${this.walletInput.shortId}",
                         color: "${this.walletInput.color}"
                     }) {
-                        cardType
+                        _id
+                        walletType
                         amount
                         supplier
                         shortId
@@ -89,9 +96,42 @@ export default {
       try {
         const response = await this.$http.post('', graphqlQuery)
         const resData = await response.json()
-        const responseData = resData.data.createNewCard
+        const responseData = resData.data.addWallet
+        this.$store.commit('addWallet', responseData)
+        this.$emit('hideForm')
         this.loading = false
-        console.log('card added', responseData)
+      } catch (err) {
+        this.loading = false
+        console.log(err)
+      }
+    },
+    editWalletHandler: async function () {
+      this.loading = true
+      const graphqlQuery = {
+        query: `mutation {
+          editWallet( walletId: "${this.editedWallet._id}", walletInput: {
+                      walletType: "${this.walletInput.walletType}",
+                      amount: "${this.walletInput.amount}",
+                      supplier: "${this.walletInput.supplier}",
+                      shortId: "${this.walletInput.shortId}",
+                      color: "${this.walletInput.color}"
+                    }) {
+                      _id
+                      walletType
+                      amount
+                      supplier
+                      shortId
+                      color
+                  }
+            }`
+      }
+      try {
+        const response = await this.$http.post('', graphqlQuery)
+        const resData = await response.json()
+        const responseData = resData.data.editWallet
+        this.loading = false
+        this.$emit('hideForm')
+        console.log('Wallet updated', responseData)
       } catch (err) {
         this.loading = false
         console.log(err)
@@ -99,7 +139,7 @@ export default {
     }
   },
   components: {
-    'app-card': Card
+    'app-wallet': Wallet
   }
 }
 </script>
@@ -164,7 +204,7 @@ export default {
       align-items: center;
       justify-content: center;
       padding: 4rem;
-      &__card {
+      &__wallet {
         width: 100%;
         height: 100%;
         background: $color-white;

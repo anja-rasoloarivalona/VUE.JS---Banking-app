@@ -1,15 +1,15 @@
 <template>
-  <div class="card" :class="{xl:large}" :style="{background: card.color}" v-bind="$attrs">
-    <header class="card__header">
-      <div class="card__header__type">{{card.cardType}}</div>
-      <div class="card__header__supplier">{{card.supplier}}</div>
+  <div class="wallet" :class="{xl:large}" :style="{background: wallet.color}" v-bind="$attrs">
+    <header class="wallet__header">
+      <div class="wallet__header__type">{{wallet.walletType}}</div>
+      <div class="wallet__header__supplier">{{wallet.supplier}}</div>
     </header>
-    <div class="card__amount">${{card.amount | amount }}</div>
-    <div class="card__id" v-if="card.shortId">
+    <div class="wallet__amount">${{wallet.amount | amount }}</div>
+    <div class="wallet__id" v-if="wallet.shortId">
       <span>*  *  *  *</span>
       <span>*  *  *  *</span>
       <span>*  *  *  *</span>
-      <span>{{card.shortId}}</span>
+      <span>{{wallet.shortId}}</span>
     </div>
     <div v-else></div>
   </div>
@@ -18,14 +18,14 @@
 <script>
 export default {
   props: {
-    card: Object,
+    wallet: Object,
     large: Boolean
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.card {
+.wallet {
     width: 25rem;
     height: 11rem;
     border-radius: 1rem;
@@ -61,7 +61,7 @@ export default {
       width: 40rem;
       height: 20rem;
       padding: 3rem;
-      & .card {
+      & .wallet {
         &__header {
           &__type {
             font-size: 3rem;

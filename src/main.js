@@ -11,9 +11,11 @@ import Spinner from './components/Spinner'
 import Icon from './components/Icon'
 
 Vue.config.productionTip = false
-
 Vue.use(VueResource)
 Vue.http.options.root = 'http://localhost:8000/graphql'
+
+const token = JSON.parse(localStorage.getItem('bank-data')).token
+Vue.http.headers.common.Authorization = 'Bearer ' + token
 
 Vue.filter('amount', function (value) {
   return value.toLocaleString()

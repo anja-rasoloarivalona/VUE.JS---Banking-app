@@ -28,7 +28,7 @@
     <div class="row row--2">
       <h2 class="color-grey-main">Wallet</h2>
       <ul class="dashboard__cardsList">
-        <app-card v-for="(card,index) in cards" :key="index" :card="card"></app-card>
+        <app-wallet v-for="(card,index) in cards" :key="index" :card="card"></app-wallet>
       </ul>
     </div>
     <div class="row row--3">
@@ -67,8 +67,8 @@
 </template>
 
 <script>
-import Card from '@/components/Card.vue'
-import Transaction from '@/components/Transaction.vue'
+import Wallet from '@/components/Wallet'
+import Transaction from '@/components/Transaction'
 import Budget from './Budget.vue'
 
 export default {
@@ -121,7 +121,7 @@ export default {
     }
   },
   components: {
-    appCard: Card,
+    appWallet: Wallet,
     appTransaction: Transaction,
     appBudget: Budget
   }

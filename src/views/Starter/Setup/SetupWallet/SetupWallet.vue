@@ -10,38 +10,38 @@
                     <app-icon name="add" size="extra-large" color="grey"/>
                 </div>
             </li>
-            <li v-for="(card, index) in this.$store.state.wallets"
+            <li v-for="(wallet, index) in this.$store.state.wallets"
                 :key="index"
                 class="setup__walletList__item">
-              <app-card :card="card" @click.native="passEditCardData(card)"></app-card>
+              <app-wallet :wallet="wallet" @click.native="passEditWalletData(wallet)"></app-wallet>
             </li>
         </ul>
-        <wallet-form v-else @hideForm="hideForm" :editedCard="editedCard"/>
+        <wallet-form v-else @hideForm="hideForm" :editedWallet="editedWallet"/>
     </div>
 </template>
 
 <script>
-import Card from '@/components/Card'
+import Wallet from '@/components/Wallet'
 import WalletForm from './WalletForm'
 export default {
   data () {
     return {
       showForm: false,
-      editedCard: null
+      editedWallet: null
     }
   },
   components: {
     'wallet-form': WalletForm,
-    'app-card': Card
+    'app-wallet': Wallet
   },
   methods: {
-    passEditCardData (card) {
-      this.editedCard = card
+    passEditWalletData (wallet) {
+      this.editedWallet = wallet
       this.showForm = true
     },
     hideForm () {
       this.showForm = false
-      this.editedCard = null
+      this.editedWallet = null
     },
     next () {
       console.log('next')

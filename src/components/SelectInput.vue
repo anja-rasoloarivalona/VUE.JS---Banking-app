@@ -103,6 +103,7 @@ label {
         width: 100%;
         border-bottom-left-radius: .5rem;
         border-bottom-right-radius: .5rem;
+        overflow: hidden;
         &__item {
             height: 4rem;
             display: flex;

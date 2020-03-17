@@ -54,7 +54,7 @@ export default {
                       name
                       status
                       wallets {
-                        cardType
+                        walletType
                         amount
                         supplier
                         shortId

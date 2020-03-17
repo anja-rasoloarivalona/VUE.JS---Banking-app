@@ -7,6 +7,7 @@ import store from './store'
 import Button from './components/Button'
 import Input from './components/Input'
 import SelectInput from './components/SelectInput'
+import FrequencyInput from './components/FrequencyInput'
 import Spinner from './components/Spinner'
 import Icon from './components/Icon'
 
@@ -24,6 +25,7 @@ Vue.filter('amount', function (value) {
 Vue.component('app-btn', Button)
 Vue.component('app-input', Input)
 Vue.component('app-select-input', SelectInput)
+Vue.component('app-frequency-input', FrequencyInput)
 Vue.component('app-spinner', Spinner)
 Vue.component('app-icon', Icon)
 

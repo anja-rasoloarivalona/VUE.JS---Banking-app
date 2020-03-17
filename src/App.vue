@@ -55,6 +55,19 @@ export default {
             shortId
             color
           }
+          incomes {
+            _id
+            name
+            amount
+            from
+            frequency {
+                counter
+                period
+            }
+            lastPayout
+            autoWriting
+            notification
+          }
         }
       }`
     }
@@ -63,6 +76,7 @@ export default {
       const resData = await response.json()
       const responseData = resData.data.user
       this.$store.commit('initWallets', responseData.wallets)
+      this.$store.commit('initIncomes', responseData.incomes)
     } catch (err) {
       console.log(err)
     }

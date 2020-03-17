@@ -1,5 +1,8 @@
 <template>
     <form class="budget-form">
+            <div class="budget-form__close" @click="$emit('closeForm')">
+                  <app-icon name="close" size="large" color="primary"/>
+            </div>
             <app-input v-model="input.name" :id="'name'" bgWhite />
             <app-input v-model="input.amount" :id="'amount'" bgWhite />
 
@@ -20,12 +23,10 @@
             </div>
             <app-select-input :id="'auto writing'"  :options="['yes', 'no']" @selectInput="input.autoWriting = $event" bgWhite />
             <app-select-input :id="'notification'"  :options="['yes', 'no']" @selectInput="input.notification = $event" bgWhite />
-            <app-btn normal primary @click.native="submit" >
-                <span>Add</span>
+            <app-btn normal primary @click.native="addIncome" >
+                <span v-if="!loading">Add</span>
+                <app-spinner v-else></app-spinner>
             </app-btn>
-            <div class="budget-form__close" @click="$emit('closeForm')">
-                  <app-icon name="close" size="large" color="primary"/>
-            </div>
     </form>
 </template>
 
@@ -55,15 +56,56 @@ export default {
         lastPayout: new Date(),
         autoWriting: 'yes',
         notification: 'yes'
-      }
+      },
+      loading: false
     }
   },
   props: {
     type: String
   },
   methods: {
-    submit () {
-      console.log('submit', this.input)
+    addIncome: async function () {
+      this.loading = true
+      const graphqlQuery = {
+        query: `mutation {
+                    addIncome(incomeInput: {
+                        name: "${this.input.name}",
+                        amount: "${this.input.amount}",
+                        from: "${this.input.from}",
+                        frequency: {
+                            counter: "${this.input.frequency.counter}",
+                            period: "${this.input.frequency.period}"
+                        }
+                        lastPayout: "${this.input.lastPayout}",
+                        autoWriting: "${this.input.autoWriting}",
+                        notification: "${this.input.notification}"
+                    }) {
+                        _id
+                        name
+                        amount
+                        from
+                        frequency {
+                            counter
+                            period
+                        }
+                        lastPayout
+                        autoWriting
+                        notification
+                        owner
+                    }
+              }`
+      }
+      try {
+        const response = await this.$http.post('', graphqlQuery)
+        const resData = await response.json()
+        const responseData = resData.data.addIncome
+        this.$emit('closeForm')
+        console.log('added income', responseData)
+        this.loading = false
+      } catch (err) {
+        this.loading = false
+        console.log(err)
+      }
     }
   }
 }

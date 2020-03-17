@@ -9,7 +9,8 @@ export default new Vuex.Store({
     userId: null,
     userName: null,
     status: null,
-    wallets: []
+    wallets: [],
+    incomes: []
   },
   mutations: {
     authUser (state, userData) {
@@ -23,6 +24,9 @@ export default new Vuex.Store({
     },
     addWallet (state, wallet) {
       state.wallets = [...state.wallets, wallet]
+    },
+    initIncomes (state, incomes) {
+      state.incomes = incomes
     }
   },
   actions: {

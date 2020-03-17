@@ -3,6 +3,7 @@
         <label :for="id">
             <span>{{ id }}</span>
             <input
+              :id="id"
               @input="updateSelf($event.target.value)"
               :value="value"
               :class="{'bgWhite': bgWhite }"

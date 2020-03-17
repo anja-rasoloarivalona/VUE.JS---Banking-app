@@ -43,7 +43,7 @@ export default {
       this.editedWallet = null
     },
     next () {
-      this.$emit('startSetupBudget')
+      this.$emit('startSetupIncome')
     }
   }
 }

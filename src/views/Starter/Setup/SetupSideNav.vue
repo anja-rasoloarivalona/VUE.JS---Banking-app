@@ -2,6 +2,7 @@
     <div class="setup__sidenav">
         <h1 class="setup__sidenav__title">Setup</h1>
         <ul class="setup__sidenav__stepsList">
+
                 <li class="setup__sidenav__stepsList__item"
                     :class="{current: currentSetup === 'setup-wallet', checked : this.$store.state.wallets.length > 0}">
                     <div class="setup__sidenav__stepsList__item__text">Wallet</div>
@@ -9,18 +10,30 @@
                 </li>
                 <div class="setup__sidenav__stepsList__bar">
                     <div class="setup__sidenav__stepsList__bar__inner"
-                    :class="{full: currentSetup === 'setup-budget'}">
+                    :class="{full: currentSetup === 'setup-income'}">
                     </div>
                 </div>
+
                 <li class="setup__sidenav__stepsList__item"
-                    :class="{current: currentSetup === 'setup-budget'}"
+                    :class="{current: currentSetup === 'setup-income'}"
                 >
-                    <div class="setup__sidenav__stepsList__item__text">Budget</div>
-                    <app-icon name="budget" size="extra-large" :color="checkBudget"/>
+                    <div class="setup__sidenav__stepsList__item__text">Income</div>
+                    <app-icon name="income" size="large" :color="checkIncome"/>
                 </li>
                 <div class="setup__sidenav__stepsList__bar">
                     <div class="setup__sidenav__stepsList__bar__inner"></div>
                 </div>
+
+                <li class="setup__sidenav__stepsList__item"
+                    :class="{current: currentSetup === 'setup-expense'}"
+                >
+                    <div class="setup__sidenav__stepsList__item__text">Expense</div>
+                    <app-icon name="expense" size="large" :color="checkExpense"/>
+                </li>
+                <div class="setup__sidenav__stepsList__bar">
+                    <div class="setup__sidenav__stepsList__bar__inner"></div>
+                </div>
+
                 <li class="setup__sidenav__stepsList__item">
                     <div class="setup__sidenav__stepsList__item__text">Savings</div>
                     <app-icon name="savings-plan" size="large" color="grey"/>
@@ -39,8 +52,15 @@ export default {
         return 'primary'
       }
     },
-    checkBudget () {
-      if (this.currentSetup === 'setup-budget') {
+    checkIncome () {
+      if (this.currentSetup === 'setup-income') {
+        return 'primary'
+      } else {
+        return 'grey'
+      }
+    },
+    checkExpense () {
+      if (this.currentSetup === 'setup-expense') {
         return 'primary'
       } else {
         return 'grey'
@@ -76,7 +96,7 @@ export default {
             align-items: center;
             list-style: none;
             width: 100%;
-            margin-top: 7rem;
+            margin-top: 3rem;
             flex: 1;
             & > * {
                 transform: translateX(2rem);

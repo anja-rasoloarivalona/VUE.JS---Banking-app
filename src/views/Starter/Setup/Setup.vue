@@ -10,7 +10,7 @@
           </p>
           <component
             :is="mode"
-            @startSetupBudget="mode = 'setup-budget'"
+            @startSetupIncome="mode = 'setup-income'"
           />
         </div>
     </div>
@@ -19,7 +19,9 @@
 <script>
 import SetupSideNav from './SetupSideNav'
 import SetupWallet from './SetupWallet/SetupWallet'
-import SetupBudget from './SetupBudget/SetupBuget'
+import SetupIncome from './SetupBudget/SetupIncome'
+import SetupExpense from './SetupBudget/SetupExpense'
+
 import SetupSavingsPlan from './SetupSavingsPlan'
 export default {
   data () {
@@ -30,7 +32,7 @@ export default {
           line1: "Let's begin with your wallet. Here you can provide information about all the different methods you use to make a transaction.",
           line2: 'For example, you can enter your debit card, your credit card or your wallet to store cash.'
         },
-        budget: {
+        income: {
           line1: "Now let's setup your budget",
           line2: 'Here, you can specify your incomes and expenses'
         }
@@ -44,7 +46,8 @@ export default {
   },
   components: {
     setupWallet: SetupWallet,
-    setupBudget: SetupBudget,
+    setupIncome: SetupIncome,
+    setupExpense: SetupExpense,
     setupSavingsPlan: SetupSavingsPlan,
     setupSideNav: SetupSideNav
   }

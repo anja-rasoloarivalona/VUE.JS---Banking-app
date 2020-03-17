@@ -1,6 +1,6 @@
 <template>
     <div>
-        <budget-form></budget-form>
+        <budget-form :type="'income'"/>
     </div>
 </template>
 

@@ -1,11 +1,11 @@
 <template>
     <form class="budget-form">
-            <app-input v-model="input.name" :id="'name'" bgWhite/>
-            <app-select-input :id="'flow'"  :options="flowTypes" @selectInput="input.flow = $event" bgWhite/>
+            <app-input v-model="input.name" :id="'name'" bgWhite />
+            <app-input v-model="input.amount" :id="'amount'" bgWhite />
 
-            <app-input v-model="input.category" :id="'category'" bgWhite v-if="input.flow === 'expense'"/>
+            <app-input v-model="input.category" :id="'category'" bgWhite v-if="type === 'expense'"/>
 
-            <app-input v-model="input.from" :id="'from'" bgWhite v-if="input.flow === 'income'"/>
+            <app-input v-model="input.from" :id="'from'" bgWhite v-if="type === 'income'"/>
     </form>
 </template>
 
@@ -15,15 +15,16 @@ export default {
     return {
       input: {
         name: '',
-        flow: 'income',
         amount: 0,
 
         category: '',
 
         from: ''
-      },
-      flowTypes: ['income', 'expense']
+      }
     }
+  },
+  props: {
+    type: String
   }
 }
 </script>

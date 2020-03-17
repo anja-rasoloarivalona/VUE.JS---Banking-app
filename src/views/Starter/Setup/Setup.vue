@@ -1,12 +1,18 @@
 <template>
     <div class="setup">
         <setup-side-nav :currentSetup="mode"/>
-        <div class="setup__next">
+        <div class="setup__view">
+          <h2 class="setup__view__title">{{title}}</h2>
+          <br>
+          <p class="setup__view__desc">
+            <span>{{description[title].line1}}</span>
+            <span>{{description[title].line2}}</span>
+          </p>
+          <component
+            :is="mode"
+            @startSetupBudget="mode = 'setup-budget'"
+          />
         </div>
-        <component
-          :is="mode"
-          @startSetupBudget="mode = 'setup-budget'"
-        />
     </div>
 </template>
 
@@ -18,7 +24,22 @@ import SetupSavingsPlan from './SetupSavingsPlan'
 export default {
   data () {
     return {
-      mode: 'setup-wallet'
+      mode: 'setup-wallet',
+      description: {
+        wallet: {
+          line1: "Let's begin with your wallet. Here you can provide information about all the different methods you use to make a transaction.",
+          line2: 'For example, you can enter your debit card, your credit card or your wallet to store cash.'
+        },
+        budget: {
+          line1: "Now let's setup your budget",
+          line2: 'Here, you can specify your incomes and expenses'
+        }
+      }
+    }
+  },
+  computed: {
+    title () {
+      return this.mode.split('-')[1]
     }
   },
   components: {
@@ -48,6 +69,17 @@ export default {
         min-height: 100vh;
         max-width: 120rem;
         padding: 4rem 0;
+         &__title {
+            font-size: 3.5rem;
+            color: $color-primary;
+            text-transform: capitalize;
+        }
+        &__desc {
+            display: flex;
+            flex-direction: column;
+            font-size: $font-m;
+            line-height: 1.4;
+        }
     }
 }
 </style>

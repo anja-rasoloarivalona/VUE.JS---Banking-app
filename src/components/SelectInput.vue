@@ -1,6 +1,6 @@
 <template>
     <label :for="id">
-      <span>{{ id }}</span>
+      <span v-if="id">{{ id }}</span>
       <div
         class="select"
         :class="{'bg-white': bgWhite, 'all-radius': !showList, 'top-radius': showList}"
@@ -104,6 +104,7 @@ label {
         border-bottom-left-radius: .5rem;
         border-bottom-right-radius: .5rem;
         overflow: hidden;
+        z-index: 5;
         &__item {
             height: 4rem;
             display: flex;

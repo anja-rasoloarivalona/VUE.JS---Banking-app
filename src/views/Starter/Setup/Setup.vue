@@ -1,6 +1,9 @@
 <template>
     <div class="setup">
-        <setup-side-nav :currentSetup="mode"/>
+        <setup-side-nav
+          :currentSetup="mode"
+          @selectSetup="selectSetup($event)"
+        />
         <div class="setup__view">
           <h2 class="setup__view__title">{{title}}</h2>
           <br>
@@ -42,6 +45,11 @@ export default {
   computed: {
     title () {
       return this.mode.split('-')[1]
+    }
+  },
+  methods: {
+    selectSetup (value) {
+      this.mode = `setup-${value}`
     }
   },
   components: {

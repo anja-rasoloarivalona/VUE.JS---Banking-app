@@ -4,7 +4,8 @@
         <ul class="setup__sidenav__stepsList">
 
                 <li class="setup__sidenav__stepsList__item"
-                    :class="{current: currentSetup === 'setup-wallet', checked : this.$store.state.wallets.length > 0}">
+                    :class="{current: currentSetup === 'setup-wallet', checked : this.$store.state.wallets.length > 0}"
+                    @click="$emit('selectSetup', 'wallet')">
                     <div class="setup__sidenav__stepsList__item__text">Wallet</div>
                     <app-icon name="wallet" size="large" :color="checkWallets"/>
                 </li>

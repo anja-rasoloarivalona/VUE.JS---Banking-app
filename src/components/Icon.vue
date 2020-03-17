@@ -31,7 +31,7 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style scoped lang="scss">
 /* default */
 .icon {
   width: 1rem;
@@ -53,9 +53,12 @@ export default {
 
 /* colors */
 .grey {
- fill:#b1afaf
+ fill:$color-grey--light
 }
 .primary {
-  fill: #027a66;
+  fill: $color-primary;
+}
+.white {
+  fill: $color-white
 }
 </style>

@@ -58,7 +58,7 @@ export default {
     &__view {
         &__title {
             font-size: 3.5rem;
-            color: $color-grey--dark;
+            color: $color-primary;
         }
         &__desc {
             font-size: $font-m;

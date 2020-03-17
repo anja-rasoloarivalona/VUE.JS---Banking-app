@@ -2,16 +2,25 @@
     <div class="setup__sidenav">
         <h1 class="setup__sidenav__title">Setup</h1>
         <ul class="setup__sidenav__stepsList">
-                <li class="setup__sidenav__stepsList__item">
+                <li class="setup__sidenav__stepsList__item"
+                    :class="{current: currentSetup === 'setup-wallet', checked : this.$store.state.wallets.length > 0}">
                     <div class="setup__sidenav__stepsList__item__text">Wallet</div>
-                    <app-icon name="wallet" size="large" color="primary"/>
+                    <app-icon name="wallet" size="large" :color="checkWallets"/>
                 </li>
-                <div class="setup__sidenav__stepsList__bar"></div>
-                <li class="setup__sidenav__stepsList__item">
+                <div class="setup__sidenav__stepsList__bar">
+                    <div class="setup__sidenav__stepsList__bar__inner"
+                    :class="{full: currentSetup === 'setup-budget'}">
+                    </div>
+                </div>
+                <li class="setup__sidenav__stepsList__item"
+                    :class="{current: currentSetup === 'setup-budget'}"
+                >
                     <div class="setup__sidenav__stepsList__item__text">Budget</div>
-                    <app-icon name="budget" size="large" color="grey"/>
+                    <app-icon name="budget" size="extra-large" :color="checkBudget"/>
                 </li>
-                <div class="setup__sidenav__stepsList__bar"></div>
+                <div class="setup__sidenav__stepsList__bar">
+                    <div class="setup__sidenav__stepsList__bar__inner"></div>
+                </div>
                 <li class="setup__sidenav__stepsList__item">
                     <div class="setup__sidenav__stepsList__item__text">Savings</div>
                     <app-icon name="savings-plan" size="large" color="grey"/>
@@ -22,7 +31,25 @@
 
 <script>
 export default {
-
+  computed: {
+    checkWallets () {
+      if (this.$store.state.wallets.length > 0) {
+        return 'white'
+      } else {
+        return 'primary'
+      }
+    },
+    checkBudget () {
+      if (this.currentSetup === 'setup-budget') {
+        return 'primary'
+      } else {
+        return 'grey'
+      }
+    }
+  },
+  props: {
+    currentSetup: String
+  }
 }
 </script>
 
@@ -32,15 +59,16 @@ export default {
         position: fixed;
         height: 100vh;
         width: 25rem;
-        background: $color-primary;
+        background: $color-grey--light;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         &__title {
+            font-size: 3.5rem;
             text-align: center;
             padding: 4rem 0;
-            color: $color-white;
+            color: $color-primary;
         }
         &__stepsList {
             display: flex;
@@ -58,28 +86,54 @@ export default {
                 width: 6rem;
                 height: 6rem;
                 border-radius: 50%;
-                border: 5px solid $color-grey--main;
-                background: $color-white;
+                border: 3px solid $color-grey--main;
+                background: $color-grey--main;
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                transition: all .3s ease-in;
+                &.current {
+                    // transition-delay: .3s;
+                    border: 3px solid $color-primary;
+                    background: $color-white;
+                    & .setup__sidenav__stepsList__item__text {
+                        color: $color-primary;
+                        font-weight: bold;
+                    }
+                }
+                &.checked {
+                   background: $color-primary;
+                   border: 3px solid $color-primary;
+                }
                 &__text {
                     position: absolute;
-                    right: 6.5rem;
+                    right:7rem;
                     top: 0;
                     width: 10rem;
                     height: 100%;
                     display: flex;
                     align-items: center;
                     justify-content: flex-end;
-                    color: $color-white;
+                    color: $color-grey--main;
                     font-size: $font-m;
                 }
             }
             &__bar {
-                width: .5rem;
+                width: .8rem;
                 height: 10rem;
                 background: $color-grey--main;
+                position: relative;
+                &__inner {
+                    position: absolute;
+                    top: 0;
+                    width: 100%;
+                    height: 0%;
+                    background: $color-primary;
+                    transition: all .3s ease-in;
+                    &.full {
+                        height: 100%;
+                    }
+                }
             }
         }
     }

@@ -1,6 +1,6 @@
 <template>
     <div class="setup">
-        <setup-side-nav />
+        <setup-side-nav :currentSetup="mode"/>
         <div class="setup__next">
         </div>
         <component
@@ -39,7 +39,7 @@ export default {
     display: grid;
     grid-template-columns: 25rem minmax(8rem, 1fr) minmax(70vw, 120rem) minmax(8rem, 1fr);
     grid-template-rows: max-content;
-    background: $color-grey--light;
+    background: $color-white;
     position: relative;
     overflow: hidden;
     &__view {
@@ -47,7 +47,7 @@ export default {
         grid-row: 1 / 2;
         min-height: 100vh;
         max-width: 120rem;
-        padding: 3rem 0;
+        padding: 4rem 0;
     }
 }
 </style>

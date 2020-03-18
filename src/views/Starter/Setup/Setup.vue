@@ -24,8 +24,7 @@ import SetupSideNav from './SetupSideNav'
 import SetupWallet from './SetupWallet/SetupWallet'
 import SetupIncome from './SetupBudget/SetupIncome'
 import SetupExpense from './SetupBudget/SetupExpense'
-
-import SetupSavingsPlan from './SetupSavingsPlan'
+import SetupSavingsPlan from './SetupSavingsPlan/SetupSavingsPlan'
 export default {
   data () {
     return {

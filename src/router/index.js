@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Starter from '../views/Starter/Starter.vue'
-import Dashboard from '../views/Dashboard/Dashboard.vue'
-import Transactions from '../views/Transactions.vue'
-import Wallet from '../views/Wallet.vue'
-import SavingsPlan from '../views/SavingsPlan.vue'
+import Starter from '../views/Starter/Starter'
+import Dashboard from '../views/Dashboard/Dashboard'
+import Transactions from '../views/Transactions/Transactions'
+import Wallets from '../views/Wallets/Wallets'
+import SavingsPlan from '../views/SavingsPlan/SavingsPlan'
 
 Vue.use(VueRouter)
 
@@ -22,7 +22,7 @@ const routes = [
   },
   {
     path: '/wallet',
-    component: Wallet
+    component: Wallets
   },
   {
     path: '/savings-plan',

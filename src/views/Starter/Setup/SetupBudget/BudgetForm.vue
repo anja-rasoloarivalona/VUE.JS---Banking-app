@@ -3,11 +3,11 @@
             <div class="budget-form__close" @click="$emit('closeForm')">
                   <app-icon name="close" size="large" color="primary"/>
             </div>
-            <app-input v-model="input.name" :id="'name'" bgWhite />
-            <app-input v-model="input.amount" :id="'amount'" bgWhite />
+            <app-basic-input v-model="input.name" :id="'name'" bgWhite />
+            <app-basic-input v-model="input.amount" :id="'amount'" bgWhite />
 
-            <app-input v-model="input.category" :id="'category'" bgWhite v-if="type === 'expense'"/>
-            <app-input v-model="input.from" :id="'from'" bgWhite v-if="type === 'income'"/>
+            <app-basic-input v-model="input.category" :id="'category'" bgWhite v-if="type === 'expense'"/>
+            <app-basic-input v-model="input.from" :id="'from'" bgWhite v-if="type === 'income'"/>
 
             <app-frequency-input
                 :id="'frequency'"

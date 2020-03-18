@@ -67,8 +67,8 @@
 </template>
 
 <script>
-import Wallet from '@/components/Wallet'
-import Transaction from '@/components/Transaction'
+import Wallet from '@/components/UI/Wallet'
+import Transaction from '@/components/UI/Transaction'
 import Budget from './Budget.vue'
 
 export default {

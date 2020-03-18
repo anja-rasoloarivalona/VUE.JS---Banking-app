@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import Wallet from '@/components/Wallet'
+import Wallet from '@/components/UI/Wallet'
 import WalletForm from './WalletForm'
 export default {
   data () {

@@ -50,7 +50,7 @@
       &__userImg {
         width: 3rem;
         height: 3rem;
-        background-image: url('../assets/profile.jpg');
+        background-image: url('../../assets/profile.jpg');
         background-position: center;
         background-size: cover;
         border-radius: 50%;

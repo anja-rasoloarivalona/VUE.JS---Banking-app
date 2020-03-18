@@ -2,9 +2,9 @@
     <div class="walletForm">
         <form class="form">
                 <app-select-input :id="'type'"  :options="walletTypes" @selectInput="walletInput.walletType = $event" bgWhite/>
-                <app-input v-model="walletInput.supplier" :id="'supplier'" bgWhite/>
-                <app-input v-model="walletInput.amount" :id="'amount'" bgWhite/>
-                <app-input v-model="walletInput.shortId" :id="'Last  4 numbers'" bgWhite/>
+                <app-basic-input v-model="walletInput.supplier" :id="'supplier'" bgWhite/>
+                <app-basic-input v-model="walletInput.amount" :id="'amount'" bgWhite/>
+                <app-basic-input v-model="walletInput.shortId" :id="'Last  4 numbers'" bgWhite/>
                 <div class="form__color">
                       <span>Color</span>
                       <div class="form__color__select">
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import Wallet from '@/components/Wallet'
+import Wallet from '@/components/UI/Wallet'
 export default {
   data () {
     return {

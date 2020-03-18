@@ -4,12 +4,16 @@ import App from './App'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
-import Button from './components/Button'
-import Input from './components/Input'
-import SelectInput from './components/SelectInput'
-import FrequencyInput from './components/FrequencyInput'
-import Spinner from './components/Spinner'
-import Icon from './components/Icon'
+
+// components - Shared
+import Button from './components/Shared/Button'
+import Spinner from './components/Shared/Spinner'
+import Icon from './components/Shared/Icon'
+// components - Input
+import BasicInput from './components/Input/BasicInput'
+import SelectInput from './components/Input/SelectInput'
+import FrequencyInput from './components/Input/FrequencyInput'
+
 import Calendar from 'v-calendar/lib/components/calendar.umd'
 import DatePicker from 'v-calendar/lib/components/date-picker.umd'
 
@@ -25,11 +29,13 @@ Vue.filter('amount', function (value) {
 })
 
 Vue.component('app-btn', Button)
-Vue.component('app-input', Input)
-Vue.component('app-select-input', SelectInput)
-Vue.component('app-frequency-input', FrequencyInput)
 Vue.component('app-spinner', Spinner)
 Vue.component('app-icon', Icon)
+
+Vue.component('app-basic-input', BasicInput)
+Vue.component('app-select-input', SelectInput)
+Vue.component('app-frequency-input', FrequencyInput)
+
 Vue.component('app-calendar', Calendar)
 Vue.component('app-date-picker', DatePicker)
 

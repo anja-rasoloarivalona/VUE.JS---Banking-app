@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import icons from '../assets/icons.json'
+import icons from '@/assets/icons.json'
 export default {
   props: {
     name: String,

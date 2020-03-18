@@ -14,6 +14,7 @@
           <component
             :is="mode"
             @startSetupIncome="mode = 'setup-income'"
+            @startSetupExpense="mode = 'setup-expense'"
           />
         </div>
     </div>
@@ -36,7 +37,11 @@ export default {
         },
         income: {
           line1: "Now let's setup your budget",
-          line2: 'Here, you can specify your incomes and expenses'
+          line2: 'Here, you can specify your incomes'
+        },
+        expense: {
+          line1: "It's time to specify all of your expenses",
+          line2: 'There two types of expenses: fixes and variables'
         }
       }
     }

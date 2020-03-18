@@ -4,25 +4,33 @@
         <ul class="setup__sidenav__stepsList">
 
                 <li class="setup__sidenav__stepsList__item"
-                    :class="{current: currentSetup === 'setup-wallet', checked : this.$store.state.wallets.length > 0}"
+                    :class="{
+                        current: currentSetup === 'setup-wallet',
+                        checked : this.$store.state.wallets.length > 0
+                    }"
                     @click="$emit('selectSetup', 'wallet')">
                     <div class="setup__sidenav__stepsList__item__text">Wallet</div>
                     <app-icon name="wallet" size="large" :color="checkWallets"/>
                 </li>
+
                 <div class="setup__sidenav__stepsList__bar">
                     <div class="setup__sidenav__stepsList__bar__inner"
-                    :class="{full: currentSetup === 'setup-income'}">
+                    :class="{full: ['setup-income', 'setup-expense', 'setup-savings-plan'].includes(currentSetup)}">
                     </div>
                 </div>
 
                 <li class="setup__sidenav__stepsList__item"
-                    :class="{current: currentSetup === 'setup-income'}"
-                >
+                    :class="{
+                      current: currentSetup === 'setup-income',
+                      checked: this.$store.state.incomes.length > 0 && ['setup-expense', 'setup-savings-plan'].includes(currentSetup)
+                    }"
+                    @click="$emit('selectSetup', 'income')">
                     <div class="setup__sidenav__stepsList__item__text">Income</div>
                     <app-icon name="income" size="large" :color="checkIncome"/>
                 </li>
                 <div class="setup__sidenav__stepsList__bar">
-                    <div class="setup__sidenav__stepsList__bar__inner"></div>
+                    <div class="setup__sidenav__stepsList__bar__inner"
+                    :class="{full: currentSetup === 'setup-expense'}"></div>
                 </div>
 
                 <li class="setup__sidenav__stepsList__item"

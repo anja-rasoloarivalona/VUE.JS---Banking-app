@@ -54,11 +54,26 @@ export default {
                       name
                       status
                       wallets {
+                        _id
                         walletType
                         amount
                         supplier
                         shortId
                         color
+                      }
+                      incomes {
+                        _id
+                        name
+                        amount
+                        from
+                        frequency {
+                            counter
+                            period
+                        }
+                        lastPayout
+                        nextPayout
+                        autoWriting
+                        notification
                       }
                   }
               }
@@ -67,6 +82,8 @@ export default {
       try {
         const response = await this.$http.post('', graphqlQuery)
         const resData = await response.json()
+        console.log('login', resData)
+
         const responseData = resData.data.login
         const data = {
           token: responseData.token,
@@ -76,6 +93,7 @@ export default {
         }
         this.$store.commit('authUser', data)
         this.$store.commit('initWallets', responseData.user.wallets)
+        this.$store.commit('initIncomes', responseData.user.incomes)
         const remainingMilliseconds = 24 * 60 * 60 * 1000
         const expiryDate = new Date(new Date().getTime() + remainingMilliseconds).toISOString()
         const localData = { ...data, expiryDate }

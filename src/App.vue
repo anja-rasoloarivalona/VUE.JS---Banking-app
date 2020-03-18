@@ -65,6 +65,7 @@ export default {
                 period
             }
             lastPayout
+            nextPayout
             autoWriting
             notification
           }
@@ -75,6 +76,7 @@ export default {
       const response = await this.$http.post('', graphqlQuery)
       const resData = await response.json()
       const responseData = resData.data.user
+      console.log('app', responseData)
       this.$store.commit('initWallets', responseData.wallets)
       this.$store.commit('initIncomes', responseData.incomes)
     } catch (err) {

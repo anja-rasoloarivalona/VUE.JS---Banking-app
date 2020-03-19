@@ -3,27 +3,33 @@
             <div class="budget-form__close" @click="$emit('closeForm')">
                   <app-icon name="close" size="large" color="primary"/>
             </div>
-            <app-basic-input v-model="input.name" :id="'name'" bgWhite />
-            <app-basic-input v-model="input.amount" :id="'amount'" bgWhite />
+            <template v-if="type === 'income'">
+                <app-basic-input v-model="income.name" :id="'name'" bgWhite/>
+                <app-basic-input v-model="income.amount" :id="'amount'" bgWhite />
+                <app-basic-input v-model="income.from" :id="'from'" bgWhite/>
+                <app-frequency-input
+                    :id="'frequency'"
+                    v-model="income.frequency"
+                    @selectcounter="income.frequency.counter = $event"
+                    @selectPeriod="income.frequency.period = $event"
+                />
+                <div class="input-date">
+                    <label for="lastPayout">
+                        <span>last payout</span>
+                        <app-date-picker v-model='income.lastPayout' id="lastPayout"/>
+                    </label>
+                </div>
+                <app-select-input :id="'auto writing'"  :options="['yes', 'no']" @selectInput="income.autoWriting = $event" bgWhite />
+                <app-select-input :id="'notification'"  :options="['yes', 'no']" @selectInput="income.notification = $event" bgWhite />
+            </template>
+            <template v-if="type === 'expense'">
+                <app-basic-input v-model="expense.name" :id="'name'" bgWhite/>
+                <app-basic-input v-model="expense.amount" :id="'amount'" bgWhite />
+                <app-basic-input v-model="expense.category" :id="'category'" bgWhite/>
+                <app-select-input :id="'Expense Type'"  :options="['variable', 'fixed']" @selectInput="expense.expenseType = $event" bgWhite />
+            </template>
 
-            <app-basic-input v-model="input.category" :id="'category'" bgWhite v-if="type === 'expense'"/>
-            <app-basic-input v-model="input.from" :id="'from'" bgWhite v-if="type === 'income'"/>
-
-            <app-frequency-input
-                :id="'frequency'"
-                v-model="input.frequency"
-                @selectcounter="input.frequency.counter = $event"
-                @selectPeriod="input.frequency.period = $event"
-            />
-            <div class="input-date">
-                <label for="lastPayout">
-                    <span>last payout</span>
-                    <app-date-picker v-model='input.lastPayout' id="lastPayout"/>
-                </label>
-            </div>
-            <app-select-input :id="'auto writing'"  :options="['yes', 'no']" @selectInput="input.autoWriting = $event" bgWhite />
-            <app-select-input :id="'notification'"  :options="['yes', 'no']" @selectInput="input.notification = $event" bgWhite />
-            <app-btn normal primary @click.native="addIncome" >
+            <app-btn normal primary @click.native="submit" >
                 <span v-if="!loading">Add</span>
                 <app-spinner v-else></app-spinner>
             </app-btn>
@@ -42,12 +48,9 @@ export default {
         }
       ],
       date: new Date(),
-      input: {
+      income: {
         name: '',
         amount: 0,
-
-        category: '',
-
         from: '',
         frequency: {
           counter: 'once',
@@ -57,6 +60,12 @@ export default {
         autoWriting: 'yes',
         notification: 'yes'
       },
+      expense: {
+        name: '',
+        amount: 0,
+        category: '',
+        expenseType: 'variable'
+      },
       loading: false
     }
   },
@@ -64,21 +73,28 @@ export default {
     type: String
   },
   methods: {
+    submit () {
+      if (this.type === 'income') {
+        this.addIncome()
+      } else {
+        this.addExpense()
+      }
+    },
     addIncome: async function () {
       this.loading = true
       const graphqlQuery = {
         query: `mutation {
                     addIncome(incomeInput: {
-                        name: "${this.input.name}",
-                        amount: "${this.input.amount}",
-                        from: "${this.input.from}",
+                        name: "${this.income.name}",
+                        amount: "${this.income.amount}",
+                        from: "${this.income.from}",
                         frequency: {
-                            counter: "${this.input.frequency.counter}",
-                            period: "${this.input.frequency.period}"
+                            counter: "${this.income.frequency.counter}",
+                            period: "${this.income.frequency.period}"
                         }
-                        lastPayout: "${this.input.lastPayout}",
-                        autoWriting: "${this.input.autoWriting}",
-                        notification: "${this.input.notification}"
+                        lastPayout: "${this.income.lastPayout}",
+                        autoWriting: "${this.income.autoWriting}",
+                        notification: "${this.income.notification}"
                     }) {
                         _id
                         name
@@ -100,7 +116,40 @@ export default {
         const resData = await response.json()
         const responseData = resData.data.addIncome
         this.$emit('closeForm')
-        console.log('added income', responseData)
+        this.$store.commit('addIncome', responseData)
+        this.loading = false
+      } catch (err) {
+        this.loading = false
+        console.log(err)
+      }
+    },
+    addExpense: async function () {
+      this.loading = true
+      const graphqlQuery = {
+        query: `mutation {
+                    addExpense(expenseInput: {
+                        name: "${this.expense.name}",
+                        amount: "${this.expense.amount}",
+                        category: "${this.expense.category}",
+                        expenseType: "${this.expense.expenseType}"
+                    }) {
+                        _id
+                        name
+                        amount
+                        category
+                        expenseType
+                        used
+                        owner
+                    }
+              }`
+      }
+      try {
+        const response = await this.$http.post('', graphqlQuery)
+        const resData = await response.json()
+        const responseData = resData.data.addExpense
+        this.$emit('closeForm')
+        this.$store.commit('addExpense', responseData)
+        console.log('added expense', responseData)
         this.loading = false
       } catch (err) {
         this.loading = false

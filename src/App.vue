@@ -29,6 +29,9 @@ export default {
     Navbar
   },
   created: async function () {
+    const a = '03/10/2020'
+    const b = '03/10/2020'
+    console.log('tes', new Date(a).toString() === new Date(b).toString())
     const localData = localStorage.getItem('bank-data')
     if (!localData) {
       return
@@ -54,15 +57,21 @@ export default {
             supplier
             shortId
             color
-          },
+          }
           expenses {
             _id
             name
             amount
             category
             expenseType
+            lastPayout
+            nextPayout
             used
             owner
+            frequency {
+                counter
+                period
+            }
           }
           incomes {
             _id

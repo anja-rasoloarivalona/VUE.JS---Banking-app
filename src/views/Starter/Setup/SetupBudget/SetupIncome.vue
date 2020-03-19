@@ -6,7 +6,7 @@
         <ul class="setup-income__list" v-if="!showForm">
           <app-income v-for="income in this.$store.state.incomes" :key="income._id" :income="income"/>
         </ul>
-        <app-btn normal primary @click.native="next" :disabled="this.$store.state.incomes === undefined || this.$store.state.incomes.length < 1">
+        <app-btn v-if="!showForm" normal primary @click.native="next" :disabled="this.$store.state.incomes === undefined || this.$store.state.incomes.length < 1">
           Next
         </app-btn>
         <budget-form

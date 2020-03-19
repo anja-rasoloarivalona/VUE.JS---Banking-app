@@ -27,6 +27,22 @@
                 <app-basic-input v-model="expense.amount" :id="'amount'" bgWhite />
                 <app-basic-input v-model="expense.category" :id="'category'" bgWhite/>
                 <app-select-input :id="'Expense Type'"  :options="['variable', 'fixed']" @selectInput="expense.expenseType = $event" bgWhite />
+
+                <app-basic-input v-model="expense.used" :id="'used'" bgWhite v-if="expense.expenseType === 'variable'"/>
+
+                <div class="input-date" v-if="expense.expenseType === 'fixed'">
+                    <label for="lastPayout">
+                        <span>last payout</span>
+                        <app-date-picker v-model='expense.lastPayout' id="lastPayout"/>
+                    </label>
+                </div>
+                <app-frequency-input
+                    :id="'frequency'"
+                    v-model="expense.frequency"
+                    @selectcounter="expense.frequency.counter = $event"
+                    @selectPeriod="expense.frequency.period = $event"
+                    v-if="expense.expenseType === 'fixed'"
+                />
             </template>
 
             <app-btn normal primary @click.native="submit" >
@@ -64,7 +80,13 @@ export default {
         name: '',
         amount: 0,
         category: '',
-        expenseType: 'variable'
+        used: 0,
+        expenseType: 'variable',
+        lastPayout: '',
+        frequency: {
+          counter: 'once',
+          period: 'a day'
+        }
       },
       loading: false
     }
@@ -130,14 +152,21 @@ export default {
                     addExpense(expenseInput: {
                         name: "${this.expense.name}",
                         amount: "${this.expense.amount}",
+                        used: "${this.expense.used}",
                         category: "${this.expense.category}",
-                        expenseType: "${this.expense.expenseType}"
+                        expenseType: "${this.expense.expenseType}",
+                        lastPayout: "${this.expense.lastPayout}",
+                        frequency: {
+                            counter: "${this.expense.frequency.counter}",
+                            period: "${this.expense.frequency.period}"
+                        }
                     }) {
                         _id
                         name
                         amount
                         category
                         expenseType
+                        nextPayout
                         used
                         owner
                     }

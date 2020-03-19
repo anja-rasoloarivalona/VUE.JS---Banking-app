@@ -2,7 +2,7 @@
     <div class="income">
         <div>{{income.name}}</div>
         <div>${{income.amount | amount }}</div>
-        <div>next payout: {{nextPayoutDate}}</div>
+        <div>next payout: {{income.nextPayout | short-date}}</div>
     </div>
 </template>
 
@@ -12,16 +12,6 @@ export default {
     income: {
       type: Object,
       required: true
-    }
-  },
-  computed: {
-    nextPayoutDate () {
-      const d = new Date(this.income.nextPayout)
-      const month = d.getMonth() + 1 < 10 ? `0${d.getMonth() + 1}` : d.getMonth() + 1
-      const day = d.getDate() < 10 ? `0${d.getDate()}` : d.getDate()
-      const year = d.getFullYear()
-      const date = `${month}/${day}/${year}`
-      return date
     }
   }
 }

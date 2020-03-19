@@ -61,6 +61,21 @@ export default {
                         shortId
                         color
                       }
+                      expenses {
+                        _id
+                        name
+                        amount
+                        category
+                        expenseType
+                        lastPayout
+                        nextPayout
+                        used
+                        owner
+                        frequency {
+                          counter
+                          period
+                        }
+                      }
                       incomes {
                         _id
                         name

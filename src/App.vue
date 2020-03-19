@@ -54,6 +54,15 @@ export default {
             supplier
             shortId
             color
+          },
+          expenses {
+            _id
+            name
+            amount
+            category
+            expenseType
+            used
+            owner
           }
           incomes {
             _id
@@ -79,6 +88,7 @@ export default {
       console.log('app', responseData)
       this.$store.commit('initWallets', responseData.wallets)
       this.$store.commit('initIncomes', responseData.incomes)
+      this.$store.commit('initExpenses', responseData.expenses)
     } catch (err) {
       console.log(err)
     }

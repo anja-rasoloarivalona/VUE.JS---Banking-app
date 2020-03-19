@@ -104,7 +104,7 @@ export default {
                             counter
                             period
                         }
-                        lastPayout
+                        nextPayout
                         autoWriting
                         notification
                         owner

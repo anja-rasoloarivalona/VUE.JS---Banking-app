@@ -30,22 +30,28 @@
                 </li>
                 <div class="setup__sidenav__stepsList__bar">
                     <div class="setup__sidenav__stepsList__bar__inner"
-                    :class="{full: currentSetup === 'setup-expense'}"></div>
+                    :class="{full: ['setup-expense', 'setup-savings-plan'].includes(currentSetup)}"></div>
                 </div>
 
                 <li class="setup__sidenav__stepsList__item"
-                    :class="{current: currentSetup === 'setup-expense'}"
+                    :class="{current: currentSetup === 'setup-expense',
+                    checked: this.$store.state.expenses.length > 0 && ['setup-savings-plan'].includes(currentSetup)
+                    }"
                 >
                     <div class="setup__sidenav__stepsList__item__text">Expense</div>
                     <app-icon name="expense" size="large" :color="checkExpense"/>
                 </li>
                 <div class="setup__sidenav__stepsList__bar">
-                    <div class="setup__sidenav__stepsList__bar__inner"></div>
+                    <div class="setup__sidenav__stepsList__bar__inner"
+                    :class="{full: ['setup-savings-plan'].includes(currentSetup)}"></div>
                 </div>
 
-                <li class="setup__sidenav__stepsList__item">
+                <li class="setup__sidenav__stepsList__item"
+                    :class="{
+                      current: currentSetup === 'setup-savings-plan'
+                    }">
                     <div class="setup__sidenav__stepsList__item__text">Savings</div>
-                    <app-icon name="savings-plan" size="large" color="grey"/>
+                    <app-icon name="savings-plan" size="large" :color="checkSavings"/>
                 </li>
         </ul>
     </div>
@@ -70,6 +76,13 @@ export default {
     },
     checkExpense () {
       if (this.currentSetup === 'setup-expense') {
+        return 'primary'
+      } else {
+        return 'grey'
+      }
+    },
+    checkSavings () {
+      if (this.currentSetup === 'setup-savings-plan') {
         return 'primary'
       } else {
         return 'grey'

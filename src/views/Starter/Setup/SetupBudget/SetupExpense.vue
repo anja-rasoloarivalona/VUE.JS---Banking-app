@@ -35,7 +35,7 @@ export default {
       this.showForm = false
     },
     next () {
-      this.$emit('startSetupExpense')
+      this.$emit('startSetupSavingsPlan')
     }
   }
 }

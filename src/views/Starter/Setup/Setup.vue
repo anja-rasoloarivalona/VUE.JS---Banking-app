@@ -15,6 +15,7 @@
             :is="mode"
             @startSetupIncome="mode = 'setup-income'"
             @startSetupExpense="mode = 'setup-expense'"
+            @startSetupSavingsPlan="mode ='setup-savings-plan'"
           />
         </div>
     </div>
@@ -42,6 +43,10 @@ export default {
         expense: {
           line1: "It's time to specify all of your expenses",
           line2: 'There two types of expenses: fixes and variables'
+        },
+        savings: {
+          line1: 'We are almost done',
+          line2: "Let's now finish with your savings plan"
         }
       }
     }

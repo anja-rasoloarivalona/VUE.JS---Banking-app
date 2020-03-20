@@ -1,6 +1,7 @@
 <template>
   <span>
     <div class="form__title">Login</div>
+    <slot name="error"></slot>
     <app-basic-input v-model="userInput.email" :id="'email'"/>
     <app-basic-input v-model="userInput.password" :id="'password'"/>
     <app-btn @click="submit">
@@ -16,6 +17,7 @@ export default {
     userInput: Object,
     loading: Boolean,
     submit: Function
+    // error: [Array, Boolean]
   }
 }
 </script>

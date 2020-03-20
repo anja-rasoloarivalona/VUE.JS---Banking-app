@@ -6,7 +6,12 @@
                 :userInput="userInput"
                 :submit="submitForm"
                 :loading="loading"
-            >
+                :error="error">
+            <template #error>
+                <div class="form__error" v-if="error && error.length > 0">
+                    <div class="form__error__item" v-for="(err, index) in error" :key="index">{{err}}</div>
+                </div>
+            </template>
             </component>
         </transition>
     </form>
@@ -15,6 +20,7 @@
 <script>
 import LoginForm from './LoginForm'
 import SignupForm from './SignupForm'
+import { validator } from '@/utilities/input-validator.js'
 export default {
   data () {
     return {
@@ -23,7 +29,8 @@ export default {
         email: '',
         password: ''
       },
-      loading: false
+      loading: false,
+      error: false
     }
   },
   props: {
@@ -37,14 +44,29 @@ export default {
   },
   methods: {
     submitForm () {
+      const data = this.userInput
+      let error
       if (this.authMode === 'login') {
-        this.login()
+        delete data.name
+        error = validator(data)
+        if (error.length > 0) {
+          this.error = error
+        } else {
+          this.login()
+        }
       } else {
-        this.signup()
+        error = validator(data)
+        if (error.length > 0) {
+          console.log(error)
+          this.error = error
+        } else {
+          this.signup()
+        }
       }
     },
     login: async function () {
       this.loading = true
+      this.error = false
       const graphqlQuery = {
         query: `{
               login(email: "${this.userInput.email}", password: "${this.userInput.password}") {
@@ -97,8 +119,6 @@ export default {
       try {
         const response = await this.$http.post('', graphqlQuery)
         const resData = await response.json()
-        console.log('login', resData)
-
         const responseData = resData.data.login
         const data = {
           token: responseData.token,
@@ -117,11 +137,13 @@ export default {
         this.submitSucceeded()
       } catch (err) {
         this.loading = false
-        console.log(err)
+        const errorData = err.body.errors
+        this.error = [errorData[0].message]
       }
     },
     signup: async function () {
       this.loading = true
+      this.error = false
       const graphqlQuery = {
         query: `mutation {
                     createUser(userInput: {
@@ -192,6 +214,18 @@ export default {
         color: $color-white;
         margin-bottom: 0;
         }
+  }
+  &__error {
+    margin: 2rem 0;
+    &__item {
+      border: 1px solid $color-red;
+      padding: 1rem;
+      color: $color-red;
+      font-weight: bold;
+      font-size: $font-m;
+      border-radius: .5rem;
+      margin: .5rem 0;
+    }
   }
 }
 </style>

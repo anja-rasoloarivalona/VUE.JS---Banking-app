@@ -151,13 +151,14 @@ export default {
         const resData = await response.json()
         const responseData = resData.data.addGoal
         this.goalAdded = true
+        this.$store.commit('setStatusToActive')
         console.log(responseData)
       } catch (err) {
         console.log(err)
       }
     },
     launchApp () {
-      console.log('Launch app')
+      this.$emit('launchApp')
     }
   }
 }

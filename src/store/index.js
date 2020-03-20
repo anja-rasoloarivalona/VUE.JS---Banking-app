@@ -37,6 +37,9 @@ export default new Vuex.Store({
     },
     addExpense (state, expense) {
       state.expenses = [...state.expenses, expense]
+    },
+    setStatusToActive (state) {
+      state.status = 'active'
     }
   },
   actions: {

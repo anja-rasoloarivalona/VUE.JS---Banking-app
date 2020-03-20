@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view name="starter" v-if="status === 'starter'"/>
+    <router-view name="starter" v-if="this.$store.state.status !== 'active'"/>
     <div v-else class="app-main">
       <sidebar></sidebar>
       <navbar></navbar>
@@ -21,7 +21,7 @@ import Navbar from './components/Layout/Navbar'
 export default {
   data () {
     return {
-      status: 'starter'
+      loading: true
     }
   },
   components: {
@@ -91,7 +91,6 @@ export default {
       const response = await this.$http.post('', graphqlQuery)
       const resData = await response.json()
       const responseData = resData.data.user
-      console.log('app', responseData)
       this.$store.commit('initWallets', responseData.wallets)
       this.$store.commit('initIncomes', responseData.incomes)
       this.$store.commit('initExpenses', responseData.expenses)

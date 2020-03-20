@@ -129,6 +129,7 @@ export default {
         this.$store.commit('authUser', data)
         this.$store.commit('initWallets', responseData.user.wallets)
         this.$store.commit('initIncomes', responseData.user.incomes)
+        this.$store.commit('initExpenses', responseData.user.expenses)
         const remainingMilliseconds = 24 * 60 * 60 * 1000
         const expiryDate = new Date(new Date().getTime() + remainingMilliseconds).toISOString()
         const localData = { ...data, expiryDate }

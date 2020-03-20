@@ -29,7 +29,7 @@
             </div>
             <div class="savings__cta__result">
                 <div>You will achieve your goal the: </div>
-                <div> {{result}}</div>
+                <div> {{result | short-date}}</div>
             </div>
         </div>
     </div>
@@ -47,8 +47,25 @@ export default {
     }
   },
   methods: {
+    dateRangeCalculator (frequency, previousDate) {
+      const dayLength = 24 * 60 * 60 * 1000
+      const prev = new Date(previousDate)
+      const prevMonth = prev.getMonth()
+      const prevYear = prev.getFullYear()
+      let nbDaysBeforeNextDate
+      const counterData = { once: 1, twice: 2, 'three times': 3, 'four times': 4, 'five times': 5, 'six times': 6 }
+      const periodData = { 'a day': 1, 'a week': 7, 'every two weeks': 14, 'a month': 30, 'a year': prevYear % 400 === 0 || (prevYear % 100 !== 0 && prevYear % 4 === 0) ? 366 : 365 }
+      if (frequency.period === 'a month') {
+        nbDaysBeforeNextDate = new Date(prevYear, prevMonth + 1, 0).getDate()
+      } else {
+        const counter = counterData[frequency.counter]
+        const period = periodData[frequency.period]
+        nbDaysBeforeNextDate = Math.ceil(period / counter)
+      }
+      const nextDate = new Date(prev.getTime() + nbDaysBeforeNextDate * dayLength)
+      return nextDate
+    },
     findNextMonth (d) {
-    //   const d = new Date(date)
       const year = d.getFullYear()
       let nextMonth = d.getMonth()
       let result
@@ -62,14 +79,22 @@ export default {
     },
     goalSimulator () {
       const transactionsData = []
-
-      // const goal = this.goal.amount
+      const goal = this.goal.amount
 
       // Current total savings
       let sumTotal = 0
       this.$store.state.wallets.forEach(wallet => {
         sumTotal += wallet.amount
       })
+
+      this.$store.state.incomes.forEach(income => {
+        transactionsData.push({
+          amount: income.amount,
+          nextPayout: new Date(income.nextPayout),
+          frequency: income.frequency
+        })
+      })
+
       this.$store.state.expenses.forEach(expense => {
         if (expense.expenseType === 'variable') {
           const budget = expense.amount
@@ -84,13 +109,31 @@ export default {
           })
         } else {
           transactionsData.push({
-            amount: expense.amount,
+            amount: expense.amount * -1,
             nextPayout: new Date(expense.nextPayout),
             frequency: expense.frequency
           })
         }
       })
-      console.log('sunmTotal', sumTotal, transactionsData)
+
+      transactionsData.sort((a, b) => {
+        return new Date(a.nextPayout) - new Date(b.nextPayout)
+      })
+
+      let result
+
+      while (sumTotal < goal) {
+        const currentTransaction = transactionsData[0]
+        sumTotal += currentTransaction.amount
+        if (sumTotal > goal) {
+          result = currentTransaction.nextPayout
+        }
+        currentTransaction.nextPayout = this.dateRangeCalculator(currentTransaction.frequency, currentTransaction.nextPayout)
+        transactionsData.sort((a, b) => {
+          return new Date(a.nextPayout) - new Date(b.nextPayout)
+        })
+      }
+      this.result = result
     }
   }
 }

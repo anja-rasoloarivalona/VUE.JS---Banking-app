@@ -166,6 +166,10 @@ export default {
                         amount
                         category
                         expenseType
+                        frequency {
+                            counter
+                            period
+                        }
                         nextPayout
                         used
                         owner

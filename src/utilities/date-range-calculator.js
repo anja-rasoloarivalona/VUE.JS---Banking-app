@@ -1,4 +1,4 @@
-export const dateRangeCalculator = (frequency, previousDate) => {
+const dateRangeCalculator = (frequency, previousDate) => {
   const dayLength = 24 * 60 * 60 * 1000
   const prev = new Date(previousDate)
   const prevMonth = prev.getMonth()
@@ -16,3 +16,4 @@ export const dateRangeCalculator = (frequency, previousDate) => {
   const nextDate = new Date(prev.getTime() + nbDaysBeforeNextDate * dayLength)
   return nextDate
 }
+export { dateRangeCalculator }

@@ -22,20 +22,28 @@
 
         </div>
         <div class="savings__cta">
-            <div class="savings__cta__input">
+            <div class="savings__cta__input" v-if="!goalAdded">
                 <app-basic-input v-model="goal.name" :id="'name'" bgWhite/>
-                <app-basic-input v-model="goal.amount" :id="'amount'" bgWhite/>
-                <app-btn normal primary @click.native="goalSimulator">Simulate</app-btn>
+                <app-basic-input v-model="goal.amount" :id="'goal'" bgWhite/>
+                <div class="savings__cta__result" v-if="result">
+                  <div>You will achieve your goal the : </div>
+                  <div>{{result | short-date}}</div>
+                </div>
+                <div class="savings__cta__btns">
+                  <app-btn normal secondary @click.native="goalSimulator">Simulate</app-btn>
+                  <app-btn normal primary @click.native="addGoal" :disabled="!result || goal.name === ''">Add</app-btn>
+                </div>
             </div>
-            <div class="savings__cta__result">
-                <div>You will achieve your goal the: </div>
-                <div> {{result | short-date}}</div>
+            <div class="savings__cta__goalAdded" v-if="goalAdded">
+                <div>Congratulations ! You are now ready to take control of your finance</div>
+                <app-btn normal primary @click.native="launchApp">Start</app-btn>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import { dateRangeCalculator } from '@/utilities/date-range-calculator.js'
 export default {
   data () {
     return {
@@ -43,28 +51,11 @@ export default {
         name: '',
         amount: 0
       },
-      result: ''
+      result: null,
+      goalAdded: false
     }
   },
   methods: {
-    dateRangeCalculator (frequency, previousDate) {
-      const dayLength = 24 * 60 * 60 * 1000
-      const prev = new Date(previousDate)
-      const prevMonth = prev.getMonth()
-      const prevYear = prev.getFullYear()
-      let nbDaysBeforeNextDate
-      const counterData = { once: 1, twice: 2, 'three times': 3, 'four times': 4, 'five times': 5, 'six times': 6 }
-      const periodData = { 'a day': 1, 'a week': 7, 'every two weeks': 14, 'a month': 30, 'a year': prevYear % 400 === 0 || (prevYear % 100 !== 0 && prevYear % 4 === 0) ? 366 : 365 }
-      if (frequency.period === 'a month') {
-        nbDaysBeforeNextDate = new Date(prevYear, prevMonth + 1, 0).getDate()
-      } else {
-        const counter = counterData[frequency.counter]
-        const period = periodData[frequency.period]
-        nbDaysBeforeNextDate = Math.ceil(period / counter)
-      }
-      const nextDate = new Date(prev.getTime() + nbDaysBeforeNextDate * dayLength)
-      return nextDate
-    },
     findNextMonth (d) {
       const year = d.getFullYear()
       let nextMonth = d.getMonth()
@@ -78,15 +69,17 @@ export default {
       return new Date(result)
     },
     goalSimulator () {
+      this.result = null
       const transactionsData = []
       const goal = this.goal.amount
-
-      // Current total savings
       let sumTotal = 0
+
+      // Determine the total amount of money available to the user now.
       this.$store.state.wallets.forEach(wallet => {
         sumTotal += wallet.amount
       })
 
+      // Prepare incomes data for the simulation
       this.$store.state.incomes.forEach(income => {
         transactionsData.push({
           amount: income.amount,
@@ -95,6 +88,7 @@ export default {
         })
       })
 
+      // Prepare expenses data for the simulation
       this.$store.state.expenses.forEach(expense => {
         if (expense.expenseType === 'variable') {
           const budget = expense.amount
@@ -116,24 +110,54 @@ export default {
         }
       })
 
+      // Sort the array : we'll get the earliest transaction at the first index
       transactionsData.sort((a, b) => {
         return new Date(a.nextPayout) - new Date(b.nextPayout)
       })
 
+      // Once the simulation is finished, the result will be stored in this variable
       let result
 
+      // Launch simulation
       while (sumTotal < goal) {
         const currentTransaction = transactionsData[0]
         sumTotal += currentTransaction.amount
         if (sumTotal > goal) {
           result = currentTransaction.nextPayout
         }
-        currentTransaction.nextPayout = this.dateRangeCalculator(currentTransaction.frequency, currentTransaction.nextPayout)
+        currentTransaction.nextPayout = dateRangeCalculator(currentTransaction.frequency, currentTransaction.nextPayout)
         transactionsData.sort((a, b) => {
           return new Date(a.nextPayout) - new Date(b.nextPayout)
         })
       }
       this.result = result
+    },
+    addGoal: async function () {
+      const graphqlQuery = {
+        query: `mutation {
+              addGoal(goalInput: {
+                name: "${this.goal.name}",
+                amount: "${this.goal.amount}",
+                date: "${this.result}"
+              }) {
+                name
+                amount
+                date
+              }
+        }`
+      }
+      try {
+        const response = await this.$http.post('', graphqlQuery)
+        const resData = await response.json()
+        const responseData = resData.data.addGoal
+        this.goalAdded = true
+        console.log(responseData)
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    launchApp () {
+      console.log('Launch app')
     }
   }
 }
@@ -150,6 +174,7 @@ export default {
         }
         &__list {
             list-style: none;
+            font-size: $font-m;
             &__item {
                 display: flex;
                 align-items: center;
@@ -163,13 +188,37 @@ export default {
     &__cta {
         display: flex;
         align-items: center;
+        margin-top: 5rem;
         &__input {
-            margin-top: 5rem;
             background: $color-grey--light;
-            width: 25rem;
+            width: 30rem;
             padding: 1.5rem;
             border-radius: .5rem;
-            margin-right: 2rem;
+        }
+        &__result {
+          background: $color-white;
+          color: $color-primary;
+          display: flex;
+          flex-direction: column;
+          text-align: center;
+          border-radius: .5rem;
+          padding: 2rem;
+          font-size: $font-m;
+          margin-bottom: 2rem;
+          & div:first-child {
+            margin-right: 1rem;
+          }
+        }
+        &__btns {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+        &__goalAdded {
+          & div {
+            font-size: $font-m;
+            margin-bottom: 2rem;
+          }
         }
     }
 

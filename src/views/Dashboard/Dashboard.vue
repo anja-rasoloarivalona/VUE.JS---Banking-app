@@ -1,13 +1,17 @@
 <template>
   <div class="dashboard">
-    <div class="row row--1">
-      <div class="dashboard__balance">
-        <h2 class="color-grey-main">Balance</h2>
-        <div class="dashboard__balance__value">
-          <strong>${{balance | amount}}</strong>
-        </div>
-      </div>
-      <div class="dashboard__monthResume">
+    <dashboard-layout>
+      <template #dashboard-balance>
+        <dashboard-balance></dashboard-balance>
+      </template>
+      <template #dashboard-wallet>
+        <dashboard-wallet></dashboard-wallet>
+      </template>
+      <template #dashboard-budget>
+        <dashboard-budget></dashboard-budget>
+      </template>
+    </dashboard-layout>
+       <!-- <div class="dashboard__monthResume">
         <h2 class="color-primary">Monthly summary</h2>
         <div class="dashboard__monthResume__data">
           <div class="dashboard__monthResume__data__group">
@@ -23,81 +27,54 @@
             >-${{cashFlow.expenses | amount }}</div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="row row--2">
-      <h2 class="color-grey-main">Wallet</h2>
-      <ul class="dashboard__cardsList">
-        <app-wallet v-for="(card,index) in cards" :key="index" :card="card"></app-wallet>
-      </ul>
-    </div>
-    <div class="row row--3">
-      <h2 class="color-grey-main">Budget</h2>
-      <app-budget></app-budget>
-    </div>
-    <div class="row row--4">
-      <h2 class="color-grey-main">Recent transactions</h2>
-      <div class="dashboard__transactions">
-        <header class="dashboard__transactions__header">
-          Date
-        </header>
-        <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Date</th>
-            <th>Counterparty</th>
-            <th>Details</th>
-            <th>Used wallet</th>
-            <th>Amount</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <app-transaction
-            v-for="transaction in transactions"
-            :key="transaction.shortId"
-            :transaction="transaction"
-          ></app-transaction>
-        </tbody>
-      </table>
-      </div>
-    </div>
+      </div> -->
+      <!-- <div class="dashboard__transactions">
+        <h2 class="color-grey-main">Recent transactions</h2>
+          <div class="dashboard__transactions">
+            <header class="dashboard__transactions__header">
+                Date
+            </header>
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Date</th>
+                  <th>Counterparty</th>
+                  <th>Details</th>
+                  <th>Used wallet</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <app-transaction
+                  v-for="transaction in transactions"
+                  :key="transaction.shortId"
+                  :transaction="transaction"
+                ></app-transaction>
+              </tbody>
+            </table>
+        </div>
+      </div> -->
+
   </div>
 </template>
 
 <script>
-import Wallet from '@/components/UI/Wallet'
-import Transaction from '@/components/UI/Transaction'
-import Budget from './Budget.vue'
+// import Transaction from '@/components/UI/Transaction'
+
+import Layout from './Layout'
+import Budget from './Budget'
+import Balance from './Balance'
+import Wallet from './Wallet'
 
 export default {
   data () {
     return {
-      balance: 12500,
       cashFlow: {
         income: 1400,
         expenses: 1200
       },
-      cards: [
-        {
-          type: 'Visa',
-          amount: 2000,
-          supplier: 'Desjardins',
-          shortId: 1234
-        },
-        {
-          type: 'Debit',
-          amount: 3000,
-          supplier: 'Desjardins',
-          shortId: 5678
-        },
-        {
-          type: 'Cash',
-          amount: 2000,
-          supplier: 'Wallet'
-        }
-      ],
       transactions: [
         {
           shortId: 123,
@@ -121,32 +98,29 @@ export default {
     }
   },
   components: {
-    appWallet: Wallet,
-    appTransaction: Transaction,
-    appBudget: Budget
+    // appTransaction: Transaction,
+    dashboardLayout: Layout,
+    dashboardBalance: Balance,
+    dashboardBudget: Budget,
+    dashboardWallet: Wallet
   }
 }
 </script>
 
-<style lang='scss' scoped>
+<style lang='scss'>
 .dashboard {
-  // width: 70vw;
-  // max-width: 130rem;
+  width: 70vw;
+  max-width: 130rem;
   grid-column: 2 / 3;
-  & h1,
-  & h2,
-  & h3 {
-    margin-bottom: 1rem;
-  }
-  &__balance {
-    width: 100%;
-    &__value {
-      font-size: 3rem;
-      color: $color-primary;
+  background: red;
+
+  &__section {
+    &__title {
+      color: $color-grey--main
     }
   }
+
   &__monthResume {
-    width: 38%;
     background: $color-white;
     padding: 1.5rem;
     border-radius: 1.5rem;
@@ -176,15 +150,6 @@ export default {
       }
     }
   }
-  &__cardsList {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 25rem);
-    grid-template-rows: 12rem;
-    grid-auto-rows: 12rem;
-    column-gap: 6rem;
-    row-gap: 1rem;
-    align-items: center;
-  }
   &__transactions {
     background: $color-white;
     border-radius: 3rem;
@@ -195,13 +160,7 @@ export default {
     }
   }
 }
-.row {
-  margin-bottom: 3rem;
-  &--1 {
-    display: flex;
-    justify-content: space-between;
-  }
-}
+
 table,
 table th, td {
   border-top: 1px solid $color-line;

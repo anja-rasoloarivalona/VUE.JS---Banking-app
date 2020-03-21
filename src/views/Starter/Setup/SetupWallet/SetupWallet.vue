@@ -13,7 +13,7 @@
             </li>
         </ul>
         <wallet-form v-else @hideForm="hideForm" :editedWallet="editedWallet"/>
-        <app-btn normal primary @click.native="next" v-if="!showForm" :disabled="this.$store.state.wallets < 1">
+        <app-btn normal primary @click.native="next" v-if="!showForm" :disabled="this.$store.state.wallets.length < 1">
                 Next
         </app-btn>
     </div>

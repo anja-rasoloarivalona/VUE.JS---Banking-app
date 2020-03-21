@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view name="starter" v-if="this.$store.state.status !== 'active'"/>
-    <div v-else class="app-main">
+    <div v-else-if="!loading" class="app-main">
       <sidebar></sidebar>
       <navbar></navbar>
       <div class="app__navbarFiller">
@@ -94,6 +94,7 @@ export default {
       this.$store.commit('initWallets', responseData.wallets)
       this.$store.commit('initIncomes', responseData.incomes)
       this.$store.commit('initExpenses', responseData.expenses)
+      this.loading = false
     } catch (err) {
       console.log(err)
     }

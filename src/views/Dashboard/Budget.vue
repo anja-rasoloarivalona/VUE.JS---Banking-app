@@ -1,13 +1,14 @@
 <template>
   <div class="budget">
-    <div v-for="item in budget" :key="item.id" class="budget__item">
-        <div class="budget__item__key">{{ item.id }}</div>
-        <div class="budget__item__maxbar" :style="{ width:  item.max / max * 100 + '%' }">
+    <h2 class="color-grey-main">Budget</h2>
+    <div v-for="item in budget" :key="item._id" class="budget__item">
+        <div class="budget__item__key">{{ item.name }}</div>
+        <div class="budget__item__maxbar" :style="{ width:  item.amount / max * 100 + '%' }">
             <div class="budget__item__usedbar" :style="{width: item.used * oneDollarWidth + 'em'}">
                 ${{ item.used | amount }}
             </div>
         </div>
-        <div class="budget__item__max">${{ item.max | amount }}</div>
+        <div class="budget__item__max">${{ item.amount | amount }}</div>
     </div>
   </div>
 </template>
@@ -16,31 +17,35 @@
 export default {
   data () {
     return {
-      budget: [
-        {
-          id: 'food',
-          used: 350,
-          max: 450
-        },
-        {
-          id: 'entertainement',
-          used: 300,
-          max: 350
-        },
-        {
-          id: 'movie',
-          used: 40,
-          max: 120
+      budget: []
+    }
+  },
+  watch: {
+    '$store.state.expenses': {
+      handler: 'setBudget',
+      immediate: true
+    }
+  },
+  methods: {
+    setBudget () {
+      this.$store.state.expenses.forEach(expense => {
+        if (expense.expenseType === 'variable') {
+          this.budget.push({
+            _id: expense._id,
+            name: expense.name,
+            amount: expense.amount,
+            used: expense.used
+          })
         }
-      ]
+      })
     }
   },
   computed: {
     max () {
       let max = 0
       this.budget.forEach(item => {
-        if (item.max > max) {
-          max = item.max
+        if (item.amount > max) {
+          max = item.amount
         }
       })
       return max
@@ -48,8 +53,8 @@ export default {
     oneDollarWidth () {
       let max = 0
       this.budget.forEach(item => {
-        if (item.max > max) {
-          max = item.max
+        if (item.amount > max) {
+          max = item.amount
         }
       })
       const oneDollarWidth = 100 / max
@@ -68,12 +73,14 @@ export default {
     display: flex;
     align-items: center;
     margin: 3rem 0;
+    background: red;
         &__key {
             width: 10rem;
             min-width: 10rem;
             text-transform: capitalize;
             font-size: $font-s;
             color: $color-grey--dark;
+            background: green;
         }
         &__maxbar {
             height: 2rem;

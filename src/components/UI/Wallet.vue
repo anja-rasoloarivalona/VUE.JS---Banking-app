@@ -26,8 +26,10 @@ export default {
 
 <style lang="scss" scoped>
 .wallet {
-    width: 25rem;
-    height: 11rem;
+    min-width: 25rem;
+    max-width: 25rem;
+    height: 12rem;
+    margin: 1.5rem 0;
     border-radius: 1rem;
     padding: 1rem;
     display: flex;

@@ -30,20 +30,21 @@ export default {
     'app-wallet': Wallet
   }
 }
+// inital 50 + 150 par carte * 3 = 500
 </script>
 
 <style lang="scss" scoped>
 .wallet {
     background: $color-white;
     padding: 1.5rem;
+    width: 100%;
     border-radius: 2rem;
+    & h2 {
+        margin-bottom: 2rem;
+    }
     &__list {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, 25rem);
-        grid-template-rows: 12rem;
-        grid-auto-rows: 12rem;
-        column-gap: 6rem;
-        row-gap: 1rem;
+        display: flex;
+        flex-direction: column;
         align-items: center;
     }
 }

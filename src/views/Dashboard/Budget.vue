@@ -1,12 +1,14 @@
 <template>
   <div class="budget">
-    <h2 class="color-grey-main">Budget</h2>
+    <h2 class="dashboard__section__title">Budget</h2>
     <div v-for="item in budget" :key="item._id" class="budget__item">
         <div class="budget__item__key">{{ item.name }}</div>
-        <div class="budget__item__maxbar" :style="{ width:  item.amount / max * 100 + '%' }">
-            <div class="budget__item__usedbar" :style="{width: item.used * oneDollarWidth + 'em'}">
-                ${{ item.used | amount }}
-            </div>
+        <div class="budget__item__barContainer">
+          <div class="budget__item__bar" :style="{ width:  item.amount / max * 100 + '%' }">
+              <div class="budget__item__usedbar" :style="{width: item.used * oneDollarWidth + 'vw'}">
+                  ${{ item.used | amount }}
+              </div>
+          </div>
         </div>
         <div class="budget__item__max">${{ item.amount | amount }}</div>
     </div>
@@ -57,33 +59,42 @@ export default {
           max = item.amount
         }
       })
-      const oneDollarWidth = 100 / max
+      const oneDollarWidth = 34 / max
       return oneDollarWidth
     }
   }
 }
+// Total height = title 5rem + (item 5rem * nb) = 5 + ( 5 * 2) = 15
 </script>
 
 <style lang="scss" scoped>
 .budget {
+    width: 100%;
     background: $color-white;
     padding: 1.5rem;
     border-radius: 2rem;
+    margin: 0;
+    & h2 {
+      margin-bottom: 1rem;
+    }
     &__item {
     display: flex;
     align-items: center;
-    margin: 3rem 0;
-    background: red;
+    height: 5rem;
         &__key {
             width: 10rem;
             min-width: 10rem;
             text-transform: capitalize;
             font-size: $font-s;
             color: $color-grey--dark;
-            background: green;
         }
-        &__maxbar {
-            height: 2rem;
+        &__barContainer {
+          height: 2rem;
+          width: 34vw;
+          background: transparent
+        }
+        &__bar {
+            height: 100%;
             max-width: 100%;
             background: $color-grey--main;
             position: relative;

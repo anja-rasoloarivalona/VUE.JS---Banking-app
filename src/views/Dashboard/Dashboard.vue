@@ -112,11 +112,13 @@ export default {
   width: 70vw;
   max-width: 130rem;
   grid-column: 2 / 3;
-  background: red;
 
   &__section {
     &__title {
-      color: $color-grey--main
+      height: 3rem;
+      display: flex;
+      align-items: center;
+      color: $color-grey--main;
     }
   }
 

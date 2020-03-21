@@ -28,15 +28,22 @@ export default {
     }
   }
 }
+// Total height = title 5rem + value 5rem = 10rem
 </script>
 
 <style lang="scss" scoped>
 .balance {
-    padding: 2rem;
     background: $color-white;
     border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    padding-left: 3rem;
+    width: 100%;
     &__value {
+      height: 5rem;
       font-size: 2.4rem;
+      margin-bottom: 1rem;
       color: $color-primary;
     }
 }

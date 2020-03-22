@@ -2,7 +2,7 @@
     <grid-layout
         :layout.sync="layout"
         :col-num="12"
-        :row-height="50"
+        :row-height="10"
         :is-draggable="true"
         :is-resizable="true"
         :is-mirrored="false"
@@ -25,18 +25,48 @@
 </template>
 
 <script>
-// target budget: 3 lines = 150 + 20 = 170
-// wallet 9 : 450 + 80 = 530
+// one line : 10
+// two line : 20 + 10 = 30
+// three line : 30 + 20 = 50
+// 4 lines : 40 + 30 = 70
+// 5 lines : 50 + 40 = 90
+// 6 lines : 60 + 50 = 110
+// 7 lines : 130
+// 8 : 150
+// 9 : 170
+// 10 : 190
+// 11 : 210
+// 12 : 230
+// 13 : 250
+// 14 : 270
+// 15 :  290
+// 16: 310
+// 17:  330
+// 18: 350
+
 import VueGridLayout from 'vue-grid-layout'
 export default {
   data () {
     return {
       layout: [
-        { x: 0, y: 0, w: 4, h: 2, i: 'dashboard-balance' },
-        { x: 0, y: 0, w: 8, h: 3, i: 'dashboard-budget' },
-        { x: 0, y: 1, w: 4, h: 9, i: 'dashboard-wallet' }
+        { x: 0, y: 0, w: 4, h: 6, i: 'dashboard-balance' },
+        { x: 0, y: 0, w: 8, h: 0, i: 'dashboard-budget' },
+        { x: 0, y: 1, w: 4, h: 5, i: 'dashboard-wallet' },
+        { x: 0, y: 1, w: 8, h: 6, i: 'dashboard-transactions' },
+        { x: 0, y: 1, w: 4, h: 6, i: 'dashboard-goal' }
       ]
     }
+  },
+  created () {
+    let budgetHeight = 3
+    this.$store.state.expenses.forEach(expense => {
+      if (expense.expenseType === 'variable') {
+        budgetHeight = budgetHeight + 3
+      }
+    })
+    this.layout[1].h = budgetHeight
+    this.layout[2].h = 4 + (this.$store.state.wallets.length * 7)
+    this.layout[3].h = 6 + (2 * 3)
   },
   components: {
     gridLayout: VueGridLayout.GridLayout,

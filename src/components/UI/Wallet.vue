@@ -29,7 +29,7 @@ export default {
     min-width: 25rem;
     max-width: 25rem;
     height: 12rem;
-    margin: 1.5rem 0;
+    margin: 1rem 0;
     border-radius: 1rem;
     padding: 1rem;
     display: flex;

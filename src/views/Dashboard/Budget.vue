@@ -19,7 +19,8 @@
 export default {
   data () {
     return {
-      budget: []
+      budget: [],
+      variableBudgetCounter: 0
     }
   },
   watch: {
@@ -30,8 +31,10 @@ export default {
   },
   methods: {
     setBudget () {
+      let variableBudgetCounter = 0
       this.$store.state.expenses.forEach(expense => {
         if (expense.expenseType === 'variable') {
+          variableBudgetCounter++
           this.budget.push({
             _id: expense._id,
             name: expense.name,
@@ -39,6 +42,7 @@ export default {
             used: expense.used
           })
         }
+        this.variableBudgetCounter = variableBudgetCounter
       })
     }
   },
@@ -64,23 +68,26 @@ export default {
     }
   }
 }
-// Total height = title 5rem + (item 5rem * nb) = 5 + ( 5 * 2) = 15
+// Total height = 50 + (nb item * 60)
+// one item : 110
+// two items : 170
+// three items: 230
+// four items: 290
+
+// solution : itemHeight = itemHeight + (    (NbItems -1 * 10) / NbItems    )
 </script>
 
 <style lang="scss" scoped>
 .budget {
     width: 100%;
     background: $color-white;
-    padding: 1.5rem;
-    border-radius: 2rem;
+    padding: 1rem;
+    // border-radius: 2rem;
     margin: 0;
-    & h2 {
-      margin-bottom: 1rem;
-    }
     &__item {
     display: flex;
     align-items: center;
-    height: 5rem;
+    height: 6rem;
         &__key {
             width: 10rem;
             min-width: 10rem;

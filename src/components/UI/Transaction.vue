@@ -34,8 +34,9 @@ export default {
 
 <style lang="scss" scoped>
 td {
-    padding: 1.5rem;
-    border-top: 1px solid $color-line;;
+    height: 6rem;
+    text-align: center;
+    // border-top: 1px solid $color-line;;
     border-collapse: collapse;
     font-size: $font-s;
 }

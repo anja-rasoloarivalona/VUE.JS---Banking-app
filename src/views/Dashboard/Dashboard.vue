@@ -10,6 +10,12 @@
       <template #dashboard-budget>
         <dashboard-budget></dashboard-budget>
       </template>
+      <template #dashboard-transactions>
+        <dashboard-transactions></dashboard-transactions>
+      </template>
+      <template #dashboard-goal>
+        <dashboard-goal></dashboard-goal>
+      </template>
     </dashboard-layout>
        <!-- <div class="dashboard__monthResume">
         <h2 class="color-primary">Monthly summary</h2>
@@ -28,45 +34,16 @@
           </div>
         </div>
       </div> -->
-      <!-- <div class="dashboard__transactions">
-        <h2 class="color-grey-main">Recent transactions</h2>
-          <div class="dashboard__transactions">
-            <header class="dashboard__transactions__header">
-                Date
-            </header>
-            <table>
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Date</th>
-                  <th>Counterparty</th>
-                  <th>Details</th>
-                  <th>Used wallet</th>
-                  <th>Amount</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <app-transaction
-                  v-for="transaction in transactions"
-                  :key="transaction.shortId"
-                  :transaction="transaction"
-                ></app-transaction>
-              </tbody>
-            </table>
-        </div>
-      </div> -->
-
   </div>
 </template>
 
 <script>
-// import Transaction from '@/components/UI/Transaction'
-
 import Layout from './Layout'
 import Budget from './Budget'
 import Balance from './Balance'
 import Wallet from './Wallet'
+import Transactions from './Transactions'
+import Goal from './Goal'
 
 export default {
   data () {
@@ -74,35 +51,16 @@ export default {
       cashFlow: {
         income: 1400,
         expenses: 1200
-      },
-      transactions: [
-        {
-          shortId: 123,
-          date: '2 Nov 2019',
-          counterparty: 'Pierre',
-          details: 'November rent',
-          usedWallet: 'Debit Desjardins',
-          amount: 300,
-          status: 'paid'
-        },
-        {
-          shortId: 423,
-          date: '2 Nov 2019',
-          counterparty: 'Pierre',
-          details: 'November rent',
-          usedWallet: 'Debit Desjardins',
-          amount: 300,
-          status: 'paid'
-        }
-      ]
+      }
     }
   },
   components: {
-    // appTransaction: Transaction,
+    dashboardTransactions: Transactions,
     dashboardLayout: Layout,
     dashboardBalance: Balance,
     dashboardBudget: Budget,
-    dashboardWallet: Wallet
+    dashboardWallet: Wallet,
+    dashboardGoal: Goal
   }
 }
 </script>
@@ -151,33 +109,6 @@ export default {
         }
       }
     }
-  }
-  &__transactions {
-    background: $color-white;
-    border-radius: 3rem;
-    padding: 1rem;
-    padding-bottom: 3rem;
-    &__header {
-      padding: 2rem 0;
-    }
-  }
-}
-
-table,
-table th, td {
-  border-top: 1px solid $color-line;
-  border-bottom: 1px solid $color-line;
-  border-collapse: collapse;
-}
-table {
-  width: 100%;
-  & th, & td {
-    padding: 1.5rem;
-  }
-  & th {
-    text-align: start;
-    background: $color-grey--light;
-    font-size: $font-s;
   }
 }
 </style>

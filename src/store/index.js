@@ -9,6 +9,8 @@ export default new Vuex.Store({
     userId: null,
     userName: null,
     status: null,
+    goal: null,
+    balance: 0,
     wallets: [],
     incomes: [],
     expenses: []
@@ -19,6 +21,12 @@ export default new Vuex.Store({
       state.userId = userData.userId
       state.userName = userData.userName
       state.status = userData.status
+    },
+    initAppData (state, data) {
+      state.wallets = data.wallets
+      state.incomes = data.incomes
+      state.expenses = data.expenses
+      state.goal = data.goal
     },
     initWallets (state, wallets) {
       state.wallets = wallets
@@ -40,6 +48,9 @@ export default new Vuex.Store({
     },
     setStatusToActive (state) {
       state.status = 'active'
+    },
+    initBalance (state, amount) {
+      state.balance = amount
     }
   },
   actions: {

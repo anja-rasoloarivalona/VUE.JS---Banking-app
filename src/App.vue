@@ -47,6 +47,11 @@ export default {
     const graphqlQuery = {
       query: `{
         user {
+          goal {
+           name
+           amount
+           date
+          }
           wallets {
             _id
             walletType
@@ -91,9 +96,7 @@ export default {
       const response = await this.$http.post('', graphqlQuery)
       const resData = await response.json()
       const responseData = resData.data.user
-      this.$store.commit('initWallets', responseData.wallets)
-      this.$store.commit('initIncomes', responseData.incomes)
-      this.$store.commit('initExpenses', responseData.expenses)
+      this.$store.commit('initAppData', responseData)
       this.loading = false
     } catch (err) {
       console.log(err)

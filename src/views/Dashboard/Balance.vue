@@ -22,9 +22,12 @@ export default {
   },
   methods: {
     setBalanceAmount () {
+      let balance = 0
       this.$store.state.wallets.forEach(wallet => {
-        this.balance += wallet.amount
+        balance += wallet.amount
       })
+      this.balance = balance
+      this.$store.commit('initBalance', balance)
     }
   }
 }
@@ -34,16 +37,18 @@ export default {
 <style lang="scss" scoped>
 .balance {
     background: $color-white;
-    border-radius: 1rem;
+    // border-radius: 1rem;
     display: flex;
     flex-direction: column;
     padding: 1rem;
     padding-left: 3rem;
     width: 100%;
+    & h2 {
+        margin-bottom: 1rem;
+    }
     &__value {
       height: 5rem;
       font-size: 2.4rem;
-      margin-bottom: 1rem;
       color: $color-primary;
     }
 }

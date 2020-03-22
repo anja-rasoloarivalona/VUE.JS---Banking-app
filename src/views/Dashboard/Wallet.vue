@@ -30,7 +30,7 @@ export default {
     'app-wallet': Wallet
   }
 }
-// inital 50 + 150 par carte * 3 = 500
+// title 30 + padding 30 + margin 10 = 70
 </script>
 
 <style lang="scss" scoped>
@@ -38,9 +38,8 @@ export default {
     background: $color-white;
     padding: 1.5rem;
     width: 100%;
-    border-radius: 2rem;
     & h2 {
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
     }
     &__list {
         display: flex;

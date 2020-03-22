@@ -13,7 +13,8 @@ export default new Vuex.Store({
     balance: 0,
     wallets: [],
     incomes: [],
-    expenses: []
+    expenses: [],
+    transactions: []
   },
   mutations: {
     authUser (state, userData) {

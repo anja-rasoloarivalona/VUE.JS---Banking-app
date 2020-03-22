@@ -55,6 +55,9 @@ export default {
 .grey {
  fill:$color-grey--light
 }
+.grey--dark {
+  fill: $color-grey--dark
+}
 .primary {
   fill: $color-primary;
 }

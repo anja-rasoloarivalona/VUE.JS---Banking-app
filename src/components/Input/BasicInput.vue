@@ -6,7 +6,7 @@
               :id="id"
               @input="updateSelf($event.target.value)"
               :value="value"
-              :class="{'bgWhite': bgWhite }"
+              :class="{'bg-grey': bgGrey }"
             />
         </label>
     </div>
@@ -21,8 +21,7 @@ export default {
   props: {
     value: [String, Number],
     id: String,
-    bgWhite: Boolean,
-    amount: Boolean
+    bgGrey: Boolean
   },
   methods: {
     updateSelf (name) {
@@ -51,15 +50,15 @@ export default {
 
     & input {
         height: 4rem;
-        background: $color-grey--light;
+        background: $color-white;
         border: none;
         padding-left: 1rem;
         border-radius: 0.5rem;
         &:focus {
         outline: none;
         }
-        &.bgWhite {
-          background: $color-white;
+        &.bg-grey {
+          background: $color-grey--light;
         }
     }
 }

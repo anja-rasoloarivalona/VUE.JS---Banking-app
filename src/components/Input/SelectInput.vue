@@ -3,13 +3,13 @@
       <span v-if="id">{{ id }}</span>
       <div
         class="select"
-        :class="{'bg-white': bgWhite, 'all-radius': !showList, 'top-radius': showList}"
+        :class="{'bg-grey': bgGrey, 'all-radius': !showList, 'top-radius': showList}"
         v-click-outside="closeList">
-          <div class="select__value" @click.stop="showList = !showList">{{ selected }}</div>
+          <div class="select__value" @click.stop="showList = !showList">{{ value }}</div>
           <ul class="select__list" v-show="showList">
               <li v-for="(option, index) in options"
                   :key="index" class="select__list__item"
-                  :class="{active: option === selected}"
+                  :class="{active: option === value}"
                   @click="selectOption(option)">
                   {{ option }}
               </li>
@@ -22,30 +22,30 @@
 export default {
   data () {
     return {
-      showList: false,
-      selected: null
+      showList: false
     }
+  },
+  model: {
+    prop: 'value',
+    event: 'click'
   },
   methods: {
     selectOption (value) {
       this.showList = false
-      this.selected = value
-      this.$emit('selectInput', value)
+      this.$emit('click', value)
     },
     closeList: function () {
       this.showList = false
     }
   },
   props: {
+    value: [String, Number],
     options: {
       type: Array,
       required: true
     },
     id: String,
-    bgWhite: Boolean
-  },
-  created () {
-    this.selected = this.options[0]
+    bgGrey: Boolean
   }
 }
 </script>
@@ -64,10 +64,10 @@ label {
 }
 .select {
     width: 100%;
-    background: $color-grey--light;
+    background: $color-white;
     position: relative;
-    &.bg-white {
-      background: $color-white;
+    &.bg-grey {
+      background: $color-grey--light;
     }
     &.all-radius {
       border-radius: .5rem;

@@ -16,6 +16,40 @@ export default new Vuex.Store({
     expenses: [],
     transactions: []
   },
+  getters: {
+    usersTransactions: state => {
+      const transactions = {}
+      state.incomes.forEach(income => {
+        transactions[income.name] = {
+          _id: income._id,
+          amount: income.amount,
+          counterparty: income.from,
+          transactionType: 'income'
+        }
+      })
+      state.expenses.forEach(expense => {
+        transactions[expense.name] = {
+          _id: expense._id,
+          transactionType: 'expense',
+          expenseType: expense.expenseType,
+          category: expense.category,
+          amount: expense.amount
+        }
+      })
+      return transactions
+    },
+    walletsName: state => {
+      const walletsNameArray = []
+      state.wallets.forEach(wallet => {
+        if (wallet.supplier) {
+          walletsNameArray.push(`${wallet.walletType} - ${wallet.supplier}`)
+        } else {
+          walletsNameArray.push(`${wallet.walletType}`)
+        }
+      })
+      return walletsNameArray
+    }
+  },
   mutations: {
     authUser (state, userData) {
       state.token = userData.token

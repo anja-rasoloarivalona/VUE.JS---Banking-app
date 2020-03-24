@@ -28,7 +28,11 @@ if (data) {
 }
 
 Vue.filter('amount', function (value) {
-  return value.toLocaleString()
+  let res = value
+  if (res < 0) {
+    res = value * -1
+  }
+  return res.toLocaleString()
 })
 
 Vue.filter('short-date', function (value) {

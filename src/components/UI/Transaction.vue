@@ -15,17 +15,19 @@
     <td class="transaction__details">
         <div>{{transaction.details}}</div>
     </td>
-    <td class="transaction__amount">
-        <div>${{parseInt(transaction.amount) | amount}}</div>
+    <td class="transaction__amount" :class="{expense: transaction.amount < 0, income: transaction.amount >= 0 }">
+        <div>
+          ${{transaction.amount | amount}}
+        </div>
     </td>
-    <td class="transaction__status">
+    <td class="transaction__status" v-click-outside="closeCtaList">
         <div>{{transaction.status}}</div>
-        <div class="transaction__cta">
+        <div class="transaction__cta" @click="showCtaList = !showCtaList">
           <span></span>
           <span></span>
           <span></span>
         </div>
-        <ul class="transaction__cta__list">
+        <ul class="transaction__cta__list" v-if="showCtaList">
           <li class="transaction__cta__list__item">
               Edit
           </li>
@@ -44,6 +46,11 @@ export default {
     return {
       walletName: '',
       showCtaList: false
+    }
+  },
+  methods: {
+    closeCtaList () {
+      this.showCtaList = false
     }
   },
   computed: {
@@ -67,6 +74,9 @@ export default {
 
 <style lang="scss" scoped>
 .transaction {
+  &.bg-blue {
+    background: rgb(231, 241, 248);
+  }
   &__id {
     // background: turquoise;
     width: 8%;
@@ -80,7 +90,12 @@ export default {
   }
   &__amount {
     width: 13%;
-    // background: blue;
+    &.expense {
+      font-weight: bold;
+    }
+    &.income {
+      color: green
+    }
   }
   &__status {
     width: 16%;
@@ -115,6 +130,26 @@ export default {
       background: $color-grey--main;
       & span {
         background: $color-white;
+      }
+    }
+    &__list {
+      width: 10rem;
+      background: $color-white;
+      position: absolute;
+      list-style: none;
+      top: 5rem;
+      right: 0;
+      z-index: 2;
+      box-shadow: 0px 0px 13px 2px rgba(209,202,209,1);
+      border-radius: .5rem;
+      &__item {
+        padding: 1rem;
+        cursor: pointer;
+        transition: all .3s ease-in;
+        &:hover {
+          background: $color-grey--dark;
+          color: $color-white
+        }
       }
     }
   }

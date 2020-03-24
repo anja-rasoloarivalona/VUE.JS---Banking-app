@@ -14,9 +14,11 @@
             </thead>
             <tbody>
                 <app-transaction
-                    v-for="(transaction) in this.$store.state.transactions"
+                    v-for="(transaction, index) in this.$store.state.transactions"
                     :key="transaction._id"
-                    :transaction="transaction">
+                    :transaction="transaction"
+                    :class="{'bg-white': index % 2 === 0, 'bg-blue': index % 2 !== 0 }">
+                >
                 </app-transaction>
             </tbody>
         </table>

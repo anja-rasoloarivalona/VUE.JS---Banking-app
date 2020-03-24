@@ -168,6 +168,8 @@ export default {
         const resData = await response.json()
         const responseData = resData.data.addTransaction
         this.$store.commit('addTransaction', responseData)
+        this.loading = false
+        this.$emit('closeForm')
         console.log(responseData)
       } catch (err) {
         this.loading = false

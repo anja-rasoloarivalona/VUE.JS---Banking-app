@@ -7,11 +7,14 @@
            </div>
         </div>
         <div class="transactions" v-else>
+            <div class="transactions__add" @click="showForm = true">
+                <app-icon name="add" size="extra-large" color="grey--dark"/>
+           </div>
             <transactions-table></transactions-table>
         </div>
     </div>
     <div v-else>
-        <transactions-form></transactions-form>
+        <transactions-form @closeForm="showForm = false"></transactions-form>
     </div>
 </template>
 

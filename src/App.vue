@@ -52,6 +52,20 @@ export default {
            amount
            date
           }
+          transactions {
+            _id
+            shortId
+            date
+            name
+            counterparty
+            amount
+            details
+            usedWallet
+            status
+            transactionType
+            category
+            owner
+          }
           wallets {
             _id
             walletType

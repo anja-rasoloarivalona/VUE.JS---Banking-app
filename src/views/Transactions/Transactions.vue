@@ -7,7 +7,7 @@
            </div>
         </div>
         <div class="transactions" v-else>
-            <div>Full</div>
+            <transactions-table></transactions-table>
         </div>
     </div>
     <div v-else>
@@ -17,6 +17,7 @@
 
 <script>
 import TransactionsForm from './TransactionsForm'
+import TransactionTable from './TransactionsTable'
 export default {
   data () {
     return {
@@ -24,7 +25,8 @@ export default {
     }
   },
   components: {
-    'transactions-form': TransactionsForm
+    'transactions-form': TransactionsForm,
+    'transactions-table': TransactionTable
   }
 }
 </script>

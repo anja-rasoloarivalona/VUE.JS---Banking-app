@@ -21,33 +21,28 @@ export default new Vuex.Store({
       const transactions = {}
       state.incomes.forEach(income => {
         transactions[income.name] = {
-          _id: income._id,
-          amount: income.amount,
-          counterparty: income.from,
+          ...income,
           transactionType: 'income'
         }
       })
       state.expenses.forEach(expense => {
         transactions[expense.name] = {
-          _id: expense._id,
-          transactionType: 'expense',
-          expenseType: expense.expenseType,
-          category: expense.category,
-          amount: expense.amount
+          ...expense,
+          transactionType: 'expense'
         }
       })
       return transactions
     },
-    walletsName: state => {
-      const walletsNameArray = []
+    walletsNameAndId: state => {
+      const wallets = {}
       state.wallets.forEach(wallet => {
         if (wallet.supplier) {
-          walletsNameArray.push(`${wallet.walletType} - ${wallet.supplier}`)
+          wallets[`${wallet.walletType} - ${wallet.supplier}`] = wallet._id
         } else {
-          walletsNameArray.push(`${wallet.walletType}`)
+          wallets[`${wallet.walletType}`] = wallet._id
         }
       })
-      return walletsNameArray
+      return wallets
     }
   },
   mutations: {
@@ -62,6 +57,7 @@ export default new Vuex.Store({
       state.incomes = data.incomes
       state.expenses = data.expenses
       state.goal = data.goal
+      state.transactions = data.transactions
     },
     initWallets (state, wallets) {
       state.wallets = wallets
@@ -86,6 +82,13 @@ export default new Vuex.Store({
     },
     initBalance (state, amount) {
       state.balance = amount
+    },
+    addTransaction (state, data) {
+      state.balance = state.balance += data.transaction.amount
+      state.transactions = [...state.transactions, data.transaction]
+      state.wallets = data.wallets
+      state.incomes = data.incomes
+      state.expenses = data.expenses
     }
   },
   actions: {

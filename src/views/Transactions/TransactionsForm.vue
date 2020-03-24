@@ -10,7 +10,7 @@
             <app-select-input :id="'name'" v-model="input.name" :options="[...Object.keys(usersTransactions), 'New transaction']" />
             <app-basic-input  :id="'amount'" v-model="input.amount" />
             <app-basic-input  :id="'details'" v-model="input.details" />
-            <app-select-input :id="'wallet'" v-model="input.usedWallet" :options="walletsName" />
+            <app-select-input :id="'wallet'" v-model="input.usedWallet" :options="Object.keys(walletsNameAndId)" />
             <app-select-input :id="'status'" v-model="input.status" :options="['Paid', 'Pending']" />
             <app-basic-input :id="'counter party'" v-model="input.counterparty" v-if="!isFixedExpenses"/>
         </form>
@@ -32,6 +32,7 @@ export default {
         amount: 0,
         details: '',
         usedWallet: '',
+        walletId: '',
         status: 'Paid',
         transactionType: null,
         counterparty: ''
@@ -49,22 +50,28 @@ export default {
       if (transactionType === 'expense') {
         this.category = this.usersTransactions[name].category
         if (this.usersTransactions[name].expenseType === 'fixed') {
+          this.input.date = new Date(this.usersTransactions[name].nextPayout)
           this.input.amount = this.usersTransactions[name].amount
         } else {
           this.input.amount = 0
           this.input.counterparty = ''
+          this.input.date = new Date()
         }
       } else {
-        this.input.counterparty = this.usersTransactions[name].counterparty
+        this.input.counterparty = this.usersTransactions[name].from
         this.input.amount = this.usersTransactions[name].amount
+        this.input.date = new Date(this.usersTransactions[name].nextPayout)
         this.category = ''
       }
+    },
+    'input.usedWallet': function (waletName) {
+      this.input.walletId = this.walletsNameAndId[waletName]
     }
   },
   computed: {
     ...mapGetters([
       'usersTransactions',
-      'walletsName'
+      'walletsNameAndId'
     ]),
     isFixedExpenses () {
       if (this.userFixedExpenses.includes(this.input.name)) {
@@ -82,11 +89,89 @@ export default {
     }
     this.userFixedExpenses = userFixedExpenses
     this.input.name = Object.keys(this.usersTransactions)[0]
-    this.input.usedWallet = this.walletsName[0]
+    this.input.usedWallet = Object.keys(this.walletsNameAndId)[0]
+    this.input.walletId = this.walletsNameAndId[this.input.usedWallet]
   },
   methods: {
-    addTransaction () {
-      console.log('add', this.input, this.category)
+    addTransaction: async function () {
+      this.loading = true
+      const graphqlQuery = {
+        query: `mutation {
+              addTransaction(transactionInput: {
+                  date: "${this.input.date}",
+                  name: "${this.input.name}",
+                  counterparty: "${this.input.counterparty}",
+                  amount: "${this.input.amount}",
+                  details: "${this.input.details}",
+                  usedWallet: "${this.input.usedWallet}",
+                  walletId: "${this.input.walletId}",
+                  status: "${this.input.status}",
+                  transactionType: "${this.input.transactionType}",
+                  category: "${this.category}",
+              }) {
+                    transaction {
+                        _id
+                        shortId
+                        date
+                        name
+                        counterparty
+                        amount
+                        details
+                        usedWallet
+                        status
+                        transactionType
+                        category
+                        owner
+                    }
+                     wallets {
+                        _id
+                        walletType
+                        amount
+                        supplier
+                        shortId
+                        color
+                    }
+                    incomes {
+                        _id
+                        name
+                        amount
+                        from
+                        frequency {
+                            counter
+                            period
+                        }
+                        lastPayout
+                        nextPayout
+                        autoWriting
+                        notification
+                    }
+                    expenses {
+                        _id
+                        name
+                        amount
+                        category
+                        expenseType
+                        lastPayout
+                        nextPayout
+                        used
+                        owner
+                        frequency {
+                          counter
+                          period
+                        }
+                    }
+              }
+          }`
+      }
+      try {
+        const response = await this.$http.post('', graphqlQuery)
+        const resData = await response.json()
+        const responseData = resData.data.addTransaction
+        this.$store.commit('addTransaction', responseData)
+        console.log(responseData)
+      } catch (err) {
+        this.loading = false
+      }
     }
   }
 }

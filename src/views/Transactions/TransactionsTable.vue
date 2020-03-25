@@ -31,7 +31,6 @@ import Transaction from '@/components/UI/Transaction'
 export default {
   methods: {
     edit (transaction) {
-      console.log('tablle', transaction.date)
       this.$emit('editTransaction', transaction)
     }
   },

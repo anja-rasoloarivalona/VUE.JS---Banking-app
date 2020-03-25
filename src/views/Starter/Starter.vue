@@ -1,61 +1,51 @@
 <template>
     <div class="starter">
       <header class="starter__link">
-                <div v-if="action === 'login' && !isAuth" @click="action = 'signup'">Create account</div>
-                <div v-else-if="action === 'signup' && !isAuth" @click="action = 'login'">Login</div>
+                <div v-if="action === 'login' && mode === 'app-auth'" @click="action = 'signup'">Create account</div>
+                <div v-else-if="action === 'signup' && mode === 'app-auth'" @click="action = 'login'">Login</div>
                 <div v-else @click="logout">Logout</div>
       </header>
-      <component
+      <transition name="flip" mode="out-in">
+        <component
           :is="mode"
           :action="action"
-          :submitSuccess="submitSuccess"
-          :submitSucceeded="submitSucceeded">
-      </component>
+        >
+        </component>
+      </transition>
     </div>
 </template>
 
 <script>
 import Auth from './Auth/Auth'
+import Welcome from './Welcome/Welcome'
 import Setup from './Setup/Setup'
-import { EventBus } from '@/utilities/event-bus.js'
 
 export default {
   data () {
     return {
-      isAuth: false,
-      mode: 'app-auth',
-      action: 'login',
-      submitSuccess: false
+      action: 'login'
     }
   },
-  created () {
-    EventBus.$on('setupStarted', () => {
-      this.mode = 'app-setup'
-      this.action = 'login'
-      this.submitSuccess = false
-    })
-    const userStatus = this.$store.state.status
-    if (userStatus === 'created') {
-      this.isAuth = true
-      this.submitSuccess = true
+  computed: {
+    mode () {
+      if (this.$store.state.auth.appStatus === 'authentication') {
+        return 'app-auth'
+      }
+      if (this.$store.state.auth.appStatus === 'welcome') {
+        return 'app-welcome'
+      }
+      return 'app-setup'
     }
   },
   methods: {
     logout () {
-      localStorage.removeItem('bank-data')
-      this.isAuth = false
-      this.mode = 'app-auth'
-      this.action = 'login'
-      this.submitSuccess = false
-    },
-    submitSucceeded () {
-      this.isAuth = true
-      this.submitSuccess = true
+      this.$store.commit('setIsAuthToFalse')
     }
   },
   components: {
     appAuth: Auth,
-    appSetup: Setup
+    appSetup: Setup,
+    appWelcome: Welcome
   }
 }
 </script>

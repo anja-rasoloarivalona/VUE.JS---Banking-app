@@ -6,14 +6,14 @@
                     <app-icon name="add" size="extra-large" color="grey"/>
                 </div>
             </li>
-            <li v-for="(wallet, index) in this.$store.state.wallets"
+            <li v-for="(wallet, index) in this.$store.state.user.wallets"
                 :key="index"
                 class="setup__walletList__item">
               <app-wallet :wallet="wallet" @click.native="passEditWalletData(wallet)"></app-wallet>
             </li>
         </ul>
         <wallet-form v-else @hideForm="hideForm" :editedWallet="editedWallet"/>
-        <app-btn normal primary @click.native="next" v-if="!showForm" :disabled="this.$store.state.wallets.length < 1">
+        <app-btn normal primary @click.native="next" v-if="!showForm" :disabled="this.$store.state.user.wallets.length < 1">
                 Next
         </app-btn>
     </div>
@@ -56,20 +56,21 @@ export default {
         margin: 4rem 0;
         display: grid;
         grid-template-columns: repeat(auto-fit, 25rem);
-        grid-template-rows: 11rem;
-        grid-auto-rows: 11rem;
+        grid-template-rows: 12rem;
+        grid-auto-rows: 12rem;
         column-gap: 2rem;
         row-gap: 2rem;
         &__item {
             width: 25rem;
-            height: 11rem;
+            height: 12rem;
         }
         &__add {
+                margin: 1rem 0;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 width: 25rem;
-                height: 11rem;
+                height: 12rem;
                 border: 1px dashed $color-grey--dark;
                 border-radius: 1rem;
                 padding: 1rem;

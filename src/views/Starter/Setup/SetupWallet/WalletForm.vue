@@ -1,10 +1,10 @@
 <template>
     <div class="walletForm">
         <form class="form">
-                <app-select-input :id="'type'"  :options="walletTypes" @selectInput="walletInput.walletType = $event" bgWhite/>
-                <app-basic-input v-model="walletInput.supplier" :id="'supplier'" bgWhite/>
-                <app-basic-input v-model="walletInput.amount" :id="'amount'" bgWhite/>
-                <app-basic-input v-model="walletInput.shortId" :id="'Last  4 numbers'" bgWhite/>
+                <app-select-input v-model="walletInput.walletType" :id="'type'"  :options="walletTypes" />
+                <app-basic-input v-model="walletInput.supplier" :id="'supplier'" />
+                <app-basic-input v-model="walletInput.amount" :id="'amount'" />
+                <app-basic-input v-model="walletInput.shortId" :id="'Last  4 numbers'" />
                 <div class="form__color">
                       <span>Color</span>
                       <div class="form__color__select">
@@ -58,6 +58,7 @@ export default {
   },
   mounted () {
     if (this.editedWallet) {
+      console.log(this.editedWallet)
       this.walletInput = this.editedWallet
     }
   },
@@ -97,7 +98,8 @@ export default {
         const response = await this.$http.post('', graphqlQuery)
         const resData = await response.json()
         const responseData = resData.data.addWallet
-        this.$store.commit('addWallet', responseData)
+        responseData.type = 'wallets'
+        this.$store.commit('addUserItem', responseData)
         this.$emit('hideForm')
         this.loading = false
       } catch (err) {
@@ -109,7 +111,8 @@ export default {
       this.loading = true
       const graphqlQuery = {
         query: `mutation {
-          editWallet( walletId: "${this.editedWallet._id}", walletInput: {
+          editWallet(walletInput: {
+                      _id: "${this.editedWallet._id}",
                       walletType: "${this.walletInput.walletType}",
                       amount: "${this.walletInput.amount}",
                       supplier: "${this.walletInput.supplier}",
@@ -126,12 +129,12 @@ export default {
             }`
       }
       try {
-        const response = await this.$http.post('', graphqlQuery)
-        const resData = await response.json()
-        const responseData = resData.data.editWallet
+        await this.$http.post('', graphqlQuery)
+        // const response = await this.$http.post('', graphqlQuery)
+        // const resData = await response.json()
+        // const responseData = resData.data.editWallet
         this.loading = false
         this.$emit('hideForm')
-        console.log('Wallet updated', responseData)
       } catch (err) {
         this.loading = false
         console.log(err)

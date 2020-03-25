@@ -6,20 +6,20 @@
 </template>
 
 <script>
-import LoginSuccess from './LoginSucces'
-import SignupSuccess from './SignupSuccess'
+import WelcomeLogin from './WelcomeLogin'
+import WelcomeSignup from './WelcomeSignup'
 export default {
   props: {
-    authMode: String
+    action: String
   },
   computed: {
     successType () {
-      return `${this.authMode}-success`
+      return `welcome-${this.action}`
     }
   },
   components: {
-    loginSuccess: LoginSuccess,
-    signupSuccess: SignupSuccess
+    welcomeLogin: WelcomeLogin,
+    welcomeSignup: WelcomeSignup
   }
 }
 </script>

@@ -2,10 +2,10 @@
   <span>
     <div class="form__title">Login</div>
     <slot name="error"></slot>
-    <app-basic-input v-model="userInput.email" :id="'email'"/>
-    <app-basic-input v-model="userInput.password" :id="'password'"/>
+    <app-basic-input v-model="userInput.email" :id="'email'" bg-grey/>
+    <app-basic-input v-model="userInput.password" :id="'password'" bg-grey/>
     <app-btn @click="submit">
-        <span v-if="!loading">Submit</span>
+        <span v-if="!loading">Login</span>
         <app-spinner v-else></app-spinner>
     </app-btn>
   </span>
@@ -17,7 +17,6 @@ export default {
     userInput: Object,
     loading: Boolean,
     submit: Function
-    // error: [Array, Boolean]
   }
 }
 </script>

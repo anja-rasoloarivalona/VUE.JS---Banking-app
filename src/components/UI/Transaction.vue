@@ -53,7 +53,6 @@ export default {
       this.showCtaList = false
     },
     edit () {
-      console.log('form', this.transaction.date)
       this.$emit('editTransaction1', this.transaction)
     }
   },

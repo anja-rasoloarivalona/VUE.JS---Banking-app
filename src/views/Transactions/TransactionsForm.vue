@@ -17,8 +17,8 @@
             <app-select-input :id="'status'" v-model="input.status" :options="['Paid', 'Pending']" />
             <app-basic-input :id="'counter party'" v-model="input.counterparty" v-if="!isFixedExpenses"/>
         </form>
-        <app-btn normal primary @click.native="addTransaction">
-                <span v-if="!loading">Add</span>
+        <app-btn normal primary @click.native="submitForm">
+                <span v-if="!loading" v-text="editedTransaction ? 'Edit': 'Add'"></span>
                 <app-spinner v-else></app-spinner>
         </app-btn>
     </div>
@@ -26,10 +26,12 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { addTransactionQuery, editTransactionQUery } from './transactionsGraphqlQuery.js'
 export default {
   data () {
     return {
       input: {
+        _id: null,
         date: new Date(),
         name: null,
         amount: 0,
@@ -67,6 +69,13 @@ export default {
           this.input.amount = this.usersTransactions[name].amount
           this.input.category = ''
         }
+      } else {
+        const transactionType = this.usersTransactions[name].transactionType
+        if (transactionType === 'expense') {
+          this.input.category = this.usersTransactions[name].category
+        } else {
+          this.input.category = ''
+        }
       }
     },
     'input.usedWallet': function (waletName) {
@@ -98,85 +107,35 @@ export default {
       this.input.usedWallet = Object.keys(this.walletsNameAndId)[0]
       this.input.walletId = this.walletsNameAndId[this.input.usedWallet]
     } else {
+      let usedWallet = ''
+      for (const walletName in this.walletsNameAndId) {
+        if (this.walletsNameAndId[walletName] === this.editedTransaction.usedWallet) {
+          usedWallet = walletName
+        }
+      }
+      console.log(this.editedTransaction)
       const editedData = {
         ...this.editedTransaction,
-        date: new Date(this.editedTransaction.date)
+        date: new Date(this.editedTransaction.date),
+        amount: this.editedTransaction.amount >= 0 ? this.editedTransaction.amount : this.editedTransaction.amount * -1,
+        walletId: this.editedTransaction.usedWallet,
+        usedWallet: usedWallet
       }
       this.input = editedData
       this.date = this.editedTransaction.date
     }
   },
   methods: {
+    submitForm () {
+      if (this.editedTransaction) {
+        this.editTransaction()
+      } else {
+        this.addTransaction()
+      }
+    },
     addTransaction: async function () {
       this.loading = true
-      const graphqlQuery = {
-        query: `mutation {
-              addTransaction(transactionInput: {
-                  date: "${this.input.date}",
-                  name: "${this.input.name}",
-                  counterparty: "${this.input.counterparty}",
-                  amount: "${this.input.amount}",
-                  details: "${this.input.details}",
-                  usedWallet: "${this.input.usedWallet}",
-                  walletId: "${this.input.walletId}",
-                  status: "${this.input.status}",
-                  transactionType: "${this.input.transactionType}",
-                  category: "${this.input.category}",
-              }) {
-                    transaction {
-                        _id
-                        shortId
-                        date
-                        name
-                        counterparty
-                        amount
-                        details
-                        usedWallet
-                        status
-                        transactionType
-                        category
-                        owner
-                    }
-                     wallets {
-                        _id
-                        walletType
-                        amount
-                        supplier
-                        shortId
-                        color
-                    }
-                    incomes {
-                        _id
-                        name
-                        amount
-                        from
-                        frequency {
-                            counter
-                            period
-                        }
-                        lastPayout
-                        nextPayout
-                        autoWriting
-                        notification
-                    }
-                    expenses {
-                        _id
-                        name
-                        amount
-                        category
-                        expenseType
-                        lastPayout
-                        nextPayout
-                        used
-                        owner
-                        frequency {
-                          counter
-                          period
-                        }
-                    }
-              }
-          }`
-      }
+      const graphqlQuery = addTransactionQuery(this.input)
       try {
         const response = await this.$http.post('', graphqlQuery)
         const resData = await response.json()
@@ -185,6 +144,19 @@ export default {
         this.loading = false
         this.$emit('closeForm')
       } catch (err) {
+        this.loading = false
+      }
+    },
+    editTransaction: async function () {
+      this.loading = true
+      const graphqlQuery = editTransactionQUery(this.input)
+      try {
+        const response = await this.$http.post('', graphqlQuery)
+        const resData = await response.json()
+        const responseData = resData.data.editedTransaction
+        console.log(responseData)
+      } catch (err) {
+        console.log(err)
         this.loading = false
       }
     }

@@ -1,7 +1,7 @@
 <template>
-    <div class="loginSuccess">
-        <div class="loginSuccess__title">Welcome back {{this.$store.state.userName}}!</div>
-        <div class="loginSuccess__para">
+    <div class="welcome-login">
+        <div class="welcome-login__title">Welcome back {{this.$store.state.auth.userName}}!</div>
+        <div class="welcome-login__para">
             Let's setup your account and give you the control of your pesonnal finance.
         </div>
         <app-btn @click.native="startSetup" normal primary>
@@ -11,20 +11,23 @@
 </template>
 
 <script>
-import { EventBus } from '@/utilities/event-bus.js'
 export default {
   methods: {
     startSetup () {
-      EventBus.$emit('setupStarted')
+      this.$store.commit('setAppStatus', 'setting-up')
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.loginSuccess {
+.welcome-login {
+    width: 100vw;
+    height: 100vh;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     &__title {
         font-size: 3rem;
         font-weight: bold;

@@ -1,32 +1,33 @@
 <template>
-    <div class="signupSuccess">
-        <div class="signupSuccess__title">Welcome {{this.$store.state.userName}}!</div>
-        <div class="signupSuccess__board">
+    <div class="welcome-signup">
+        <div class="welcome-signup__title">Welcome {{this.$store.state.auth.userName}}!</div>
+        <div class="welcome-signup__board">
             <h2>Congratulations! Your account has been created successfully</h2>
         </div>
-        <app-btn normal primary @click="startSetup">
+        <app-btn normal primary @click.native="startSetup">
             Get started
         </app-btn>
     </div>
 </template>
 
 <script>
-import { EventBus } from '@/utilities/event-bus.js'
 export default {
   methods: {
     startSetup () {
-      EventBus.$emit('setupStarted')
+      this.$store.commit('setAppStatus', 'setting-up')
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.signupSuccess {
-    width: 80%;
+.welcome-signup {
+    width: 100vw;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     &__title {
         font-size: 2rem;
         color: $color-grey--dark;

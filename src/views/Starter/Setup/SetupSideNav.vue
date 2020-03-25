@@ -6,7 +6,7 @@
                 <li class="setup__sidenav__stepsList__item"
                     :class="{
                         current: currentSetup === 'setup-wallet',
-                        checked : this.$store.state.wallets.length > 0
+                        checked : this.$store.state.user.wallets.length > 0
                     }"
                     @click="$emit('selectSetup', 'wallet')">
                     <div class="setup__sidenav__stepsList__item__text">Wallet</div>
@@ -22,7 +22,7 @@
                 <li class="setup__sidenav__stepsList__item"
                     :class="{
                       current: currentSetup === 'setup-income',
-                      checked: this.$store.state.incomes.length > 0 && ['setup-expense', 'setup-savings-plan'].includes(currentSetup)
+                      checked: this.$store.state.user.incomes.length > 0 && ['setup-expense', 'setup-savings-plan'].includes(currentSetup)
                     }"
                     @click="$emit('selectSetup', 'income')">
                     <div class="setup__sidenav__stepsList__item__text">Income</div>
@@ -35,7 +35,7 @@
 
                 <li class="setup__sidenav__stepsList__item"
                     :class="{current: currentSetup === 'setup-expense',
-                    checked: this.$store.state.expenses.length > 0 && ['setup-savings-plan'].includes(currentSetup)
+                    checked: this.$store.state.user.expenses.length > 0 && ['setup-savings-plan'].includes(currentSetup)
                     }"
                 >
                     <div class="setup__sidenav__stepsList__item__text">Expense</div>
@@ -61,7 +61,7 @@
 export default {
   computed: {
     checkWallets () {
-      if (this.$store.state.wallets.length > 0) {
+      if (this.$store.state.user.wallets.length > 0) {
         return 'white'
       } else {
         return 'primary'

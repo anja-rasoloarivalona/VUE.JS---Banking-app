@@ -30,7 +30,6 @@ export default {
   },
   methods: {
     edit (transaction) {
-      console.log('root', transaction.date)
       this.showForm = true
       this.editedTransaction = transaction
     }

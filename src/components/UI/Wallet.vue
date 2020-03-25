@@ -60,7 +60,8 @@ export default {
         width: 100%;
     }
     &.xl {
-      width: 40rem;
+      min-width: 40rem;
+      max-width: 40rem;
       height: 20rem;
       padding: 3rem;
       & .wallet {

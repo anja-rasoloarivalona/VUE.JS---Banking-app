@@ -34,8 +34,7 @@ export default {
     }
   },
   props: {
-    authMode: String,
-    submitSucceeded: Function
+    authMode: String
   },
   computed: {
     activeForm () {
@@ -92,7 +91,6 @@ export default {
                         lastPayout
                         nextPayout
                         used
-                        owner
                         frequency {
                           counter
                           period
@@ -120,22 +118,18 @@ export default {
         const response = await this.$http.post('', graphqlQuery)
         const resData = await response.json()
         const responseData = resData.data.login
+        const remainingMilliseconds = 24 * 60 * 60 * 1000
+        const expiryDate = new Date(new Date().getTime() + remainingMilliseconds).toISOString()
         const data = {
           token: responseData.token,
           userId: responseData.user._id,
           userName: responseData.user.name,
-          status: responseData.user.status
+          userStatus: responseData.user.status,
+          appStatus: responseData.user.status === 'created' ? 'welcome' : 'running',
+          expiryDate: expiryDate
         }
-        this.$store.commit('authUser', data)
-        this.$store.commit('initWallets', responseData.user.wallets)
-        this.$store.commit('initIncomes', responseData.user.incomes)
-        this.$store.commit('initExpenses', responseData.user.expenses)
-        const remainingMilliseconds = 24 * 60 * 60 * 1000
-        const expiryDate = new Date(new Date().getTime() + remainingMilliseconds).toISOString()
-        const localData = { ...data, expiryDate }
-        localStorage.setItem('bank-data', JSON.stringify(localData))
+        this.$store.commit('setIsAuthToTrue', data)
         this.loading = false
-        this.submitSucceeded()
       } catch (err) {
         this.loading = false
         const errorData = err.body.errors
@@ -165,19 +159,18 @@ export default {
         const response = await this.$http.post('', graphqlQuery)
         const resData = await response.json()
         const responseData = resData.data.createUser
+        const remainingMilliseconds = 24 * 60 * 60 * 1000
+        const expiryDate = new Date(new Date().getTime() + remainingMilliseconds).toISOString()
         const data = {
           token: responseData.token,
           userId: responseData.user._id,
           userName: responseData.user.name,
-          status: responseData.user.status
+          userStatus: responseData.user.status,
+          appStatus: 'welcome',
+          expiryDate: expiryDate
         }
-        this.$store.commit('authUser', data)
-        const remainingMilliseconds = 24 * 60 * 60 * 1000
-        const expiryDate = new Date(new Date().getTime() + remainingMilliseconds).toISOString()
-        const localData = { ...data, expiryDate }
-        localStorage.setItem('bank-data', JSON.stringify(localData))
+        this.$store.commit('setIsAuthToTrue', data)
         this.loading = false
-        this.submitSucceeded()
       } catch (err) {
         this.loading = false
         console.log(err)

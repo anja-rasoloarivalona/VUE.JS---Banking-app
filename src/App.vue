@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view name="starter" v-if="this.$store.state.status !== 'active'"/>
+    <router-view name="starter" v-if="!isAppReady"/>
     <div v-else-if="!loading" class="app-main">
       <sidebar></sidebar>
       <navbar></navbar>
@@ -24,13 +24,22 @@ export default {
       loading: true
     }
   },
+  computed: {
+    isAppReady () {
+      if (this.$store.state.auth.appStatus !== 'running') {
+        return false
+      } else return true
+    }
+  },
   components: {
     Sidebar,
     Navbar
   },
   created: async function () {
+    // localStorage.removeItem('bank-data')
     const localData = localStorage.getItem('bank-data')
     if (!localData) {
+      console.log('no local data')
       return
     }
     const data = JSON.parse(localData)
@@ -42,7 +51,7 @@ export default {
       console.log('Token not valid anymore')
       return
     }
-    this.$store.commit('authUser', data)
+    this.$store.commit('setIsAuthToTrue', data)
     Vue.http.headers.common.Authorization = 'Bearer ' + data.token
     const graphqlQuery = {
       query: `{
@@ -52,19 +61,23 @@ export default {
            amount
            date
           }
-          transactions {
-            _id
-            shortId
-            date
-            name
-            counterparty
-            amount
-            details
-            usedWallet
-            status
-            transactionType
-            category
-            owner
+          monthlyReports {
+            period
+            income
+            expense
+            transactions {
+              _id
+              shortId
+              date
+              name
+              counterparty
+              amount
+              details
+              usedWalletId
+              status
+              transactionType
+              category
+            }
           }
           wallets {
             _id
@@ -83,7 +96,6 @@ export default {
             lastPayout
             nextPayout
             used
-            owner
             frequency {
                 counter
                 period
@@ -178,5 +190,28 @@ color: $color-primary
 }
 .color-grey-main {
 color: $color-grey--main
+}
+
+.flip-enter-active {
+    animation: flip-in .5s ease-out forwards;
+}
+.flip-leave-active {
+    animation: flip-out .5s ease-out forwards;
+}
+@keyframes flip-out {
+    from {
+        transform: rotateY(0deg);
+    }
+    to {
+        transform: rotateY(90deg);
+    }
+}
+@keyframes flip-in {
+    from {
+        transform: rotateY(90deg);
+    }
+    to {
+        transform: rotateY(0deg);
+    }
 }
 </style>

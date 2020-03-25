@@ -2,11 +2,11 @@
   <span>
       <div class="form__title">Signup</div>
       <slot name="error"></slot>
-      <app-basic-input v-model="userInput.name" :id="'name'"/>
-      <app-basic-input v-model="userInput.email" :id="'email'"/>
-      <app-basic-input v-model="userInput.password" :id="'password'"/>
+      <app-basic-input v-model="userInput.name" :id="'name'" bg-grey/>
+      <app-basic-input v-model="userInput.email" :id="'email'" bg-grey/>
+      <app-basic-input v-model="userInput.password" :id="'password'" bg-grey/>
       <app-btn @click="submit">
-          <span v-if="!loading">Submit</span>
+          <span v-if="!loading">Sign up</span>
           <app-spinner v-else></app-spinner>
       </app-btn>
   </span>

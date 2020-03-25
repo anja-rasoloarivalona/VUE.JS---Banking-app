@@ -5,14 +5,7 @@
             <h1>Personnal finance</h1>
         </div>
         <div class="auth__cta">
-            <transition name="flip" mode="out-in">
-                <component
-                    :is="authState"
-                    :authMode="action"
-                    :submitSucceeded="submitSucceeded"
-                >
-                </component>
-            </transition>
+            <auth-form :authMode="action"></auth-form>
         </div>
 
     </div>
@@ -20,31 +13,17 @@
 
 <script>
 import AuthForm from './Form/Form'
-import SuccessForm from './Success/Success'
-
 export default {
   props: {
-    action: String,
-    submitSuccess: Boolean,
-    submitSucceeded: Function
-  },
-  computed: {
-    authState () {
-      if (this.submitSuccess) {
-        return 'success-form'
-      } else {
-        return 'auth-form'
-      }
-    }
+    action: String
   },
   components: {
-    authForm: AuthForm,
-    successForm: SuccessForm
+    authForm: AuthForm
   }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .auth {
     width: 100%;
     height: 100%;
@@ -77,26 +56,5 @@ export default {
         position: relative;
     }
 }
-.flip-enter-active {
-    animation: flip-in .5s ease-out forwards;
-}
-.flip-leave-active {
-    animation: flip-out .5s ease-out forwards;
-}
-@keyframes flip-out {
-    from {
-        transform: rotateY(0deg);
-    }
-    to {
-        transform: rotateY(90deg);
-    }
-}
-@keyframes flip-in {
-    from {
-        transform: rotateY(90deg);
-    }
-    to {
-        transform: rotateY(0deg);
-    }
-}
+
 </style>

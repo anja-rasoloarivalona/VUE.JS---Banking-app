@@ -28,7 +28,7 @@
           <span></span>
         </div>
         <ul class="transaction__cta__list" v-if="showCtaList">
-          <li class="transaction__cta__list__item">
+          <li class="transaction__cta__list__item" @click="edit">
               Edit
           </li>
           <li class="transaction__cta__list__item">
@@ -51,6 +51,10 @@ export default {
   methods: {
     closeCtaList () {
       this.showCtaList = false
+    },
+    edit () {
+      console.log('form', this.transaction.date)
+      this.$emit('editTransaction1', this.transaction)
     }
   },
   computed: {

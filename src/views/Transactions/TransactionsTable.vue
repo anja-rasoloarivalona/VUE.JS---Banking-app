@@ -17,7 +17,8 @@
                     v-for="(transaction, index) in this.$store.state.transactions"
                     :key="transaction._id"
                     :transaction="transaction"
-                    :class="{'bg-white': index % 2 === 0, 'bg-blue': index % 2 !== 0 }">
+                    :class="{'bg-white': index % 2 === 0, 'bg-blue': index % 2 !== 0 }"
+                    @editTransaction1="edit"
                 >
                 </app-transaction>
             </tbody>
@@ -28,6 +29,12 @@
 <script>
 import Transaction from '@/components/UI/Transaction'
 export default {
+  methods: {
+    edit (transaction) {
+      console.log('tablle', transaction.date)
+      this.$emit('editTransaction', transaction)
+    }
+  },
   components: {
     appTransaction: Transaction
   }

@@ -10,11 +10,11 @@
             <div class="transactions__add" @click="showForm = true">
                 <app-icon name="add" size="extra-large" color="grey--dark"/>
            </div>
-            <transactions-table></transactions-table>
+            <transactions-table @editTransaction="edit"></transactions-table>
         </div>
     </div>
     <div v-else>
-        <transactions-form @closeForm="showForm = false"></transactions-form>
+        <transactions-form @closeForm="showForm = false" :editedTransaction="editedTransaction"></transactions-form>
     </div>
 </template>
 
@@ -24,7 +24,15 @@ import TransactionTable from './TransactionsTable'
 export default {
   data () {
     return {
-      showForm: false
+      showForm: false,
+      editedTransaction: false
+    }
+  },
+  methods: {
+    edit (transaction) {
+      console.log('root', transaction.date)
+      this.showForm = true
+      this.editedTransaction = transaction
     }
   },
   components: {

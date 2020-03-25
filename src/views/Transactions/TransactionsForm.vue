@@ -35,9 +35,9 @@ export default {
         walletId: '',
         status: 'Paid',
         transactionType: null,
-        counterparty: ''
+        counterparty: '',
+        category: ''// for expenses only
       },
-      category: '', // for expenses only
       loading: false,
       date: new Date(),
       userFixedExpenses: []
@@ -45,23 +45,25 @@ export default {
   },
   watch: {
     'input.name': function (name) {
-      const transactionType = this.usersTransactions[name].transactionType
-      this.input.transactionType = transactionType
-      if (transactionType === 'expense') {
-        this.category = this.usersTransactions[name].category
-        if (this.usersTransactions[name].expenseType === 'fixed') {
-          this.input.date = new Date(this.usersTransactions[name].nextPayout)
-          this.input.amount = this.usersTransactions[name].amount
+      if (!this.editedTransaction) {
+        const transactionType = this.usersTransactions[name].transactionType
+        this.input.transactionType = transactionType
+        if (transactionType === 'expense') {
+          this.input.category = this.usersTransactions[name].category
+          if (this.usersTransactions[name].expenseType === 'fixed') {
+            this.input.date = new Date(this.usersTransactions[name].nextPayout)
+            this.input.amount = this.usersTransactions[name].amount
+          } else {
+            this.input.amount = 0
+            this.input.counterparty = ''
+            this.input.date = new Date()
+          }
         } else {
-          this.input.amount = 0
-          this.input.counterparty = ''
-          this.input.date = new Date()
+          this.input.date = new Date(this.usersTransactions[name].nextPayout)
+          this.input.counterparty = this.usersTransactions[name].from
+          this.input.amount = this.usersTransactions[name].amount
+          this.input.category = ''
         }
-      } else {
-        this.input.counterparty = this.usersTransactions[name].from
-        this.input.amount = this.usersTransactions[name].amount
-        this.input.date = new Date(this.usersTransactions[name].nextPayout)
-        this.category = ''
       }
     },
     'input.usedWallet': function (waletName) {
@@ -80,17 +82,26 @@ export default {
     }
   },
   mounted () {
-    const userFixedExpenses = []
-    const usersTransactions = this.usersTransactions
-    for (const transaction in usersTransactions) {
-      if (usersTransactions[transaction].transactionType !== 'income' && usersTransactions[transaction].expenseType === 'fixed') {
-        userFixedExpenses.push(transaction)
+    if (!this.editedTransaction) {
+      const userFixedExpenses = []
+      const usersTransactions = this.usersTransactions
+      for (const transaction in usersTransactions) {
+        if (usersTransactions[transaction].transactionType !== 'income' && usersTransactions[transaction].expenseType === 'fixed') {
+          userFixedExpenses.push(transaction)
+        }
       }
+      this.userFixedExpenses = userFixedExpenses
+      this.input.name = Object.keys(this.usersTransactions)[0]
+      this.input.usedWallet = Object.keys(this.walletsNameAndId)[0]
+      this.input.walletId = this.walletsNameAndId[this.input.usedWallet]
+    } else {
+      const editedData = {
+        ...this.editedTransaction,
+        date: new Date(this.editedTransaction.date)
+      }
+      this.input = editedData
+      this.date = this.editedTransaction.date
     }
-    this.userFixedExpenses = userFixedExpenses
-    this.input.name = Object.keys(this.usersTransactions)[0]
-    this.input.usedWallet = Object.keys(this.walletsNameAndId)[0]
-    this.input.walletId = this.walletsNameAndId[this.input.usedWallet]
   },
   methods: {
     addTransaction: async function () {
@@ -107,7 +118,7 @@ export default {
                   walletId: "${this.input.walletId}",
                   status: "${this.input.status}",
                   transactionType: "${this.input.transactionType}",
-                  category: "${this.category}",
+                  category: "${this.input.category}",
               }) {
                     transaction {
                         _id
@@ -170,11 +181,13 @@ export default {
         this.$store.commit('addTransaction', responseData)
         this.loading = false
         this.$emit('closeForm')
-        console.log(responseData)
       } catch (err) {
         this.loading = false
       }
     }
+  },
+  props: {
+    editedTransaction: [Boolean, Object]
   }
 }
 </script>

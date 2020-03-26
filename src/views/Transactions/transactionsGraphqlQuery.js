@@ -22,15 +22,18 @@ const query = (action, input) => {
         counterparty: "${input.counterparty}",
         amount: "${input.amount}",
         details: "${input.details}",
-        usedWallet: "${input.usedWallet}",
-        walletId: "${input.walletId}",
+        usedWalletId: "${input.walletId}",
         status: "${input.status}",
         transactionType: "${input.transactionType}",
         category: "${input.category}"
     }) { ${queryResult}}`
 }
 const queryResult = `
-            transaction {
+            monthlyReports {
+              period
+              income
+              expense
+              transactions {
                 _id
                 shortId
                 date
@@ -38,11 +41,11 @@ const queryResult = `
                 counterparty
                 amount
                 details
-                usedWallet
+                usedWalletId
                 status
                 transactionType
                 category
-                owner
+              }
             }
             wallets {
                 _id
@@ -75,7 +78,6 @@ const queryResult = `
                 lastPayout
                 nextPayout
                 used
-                owner
                 frequency {
                 counter
                 period

@@ -15,7 +15,7 @@
               </thead>
               <tbody>
                 <app-transaction
-                  v-for="transaction in transactions"
+                  v-for="transaction in userTransactions"
                   :key="transaction.shortId"
                   :transaction="transaction"
                 ></app-transaction>
@@ -26,30 +26,12 @@
 
 <script>
 import Transaction from '@/components/UI/Transaction'
+import { mapGetters } from 'vuex'
 export default {
-  data () {
-    return {
-      transactions: [
-        {
-          shortId: 123,
-          date: '2 Nov 2019',
-          counterparty: 'Pierre',
-          details: 'November rent',
-          usedWallet: 'Debit Desjardins',
-          amount: 300,
-          status: 'paid'
-        },
-        {
-          shortId: 423,
-          date: '2 Nov 2019',
-          counterparty: 'Pierre',
-          details: 'November rent',
-          usedWallet: 'Debit Desjardins',
-          amount: 300,
-          status: 'paid'
-        }
-      ]
-    }
+  computed: {
+    ...mapGetters([
+      'userTransactions'
+    ])
   },
   components: {
     appTransaction: Transaction
@@ -61,6 +43,11 @@ export default {
 .transactions {
     background: $color-white;
     padding: 1rem;
+    height: 23.1rem;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      display: none;
+    }
     & h2 {
         margin-bottom: 1rem;
     }

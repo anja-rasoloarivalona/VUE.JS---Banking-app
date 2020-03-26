@@ -67,7 +67,7 @@ export default {
   mounted () {
     const entries = Object.entries(this.walletsNameAndId)
     entries.forEach(entry => {
-      if (entry[1].toString() === this.transaction.usedWallet.toString()) {
+      if (entry[1].toString() === this.transaction.usedWalletId.toString()) {
         this.walletName = entry[0]
       }
     })

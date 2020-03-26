@@ -9,20 +9,20 @@ const state = {
 
 const getters = {
   usersIncomesAndExpenses: state => {
-    const transactions = {}
+    const usersIncomesAndExpenses = {}
     state.incomes.forEach(income => {
-      transactions[income.name] = {
+      usersIncomesAndExpenses[income.name] = {
         ...income,
         transactionType: 'income'
       }
     })
     state.expenses.forEach(expense => {
-      transactions[expense.name] = {
+      usersIncomesAndExpenses[expense.name] = {
         ...expense,
         transactionType: 'expense'
       }
     })
-    return transactions
+    return usersIncomesAndExpenses
   },
   walletsNameAndId: state => {
     const wallets = {}
@@ -34,6 +34,15 @@ const getters = {
       }
     })
     return wallets
+  },
+  userTransactions: state => {
+    const transactions = []
+    state.monthlyReports.forEach(report => {
+      report.transactions.forEach(transaction => {
+        transactions.push(transaction)
+      })
+    })
+    return transactions
   }
 }
 
@@ -72,6 +81,12 @@ const mutations = {
 
   addGoal (state, goal) {
     state.goal = goal
+  },
+  addTransaction (state, user) {
+    state.wallets = user.wallets
+    state.incomes = user.incomes
+    state.expenses = user.expenses
+    state.monthlyReports = user.monthlyReports
   }
 }
 

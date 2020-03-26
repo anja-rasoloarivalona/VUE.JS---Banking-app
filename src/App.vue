@@ -123,6 +123,7 @@ export default {
       const response = await this.$http.post('', graphqlQuery)
       const resData = await response.json()
       const responseData = resData.data.user
+      console.log(responseData)
       this.$store.commit('initAppData', responseData)
       if (responseData.status === 'active') {
         this.$store.commit('setAppStatus', 'running')

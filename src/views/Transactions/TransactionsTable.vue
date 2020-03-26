@@ -14,7 +14,7 @@
             </thead>
             <tbody>
                 <app-transaction
-                    v-for="(transaction, index) in this.$store.state.transactions"
+                    v-for="(transaction, index) in userTransactions"
                     :key="transaction._id"
                     :transaction="transaction"
                     :class="{'bg-white': index % 2 === 0, 'bg-blue': index % 2 !== 0 }"
@@ -28,11 +28,17 @@
 
 <script>
 import Transaction from '@/components/UI/Transaction'
+import { mapGetters } from 'vuex'
 export default {
   methods: {
     edit (transaction) {
       this.$emit('editTransaction', transaction)
     }
+  },
+  computed: {
+    ...mapGetters([
+      'userTransactions'
+    ])
   },
   components: {
     appTransaction: Transaction

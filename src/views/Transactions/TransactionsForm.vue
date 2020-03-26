@@ -10,7 +10,7 @@
                     <app-date-picker v-model='input.date' id="date"/>
                 </label>
             </div>
-            <app-select-input :id="'name'" v-model="input.name" :options="[...Object.keys(usersTransactions), 'New transaction']" />
+            <app-select-input :id="'name'" v-model="input.name" :options="[...Object.keys(usersIncomesAndExpenses), 'New transaction']" />
             <app-basic-input  :id="'amount'" v-model="input.amount" />
             <app-basic-input  :id="'details'" v-model="input.details" />
             <app-select-input :id="'wallet'" v-model="input.usedWallet" :options="Object.keys(walletsNameAndId)" />
@@ -50,29 +50,34 @@ export default {
   },
   watch: {
     'input.name': function (name) {
+      const transactionType = this.usersIncomesAndExpenses[name].transactionType
       if (!this.editedTransaction) {
-        const transactionType = this.usersTransactions[name].transactionType
+        // ADDING A NEW TRANSACTION
         this.input.transactionType = transactionType
         if (transactionType === 'expense') {
-          this.input.category = this.usersTransactions[name].category
-          if (this.usersTransactions[name].expenseType === 'fixed') {
-            this.input.date = new Date(this.usersTransactions[name].nextPayout)
-            this.input.amount = this.usersTransactions[name].amount
+          // THE NEW TRANSACTION IS AN EXPENSE
+          this.input.category = this.usersIncomesAndExpenses[name].category
+          if (this.usersIncomesAndExpenses[name].expenseType === 'fixed') {
+            // --------THE EXPENSE IS FIXED
+            this.input.date = new Date(this.usersIncomesAndExpenses[name].nextPayout)
+            this.input.amount = this.usersIncomesAndExpenses[name].amount
           } else {
+            // -------THE EXPENSE IS VARIABLE
             this.input.amount = 0
             this.input.counterparty = ''
             this.input.date = new Date()
           }
         } else {
-          this.input.date = new Date(this.usersTransactions[name].nextPayout)
-          this.input.counterparty = this.usersTransactions[name].from
-          this.input.amount = this.usersTransactions[name].amount
+          // THE NEW TRANSACTION IS AN INCOME
+          this.input.date = new Date(this.usersIncomesAndExpenses[name].nextPayout)
+          this.input.counterparty = this.usersIncomesAndExpenses[name].from
+          this.input.amount = this.usersIncomesAndExpenses[name].amount
           this.input.category = ''
         }
       } else {
-        const transactionType = this.usersTransactions[name].transactionType
+        // EDITING A PREVIOUS TRANSACTION
         if (transactionType === 'expense') {
-          this.input.category = this.usersTransactions[name].category
+          this.input.category = this.usersIncomesAndExpenses[name].category
         } else {
           this.input.category = ''
         }
@@ -84,7 +89,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'usersTransactions',
+      'usersIncomesAndExpenses',
       'walletsNameAndId'
     ]),
     isFixedExpenses () {
@@ -96,14 +101,14 @@ export default {
   mounted () {
     if (!this.editedTransaction) {
       const userFixedExpenses = []
-      const usersTransactions = this.usersTransactions
-      for (const transaction in usersTransactions) {
-        if (usersTransactions[transaction].transactionType !== 'income' && usersTransactions[transaction].expenseType === 'fixed') {
+      const usersIncomesAndExpenses = this.usersIncomesAndExpenses
+      for (const transaction in usersIncomesAndExpenses) {
+        if (usersIncomesAndExpenses[transaction].transactionType !== 'income' && usersIncomesAndExpenses[transaction].expenseType === 'fixed') {
           userFixedExpenses.push(transaction)
         }
       }
       this.userFixedExpenses = userFixedExpenses
-      this.input.name = Object.keys(this.usersTransactions)[0]
+      this.input.name = Object.keys(this.usersIncomesAndExpenses)[0]
       this.input.usedWallet = Object.keys(this.walletsNameAndId)[0]
       this.input.walletId = this.walletsNameAndId[this.input.usedWallet]
     } else {
@@ -113,7 +118,6 @@ export default {
           usedWallet = walletName
         }
       }
-      console.log(this.editedTransaction)
       const editedData = {
         ...this.editedTransaction,
         date: new Date(this.editedTransaction.date),

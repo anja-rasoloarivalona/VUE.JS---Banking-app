@@ -1,6 +1,6 @@
 <template>
     <div class="transactionsContainer" v-if="!showForm">
-        <div class="transactions__empty" v-if="this.$store.state.transactions.length < 1">
+        <div class="transactions__empty" v-if="this.$store.state.user.monthlyReports.length < 1">
            <div>No  transaction</div>
            <div class="transactions__add" @click="showForm = true">
                 <app-icon name="add" size="extra-large" color="grey--dark"/>

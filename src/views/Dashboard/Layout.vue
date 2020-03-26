@@ -50,22 +50,22 @@ export default {
     return {
       layout: [
         { x: 0, y: 0, w: 4, h: 6, i: 'dashboard-balance' },
-        { x: 0, y: 0, w: 8, h: 0, i: 'dashboard-budget' },
-        { x: 0, y: 1, w: 4, h: 5, i: 'dashboard-wallet' },
-        { x: 0, y: 1, w: 8, h: 6, i: 'dashboard-transactions' },
-        { x: 0, y: 1, w: 4, h: 6, i: 'dashboard-goal' }
+        { x: 0, y: 6, w: 8, h: 0, i: 'dashboard-budget' },
+        { x: 8, y: 0, w: 4, h: 5, i: 'dashboard-wallet' },
+        { x: 0, y: 12, w: 8, h: 6, i: 'dashboard-transactions' },
+        { x: 4, y: 0, w: 4, h: 6, i: 'dashboard-goal' }
       ]
     }
   },
   created () {
     let budgetHeight = 3
-    this.$store.state.expenses.forEach(expense => {
+    this.$store.state.user.expenses.forEach(expense => {
       if (expense.expenseType === 'variable') {
         budgetHeight = budgetHeight + 3
       }
     })
     this.layout[1].h = budgetHeight
-    this.layout[2].h = 4 + (this.$store.state.wallets.length * 7)
+    this.layout[2].h = 4 + (this.$store.state.user.wallets.length * 7)
     this.layout[3].h = 6 + (2 * 3)
   },
   components: {

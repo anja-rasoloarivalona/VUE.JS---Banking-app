@@ -46,11 +46,32 @@ const mutations = {
     state.monthlyReports = data.monthlyReports
   },
 
+  initBalance (state, balance) {
+    state.balance = balance
+  },
+
   addUserItem (state, data) {
     const userItemType = data.type
     const userItem = { ...data }
     delete userItem.type
     state[userItemType] = [...state[userItemType], userItem]
+  },
+
+  editUserItem (state, data) {
+    const userItemType = data.type
+    const userItem = { ...data }
+    let itemIndex
+    state[userItemType].find((item, index) => {
+      if (item._id === data._id) {
+        itemIndex = index
+      }
+    })
+    delete userItem.type
+    state[userItemType][itemIndex] = data
+  },
+
+  addGoal (state, goal) {
+    state.goal = goal
   }
 }
 

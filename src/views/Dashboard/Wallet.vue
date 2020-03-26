@@ -16,14 +16,14 @@ export default {
     }
   },
   watch: {
-    '$store.state.wallets': {
+    '$store.state.user.wallets': {
       handler: 'setWallets',
       immediate: true
     }
   },
   methods: {
     setWallets () {
-      this.wallets = this.$store.state.wallets
+      this.wallets = this.$store.state.user.wallets
     }
   },
   components: {

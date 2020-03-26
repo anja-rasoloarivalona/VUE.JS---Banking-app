@@ -16,7 +16,6 @@
             @startSetupIncome="mode = 'setup-income'"
             @startSetupExpense="mode = 'setup-expense'"
             @startSetupSavingsPlan="mode ='setup-savings-plan'"
-            @launchApp="ad"
           />
         </div>
     </div>
@@ -60,9 +59,6 @@ export default {
   methods: {
     selectSetup (value) {
       this.mode = `setup-${value}`
-    },
-    ad () {
-      console.log('ad')
     }
   },
   components: {

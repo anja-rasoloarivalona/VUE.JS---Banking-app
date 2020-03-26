@@ -2,7 +2,7 @@
     <div class="savings">
         <div class="savings__section">
             <h3 class="savings__section__title">Your income</h3>
-            <ul class="savings__section__list" v-for="income in this.$store.state.incomes" :key="income._id">
+            <ul class="savings__section__list" v-for="income in this.$store.state.user.incomes" :key="income._id">
                 <li class="savings__section__list__item">
                     <div>{{income.name}}</div>
                     <div>${{income.amount | amount}}</div>
@@ -12,7 +12,7 @@
         </div>
         <div class="savings__section">
             <h3 class="savings__section__title">Your expense</h3>
-            <ul class="savings__section__list" v-for="expense in this.$store.state.expenses" :key="expense._id">
+            <ul class="savings__section__list" v-for="expense in this.$store.state.user.expenses" :key="expense._id">
                 <li class="savings__section__list__item">
                     <div>{{expense.name}}</div>
                     <div>${{expense.amount | amount}}</div>
@@ -75,12 +75,12 @@ export default {
       let sumTotal = 0
 
       // Determine the total amount of money available to the user now.
-      this.$store.state.wallets.forEach(wallet => {
+      this.$store.state.user.wallets.forEach(wallet => {
         sumTotal += wallet.amount
       })
 
       // Prepare incomes data for the simulation
-      this.$store.state.incomes.forEach(income => {
+      this.$store.state.user.incomes.forEach(income => {
         transactionsData.push({
           amount: income.amount,
           nextPayout: new Date(income.nextPayout),
@@ -89,7 +89,7 @@ export default {
       })
 
       // Prepare expenses data for the simulation
-      this.$store.state.expenses.forEach(expense => {
+      this.$store.state.user.expenses.forEach(expense => {
         if (expense.expenseType === 'variable') {
           const budget = expense.amount
           const used = expense.used
@@ -151,14 +151,15 @@ export default {
         const resData = await response.json()
         const responseData = resData.data.addGoal
         this.goalAdded = true
-        this.$store.commit('setStatusToActive')
+        this.$store.commit('addGoal', responseData)
+        this.$store.commit('setUserStatus', 'active')
         console.log(responseData)
       } catch (err) {
         console.log(err)
       }
     },
     launchApp () {
-      this.$emit('launchApp')
+      this.$store.commit('setAppStatus', 'running')
     }
   }
 }

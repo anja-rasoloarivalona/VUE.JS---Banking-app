@@ -4,9 +4,9 @@
           <app-icon name="add" size="extra-large" color="grey"/>
         </div>
         <ul class="setup-expense__list" v-if="!showForm">
-          <app-expense v-for="expense in this.$store.state.expenses" :key="expense._id" :expense="expense"/>
+          <app-expense v-for="expense in this.$store.state.user.expenses" :key="expense._id" :expense="expense"/>
         </ul>
-        <app-btn normal primary @click.native="next" :disabled="this.$store.state.expenses === undefined || this.$store.state.expenses.length < 1" v-if="!showForm">
+        <app-btn normal primary @click.native="next" :disabled="this.$store.state.user.expenses === undefined || this.$store.state.user.expenses.length < 1" v-if="!showForm">
           Next
         </app-btn>
         <budget-form

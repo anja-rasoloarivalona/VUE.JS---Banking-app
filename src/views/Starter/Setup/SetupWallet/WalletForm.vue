@@ -58,8 +58,9 @@ export default {
   },
   mounted () {
     if (this.editedWallet) {
-      console.log(this.editedWallet)
-      this.walletInput = this.editedWallet
+      this.walletInput = {
+        ...this.editedWallet
+      }
     }
   },
   methods: {
@@ -130,9 +131,11 @@ export default {
       }
       try {
         await this.$http.post('', graphqlQuery)
-        // const response = await this.$http.post('', graphqlQuery)
-        // const resData = await response.json()
-        // const responseData = resData.data.editWallet
+        const response = await this.$http.post('', graphqlQuery)
+        const resData = await response.json()
+        const responseData = resData.data.editWallet
+        responseData.type = 'wallets'
+        this.$store.commit('editUserItem', responseData)
         this.loading = false
         this.$emit('hideForm')
       } catch (err) {

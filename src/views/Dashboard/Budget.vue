@@ -32,7 +32,7 @@ export default {
   methods: {
     setBudget () {
       let variableBudgetCounter = 0
-      this.$store.state.expenses.forEach(expense => {
+      this.$store.state.user.expenses.forEach(expense => {
         if (expense.expenseType === 'variable') {
           variableBudgetCounter++
           this.budget.push({

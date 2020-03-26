@@ -15,7 +15,7 @@ export default {
     }
   },
   watch: {
-    '$store.state.wallets': {
+    '$store.state.user.wallets': {
       handler: 'setBalanceAmount',
       immediate: true
     }
@@ -23,7 +23,7 @@ export default {
   methods: {
     setBalanceAmount () {
       let balance = 0
-      this.$store.state.wallets.forEach(wallet => {
+      this.$store.state.user.wallets.forEach(wallet => {
         balance += wallet.amount
       })
       this.balance = balance

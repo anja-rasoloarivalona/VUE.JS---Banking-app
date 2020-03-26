@@ -20,6 +20,9 @@ const mutations = {
   setAppStatus (state, newStatus) {
     state.appStatus = newStatus
   },
+  setUserStatus (state, newStatus) {
+    state.userStatus = newStatus
+  },
   setIsAuthToFalse (state) {
     state.isAuth = false
     state.token = null

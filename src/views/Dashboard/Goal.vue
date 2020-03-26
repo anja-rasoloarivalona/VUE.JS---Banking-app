@@ -4,7 +4,7 @@
             <h2 class="dashboard__section__title">Goal</h2>
             <div class="goal__detail__date">
                 <div class="goal__detail__date__key">Expected date:</div>
-                <div class="goal__detail__date__value"><strong>{{$store.state.goal.date | short-date}}</strong></div>
+                <div class="goal__detail__date__value"><strong>{{$store.state.user.goal.date | short-date}}</strong></div>
             </div>
         </div>
         <div class="goal__circle">
@@ -19,7 +19,7 @@ import Progress from 'easy-circular-progress'
 export default {
   computed: {
     goalPercentage () {
-      return (this.$store.state.balance / this.$store.state.goal.amount) * 100
+      return (this.$store.state.user.balance / this.$store.state.user.goal.amount) * 100
     }
   },
   components: {

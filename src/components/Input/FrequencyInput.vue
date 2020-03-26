@@ -5,14 +5,11 @@
             <div class="input__container">
                 <app-select-input
                     :options="counter"
-                    :value="value.counter"
-                    @selectInput="selectcounter"
-                    bgWhite/>
+                    v-model="value.counter"
+                />
                 <app-select-input
                     :options="period"
-                    :value="value.period"
-                    @selectInput="selectPeriod"
-                    bgWhite
+                    v-model="value.period"
                 />
             </div>
         </label>
@@ -21,10 +18,6 @@
 
 <script>
 export default {
-  model: {
-    prop: 'value',
-    event: 'frequency'
-  },
   props: {
     value: Object,
     id: String
@@ -33,14 +26,6 @@ export default {
     return {
       counter: ['once', 'twice', 'three times', 'four times', 'five times', 'six times'],
       period: ['a day', 'a week', 'every two weeks', 'a month', 'a year']
-    }
-  },
-  methods: {
-    selectcounter (value) {
-      this.$emit('selectcounter', value)
-    },
-    selectPeriod (value) {
-      this.$emit('selectPeriod', value)
     }
   }
 }

@@ -82,6 +82,24 @@ export default {
                         shortId
                         color
                       }
+                      monthlyReports {
+                          period
+                          income
+                          expense
+                          transactions {
+                            _id
+                            shortId
+                            date
+                            name
+                            counterparty
+                            amount
+                            details
+                            usedWalletId
+                            status
+                            transactionType
+                            category
+                          }
+                      }
                       expenses {
                         _id
                         name
@@ -129,6 +147,7 @@ export default {
           expiryDate: expiryDate
         }
         this.$store.commit('setIsAuthToTrue', data)
+        this.$store.commit('initAppData', responseData.user)
         this.loading = false
       } catch (err) {
         this.loading = false

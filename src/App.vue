@@ -56,6 +56,7 @@ export default {
     const graphqlQuery = {
       query: `{
         user {
+          status
           goal {
            name
            amount
@@ -123,6 +124,9 @@ export default {
       const resData = await response.json()
       const responseData = resData.data.user
       this.$store.commit('initAppData', responseData)
+      if (responseData.status === 'active') {
+        this.$store.commit('setAppStatus', 'running')
+      }
       this.loading = false
     } catch (err) {
       console.log(err)

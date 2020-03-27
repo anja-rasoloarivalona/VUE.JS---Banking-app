@@ -16,6 +16,9 @@
       <template #dashboard-goal>
         <dashboard-goal></dashboard-goal>
       </template>
+      <template #dashboard-monthly-report>
+        <dashboard-monthly-report></dashboard-monthly-report>
+      </template>
     </dashboard-layout>
        <!-- <div class="dashboard__monthResume">
         <h2 class="color-primary">Monthly summary</h2>
@@ -44,6 +47,7 @@ import Balance from './Balance'
 import Wallet from './Wallet'
 import Transactions from './Transactions'
 import Goal from './Goal'
+import MonthlyReport from './MonthlyReport'
 
 export default {
   data () {
@@ -60,7 +64,8 @@ export default {
     dashboardBalance: Balance,
     dashboardBudget: Budget,
     dashboardWallet: Wallet,
-    dashboardGoal: Goal
+    dashboardGoal: Goal,
+    dashboardMonthlyReport: MonthlyReport
   }
 }
 </script>

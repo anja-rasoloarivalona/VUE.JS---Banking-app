@@ -5,6 +5,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Date</th>
+                    <th>Name</th>
                     <th>Counterparty</th>
                     <th>Used wallet</th>
                     <th>Details</th>
@@ -62,7 +63,7 @@ table {
     text-align: start;
     padding-left: 2rem;
     // background: $color-primary;
-    // color: $color-white;
+    color: $color-primary;
     font-size: $font-s;
     background: $color-grey--light;
   }

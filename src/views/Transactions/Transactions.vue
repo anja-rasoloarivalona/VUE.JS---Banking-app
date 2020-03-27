@@ -2,14 +2,10 @@
     <div class="transactionsContainer" v-if="!showForm">
         <div class="transactions__empty" v-if="this.$store.state.user.monthlyReports.length < 1">
            <div>No  transaction</div>
-           <div class="transactions__add" @click="showForm = true">
-                <app-icon name="add" size="extra-large" color="grey--dark"/>
-           </div>
+           <app-btn normal primary @click.native="showForm = true">New transaction</app-btn>
         </div>
         <div class="transactions" v-else>
-            <div class="transactions__add" @click="showForm = true">
-                <app-icon name="add" size="extra-large" color="grey--dark"/>
-           </div>
+            <app-btn normal primary @click.native="showForm = true">New transaction</app-btn>
             <transactions-table @editTransaction="edit"></transactions-table>
         </div>
     </div>
@@ -54,15 +50,8 @@ export default {
             margin-right: 2rem;
         }
     }
-    &__add {
-         width: 6rem;
-         height: 6rem;
-         display: flex;
-         align-items: center;
-         justify-content: center;
-         border: 1px dashed $color-grey--dark;
-         border-radius: .5rem;
-         cursor: pointer;
+    & button {
+      margin-bottom: 4rem;
     }
 }
 </style>

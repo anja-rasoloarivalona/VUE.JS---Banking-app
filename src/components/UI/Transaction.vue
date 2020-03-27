@@ -6,6 +6,9 @@
     <td class="transaction__date">
         <div>{{transaction.date | short-date}}</div>
     </td>
+    <td class="transaction__name">
+        <div>{{transaction.name}}</div>
+    </td>
     <td class="transaction__counterparty">
         <div>{{transaction.counterparty}}</div>
     </td>
@@ -97,17 +100,30 @@ export default {
   }
   &__id {
     // background: turquoise;
-    width: 8%;
+    width: 6%;
   }
   &__date {
+    width: 9%;
     // background: violet;
   }
+  &__name {
+    width: 10%;
+    // background: salmon;
+  }
+  &__counterparty {
+    width: 12%;
+    // background: brown;
+  }
+  &__wallet{
+    width: 13%;
+    // background: blue;
+  }
   &__details {
-    width: 24%;
     // background: green;
   }
   &__amount {
-    width: 13%;
+    width: 10%;
+    // background: red;
     &.expense {
       font-weight: bold;
     }
@@ -116,9 +132,9 @@ export default {
     }
   }
   &__status {
-    width: 16%;
+    width: 10%;
     position: relative;
-    // background: red;
+    // background: yellow;
   }
   &__cta {
     position: absolute;

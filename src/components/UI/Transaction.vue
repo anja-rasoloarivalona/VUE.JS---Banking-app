@@ -1,6 +1,6 @@
 <template>
   <tr class="transaction">
-    <td class="transaction__id">
+    <td class="transaction__id" v-if="!short">
       <div>#{{ transaction.shortId}}</div>
     </td>
     <td class="transaction__date">
@@ -9,13 +9,13 @@
     <td class="transaction__name">
         <div>{{transaction.name}}</div>
     </td>
-    <td class="transaction__counterparty">
+    <td class="transaction__counterparty" v-if="!short">
         <div>{{transaction.counterparty}}</div>
     </td>
     <td class="transaction__wallet">
         <div>{{walletName}}</div>
     </td>
-    <td class="transaction__details">
+    <td class="transaction__details" v-if="!short">
         <div>{{transaction.details}}</div>
     </td>
     <td class="transaction__amount" :class="{expense: transaction.amount < 0, income: transaction.amount >= 0 }">
@@ -88,7 +88,8 @@ export default {
     ])
   },
   props: {
-    transaction: Object
+    transaction: Object,
+    short: Boolean
   }
 }
 </script>
@@ -104,11 +105,11 @@ export default {
   }
   &__date {
     width: 9%;
-    // background: violet;
+    // background: red;
   }
   &__name {
     width: 10%;
-    // background: salmon;
+    // background: green;
   }
   &__counterparty {
     width: 12%;
@@ -123,7 +124,7 @@ export default {
   }
   &__amount {
     width: 10%;
-    // background: red;
+    // background: orange;
     &.expense {
       font-weight: bold;
     }
@@ -134,7 +135,7 @@ export default {
   &__status {
     width: 10%;
     position: relative;
-    // background: yellow;
+    // background: salmon;
   }
   &__cta {
     position: absolute;

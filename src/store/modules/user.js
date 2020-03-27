@@ -87,6 +87,12 @@ const mutations = {
     state.incomes = user.incomes
     state.expenses = user.expenses
     state.monthlyReports = user.monthlyReports
+  },
+  deleteTransaction (state, user) {
+    state.wallets = user.wallets
+    state.incomes = user.incomes
+    state.expenses = user.expenses
+    state.monthlyReports = user.monthlyReports
   }
 }
 

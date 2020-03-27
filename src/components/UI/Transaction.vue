@@ -31,7 +31,7 @@
           <li class="transaction__cta__list__item" @click="edit">
               Edit
           </li>
-          <li class="transaction__cta__list__item">
+          <li class="transaction__cta__list__item" @click="deleteTransaction">
               Delete
           </li>
         </ul>
@@ -41,6 +41,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { deleteTransactionQuery } from '@/graphQL/transactionsQuery'
 export default {
   data () {
     return {
@@ -48,12 +49,34 @@ export default {
       showCtaList: false
     }
   },
+  mounted () {
+    const entries = Object.entries(this.walletsNameAndId)
+    entries.forEach(entry => {
+      if (entry[1].toString() === this.transaction.usedWalletId.toString()) {
+        this.walletName = entry[0]
+      }
+    })
+  },
   methods: {
     closeCtaList () {
       this.showCtaList = false
     },
     edit () {
       this.$emit('editTransaction1', this.transaction)
+    },
+    deleteTransaction: async function () {
+      console.log('deleting')
+      const graphqlQuery = deleteTransactionQuery(this.transaction)
+      try {
+        const response = await this.$http.post('', graphqlQuery)
+        const resData = await response.json()
+        const responseData = resData.data.deleteTransaction
+        console.log(responseData)
+        this.$store.commit('deleteTransaction', responseData)
+      } catch (err) {
+        console.log(err)
+        this.loading = false
+      }
     }
   },
   computed: {
@@ -63,14 +86,6 @@ export default {
   },
   props: {
     transaction: Object
-  },
-  mounted () {
-    const entries = Object.entries(this.walletsNameAndId)
-    entries.forEach(entry => {
-      if (entry[1].toString() === this.transaction.usedWalletId.toString()) {
-        this.walletName = entry[0]
-      }
-    })
   }
 }
 </script>

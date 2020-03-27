@@ -26,7 +26,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { addTransactionQuery, editTransactionQUery } from './transactionsGraphqlQuery.js'
+import { addTransactionQuery, editTransactionQuery } from '@/graphQL/transactionsQuery'
 export default {
   data () {
     return {
@@ -114,7 +114,7 @@ export default {
     } else {
       let usedWallet = ''
       for (const walletName in this.walletsNameAndId) {
-        if (this.walletsNameAndId[walletName] === this.editedTransaction.usedWallet) {
+        if (this.walletsNameAndId[walletName] === this.editedTransaction.usedWalletId) {
           usedWallet = walletName
         }
       }
@@ -125,6 +125,7 @@ export default {
         walletId: this.editedTransaction.usedWallet,
         usedWallet: usedWallet
       }
+      console.log(editedData.date.toLocaleDateString())
       this.input = editedData
       this.date = this.editedTransaction.date
     }
@@ -153,12 +154,15 @@ export default {
     },
     editTransaction: async function () {
       this.loading = true
-      const graphqlQuery = editTransactionQUery(this.input)
+      const graphqlQuery = editTransactionQuery(this.input)
       try {
         const response = await this.$http.post('', graphqlQuery)
         const resData = await response.json()
-        const responseData = resData.data.editedTransaction
+        const responseData = resData.data.editTransaction
         console.log(responseData)
+        this.$store.commit('addTransaction', responseData)
+        this.loading = false
+        this.$emit('closeForm')
       } catch (err) {
         console.log(err)
         this.loading = false

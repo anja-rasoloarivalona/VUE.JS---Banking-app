@@ -19,7 +19,7 @@
                   <app-transaction
                     :short="true"
                     v-for="(transaction, index) in userTransactions"
-                    :key="transaction.shortId"
+                    :key="transaction._id"
                     :transaction="transaction"
                     :class="{'bg-white': index % 2 === 0, 'bg-blue': index % 2 !== 0 }"
                   ></app-transaction>

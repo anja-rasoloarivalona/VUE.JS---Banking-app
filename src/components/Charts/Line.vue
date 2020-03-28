@@ -32,8 +32,6 @@ export default {
     this.gradient.addColorStop(0.4, this.gradient2)
     // this.gradient.addColorStop(1, 'black')
 
-    console.log(this.data)
-
     const datacollection = {
       labels: ['jan', 'feb', 'march', 'apr'],
       datasets: [

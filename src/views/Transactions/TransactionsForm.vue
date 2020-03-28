@@ -76,6 +76,7 @@ export default {
         }
       } else {
         // EDITING A PREVIOUS TRANSACTION
+        this.input.transactionType = this.usersIncomesAndExpenses[name].transactionType
         if (transactionType === 'expense') {
           this.input.category = this.usersIncomesAndExpenses[name].category
         } else {
@@ -125,7 +126,6 @@ export default {
         walletId: this.editedTransaction.usedWallet,
         usedWallet: usedWallet
       }
-      console.log(editedData.date.toLocaleDateString())
       this.input = editedData
       this.date = this.editedTransaction.date
     }
@@ -159,7 +159,7 @@ export default {
         const response = await this.$http.post('', graphqlQuery)
         const resData = await response.json()
         const responseData = resData.data.editTransaction
-        console.log(responseData)
+        console.log('editing', responseData)
         this.$store.commit('addTransaction', responseData)
         this.loading = false
         this.$emit('closeForm')

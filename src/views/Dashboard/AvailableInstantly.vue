@@ -1,6 +1,6 @@
 <template>
     <div class="available">
-        <h2 class="dashboard__section__title">Available Instantly</h2>
+        <h2 class="dashboard__section__title">Available now</h2>
         <div class="available__value">
             <strong>${{available | amount}}</strong>
         </div>

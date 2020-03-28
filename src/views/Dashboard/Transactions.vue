@@ -55,6 +55,7 @@ export default {
 .transactions {
     background: $color-white;
     padding: 1rem;
+    padding-left: 3rem;
     height: 23.1rem;
     // overflow: hidden;
     & h2 {

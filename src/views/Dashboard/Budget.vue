@@ -2,7 +2,7 @@
   <div class="budget">
     <h2 class="dashboard__section__title">Budget</h2>
     <div v-for="item in budget" :key="item._id" class="budget__item">
-        <div class="budget__item__key">{{ item.name }}</div>
+        <h3 class="budget__item__key">{{ item.name }}</h3>
         <div class="budget__item__barContainer">
           <div class="budget__item__bar" :style="{ width:  item.amount / max * 100 + '%' }">
               <div class="budget__item__usedbar" :style="{width: item.used * oneDollarWidth + 'vw'}">
@@ -82,6 +82,7 @@ export default {
     width: 100%;
     background: $color-white;
     padding: 1rem;
+    padding-left: 3rem;
     // border-radius: 2rem;
     margin: 0;
     &__item {
@@ -92,8 +93,7 @@ export default {
             width: 10rem;
             min-width: 10rem;
             text-transform: capitalize;
-            font-size: $font-s;
-            color: $color-grey--dark;
+            color: $color-grey--main;
         }
         &__barContainer {
           height: 2rem;

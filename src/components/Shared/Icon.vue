@@ -61,6 +61,9 @@ export default {
 .primary {
   fill: $color-primary;
 }
+.red {
+  fill: $color-red
+}
 .white {
   fill: $color-white
 }

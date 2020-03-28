@@ -3,8 +3,8 @@
         <div class="goal__detail">
             <h2 class="dashboard__section__title">Goal</h2>
             <div class="goal__detail__date">
-                <div class="goal__detail__date__key">Expected date:</div>
-                <div class="goal__detail__date__value"><strong>{{$store.state.user.goal.date | short-date}}</strong></div>
+                <h3 class="goal__detail__date__key">Expected date:</h3>
+                <h3 class="goal__detail__date__value">{{$store.state.user.goal.date | short-date}}</h3>
             </div>
         </div>
         <div class="goal__circle">
@@ -34,19 +34,19 @@ export default {
     display: flex;
     height: 11rem;
     max-height: 11rem;
+    padding: 1rem;
+    padding-left: 3rem;
     & h2 {
         margin-bottom: 1rem;
     }
     &__detail, &__circle {
         width: 50%;
         height: 100%;
-        padding: 1rem;
         &__date {
             display: flex;
             align-items: center;
             &__key {
-                color: $color-grey--dark;
-                font-size: $font-xs;
+                color: $color-grey--main;
                 margin-right: .5rem;
             }
             &__value {

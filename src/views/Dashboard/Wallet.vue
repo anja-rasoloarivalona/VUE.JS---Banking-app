@@ -40,6 +40,7 @@ export default {
     width: 100%;
     & h2 {
         margin-bottom: 1rem;
+        padding-left: 1.5rem;
     }
     &__list {
         display: flex;

@@ -4,11 +4,17 @@
         <div class="monthly__details">
             <div class="monthly__details__item monthly__details__item--income">
                 <h3>Income</h3>
-                <div class="monthly__details__item__amount">+ $12</div>
+                <div class="monthly__details__item__amount">
+                    <app-icon name="arrow" color="primary" />
+                    <div>+ ${{report.income | amount}}</div>
+                </div>
             </div>
             <div class="monthly__details__item monthly__details__item--expense">
                 <h3>Expense</h3>
-                <div class="monthly__details__item__amount">- $12</div>
+                <div class="monthly__details__item__amount">
+                    <app-icon name="arrow" color="red" />
+                    <div>- ${{report.expense | amount}}</div>
+                </div>
             </div>
         </div>
     </div>
@@ -16,7 +22,22 @@
 
 <script>
 export default {
-
+  computed: {
+    report () {
+      const currentReport = {
+      }
+      const d = new Date()
+      const period = `${d.getMonth() + 1}-${d.getFullYear()}`
+      const monthlyReports = this.$store.state.user.monthlyReports
+      monthlyReports.find((report, index) => {
+        if (report.period === period) {
+          currentReport.income = monthlyReports[index].income
+          currentReport.expense = monthlyReports[index].expense
+        }
+      })
+      return currentReport
+    }
+  }
 }
 </script>
 
@@ -26,6 +47,7 @@ export default {
     height: 11rem;
     max-height: 11rem;
     padding: 1rem;
+    padding-left: 3rem;
     & h2 {
         margin-bottom: 1rem;
     }
@@ -36,15 +58,19 @@ export default {
             width: 100%;
             & h3 {
                 margin-bottom: 1rem;
-            }
-            &--income {
-               & h3, & div {
-                   color: $color-primary
-                }
+                color: $color-grey--main
             }
             &--expense{
-               & h3 , & div {
-                   color: red
+               & svg {
+                    transform: rotate(180deg);
+                }
+            }
+            &__amount {
+                display: flex;
+                align-items: center;
+                font-size: $font-m;
+                & svg {
+                    margin-right: 1rem;
                 }
             }
         }

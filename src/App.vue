@@ -170,7 +170,7 @@ body {
     grid-column: 3 / 4;
     background: $color-grey--light;
     min-height: calc(100vh - 9rem);
-    max-width: 120rem;
+    width: 100%;
     padding-top: 2rem;
   }
   .app__title {

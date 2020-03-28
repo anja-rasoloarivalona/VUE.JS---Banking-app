@@ -31,6 +31,7 @@ export default {
     background: $color-white;
     height: 100%;
     padding: 1rem;
+    padding-left: 3rem;
 
     &__container {
         position: relative;

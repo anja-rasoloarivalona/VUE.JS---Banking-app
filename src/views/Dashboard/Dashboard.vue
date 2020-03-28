@@ -70,8 +70,7 @@ export default {
 
 <style lang='scss'>
 .dashboard {
-  width: 70vw;
-  max-width: 130rem;
+  max-width: 120rem;
   grid-column: 2 / 3;
 
   &__section {

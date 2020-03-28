@@ -12,7 +12,7 @@ export default {
           yAxes: [{
             ticks: {
               beginAtZero: true,
-              stepSize: 500
+              stepSize: 1000
             }
           }],
           xAxes: [{

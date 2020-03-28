@@ -23,8 +23,13 @@ export default {
   methods: {
     setBalanceAmount () {
       let balance = 0
+      const creditCard = ['Visa', 'MasterCard']
       this.$store.state.user.wallets.forEach(wallet => {
-        balance += wallet.amount
+        if (!creditCard.includes(wallet.walletType)) {
+          balance += wallet.amount
+        } else {
+          balance -= wallet.amount
+        }
       })
       this.balance = balance
       this.$store.commit('initBalance', balance)

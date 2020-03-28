@@ -2,7 +2,7 @@
     <div class="wallet">
         <h2 class="dashboard__section__title">Wallet</h2>
         <ul class="wallet__list">
-            <app-wallet v-for="(wallet,index) in wallets" :key="index" :wallet="wallet"></app-wallet>
+            <app-wallet v-for="wallet in wallets" :key="wallet._id" :wallet="wallet"></app-wallet>
         </ul>
     </div>
 </template>

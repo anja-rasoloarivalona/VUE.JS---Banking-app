@@ -84,6 +84,7 @@ export default {
             _id
             walletType
             amount
+            creditLimit
             supplier
             shortId
             color

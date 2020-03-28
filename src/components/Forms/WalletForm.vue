@@ -4,6 +4,7 @@
                 <app-select-input v-model="walletInput.walletType" :id="'type'"  :options="walletTypes" />
                 <app-basic-input v-model="walletInput.supplier" :id="'supplier'" />
                 <app-basic-input v-model="walletInput.amount" :id="'amount'" />
+                <app-basic-input v-model="walletInput.creditLimit" :id="'limit'" v-if="['Visa', 'MasterCard'].includes(walletInput.walletType)"/>
                 <app-basic-input v-model="walletInput.shortId" :id="'Last  4 numbers'" />
                 <div class="form__color">
                       <span>Color</span>
@@ -37,6 +38,7 @@
 
 <script>
 import Wallet from '@/components/UI/Wallet'
+import { addWallet, editWallet } from '@/graphQL/walletsQuery'
 export default {
   data () {
     return {
@@ -45,7 +47,8 @@ export default {
         amount: 0,
         supplier: 'Bank',
         shortId: 1234,
-        color: 'Brown'
+        color: 'Brown',
+        creditLimit: 0
       },
       walletTypes: ['Visa', 'MasterCard', 'Debit', 'Cash'],
       showColorList: false,
@@ -77,24 +80,7 @@ export default {
     },
     addWalletHandler: async function () {
       this.loading = true
-      const graphqlQuery = {
-        query: `mutation {
-                    addWallet(walletInput: {
-                        walletType: "${this.walletInput.walletType}",
-                        amount: "${this.walletInput.amount}",
-                        supplier: "${this.walletInput.supplier}",
-                        shortId: "${this.walletInput.shortId}",
-                        color: "${this.walletInput.color}"
-                    }) {
-                        _id
-                        walletType
-                        amount
-                        supplier
-                        shortId
-                        color
-                    }
-              }`
-      }
+      const graphqlQuery = addWallet(this.walletInput)
       try {
         const response = await this.$http.post('', graphqlQuery)
         const resData = await response.json()
@@ -110,25 +96,7 @@ export default {
     },
     editWalletHandler: async function () {
       this.loading = true
-      const graphqlQuery = {
-        query: `mutation {
-          editWallet(walletInput: {
-                      _id: "${this.editedWallet._id}",
-                      walletType: "${this.walletInput.walletType}",
-                      amount: "${this.walletInput.amount}",
-                      supplier: "${this.walletInput.supplier}",
-                      shortId: "${this.walletInput.shortId}",
-                      color: "${this.walletInput.color}"
-                    }) {
-                      _id
-                      walletType
-                      amount
-                      supplier
-                      shortId
-                      color
-                  }
-            }`
-      }
+      const graphqlQuery = editWallet(this.walletInput)
       try {
         await this.$http.post('', graphqlQuery)
         const response = await this.$http.post('', graphqlQuery)

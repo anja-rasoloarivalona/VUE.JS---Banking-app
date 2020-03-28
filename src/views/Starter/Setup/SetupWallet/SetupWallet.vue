@@ -21,7 +21,7 @@
 
 <script>
 import Wallet from '@/components/UI/Wallet'
-import WalletForm from './WalletForm'
+import WalletForm from '@/components/Forms/WalletForm'
 export default {
   data () {
     return {

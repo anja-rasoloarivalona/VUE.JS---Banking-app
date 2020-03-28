@@ -159,7 +159,6 @@ export default {
         const response = await this.$http.post('', graphqlQuery)
         const resData = await response.json()
         const responseData = resData.data.editTransaction
-        console.log('editing', responseData)
         this.$store.commit('addTransaction', responseData)
         this.loading = false
         this.$emit('closeForm')

@@ -22,6 +22,15 @@ const getters = {
         transactionType: 'expense'
       }
     })
+    const creditCards = ['Visa', 'MasterCard']
+    state.wallets.forEach(wallet => {
+      if (creditCards.includes(wallet.walletType)) {
+        usersIncomesAndExpenses[`${wallet.walletType} ${wallet.supplier}`] = {
+          ...wallet,
+          transactionType: 'expense'
+        }
+      }
+    })
     return usersIncomesAndExpenses
   },
   walletsNameAndId: state => {

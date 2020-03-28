@@ -25,6 +25,9 @@
       <template #dashboard-available-instantly>
         <dashboard-available-instantly></dashboard-available-instantly>
       </template>
+      <template #dashboard-expenses-chart>
+        <dashboard-expenses-chart></dashboard-expenses-chart>
+      </template>
     </dashboard-layout>
   </div>
 </template>
@@ -39,6 +42,7 @@ import Goal from './Goal'
 import MonthlyReport from './MonthlyReport'
 import TransactionsChart from './TransactionsChart'
 import AvailableInstantly from './AvailableInstantly'
+import ExpensesChart from './ExpensesChart'
 
 export default {
   data () {
@@ -58,7 +62,8 @@ export default {
     dashboardGoal: Goal,
     dashboardMonthlyReport: MonthlyReport,
     dashboardTransactionsChart: TransactionsChart,
-    dashboardAvailableInstantly: AvailableInstantly
+    dashboardAvailableInstantly: AvailableInstantly,
+    dashboardExpensesChart: ExpensesChart
   }
 }
 </script>

@@ -154,6 +154,9 @@ body {
   box-sizing: border-box;
   font-family: "Open Sans", sans-serif;
   overflow-x: hidden;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .app-main {

@@ -15,7 +15,7 @@
             <app-basic-input  :id="'details'" v-model="input.details" />
             <app-select-input :id="'wallet'" v-model="input.usedWallet" :options="Object.keys(walletsNameAndId)" />
             <app-select-input :id="'status'" v-model="input.status" :options="['Paid', 'Pending']" />
-            <app-basic-input :id="'counter party'" v-model="input.counterparty" v-if="!isFixedExpenses"/>
+            <app-basic-input :id="'counter party'" v-model="input.counterparty" v-if="showCounterparty"/>
         </form>
         <app-btn normal primary @click.native="submitForm">
                 <span v-if="!loading" v-text="editedTransaction ? 'Edit': 'Add'"></span>
@@ -97,6 +97,25 @@ export default {
       if (this.userFixedExpenses.includes(this.input.name)) {
         return true
       } else return false
+    },
+    showCounterparty () {
+      const res = []
+      const d = this.input.name
+      if (d) {
+        const name = d.split(' ')[0]
+        if (['Visa', 'MasterCard'].includes(name)) {
+          res.push(false)
+        }
+      }
+      if (this.isFixedExpenses) {
+        res.push(false)
+      }
+
+      if (res.includes(false)) {
+        return false
+      } else {
+        return true
+      }
     }
   },
   mounted () {

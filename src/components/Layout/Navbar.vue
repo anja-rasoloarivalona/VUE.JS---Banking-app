@@ -7,8 +7,8 @@
       <router-link to="/savings-plan" tag="div"><a>Savings plan</a></router-link>
     </ul>
     <div class="nav__cta">
-      <app-icon name='bell' size="large" color='grey'/>
-      <app-icon name='settings' size="large" color='grey'/>
+      <app-icon name="bell" size="large" color="primary"/>
+      <app-icon name="settings" size="large" color="primary"/>
       <div class="nav__cta__userImg"></div>
     </div>
   </div>

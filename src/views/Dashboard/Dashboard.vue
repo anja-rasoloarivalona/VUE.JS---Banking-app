@@ -19,24 +19,10 @@
       <template #dashboard-monthly-report>
         <dashboard-monthly-report></dashboard-monthly-report>
       </template>
+      <template #dashboard-transactions-chart>
+        <dashboard-transactions-chart></dashboard-transactions-chart>
+      </template>
     </dashboard-layout>
-       <!-- <div class="dashboard__monthResume">
-        <h2 class="color-primary">Monthly summary</h2>
-        <div class="dashboard__monthResume__data">
-          <div class="dashboard__monthResume__data__group">
-            <h3 class="dashboard__monthResume__data__group__key">Income</h3>
-            <div
-              class="dashboard__monthResume__data__group__value dashboard__monthResume__data__group__value--income"
-            >+${{cashFlow.income | amount }}</div>
-          </div>
-          <div class="dashboard__monthResume__data__group">
-            <h3 class="dashboard__monthResume__data__group__key">Expenses</h3>
-            <div
-              class="dashboard__monthResume__data__group__value dashboard__monthResume__data__group__value--expense"
-            >-${{cashFlow.expenses | amount }}</div>
-          </div>
-        </div>
-      </div> -->
   </div>
 </template>
 
@@ -48,6 +34,7 @@ import Wallet from './Wallet'
 import Transactions from './Transactions'
 import Goal from './Goal'
 import MonthlyReport from './MonthlyReport'
+import TransactionsChart from './TransactionsChart'
 
 export default {
   data () {
@@ -65,7 +52,8 @@ export default {
     dashboardBudget: Budget,
     dashboardWallet: Wallet,
     dashboardGoal: Goal,
-    dashboardMonthlyReport: MonthlyReport
+    dashboardMonthlyReport: MonthlyReport,
+    dashboardTransactionsChart: TransactionsChart
   }
 }
 </script>

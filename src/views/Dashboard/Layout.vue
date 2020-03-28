@@ -54,7 +54,8 @@ export default {
         { x: 8, y: 0, w: 4, h: 5, i: 'dashboard-wallet' },
         { x: 0, y: 12, w: 8, h: 6, i: 'dashboard-transactions' },
         { x: 4, y: 0, w: 4, h: 6, i: 'dashboard-goal' },
-        { x: 4, y: 0, w: 4, h: 6, i: 'dashboard-monthly-report' }
+        { x: 4, y: 0, w: 4, h: 6, i: 'dashboard-monthly-report' },
+        { x: 4, y: 0, w: 8, h: 12, i: 'dashboard-transactions-chart' }
       ]
     }
   },

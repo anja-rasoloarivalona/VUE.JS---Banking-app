@@ -4,9 +4,6 @@
     <div v-else-if="!loading" class="app-main">
       <sidebar></sidebar>
       <navbar></navbar>
-      <div class="app__navbarFiller">
-        <div class="app__navbarFiller__in"></div>
-      </div>
       <div class="app__view">
         <router-view/>
       </div>
@@ -172,26 +169,12 @@ body {
     min-height: calc(100vh - 9rem);
     width: 100%;
     padding-top: 2rem;
+    position: relative;
   }
   .app__title {
     &--md {
       font-size: $font-xl;
     }
-  }
-  .app__navbarFiller {
-    grid-row: 1 / 2;
-    grid-column: 2 / 4;
-    background: $color-primary;
-    position: relative;
-    z-index: 2;
-     &__in {
-       background: $color-grey--light;
-       height: 100%;
-       width: 100%;
-       position: absolute;
-       z-index: 1;
-        border-top-left-radius: 4rem;
-     }
   }
 }
 .color-primary {

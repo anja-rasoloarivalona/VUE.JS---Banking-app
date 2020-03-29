@@ -13,7 +13,7 @@
             <app-select-input :id="'name'" v-model="input.name" :options="[...Object.keys(usersIncomesAndExpenses), 'New transaction']" />
             <app-basic-input  :id="'amount'" v-model="input.amount" />
             <app-basic-input  :id="'details'" v-model="input.details" />
-            <app-select-input :id="'wallet'" v-model="input.usedWallet" :options="Object.keys(walletsNameAndId)" />
+            <app-select-input :id="'wallet'" v-model="input.usedWallet" :options="userWallets" />
             <app-select-input :id="'status'" v-model="input.status" :options="['Paid', 'Pending']" />
             <app-basic-input :id="'counter party'" v-model="input.counterparty" v-if="showCounterparty"/>
         </form>
@@ -45,7 +45,8 @@ export default {
       },
       loading: false,
       date: new Date(),
-      userFixedExpenses: []
+      userFixedExpenses: [],
+      userWallets: []
     }
   },
   watch: {
@@ -83,6 +84,15 @@ export default {
           this.input.category = ''
         }
       }
+      // CHECK IF THE CURRENT EXPENSE TRANSACTION IS A PAYMENT FOR THE CREDIT CARD
+      const creditCards = ['Visa', 'MasterCard']
+      if (name && creditCards.includes(name.split(' ')[0])) {
+        const updatedWallets = { ...this.walletsNameAndId }
+        delete updatedWallets[name]
+        this.userWallets = Object.keys(updatedWallets)
+      } else {
+        this.userWallets = Object.keys(this.walletsNameAndId)
+      }
     },
     'input.usedWallet': function (waletName) {
       this.input.walletId = this.walletsNameAndId[waletName]
@@ -119,6 +129,7 @@ export default {
     }
   },
   mounted () {
+    this.userWallets = Object.keys(this.walletsNameAndId)
     if (!this.editedTransaction) {
       const userFixedExpenses = []
       const usersIncomesAndExpenses = this.usersIncomesAndExpenses

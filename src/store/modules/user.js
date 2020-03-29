@@ -37,7 +37,7 @@ const getters = {
     const wallets = {}
     state.wallets.forEach(wallet => {
       if (wallet.supplier) {
-        wallets[`${wallet.walletType} - ${wallet.supplier}`] = wallet._id
+        wallets[`${wallet.walletType} ${wallet.supplier}`] = wallet._id
       } else {
         wallets[`${wallet.walletType}`] = wallet._id
       }

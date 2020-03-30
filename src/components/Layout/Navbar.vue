@@ -36,27 +36,26 @@
 .navBg {
   grid-column: 2 / -1;
   grid-row: 1 / 2;
-  background: $color-primary;
+  background: var(--app-bg-secondary);
   position: relative;
   z-index: 2;
   &__in {
-      background: $color-grey--light;
-       height: 100%;
-       width: 100%;
-       position: absolute;
-       z-index: 1;
-      border-top-left-radius: 4rem;
+    background: var(--app-bg-primary);
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 1;
+    border-top-left-radius: 4rem;
   }
 }
 .nav {
   grid-column: 3 / 4;
   grid-row: 1 / 2;
   max-width: 120rem;
-  background: $color-grey--light;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid $color-line;
+  border-bottom: 1px solid var(--app-line-color);
   position: relative;
   z-index: 3;
   margin: 0 1rem;
@@ -65,12 +64,12 @@
     div {
       margin-right: 3rem;
       a {
-        color: $color-grey--dark;
+        color: var(--app-title-color-secondary);
         text-decoration: none;
         font-size: $font-m;
       }
       &.router-link-exact-active a {
-            color: $color-primary;
+            color: var(--app-color-main);
       }
     }
   }

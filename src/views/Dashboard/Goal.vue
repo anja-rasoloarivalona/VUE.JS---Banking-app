@@ -1,5 +1,5 @@
 <template>
-    <div class="goal">
+    <div class="goal dashboard__section">
         <div class="goal__detail">
             <h2 class="dashboard__section__title">Goal</h2>
             <div class="goal__detail__date">
@@ -8,16 +8,30 @@
             </div>
         </div>
         <div class="goal__circle">
-            <Progress :radius="40" :strokeWidth="8" strokeColor="brown" :value="goalPercentage">
+            <Progress
+                :radius="40"
+                :strokeWidth="8"
+                :strokeColor="theme[currentTheme]['--app-color-main']"
+                :value="goalPercentage">
             </Progress>
         </div>
     </div>
 </template>
 
 <script>
+import theme from '@/assets/theme'
+import { mapGetters } from 'vuex'
 import Progress from 'easy-circular-progress'
 export default {
+  data () {
+    return {
+      theme: theme
+    }
+  },
   computed: {
+    ...mapGetters([
+      'currentTheme'
+    ]),
     goalPercentage () {
       return (this.$store.state.user.balance / this.$store.state.user.goal.amount) * 100
     }
@@ -30,7 +44,6 @@ export default {
 
 <style lang="scss">
 .goal {
-    background: $color-white;
     display: flex;
     height: 11rem;
     max-height: 11rem;
@@ -46,11 +59,11 @@ export default {
             display: flex;
             align-items: center;
             &__key {
-                color: $color-grey--main;
+                color: var(--app-title-color-secondary);
                 margin-right: .5rem;
             }
             &__value {
-                color: $color-primary;
+                color: var(--app-text-color);
                 font-size: $font-m;
             }
         }

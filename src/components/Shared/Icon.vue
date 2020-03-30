@@ -52,18 +52,26 @@ export default {
 }
 
 /* colors */
+
+.primary {
+  fill: var(--app-color-main);
+}
+
+.red {
+  fill: $color-red
+}
+
+.green {
+  fill: $color-green
+}
+
 .grey {
  fill:$color-grey--light
 }
 .grey--dark {
   fill: $color-grey--dark
 }
-.primary {
-  fill: $color-primary;
-}
-.red {
-  fill: $color-red
-}
+
 .white {
   fill: $color-white
 }

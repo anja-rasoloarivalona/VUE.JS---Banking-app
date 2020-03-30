@@ -4,6 +4,7 @@ import App from './App'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
+import './variables.scss'
 
 // components - Shared
 import Button from './components/Shared/Button'

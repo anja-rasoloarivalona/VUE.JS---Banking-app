@@ -1,5 +1,5 @@
 <template>
-    <div class="available">
+    <div class="available dashboard__section">
         <h2 class="dashboard__section__title">Available now</h2>
         <div class="available__value">
             <strong>${{available | amount}}</strong>
@@ -40,7 +40,6 @@ export default {
 
 <style lang="scss" scoped>
 .available {
-    background: $color-white;
     // border-radius: 1rem;
     display: flex;
     flex-direction: column;
@@ -53,7 +52,7 @@ export default {
     &__value {
       height: 5rem;
       font-size: 2.4rem;
-      color: $color-primary;
+      color: var(--app-color-main);
     }
 }
 </style>

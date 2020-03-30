@@ -1,5 +1,5 @@
 <template>
-  <div class="budget">
+  <div class="budget dashboard__section">
     <h2 class="dashboard__section__title">Budget</h2>
     <div v-for="item in budget" :key="item._id" class="budget__item">
         <h3 class="budget__item__key">{{ item.name }}</h3>
@@ -80,7 +80,6 @@ export default {
 <style lang="scss" scoped>
 .budget {
     width: 100%;
-    background: $color-white;
     padding: 1rem;
     padding-left: 3rem;
     // border-radius: 2rem;
@@ -93,7 +92,7 @@ export default {
             width: 10rem;
             min-width: 10rem;
             text-transform: capitalize;
-            color: $color-grey--main;
+            color: var(--app-title-color-secondary);
         }
         &__barContainer {
           height: 2rem;
@@ -103,7 +102,7 @@ export default {
         &__bar {
             height: 100%;
             max-width: 100%;
-            background: $color-grey--main;
+            background: var(--app-bg-secondary);
             position: relative;
             border-radius: .5rem;
             overflow: hidden;
@@ -113,7 +112,7 @@ export default {
             left: 0;
             top: 0;
             height: 100%;
-            background: $color-primary;
+            background: var(--app-color-main);
             display: flex;
             align-items: center;
             padding-left: 2rem;
@@ -121,7 +120,7 @@ export default {
         }
         &__max {
             margin-left: 2rem;
-            color: $color-primary
+            color: var(--app-text-color)
         }
     }
 }

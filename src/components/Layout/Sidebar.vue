@@ -7,8 +7,6 @@
             >
             </component>
         </transition>
-        <app-calendar>
-        </app-calendar>
     </div>
 </template>
 
@@ -46,7 +44,7 @@ export default {
     position: fixed;
     width: 25rem;
     height: 100vh;
-    background: $color-primary;
+    background: var(--app-bg-secondary);
     padding: 0 2rem;
     &__header {
         height: 9rem;
@@ -56,7 +54,7 @@ export default {
         &__item {
             padding: 2rem 1rem;
             border-radius: 1rem;
-            background: $color-white;
+            background: var(--app-item-bg);
             display: flex;
             align-items: center;
             margin-bottom: 3rem;
@@ -68,12 +66,11 @@ export default {
                     height: 3rem;
                     display: flex;
                     align-items: center;
-                    // color: $color-primary;
                 }
             }
             &__subtitle {
                 display: flex;
-                color: $color-grey--main;
+                color: var(--app-title-color-secondary);
                 font-size: $font-s;
                 & div:first-child {
                     margin-right: .5rem;
@@ -85,7 +82,6 @@ export default {
                 justify-content: flex-end;
                 width: 100%;
                 &__amount {
-                    // color: $color-primary;
                     font-size: $font-xl;
                     padding-right: 1rem;
                     font-weight: 600;

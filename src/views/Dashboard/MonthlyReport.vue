@@ -1,11 +1,11 @@
 <template>
-    <div class="monthly">
+    <div class="monthly dashboard__section">
         <h2 class="dashboard__section__title">Monthly report</h2>
         <div class="monthly__details">
             <div class="monthly__details__item monthly__details__item--income">
                 <h3>Income</h3>
                 <div class="monthly__details__item__amount">
-                    <app-icon name="arrow" color="primary" />
+                    <app-icon name="arrow" color="green" />
                     <div>+ ${{report.income | amount}}</div>
                 </div>
             </div>
@@ -43,7 +43,6 @@ export default {
 
 <style lang="scss">
 .monthly {
-    background: $color-white;
     height: 11rem;
     max-height: 11rem;
     padding: 1rem;
@@ -58,7 +57,7 @@ export default {
             width: 100%;
             & h3 {
                 margin-bottom: 1rem;
-                color: $color-grey--main
+                color: var(--app-title-color-secondary)
             }
             &--expense{
                & svg {

@@ -1,5 +1,5 @@
 <template>
-    <div class="wallet">
+    <div class="wallet dashboard__section">
         <h2 class="dashboard__section__title">Wallet</h2>
         <ul class="wallet__list">
             <app-wallet v-for="wallet in wallets" :key="wallet._id" :wallet="wallet"></app-wallet>
@@ -35,7 +35,6 @@ export default {
 
 <style lang="scss" scoped>
 .wallet {
-    background: $color-white;
     padding: 1.5rem;
     width: 100%;
     & h2 {

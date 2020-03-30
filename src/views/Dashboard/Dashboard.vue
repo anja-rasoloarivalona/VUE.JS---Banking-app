@@ -74,42 +74,12 @@ export default {
   grid-column: 2 / 3;
 
   &__section {
+      background: var(--app-item-bg);
     &__title {
       height: 3rem;
       display: flex;
       align-items: center;
-      color: $color-grey--main;
-    }
-  }
-
-  &__monthResume {
-    background: $color-white;
-    padding: 1.5rem;
-    border-radius: 1.5rem;
-    &__data {
-      display: flex;
-      justify-content: space-between;
-      &__group {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        &:last-child {
-          align-items: flex-end;
-        }
-        &__key {
-          color: $color-grey--main;
-        }
-        &__value {
-          font-size: 1.6rem;
-          font-weight: bold;
-          &--income {
-            color: green;
-          }
-          &--expense {
-            color: red;
-          }
-        }
-      }
+      color: var(--app-text-color);
     }
   }
 }

@@ -13,6 +13,8 @@
 
 <script>
 import Vue from 'vue'
+import { mapGetters, mapMutations } from 'vuex'
+import { initQuery } from './graphQL/initQuery'
 import Sidebar from './components/Layout/Sidebar'
 import Navbar from './components/Layout/Navbar'
 export default {
@@ -22,18 +24,32 @@ export default {
     }
   },
   computed: {
+    ...mapGetters([
+      'currentTheme'
+    ]),
     isAppReady () {
       if (this.$store.state.auth.appStatus !== 'running') {
         return false
       } else return true
     }
   },
+  methods: {
+    ...mapMutations([
+      'initAppData',
+      'setIsAuthToTrue',
+      'setAppStatus',
+      'setTheme'
+    ])
+  },
   components: {
     Sidebar,
     Navbar
   },
   created: async function () {
-    // localStorage.removeItem('bank-data')
+    const htmlElement = document.documentElement
+    htmlElement.setAttribute('theme', 'dark')
+    this.setTheme('dark')
+
     const localData = localStorage.getItem('bank-data')
     if (!localData) {
       console.log('no local data')
@@ -48,83 +64,16 @@ export default {
       console.log('Token not valid anymore')
       return
     }
-    this.$store.commit('setIsAuthToTrue', data)
+    this.setIsAuthToTrue(data)
     Vue.http.headers.common.Authorization = 'Bearer ' + data.token
-    const graphqlQuery = {
-      query: `{
-        user {
-          status
-          goal {
-           name
-           amount
-           date
-          }
-          monthlyReports {
-            period
-            income
-            expense
-            transactions {
-              _id
-              shortId
-              date
-              name
-              counterparty
-              amount
-              details
-              usedWalletId
-              status
-              transactionType
-              category
-            }
-          }
-          wallets {
-            _id
-            walletType
-            amount
-            creditLimit
-            supplier
-            shortId
-            color
-          }
-          expenses {
-            _id
-            name
-            amount
-            category
-            expenseType
-            lastPayout
-            nextPayout
-            used
-            frequency {
-                counter
-                period
-            }
-          }
-          incomes {
-            _id
-            name
-            amount
-            from
-            frequency {
-                counter
-                period
-            }
-            lastPayout
-            nextPayout
-            autoWriting
-            notification
-          }
-        }
-      }`
-    }
+    const graphqlQuery = initQuery
     try {
       const response = await this.$http.post('', graphqlQuery)
       const resData = await response.json()
       const responseData = resData.data.user
-      console.log(responseData)
-      this.$store.commit('initAppData', responseData)
+      this.initAppData(responseData)
       if (responseData.status === 'active') {
-        this.$store.commit('setAppStatus', 'running')
+        this.setAppStatus('running')
       }
       this.loading = false
     } catch (err) {
@@ -151,6 +100,7 @@ body {
   box-sizing: border-box;
   font-family: "Open Sans", sans-serif;
   overflow-x: hidden;
+  color: var(--app-text-color);
   &::-webkit-scrollbar {
     display: none;
   }
@@ -160,12 +110,12 @@ body {
   display: grid;
   grid-template-columns: 25rem minmax(8rem, 1fr) minmax(70vw, 120rem) minmax(8rem, 1fr);
   grid-template-rows: 9rem max-content;
-  background: $color-grey--light;
+  background: var(--app-bg-primary);
   max-width: 100vw;
   .app__view {
     grid-row: 2 / 3;
     grid-column: 3 / 4;
-    background: $color-grey--light;
+    background: var(--app-bg-primary);
     min-height: calc(100vh - 9rem);
     width: 100%;
     padding-top: 2rem;
@@ -176,12 +126,6 @@ body {
       font-size: $font-xl;
     }
   }
-}
-.color-primary {
-color: $color-primary
-}
-.color-grey-main {
-color: $color-grey--main
 }
 
 .flip-enter-active {

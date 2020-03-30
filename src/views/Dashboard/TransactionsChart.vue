@@ -1,5 +1,5 @@
 <template>
-    <div class="chart">
+    <div class="chart dashboard__section">
         <h2 class="dashboard__section__title">History</h2>
         <div class="chart__container">
             <line-chart :data="datacollection" :styles="myStyles" :gradient1="'green'" :gradient2="'transparent'" ></line-chart>
@@ -37,7 +37,6 @@ export default {
 <style lang="scss" scoped>
 .chart {
     width: 100%;
-    background: $color-white;
     height: 100%;
     padding: 1rem;
     padding-left: 3rem;

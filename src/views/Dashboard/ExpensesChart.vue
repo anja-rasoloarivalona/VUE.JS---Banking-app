@@ -1,5 +1,5 @@
 <template>
-    <div class="chart">
+    <div class="chart dashboard__section">
         <h2 class="dashboard__section__title">Planned expenditures</h2>
         <div class="chart__container">
             <doughnut-chart :styles="chartStyles" ></doughnut-chart>
@@ -28,7 +28,6 @@ export default {
 <style lang="scss" scoped>
 .chart {
     width: 100%;
-    background: $color-white;
     height: 100%;
     padding: 1rem;
     padding-left: 3rem;

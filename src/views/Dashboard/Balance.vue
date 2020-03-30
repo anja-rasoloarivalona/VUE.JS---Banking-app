@@ -1,5 +1,5 @@
 <template>
-    <div class="balance">
+    <div class="balance dashboard__section">
         <h2 class="dashboard__section__title">Balance</h2>
         <div class="balance__value">
             <strong>${{balance | amount}}</strong>
@@ -41,8 +41,6 @@ export default {
 
 <style lang="scss" scoped>
 .balance {
-    background: $color-white;
-    // border-radius: 1rem;
     display: flex;
     flex-direction: column;
     padding: 1rem;
@@ -54,7 +52,7 @@ export default {
     &__value {
       height: 5rem;
       font-size: 2.4rem;
-      color: $color-primary;
+      color: var(--app-color-main);
     }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="transactions">
+    <div class="transactions dashboard__section">
             <h2 class="dashboard__section__title">Recent transactions</h2>
 
             <table class="transactions__table">
@@ -53,7 +53,6 @@ export default {
   }
 }
 .transactions {
-    background: $color-white;
     padding: 1rem;
     padding-left: 3rem;
     height: 23.1rem;
@@ -85,8 +84,8 @@ export default {
     }
 }
 table, table th {
-  border-top: 1px solid $color-line;
-  border-bottom: 1px solid $color-line;
+  border-top: 1px solid var(--app-line-color);
+  border-bottom: 1px solid var(--app-line-color);
   border-collapse: collapse;
 }
 table {
@@ -95,7 +94,7 @@ table {
     height: 5rem;
     text-align: start;
     padding-left: 2rem;
-    background: $color-grey--light;
+    background: var(--app-bg-primary);
     font-size: $font-s;
   }
 }

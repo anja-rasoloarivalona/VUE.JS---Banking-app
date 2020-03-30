@@ -59,6 +59,7 @@
   border-bottom: 1px solid $color-line;
   position: relative;
   z-index: 3;
+  margin: 0 1rem;
   &__list {
     display: flex;
     div {

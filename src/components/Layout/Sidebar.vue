@@ -1,34 +1,53 @@
 <template>
     <div class="sidebar">
         <div class="sidebar__header"></div>
-        <ul class="sidebar__list">
-            <li class="sidebar__list__item">
-                <div class="sidebar__list__item__title">
-                    <h2>Upcoming</h2>
-                    <div class="sidebar__list__item__subtitle">
-                        <div>Rent</div>
-                        <div>4/01/2020</div>
-                    </div>
-                </div>
-                <div class="sidebar__list__item__details">
-                    <div class="sidebar__list__item__details__amount">$640</div>
-                </div>
-            </li>
-        </ul>
+        <transition name="fade" mode="out-in" appear>
+            <component
+                :is="mode"
+            >
+            </component>
+        </transition>
+        <app-calendar>
+        </app-calendar>
     </div>
 </template>
 
 <script>
+import SidebarDashboard from './SidebarDasboard'
+import SibebarTransactions from './SidebarTransactions'
+export default {
+  data () {
+    return {
+      mode: 'dashboard',
+
+      keys: {
+        sidebarbashboard: 1
+      }
+    }
+  },
+  watch: {
+    $route (to, from) {
+      if (to.path !== '/') {
+        this.mode = to.path.substring(1)
+      } else {
+        this.mode = 'dashboard'
+      }
+    }
+  },
+  components: {
+    dashboard: SidebarDashboard,
+    transactions: SibebarTransactions
+  }
+}
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="scss">
 .sidebar {
     position: fixed;
     width: 25rem;
     height: 100vh;
     background: $color-primary;
-    padding: 0 1rem;
+    padding: 0 2rem;
     &__header {
         height: 9rem;
         margin-bottom: 3rem;
@@ -40,6 +59,7 @@
             background: $color-white;
             display: flex;
             align-items: center;
+            margin-bottom: 3rem;
 
             &__title {
                 display: flex;
@@ -72,6 +92,35 @@
                 }
             }
         }
+    }
+}
+
+.fade-enter-active {
+    animation: fade-in .5s ease-out forwards;
+}
+.fade-leave-active {
+    animation: fade-out .5s ease-out forwards;
+}
+
+@keyframes fade-in {
+    from {
+        transform: translateY(2rem);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0rem);
+        opacity: 1;
+    }
+}
+
+@keyframes fade-out {
+    from {
+        transform: translateY(0rem);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(2rem);
+        opacity: 0;
     }
 }
 

@@ -75,6 +75,7 @@ export default {
 
   &__section {
       background: var(--app-item-bg);
+      border-radius: .5rem;
     &__title {
       height: 3rem;
       display: flex;

@@ -87,7 +87,18 @@ export default {
     }
   },
   props: {
-    type: String
+    type: String,
+    selected: Object
+  },
+  mounted () {
+    if (this.selected) {
+      this[this.type] = {
+        ...this.selected,
+        lastPayout: new Date(this.selected.lastPayout),
+        autoWriting: this.selected.autoWriting ? 'yes' : 'no',
+        notification: this.selected.notification ? 'yes' : 'no'
+      }
+    }
   },
   methods: {
     submit () {
@@ -192,15 +203,15 @@ export default {
 
 <style lang="scss">
 .budget-form {
-    margin-top: 4rem;
-    background: $color-grey--light;
-    width: 100%;
-    padding: 2rem;
-    padding-top: 4rem;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: max-content;
-    grid-auto-rows: max-content;
+    background: var(--app-bg-primary);
+    // background: red;
+    width: 50%;
+    // padding: 2rem;
+    padding-top: 2rem;
+    // display: grid;
+    // grid-template-columns: repeat(2, 1fr);
+    // grid-template-rows: max-content;
+    // grid-auto-rows: max-content;
     column-gap: 2rem;
     position: relative;
     padding-bottom: 5rem;
@@ -240,10 +251,14 @@ export default {
     border-width: 0px !important;
 }
 
+.vc-bg-white {
+    background: var(--app-item-bg) !important;
+}
+
 .vc-text-base {
     font-size: 13px !important;
     font-family: "Open Sans", sans-serif !important;
-    color: #000000;
+    color: var(--app-text-color) !important;
 }
 
 </style>

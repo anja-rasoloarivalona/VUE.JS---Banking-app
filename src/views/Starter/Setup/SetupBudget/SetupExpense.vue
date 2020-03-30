@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import BudgetForm from './BudgetForm'
+import BudgetForm from '@/components/Forms/BudgetForm'
 import Expense from '@/components/UI/Expense'
 export default {
   data () {

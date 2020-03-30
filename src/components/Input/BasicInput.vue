@@ -45,12 +45,13 @@ export default {
         width: 10rem;
         margin-bottom: 0.5rem;
         font-size: $font-m;
-        color: $color-grey--dark;
+        color: var(--app-title-color-secondary);
     }
 
     & input {
         height: 4rem;
-        background: $color-white;
+        background: var(--app-item-bg);
+        color: var(--app-text-color);
         border: none;
         padding-left: 1rem;
         border-radius: 0.5rem;

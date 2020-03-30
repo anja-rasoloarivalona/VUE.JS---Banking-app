@@ -4,7 +4,7 @@ import Starter from '../views/Starter/Starter'
 import Dashboard from '../views/Dashboard/Dashboard'
 import Transactions from '../views/Transactions/Transactions'
 import Wallets from '../views/Wallets/Wallets'
-import SavingsPlan from '../views/SavingsPlan/SavingsPlan'
+import Budget from '../views/Budget/Budget'
 
 Vue.use(VueRouter)
 
@@ -25,8 +25,8 @@ const routes = [
     component: Wallets
   },
   {
-    path: '/savings-plan',
-    component: SavingsPlan
+    path: '/budget',
+    component: Budget
   },
   {
     path: '*',

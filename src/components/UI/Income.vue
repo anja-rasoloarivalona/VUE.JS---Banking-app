@@ -26,6 +26,7 @@ export default {
     padding: 1rem;
     background: $color-secondary;
     color: $color-white;
+    cursor: pointer;
     & div {
         margin: 1rem;
     }

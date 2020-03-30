@@ -59,12 +59,13 @@ label {
         width: 10rem;
         margin-bottom: 0.5rem;
         font-size: $font-m;
-        color: $color-grey--dark;
+        color: var(--app-title-color-secondary);
     }
 }
 .select {
     width: 100%;
-    background: $color-white;
+    background: var(--app-item-bg);
+    color: var(--app-text-color);
     position: relative;
     &.bg-grey {
       background: $color-grey--light;
@@ -99,7 +100,8 @@ label {
         top: 4rem;
         left: 0;
         border: 1px solid $color-grey--dark;
-        background: $color-white;
+        background: var(--app-item-bg);
+        color: var(--app-text-color);
         width: 100%;
         border-bottom-left-radius: .5rem;
         border-bottom-right-radius: .5rem;
@@ -113,11 +115,11 @@ label {
             font-size: $font-m;
             cursor: pointer;
             &:hover {
-                background: $color-grey--light;
+                // background: $color-grey--light;
             }
             &.active {
-                background: $color-primary;
-                color: $color-white;
+                background: var(--app-color-main);
+                color: var(--app-text-color);
             }
         }
     }

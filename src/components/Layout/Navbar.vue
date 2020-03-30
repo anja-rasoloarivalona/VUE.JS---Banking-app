@@ -7,8 +7,8 @@
       <ul class="nav__list">
         <router-link to="/" tag="div"><a>Dashboard</a></router-link>
         <router-link to="/transactions" tag="div"><a>Transactions</a></router-link>
+        <router-link to="/budget" tag="div"><a>Budget</a></router-link>
         <router-link to="/wallet" tag="div"><a>Wallet</a></router-link>
-        <router-link to="/savings-plan" tag="div"><a>Savings plan</a></router-link>
       </ul>
       <div class="nav__cta">
         <app-icon name="bell" size="large" color="primary"/>

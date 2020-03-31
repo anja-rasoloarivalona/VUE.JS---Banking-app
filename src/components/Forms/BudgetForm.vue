@@ -1,53 +1,65 @@
 <template>
-    <form class="budget-form">
-            <div class="budget-form__close" @click="$emit('closeForm')">
-                  <app-icon name="close" size="large" color="primary"/>
-            </div>
-            <template v-if="type === 'income'">
-                <app-basic-input v-model="income.name" :id="'name'" />
-                <app-basic-input v-model="income.amount" :id="'amount'"  />
-                <app-basic-input v-model="income.from" :id="'from'" />
-                <app-frequency-input v-model="income.frequency" :id="'frequency'"/>
-                <div class="input-date">
-                    <label for="lastPayout">
-                        <span>last payout</span>
-                        <app-date-picker v-model='income.lastPayout' id="lastPayout"/>
-                    </label>
-                </div>
-                <app-select-input :id="'auto writing'"  :options="['yes', 'no']" v-model="income.autoWriting" />
-                <app-select-input :id="'notification'"  :options="['yes', 'no']" v-model="income.notification" />
-            </template>
-            <template v-if="type === 'expense'">
-                <app-basic-input v-model="expense.name" :id="'name'" />
-                <app-basic-input v-model="expense.amount" :id="'amount'"  />
-                <app-basic-input v-model="expense.category" :id="'category'" />
-                <app-select-input v-model="expense.expenseType" :id="'Expense Type'"  :options="['variable', 'fixed']"/>
-
-                <app-basic-input v-model="expense.used" :id="'used'"  v-if="expense.expenseType === 'variable'"/>
-
-                <div class="input-date" v-if="expense.expenseType === 'fixed'">
-                    <label for="lastPayout">
-                        <span>last payout</span>
-                        <app-date-picker v-model='expense.lastPayout' id="lastPayout"/>
-                    </label>
-                </div>
-                <app-frequency-input
-                    :id="'frequency'"
-                    v-model="expense.frequency"
-                    @selectcounter="expense.frequency.counter = $event"
-                    @selectPeriod="expense.frequency.period = $event"
-                    v-if="expense.expenseType === 'fixed'"
-                />
-            </template>
-
-            <app-btn normal primary @click.native="submit" >
-                <span v-if="!loading">Add</span>
-                <app-spinner v-else></app-spinner>
-            </app-btn>
-    </form>
+  <div class="budget-form-container">
+      <div class="budget-form__close" @click="$emit('closeForm')">
+                    <app-icon name="close" size="large" color="primary"/>
+      </div>
+      <form class="budget-form">
+              <template v-if="type === 'income'">
+                  <app-basic-input v-model="income.name" :id="'name'" />
+                  <app-basic-input v-model="income.amount" :id="'amount'"  />
+                  <app-basic-input v-model="income.from" :id="'from'" />
+                  <app-frequency-input v-model="income.frequency" :id="'frequency'"/>
+                  <div class="input-date">
+                      <label for="lastPayout">
+                          <span>last payout</span>
+                          <app-date-picker v-model='income.lastPayout' id="lastPayout"/>
+                      </label>
+                  </div>
+                  <app-select-input :id="'auto writing'"  :options="['yes', 'no']" v-model="income.autoWriting" />
+                  <app-select-input :id="'notification'"  :options="['yes', 'no']" v-model="income.notification" />
+              </template>
+              <template v-if="type === 'expense'">
+                  <app-basic-input v-model="expense.name" :id="'name'" />
+                  <app-basic-input v-model="expense.amount" :id="'amount'"  />
+                  <app-basic-input v-model="expense.category" :id="'category'" />
+                  <app-select-input v-model="expense.expenseType" :id="'Expense Type'"  :options="['variable', 'fixed']"/>
+                  <app-basic-input v-model="expense.used" :id="'used'"  v-if="expense.expenseType === 'variable'"/>
+                  <div class="input-date" v-if="expense.expenseType === 'fixed'">
+                      <label for="lastPayout">
+                          <span>last payout</span>
+                          <app-date-picker v-model='expense.lastPayout' id="lastPayout"/>
+                      </label>
+                  </div>
+                  <app-frequency-input
+                      :id="'frequency'"
+                      v-model="expense.frequency"
+                      @selectcounter="expense.frequency.counter = $event"
+                      @selectPeriod="expense.frequency.period = $event"
+                      v-if="expense.expenseType === 'fixed'"
+                  />
+              </template>
+              <app-btn normal primary @click.native="submit" >
+                  <span v-if="!loading" v-text="selected ? 'Edit' : 'Add'"></span>
+                  <app-spinner v-else></app-spinner>
+              </app-btn>
+      </form>
+      <div class="budget-preview">
+        <div class="budget-preview__color">
+          <app-color-input v-model="income.color" v-if="type === 'income'"></app-color-input>
+          <app-color-input v-model="expense.color" v-else></app-color-input>
+        </div>
+        <div class="budget-preview__item">
+          <component :is="type" :income="income" :expense="expense" large></component>
+        </div>
+      </div>
+  </div>
 </template>
 
 <script>
+import { editIncomeQuery, addIncomeQuery } from '@/graphQL/incomeQuery'
+import { editExpenseQuery, addExpenseQuery } from '@/graphQL/expenseQuery'
+import Income from '@/components/UI/Income'
+import Expense from '@/components/UI/Expense'
 export default {
   data () {
     return {
@@ -69,7 +81,8 @@ export default {
         },
         lastPayout: new Date(),
         autoWriting: 'yes',
-        notification: 'yes'
+        notification: 'yes',
+        color: 'red'
       },
       expense: {
         name: '',
@@ -80,7 +93,8 @@ export default {
         lastPayout: '',
         frequency: {
           counter: 'once',
-          period: 'a day'
+          period: 'a day',
+          color: 'red'
         }
       },
       loading: false
@@ -92,53 +106,36 @@ export default {
   },
   mounted () {
     if (this.selected) {
+      console.log(this.selected)
       this[this.type] = {
         ...this.selected,
         lastPayout: new Date(this.selected.lastPayout),
         autoWriting: this.selected.autoWriting ? 'yes' : 'no',
         notification: this.selected.notification ? 'yes' : 'no'
       }
+      this.color = this.selected.color
     }
   },
   methods: {
     submit () {
       if (this.type === 'income') {
-        this.addIncome()
-      } else {
-        this.addExpense()
+        if (this.selected) {
+          this.editIncome()
+        } else {
+          this.addIncome()
+        }
+      }
+      if (this.type === 'expense') {
+        if (this.selected) {
+          this.editExpense()
+        } else {
+          this.addExpense()
+        }
       }
     },
     addIncome: async function () {
-      console.log('sad', this.income)
       this.loading = true
-      const graphqlQuery = {
-        query: `mutation {
-                    addIncome(incomeInput: {
-                        name: "${this.income.name}",
-                        amount: "${this.income.amount}",
-                        from: "${this.income.from}",
-                        frequency: {
-                            counter: "${this.income.frequency.counter}",
-                            period: "${this.income.frequency.period}"
-                        }
-                        lastPayout: "${this.income.lastPayout}",
-                        autoWriting: "${this.income.autoWriting}",
-                        notification: "${this.income.notification}"
-                    }) {
-                        _id
-                        name
-                        amount
-                        from
-                        frequency {
-                            counter
-                            period
-                        }
-                        nextPayout
-                        autoWriting
-                        notification
-                    }
-              }`
-      }
+      const graphqlQuery = addIncomeQuery(this.income)
       try {
         const response = await this.$http.post('', graphqlQuery)
         const resData = await response.json()
@@ -153,36 +150,26 @@ export default {
         console.log(err)
       }
     },
+    editIncome: async function () {
+      this.loading = true
+      const graphqlQuery = editIncomeQuery(this.income)
+      try {
+        const response = await this.$http.post('', graphqlQuery)
+        const resData = await response.json()
+        const responseData = resData.data.editIncome
+        responseData.type = 'incomes'
+        responseData.nextPayout = new Date(responseData.nextPayout)
+        this.$store.commit('editUserItem', responseData)
+        this.$emit('closeForm')
+        this.loading = false
+      } catch (err) {
+        this.loading = false
+        console.log(err)
+      }
+    },
     addExpense: async function () {
       this.loading = true
-      const graphqlQuery = {
-        query: `mutation {
-                    addExpense(expenseInput: {
-                        name: "${this.expense.name}",
-                        amount: "${this.expense.amount}",
-                        used: "${this.expense.used}",
-                        category: "${this.expense.category}",
-                        expenseType: "${this.expense.expenseType}",
-                        lastPayout: "${this.expense.lastPayout}",
-                        frequency: {
-                            counter: "${this.expense.frequency.counter}",
-                            period: "${this.expense.frequency.period}"
-                        }
-                    }) {
-                        _id
-                        name
-                        amount
-                        category
-                        expenseType
-                        frequency {
-                            counter
-                            period
-                        }
-                        nextPayout
-                        used
-                    }
-              }`
-      }
+      const graphqlQuery = addExpenseQuery(this.expense)
       try {
         const response = await this.$http.post('', graphqlQuery)
         const resData = await response.json()
@@ -191,40 +178,74 @@ export default {
         this.$store.commit('addUserItem', responseData)
         this.$emit('closeForm')
         this.loading = false
-        console.log('add', responseData)
+      } catch (err) {
+        this.loading = false
+        console.log(err)
+      }
+    },
+    editExpense: async function () {
+      this.loading = true
+      const graphqlQuery = editExpenseQuery(this.expense)
+      try {
+        const response = await this.$http.post('', graphqlQuery)
+        const resData = await response.json()
+        const responseData = resData.data.editExpense
+        responseData.type = 'expenses'
+        this.$store.commit('editUserItem', responseData)
+        this.$emit('closeForm')
+        this.loading = false
       } catch (err) {
         this.loading = false
         console.log(err)
       }
     }
+  },
+  components: {
+    Income,
+    Expense
   }
 }
 </script>
 
 <style lang="scss">
+.budget-form-container {
+  display: flex;
+  position: relative;
+}
 .budget-form {
     background: var(--app-bg-primary);
-    // background: red;
-    width: 50%;
-    // padding: 2rem;
+    width: 40%;
     padding-top: 2rem;
-    // display: grid;
-    // grid-template-columns: repeat(2, 1fr);
-    // grid-template-rows: max-content;
-    // grid-auto-rows: max-content;
-    column-gap: 2rem;
     position: relative;
     padding-bottom: 5rem;
+    // & .input {
+    //   background: salmon;
+    // }
     & button {
         position: absolute;
         bottom: 1rem;
-        left: 2rem;
     }
     &__close {
         position: absolute;
-        right: 1rem;
-        top: 1rem;
+        right: 0rem;
+        top: -4rem;
     }
+}
+.budget-preview {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  &__color {
+    display: flex;
+    justify-content: center;
+    padding-top: 2rem;
+  }
+  &__item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 .input-date {
   display: flex;
@@ -250,7 +271,6 @@ export default {
 .vc-border {
     border-width: 0px !important;
 }
-
 .vc-bg-white {
     background: var(--app-item-bg) !important;
 }

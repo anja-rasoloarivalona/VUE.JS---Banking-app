@@ -47,6 +47,7 @@ const initQuery = {
               counter
               period
           }
+          color
         }
         incomes {
           _id
@@ -61,6 +62,7 @@ const initQuery = {
           nextPayout
           autoWriting
           notification
+          color
         }
       }
     }`

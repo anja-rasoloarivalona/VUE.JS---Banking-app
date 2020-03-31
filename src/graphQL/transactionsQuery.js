@@ -77,6 +77,7 @@ const queryResult = `
                   nextPayout
                   autoWriting
                   notification
+                  color
               }
               expenses {
                   _id
@@ -88,9 +89,10 @@ const queryResult = `
                   nextPayout
                   used
                   frequency {
-                  counter
-                  period
+                    counter
+                    period
                   }
+                  color
               }
   `
 

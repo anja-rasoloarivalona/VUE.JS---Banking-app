@@ -1,9 +1,17 @@
 <template>
-    <div class="expense">
-        <div>{{expense.name}}</div>
-        <div>${{expense.amount | amount }}</div>
-        <div>{{expense.category}}</div>
-        <div v-if="expense.expenseType === 'fixed'">next payout: {{expense.nextPayout | short-date}}</div>
+    <div class="expense" :class="{xl: large}" :style="{background: expense.color}">
+      <div class="expense__details">
+        <div class="expense__details__top">
+            <h3 class="expense__details__top__name">{{expense.name}}</h3>
+            <div class="expense__details__top__date" v-if="expense.expenseType === 'fixed'">next payout: {{expense.nextPayout | short-date}}</div>
+        </div>
+        <div class="expense__details__bot">
+            <div>{{expense.category}}</div>
+        </div>
+      </div>
+      <div class="expense__amount">
+          <div>${{expense.amount | amount }}</div>
+      </div>
     </div>
 </template>
 
@@ -13,23 +21,64 @@ export default {
     expense: {
       type: Object,
       required: true
-    }
+    },
+    large: Boolean
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .expense {
-    width: 30rem;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    width: 25rem;
+    height: 10rem;
+    display: flex;
+    border-radius: .5rem;
     padding: 1rem;
     background: $color-secondary;
     color: $color-white;
+    cursor: pointer;
     margin-bottom: 2rem;
-    & div {
-        margin: 1rem;
+
+    &__details {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
+
+    &__amount {
+      width: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &.xl {
+      min-width: 40rem;
+      max-width: 40rem;
+      height: 20rem;
+      padding: 2rem;
+      & .expense {
+          &__details {
+            &__top {
+              &__name {
+                font-size: 3rem;
+                margin-bottom: .8rem;
+              }
+              &__date {
+                font-size: 1.3rem;
+              }
+            }
+            &__bot {
+              font-size: 1.3rem;
+            }
+          }
+          &__amount {
+            font-size: 3rem;
+            font-weight: 600;
+          }
+      }
+    }
+
 }
 </style>

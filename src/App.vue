@@ -24,10 +24,11 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'currentTheme'
+      'currentTheme',
+      'currentAppStatus'
     ]),
     isAppReady () {
-      if (this.$store.state.auth.appStatus !== 'running') {
+      if (this.currentAppStatus !== 'running') {
         return false
       } else return true
     }

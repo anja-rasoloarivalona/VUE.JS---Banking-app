@@ -1,5 +1,6 @@
 import { editIncomeQuery, addIncomeQuery } from '@/graphQL/incomeQuery'
 import { editExpenseQuery, addExpenseQuery } from '@/graphQL/expenseQuery'
+import { addTransactionQuery, editTransactionQuery } from '@/graphQL/transactionsQuery'
 import axios from 'axios'
 
 const state = {
@@ -158,6 +159,30 @@ const actions = {
       const resData = response.data.data.editExpense
       resData.type = 'expenses'
       commit('editUserItem', resData)
+      return true
+    } catch (err) {
+      console.log(err)
+      return false
+    }
+  },
+  addTransaction: async function ({ commit }, transaction) {
+    const graphqlQuery = addTransactionQuery(transaction)
+    try {
+      const response = await this.$http.post('', graphqlQuery)
+      const resData = response.data.data.addTransaction
+      commit('addTransaction', resData)
+      return true
+    } catch (err) {
+      console.log(err)
+      return false
+    }
+  },
+  editTransaction: async function ({ commit }, transaction) {
+    const graphqlQuery = editTransactionQuery(transaction)
+    try {
+      const response = await this.$http.post('', graphqlQuery)
+      const resData = response.data.data.editTransaction
+      commit('addTransaction', resData)
       return true
     } catch (err) {
       console.log(err)

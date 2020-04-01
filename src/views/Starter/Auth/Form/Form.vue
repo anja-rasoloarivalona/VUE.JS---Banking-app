@@ -66,133 +66,21 @@ export default {
     login: async function () {
       this.loading = true
       this.error = false
-      const graphqlQuery = {
-        query: `{
-              login(email: "${this.userInput.email}", password: "${this.userInput.password}") {
-                  token
-                  user {
-                      _id
-                      name
-                      status
-                      wallets {
-                        _id
-                        walletType
-                        amount
-                        supplier
-                        shortId
-                        color
-                      }
-                      monthlyReports {
-                          period
-                          income
-                          expense
-                          transactions {
-                            _id
-                            shortId
-                            date
-                            name
-                            counterparty
-                            amount
-                            details
-                            usedWalletId
-                            status
-                            transactionType
-                            category
-                          }
-                      }
-                      expenses {
-                        _id
-                        name
-                        amount
-                        category
-                        expenseType
-                        lastPayout
-                        nextPayout
-                        used
-                        frequency {
-                          counter
-                          period
-                        }
-                      }
-                      incomes {
-                        _id
-                        name
-                        amount
-                        from
-                        frequency {
-                            counter
-                            period
-                        }
-                        lastPayout
-                        nextPayout
-                        autoWriting
-                        notification
-                      }
-                  }
-              }
-          }`
-      }
-      try {
-        const response = await this.$http.post('', graphqlQuery)
-        const resData = await response.json()
-        const responseData = resData.data.login
-        const remainingMilliseconds = 24 * 60 * 60 * 1000
-        const expiryDate = new Date(new Date().getTime() + remainingMilliseconds).toISOString()
-        const data = {
-          token: responseData.token,
-          userId: responseData.user._id,
-          userName: responseData.user.name,
-          userStatus: responseData.user.status,
-          appStatus: responseData.user.status === 'created' ? 'welcome' : 'running',
-          expiryDate: expiryDate
-        }
-        this.$store.commit('setIsAuthToTrue', data)
-        this.$store.commit('initAppData', responseData.user)
+      const result = await this.$store.dispatch('login', this.userInput)
+      if (result) {
         this.loading = false
-      } catch (err) {
+      } else {
         this.loading = false
-        const errorData = err.body.errors
-        this.error = [errorData[0].message]
       }
     },
     signup: async function () {
       this.loading = true
       this.error = false
-      const graphqlQuery = {
-        query: `mutation {
-                    createUser(userInput: {
-                        email: "${this.userInput.email}",
-                        name: "${this.userInput.name}",
-                        password: "${this.userInput.password}"
-                    }) {
-                        token
-                        user {
-                            _id
-                            name
-                            status
-                        }
-                    }
-                }`
-      }
-      try {
-        const response = await this.$http.post('', graphqlQuery)
-        const resData = await response.json()
-        const responseData = resData.data.createUser
-        const remainingMilliseconds = 24 * 60 * 60 * 1000
-        const expiryDate = new Date(new Date().getTime() + remainingMilliseconds).toISOString()
-        const data = {
-          token: responseData.token,
-          userId: responseData.user._id,
-          userName: responseData.user.name,
-          userStatus: responseData.user.status,
-          appStatus: 'welcome',
-          expiryDate: expiryDate
-        }
-        this.$store.commit('setIsAuthToTrue', data)
+      const result = await this.$store.dispatch('signup', this.userInput)
+      if (result) {
         this.loading = false
-      } catch (err) {
+      } else {
         this.loading = false
-        console.log(err)
       }
     }
   },

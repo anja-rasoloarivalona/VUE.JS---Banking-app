@@ -26,7 +26,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { addTransactionQuery, editTransactionQuery } from '@/graphQL/transactionsQuery'
 export default {
   data () {
     return {
@@ -162,6 +161,7 @@ export default {
   },
   methods: {
     submitForm () {
+      this.loading = true
       if (this.editedTransaction) {
         this.editTransaction()
       } else {
@@ -169,31 +169,20 @@ export default {
       }
     },
     addTransaction: async function () {
-      this.loading = true
-      const graphqlQuery = addTransactionQuery(this.input)
-      try {
-        const response = await this.$http.post('', graphqlQuery)
-        const resData = await response.json()
-        const responseData = resData.data.addTransaction
-        this.$store.commit('addTransaction', responseData)
+      const res = await this.$store.dispatch('addTransaction', this.input)
+      if (res) {
         this.loading = false
         this.$emit('closeForm')
-      } catch (err) {
+      } else {
         this.loading = false
       }
     },
     editTransaction: async function () {
-      this.loading = true
-      const graphqlQuery = editTransactionQuery(this.input)
-      try {
-        const response = await this.$http.post('', graphqlQuery)
-        const resData = await response.json()
-        const responseData = resData.data.editTransaction
-        this.$store.commit('addTransaction', responseData)
+      const res = await this.$store.dispatch('editTransaction', this.input)
+      if (res) {
         this.loading = false
         this.$emit('closeForm')
-      } catch (err) {
-        console.log(err)
+      } else {
         this.loading = false
       }
     }

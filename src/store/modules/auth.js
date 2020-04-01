@@ -1,3 +1,6 @@
+import { loginQuery, signupQuery } from '@/graphQL/authQuery'
+import axios from 'axios'
+
 const state = {
   isAuth: false,
   token: null,
@@ -5,6 +8,12 @@ const state = {
   userName: null,
   userStatus: null,
   appStatus: 'authentication'
+}
+
+const getters = {
+  currentAppStatus: state => {
+    return state.appStatus
+  }
 }
 
 const mutations = {
@@ -34,7 +43,57 @@ const mutations = {
   }
 }
 
+const actions = {
+  login: async function ({ commit }, input) {
+    const graphqlQuery = loginQuery(input)
+    try {
+      const response = await axios.post('', graphqlQuery)
+      const resData = response.data.data.login
+      const remainingMilliseconds = 24 * 60 * 60 * 1000
+      const expiryDate = new Date(new Date().getTime() + remainingMilliseconds).toISOString()
+      const data = {
+        token: resData.token,
+        userId: resData.user._id,
+        userName: resData.user.name,
+        userStatus: resData.user.status,
+        appStatus: resData.user.status === 'created' ? 'welcome' : 'running',
+        expiryDate: expiryDate
+      }
+      commit('setIsAuthToTrue', data)
+      commit('initAppData', resData.user)
+      return true
+    } catch (err) {
+      console.log(err)
+      return false
+    }
+  },
+  signup: async function ({ commit }, input) {
+    const graphqlQuery = signupQuery(input)
+    try {
+      const response = axios.post('', graphqlQuery)
+      const resData = response.data.data.createUser
+      const remainingMilliseconds = 24 * 60 * 60 * 1000
+      const expiryDate = new Date(new Date().getTime() + remainingMilliseconds).toISOString()
+      const data = {
+        token: resData.token,
+        userId: resData.user._id,
+        userName: resData.user.name,
+        userStatus: resData.user.status,
+        appStatus: 'welcome',
+        expiryDate: expiryDate
+      }
+      commit('setIsAuthToTrue', data)
+      return true
+    } catch (err) {
+      console.log(err)
+      return false
+    }
+  }
+}
+
 export default {
   state,
-  mutations
+  getters,
+  mutations,
+  actions
 }

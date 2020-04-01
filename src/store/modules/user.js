@@ -1,3 +1,7 @@
+import { editIncomeQuery, addIncomeQuery } from '@/graphQL/incomeQuery'
+import { editExpenseQuery, addExpenseQuery } from '@/graphQL/expenseQuery'
+import axios from 'axios'
+
 const state = {
   goal: null,
   balance: 0,
@@ -105,8 +109,66 @@ const mutations = {
   }
 }
 
+const actions = {
+  addIncome: async function ({ commit }, income) {
+    const graphqlQuery = addIncomeQuery(income)
+    try {
+      const response = await axios.post('', graphqlQuery)
+      const resData = response.data.data.addIncome
+      resData.type = 'incomes'
+      resData.nextPayout = new Date(resData.nextPayout)
+      commit('addUserItem', resData)
+      return true
+    } catch (err) {
+      console.log(err)
+      return false
+    }
+  },
+  editIncome: async function ({ commit }, income) {
+    const graphqlQuery = editIncomeQuery(income)
+    try {
+      const response = await axios.post('', graphqlQuery)
+      const resData = response.data.data.editIncome
+      resData.type = 'incomes'
+      resData.nextPayout = new Date(resData.nextPayout)
+      commit('editUserItem', resData)
+      return true
+    } catch (err) {
+      console.log(err)
+      return false
+    }
+  },
+  addExpense: async function ({ commit }, expense) {
+    const graphqlQuery = addExpenseQuery(expense)
+    try {
+      const response = axios.post('', graphqlQuery)
+      const resData = response.data.data.addExpense
+      resData.type = 'expenses'
+      commit('addUserItem', resData)
+      return true
+    } catch (err) {
+      console.log(err)
+      return false
+    }
+  },
+  editExpense: async function ({ commit }, expense) {
+    const graphqlQuery = editExpenseQuery(expense)
+    try {
+      const response = await axios.post('', graphqlQuery)
+      const resData = response.data.data.editExpense
+      resData.type = 'expenses'
+      commit('editUserItem', resData)
+      return true
+    } catch (err) {
+      console.log(err)
+      return false
+    }
+  }
+}
+
 export default {
   state,
   getters,
-  mutations
+  mutations,
+  actions
 }

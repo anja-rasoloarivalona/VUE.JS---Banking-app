@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "anychart": "^8.7.1",
+    "axios": "^0.19.2",
     "chart.js": "^2.9.3",
     "core-js": "^3.6.4",
     "easy-circular-progress": "^1.0.4",

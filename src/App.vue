@@ -12,9 +12,8 @@
 </template>
 
 <script>
-import Vue from 'vue'
 import { mapGetters, mapMutations } from 'vuex'
-import { initQuery } from './graphQL/initQuery'
+import axios from 'axios'
 import Sidebar from './components/Layout/Sidebar'
 import Navbar from './components/Layout/Navbar'
 export default {
@@ -35,7 +34,6 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'initAppData',
       'setIsAuthToTrue',
       'setAppStatus',
       'setTheme'
@@ -65,19 +63,10 @@ export default {
       return
     }
     this.setIsAuthToTrue(data)
-    Vue.http.headers.common.Authorization = 'Bearer ' + data.token
-    const graphqlQuery = initQuery
-    try {
-      const response = await this.$http.post('', graphqlQuery)
-      const resData = await response.json()
-      const responseData = resData.data.user
-      this.initAppData(responseData)
-      if (responseData.status === 'active') {
-        this.setAppStatus('running')
-      }
+    axios.defaults.headers.common.Authorization = 'Bearer ' + data.token
+    const initialization = await this.$store.dispatch('initialize')
+    if (initialization) {
       this.loading = false
-    } catch (err) {
-      console.log(err)
     }
   }
 }

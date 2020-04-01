@@ -56,8 +56,6 @@
 </template>
 
 <script>
-import { editIncomeQuery, addIncomeQuery } from '@/graphQL/incomeQuery'
-import { editExpenseQuery, addExpenseQuery } from '@/graphQL/expenseQuery'
 import Income from '@/components/UI/Income'
 import Expense from '@/components/UI/Expense'
 export default {
@@ -106,7 +104,6 @@ export default {
   },
   mounted () {
     if (this.selected) {
-      console.log(this.selected)
       this[this.type] = {
         ...this.selected,
         lastPayout: new Date(this.selected.lastPayout),
@@ -117,86 +114,31 @@ export default {
     }
   },
   methods: {
-    submit () {
+    submit: async function () {
+      this.loading = true
+      let result = false
+      // SUBMIT INCOME
       if (this.type === 'income') {
         if (this.selected) {
-          this.editIncome()
+          result = await this.$store.dispatch('editIncome', this.income)
         } else {
-          this.addIncome()
+          result = await this.$store.dispatch('addIncome', this.income)
         }
       }
+      // SUBMIT EXPENSE
       if (this.type === 'expense') {
         if (this.selected) {
-          this.editExpense()
+          result = await this.$store.dispatch('editExpense', this.expense)
         } else {
-          this.addExpense()
+          result = await this.$store.dispatch('addExpense', this.expense)
         }
       }
-    },
-    addIncome: async function () {
-      this.loading = true
-      const graphqlQuery = addIncomeQuery(this.income)
-      try {
-        const response = await this.$http.post('', graphqlQuery)
-        const resData = await response.json()
-        const responseData = resData.data.addIncome
-        responseData.type = 'incomes'
-        responseData.nextPayout = new Date(responseData.nextPayout)
-        this.$store.commit('addUserItem', responseData)
+      // CHECK RESULT
+      if (result) {
+        this.loading = false
         this.$emit('closeForm')
+      } else {
         this.loading = false
-      } catch (err) {
-        this.loading = false
-        console.log(err)
-      }
-    },
-    editIncome: async function () {
-      this.loading = true
-      const graphqlQuery = editIncomeQuery(this.income)
-      try {
-        const response = await this.$http.post('', graphqlQuery)
-        const resData = await response.json()
-        const responseData = resData.data.editIncome
-        responseData.type = 'incomes'
-        responseData.nextPayout = new Date(responseData.nextPayout)
-        this.$store.commit('editUserItem', responseData)
-        this.$emit('closeForm')
-        this.loading = false
-      } catch (err) {
-        this.loading = false
-        console.log(err)
-      }
-    },
-    addExpense: async function () {
-      this.loading = true
-      const graphqlQuery = addExpenseQuery(this.expense)
-      try {
-        const response = await this.$http.post('', graphqlQuery)
-        const resData = await response.json()
-        const responseData = resData.data.addExpense
-        responseData.type = 'expenses'
-        this.$store.commit('addUserItem', responseData)
-        this.$emit('closeForm')
-        this.loading = false
-      } catch (err) {
-        this.loading = false
-        console.log(err)
-      }
-    },
-    editExpense: async function () {
-      this.loading = true
-      const graphqlQuery = editExpenseQuery(this.expense)
-      try {
-        const response = await this.$http.post('', graphqlQuery)
-        const resData = await response.json()
-        const responseData = resData.data.editExpense
-        responseData.type = 'expenses'
-        this.$store.commit('editUserItem', responseData)
-        this.$emit('closeForm')
-        this.loading = false
-      } catch (err) {
-        this.loading = false
-        console.log(err)
       }
     }
   },

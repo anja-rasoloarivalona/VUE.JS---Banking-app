@@ -44,6 +44,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import axios from 'axios'
 import { deleteTransactionQuery } from '@/graphQL/transactionsQuery'
 export default {
   data () {
@@ -68,14 +69,11 @@ export default {
       this.$emit('editTransaction1', this.transaction)
     },
     deleteTransaction: async function () {
-      console.log('deleting')
       const graphqlQuery = deleteTransactionQuery(this.transaction)
       try {
-        const response = await this.$http.post('', graphqlQuery)
-        const resData = await response.json()
-        const responseData = resData.data.deleteTransaction
-        console.log(responseData)
-        this.$store.commit('deleteTransaction', responseData)
+        const response = await axios.post('', graphqlQuery)
+        const resData = response.data.data.deleteTransaction
+        this.$store.commit('deleteTransaction', resData)
       } catch (err) {
         console.log(err)
         this.loading = false
@@ -96,8 +94,11 @@ export default {
 
 <style lang="scss" scoped>
 .transaction {
+  &.bg-white {
+    background: var(--app-bg-secondary);
+  }
   &.bg-blue {
-    background: rgb(231, 241, 248);
+    background: var(--app-item-bg);
   }
   &__id {
     // background: turquoise;

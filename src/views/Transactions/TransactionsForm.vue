@@ -142,6 +142,7 @@ export default {
       this.input.usedWallet = Object.keys(this.walletsNameAndId)[0]
       this.input.walletId = this.walletsNameAndId[this.input.usedWallet]
     } else {
+      console.log('mounted', this.editedTransaction)
       let usedWallet = ''
       for (const walletName in this.walletsNameAndId) {
         if (this.walletsNameAndId[walletName] === this.editedTransaction.usedWalletId) {
@@ -156,6 +157,7 @@ export default {
         usedWallet: usedWallet
       }
       this.input = editedData
+      console.log('editing', this.input)
       this.date = this.editedTransaction.date
     }
   },

@@ -56,7 +56,13 @@ const getters = {
         transactions.push(transaction)
       })
     })
-    return transactions
+    const sortedTransactions = transactions.sort(function (a, b) {
+      return new Date(a.date) - new Date(b.date)
+    })
+    return sortedTransactions
+  },
+  userBalance: state => {
+    return state.balance
   }
 }
 
@@ -168,7 +174,7 @@ const actions = {
   addTransaction: async function ({ commit }, transaction) {
     const graphqlQuery = addTransactionQuery(transaction)
     try {
-      const response = await this.$http.post('', graphqlQuery)
+      const response = await axios.post('', graphqlQuery)
       const resData = response.data.data.addTransaction
       commit('addTransaction', resData)
       return true
@@ -178,9 +184,10 @@ const actions = {
     }
   },
   editTransaction: async function ({ commit }, transaction) {
+    console.log('before query', transaction)
     const graphqlQuery = editTransactionQuery(transaction)
     try {
-      const response = await this.$http.post('', graphqlQuery)
+      const response = await axios.post('', graphqlQuery)
       const resData = response.data.data.editTransaction
       commit('addTransaction', resData)
       return true

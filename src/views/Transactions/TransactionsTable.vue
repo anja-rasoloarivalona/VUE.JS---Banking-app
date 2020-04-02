@@ -18,7 +18,7 @@
                     v-for="(transaction, index) in userTransactions"
                     :key="transaction._id"
                     :transaction="transaction"
-                    :class="{'bg-white': index % 2 === 0, 'bg-blue': index % 2 !== 0 }"
+                    :class="{'bg-white': index % 2 === 0, 'bg-secondary': index % 2 !== 0 }"
                     @editTransaction1="edit"
                 >
                 </app-transaction>
@@ -48,12 +48,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.transactions {
-    background: $color-white;
-}
 table, table th {
 //   border-top: 1px solid $color-line;
-  border-bottom: 1px solid $color-line;
+  border-bottom: 1px solid var(--app-line-color);
   border-collapse: collapse;
 }
 table {
@@ -62,10 +59,9 @@ table {
     height: 5rem;
     text-align: start;
     padding-left: 2rem;
-    // background: $color-primary;
-    color: $color-primary;
     font-size: $font-s;
-    background: $color-grey--light;
+    background: var(--app-bg-primary);
+    color: var(--app-title-color-secondary);
   }
 }
 </style>

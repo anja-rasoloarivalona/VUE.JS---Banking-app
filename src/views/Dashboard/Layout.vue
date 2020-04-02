@@ -3,7 +3,7 @@
         :layout.sync="layout"
         :col-num="12"
         :row-height="10"
-        :is-draggable="true"
+        :is-draggable="false"
         :is-resizable="true"
         :is-mirrored="false"
         :vertical-compact="true"

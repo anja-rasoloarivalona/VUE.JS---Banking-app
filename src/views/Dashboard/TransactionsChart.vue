@@ -8,18 +8,14 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import LineChart from '@/components/Charts/Line'
 export default {
   data () {
     return {
       datacollection: {
-        labels: ['jan', 'feb', 'march', 'apr'],
-        datasets: [
-          {
-            label: 'Balance',
-            data: [600, 1200, 1900, 450]
-          }
-        ]
+        labels: [],
+        datasets: []
       },
       myStyles: {
         height: '170px',
@@ -27,6 +23,64 @@ export default {
         position: 'relative'
       }
     }
+  },
+  created () {
+    const today = new Date()
+    const data = []
+    for (let i = 31; i >= 0; i--) {
+      const fullDate = new Date(new Date().setDate(today.getDate() - i))
+      let month = fullDate.getMonth() + 1
+      if (month < 10) {
+        month = `0${month}`
+      }
+      const labelData = {
+        fullDate: fullDate,
+        shortDate: `${month}/${fullDate.getDate()}`,
+        transactions: [],
+        balanceVariation: 0,
+        balance: 0
+      }
+      data.push(labelData)
+    }
+
+    this.userTransactions.forEach(transaction => {
+      const fullDate = new Date(transaction.date)
+      let month = fullDate.getMonth() + 1
+      if (month < 10) {
+        month = `0${month}`
+      }
+      const shortDate = `${month}/${fullDate.getDate()}`
+      data.forEach(label => {
+        if (label.shortDate === shortDate) {
+          label.balanceVariation += transaction.amount
+          label.transactions.push(transaction)
+        }
+      })
+    })
+
+    data.reverse()
+    let balance = this.userBalance
+    data.forEach((label, index) => {
+      label.balance = balance
+      balance -= label.balanceVariation
+    })
+    data.reverse()
+
+    const balanceData = []
+    data.forEach(label => {
+      balanceData.push(label.balance)
+      this.datacollection.labels.push(label.shortDate)
+    })
+    this.datacollection.datasets = [{
+      label: 'Balance',
+      data: balanceData
+    }]
+  },
+  computed: {
+    ...mapGetters([
+      'userTransactions',
+      'userBalance'
+    ])
   },
   components: {
     LineChart

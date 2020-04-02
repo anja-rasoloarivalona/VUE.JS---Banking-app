@@ -84,7 +84,7 @@ export default {
     }
 }
 table, table th {
-  border-top: 1px solid var(--app-line-color);
+  // border-top: 1px solid var(--app-line-color);
   border-bottom: 1px solid var(--app-line-color);
   border-collapse: collapse;
 }

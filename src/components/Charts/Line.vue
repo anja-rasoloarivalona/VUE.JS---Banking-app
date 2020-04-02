@@ -20,6 +20,11 @@ export default {
               display: false
             }
           }]
+        },
+        elements: {
+          point: {
+            radius: 0
+          }
         }
       },
       gradient: null
@@ -30,23 +35,15 @@ export default {
     this.gradient = this.$refs.canvas.getContext('2d').createLinearGradient(0, 0, 0, 650)
     this.gradient.addColorStop(0, this.gradient1)
     this.gradient.addColorStop(0.4, this.gradient2)
-    // this.gradient.addColorStop(1, 'black')
 
-    const datacollection = {
-      labels: ['jan', 'feb', 'march', 'apr'],
-      datasets: [
-        {
-          label: 'Balance',
-          data: [600, 1200, 1900, 450],
-          backgroundColor: this.gradient,
-          borderColor: 'grey',
-          pointBackgroundColor: 'white',
-          borderWidth: 1
-        }
-      ]
-    }
-
-    this.renderChart(datacollection, this.options)
+    const d = this.data
+    d.datasets.forEach(i => {
+      i.backgroundColor = this.gradient
+      i.borderColor = 'grey'
+      i.pointBackgroundColor = 'grey'
+      i.borderWidth = 1
+    })
+    this.renderChart(d, this.options)
   }
 }
 </script>

@@ -14,7 +14,7 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 import axios from 'axios'
-import Sidebar from './components/Layout/Sidebar'
+import Sidebar from './components/Layout/Sidebar/Sidebar'
 import Navbar from './components/Layout/Navbar'
 export default {
   data () {

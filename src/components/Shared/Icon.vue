@@ -5,7 +5,6 @@
        v-html="$options.methods.getPath(props)"
        v-bind="data.attrs"
        v-on="listeners">
-    <!-- <path :d="$options.methods.getPath(props)"/> -->
   </svg>
 </template>
 
@@ -55,6 +54,10 @@ export default {
 
 .primary {
   fill: var(--app-color-main);
+}
+
+.secondary {
+  fill: var(--app-title-color-secondary);
 }
 
 .red {

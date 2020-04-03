@@ -11,8 +11,17 @@
         <router-link to="/wallet" tag="div"><a>Wallet</a></router-link>
       </ul>
       <div class="nav__cta">
-        <app-icon name="bell" size="large" color="primary"/>
-        <app-icon name="settings" size="large" color="primary"/>
+        <app-icon name="bell" size="large" color="secondary"/>
+        <router-link
+            to="/settings"
+            tag="div"
+          >
+            <app-icon
+                name="settings"
+                size="large"
+                :color="isSettingsCurrentPath"
+            />
+        </router-link>
         <div class="nav__cta__userImg"></div>
       </div>
     </div>
@@ -20,6 +29,30 @@
 </template>
 
 <script>
+export default {
+  data () {
+    return {
+      activePath: null
+    }
+  },
+  computed: {
+    isSettingsCurrentPath () {
+      if (this.activePath === '/settings') {
+        return 'primary'
+      } else {
+        return 'secondary'
+      }
+    }
+  },
+  watch: {
+    $route (to) {
+      this.activePath = to.path
+    }
+  },
+  mounted () {
+    this.activePath = this.$router.currentRoute.path
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -85,6 +118,11 @@
         background-position: center;
         background-size: cover;
         border-radius: 50%;
+      }
+      & div {
+          svg {
+            fill: red !important
+          }
       }
   }
 }

@@ -5,6 +5,7 @@ import Dashboard from '../views/Dashboard/Dashboard'
 import Transactions from '../views/Transactions/Transactions'
 import Wallets from '../views/Wallets/Wallets'
 import Budget from '../views/Budget/Budget'
+import Settings from '../views/Settings/Settings'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
   {
     path: '/budget',
     component: Budget
+  },
+  {
+    path: '/settings',
+    component: Settings
+    // component: Dashboard
   },
   {
     path: '*',

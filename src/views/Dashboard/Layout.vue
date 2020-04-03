@@ -3,8 +3,8 @@
         :layout.sync="layout"
         :col-num="12"
         :row-height="10"
-        :is-draggable="false"
-        :is-resizable="true"
+        :is-draggable="isSettingUp"
+        :is-resizable="isSettingUp"
         :is-mirrored="false"
         :vertical-compact="true"
         :margin="[10, 10]"
@@ -45,6 +45,7 @@
 // 18: 350
 
 import VueGridLayout from 'vue-grid-layout'
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
@@ -71,6 +72,18 @@ export default {
     this.layout[1].h = budgetHeight
     this.layout[2].h = 4 + (this.$store.state.user.wallets.length * 7)
     this.layout[3].h = 6 + (2 * 3)
+  },
+  computed: {
+    ...mapGetters([
+      'currentSettingView'
+    ]),
+    isSettingUp () {
+      if (this.currentSettingView === 'dashboard') {
+        return true
+      } else {
+        return false
+      }
+    }
   },
   components: {
     gridLayout: VueGridLayout.GridLayout,

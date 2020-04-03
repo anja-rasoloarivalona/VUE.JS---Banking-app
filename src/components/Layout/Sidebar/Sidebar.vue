@@ -13,6 +13,7 @@
 <script>
 import SidebarDashboard from './SidebarDasboard'
 import SibebarTransactions from './SidebarTransactions'
+import SidebarSettings from './SidebarSettings'
 export default {
   data () {
     return {
@@ -32,9 +33,18 @@ export default {
       }
     }
   },
+  mounted () {
+    const activePath = this.$router.currentRoute.path
+    if (activePath !== '/') {
+      this.mode = activePath.substring(1)
+    } else {
+      this.mode = 'dashboard'
+    }
+  },
   components: {
     dashboard: SidebarDashboard,
-    transactions: SibebarTransactions
+    transactions: SibebarTransactions,
+    settings: SidebarSettings
   }
 }
 </script>
@@ -51,6 +61,8 @@ export default {
         margin-bottom: 3rem;
     }
     &__list {
+        list-style: none;
+        // background: red;
         &__item {
             padding: 2rem 1rem;
             border-radius: 1rem;

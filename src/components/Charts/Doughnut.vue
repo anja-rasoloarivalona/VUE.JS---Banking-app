@@ -9,25 +9,18 @@ export default {
         maintainAspectRatio: false,
         legend: {
           position: 'right'
+        },
+        elements: {
+          arc: {
+            borderWidth: 0
+          }
         }
       }
     }
   },
   mounted () {
-    const datacollection = {
-      datasets: [
-        {
-          data: [10, 20, 30],
-          backgroundColor: ['red', 'brown', 'salmon']
-        }
-      ],
-      labels: [
-        'Red',
-        'Yellow',
-        'Blue'
-      ]
-    }
-    this.renderChart(datacollection, this.options)
-  }
+    this.renderChart(this.datacollection, this.options)
+  },
+  props: ['datacollection']
 }
 </script>

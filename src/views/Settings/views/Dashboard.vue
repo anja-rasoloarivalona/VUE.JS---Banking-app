@@ -23,9 +23,11 @@ export default {
         padding-left: 2rem;
         font-size: $font-m;
         margin-bottom: 3rem;
+        padding-bottom: 2rem;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        border-bottom: 1px solid var(--app-line-color);
         // color: var(--app-title-color-secondary)
     }
 }

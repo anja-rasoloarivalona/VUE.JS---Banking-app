@@ -4,11 +4,12 @@
         :col-num="12"
         :row-height="10"
         :is-draggable="isSettingUp"
-        :is-resizable="isSettingUp"
+        :is-resizable="true"
         :is-mirrored="false"
         :vertical-compact="true"
         :margin="[10, 10]"
         :use-css-transforms="true"
+        @layout-updated="layoutUpdatedEvent"
     >
     <grid-item v-for="item in layout"
         :x="item.x"
@@ -17,7 +18,7 @@
         :h="item.h"
         :i="item.i"
         :key="item.i"
-        :isResizable="true"
+        :isResizable="isSettingUp"
         >
             <slot :name="item.i"></slot>
       </grid-item>
@@ -46,6 +47,7 @@
 
 import VueGridLayout from 'vue-grid-layout'
 import { mapGetters } from 'vuex'
+// import axios from 'axios'
 export default {
   data () {
     return {
@@ -59,7 +61,8 @@ export default {
         { x: 0, y: 12, w: 8, h: 12, i: 'dashboard-transactions-chart' },
         { x: 0, y: 6, w: 4, h: 6, i: 'dashboard-available-instantly' },
         { x: 8, y: 0, w: 4, h: 12, i: 'dashboard-expenses-chart' }
-      ]
+      ],
+      updatedLayout: null
     }
   },
   created () {
@@ -73,16 +76,44 @@ export default {
     this.layout[2].h = 4 + (this.$store.state.user.wallets.length * 7)
     this.layout[3].h = 6 + (2 * 3)
   },
+  mounted () {
+    console.log('gwegew', this.isSettingUp)
+  },
   computed: {
     ...mapGetters([
       'currentSettingView'
     ]),
     isSettingUp () {
-      if (this.currentSettingView === 'dashboard') {
+      if (this.currentSettingView && this.currentSettingView === 'dashboard') {
         return true
       } else {
         return false
       }
+    }
+  },
+  methods: {
+    layoutUpdatedEvent: function (newLayout) {
+      this.updatedLayout = newLayout
+      console.log('Updated layout: ', newLayout)
+    },
+    submit: async function () {
+      // const graphqlQuery = {
+      //   query: `{
+      //       updateDashboardLayout(layoutInput: "${this.newLayout}") {
+      //         x
+      //         y
+      //         w
+      //         h
+      //         i
+      //       }
+      //     }`
+      // }
+      // try {
+      //   const response = axios.post('', graphqlQuery)
+      //   console.log(response)
+      // } catch (err) {
+      //   console.log(err)
+      // }
     }
   },
   components: {

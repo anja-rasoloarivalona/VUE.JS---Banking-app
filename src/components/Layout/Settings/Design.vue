@@ -21,13 +21,14 @@
         <div class="design__item">
             <app-color-input v-model="colorMain" :parentColorsList="['green', 'blue', 'orangered']" @click="changeColor($event)"></app-color-input>
         </div>
-        <app-btn normal primary>Save</app-btn>
+        <app-btn normal primary @click.native="submitTheme">Save</app-btn>
     </div>
 </template>
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 import theme from '@/assets/theme'
+import axios from 'axios'
 export default {
   data () {
     return {
@@ -70,7 +71,25 @@ export default {
       }
       const htmlElement = document.documentElement
       htmlElement.setAttribute('theme', result)
-      console.log('changed', color, result)
+    },
+    submitTheme: async function () {
+      const graphqlQuery = {
+        query: `mutation {
+                setTheme(theme: "${this.currentTheme}") {
+                    settings {
+                        theme
+                    }
+                }
+            }
+      `
+      }
+      try {
+        const response = await axios.post('', graphqlQuery)
+        const resData = response.data.data.setTheme
+        this.setTheme(resData.settings.theme)
+      } catch (err) {
+        console.log(err)
+      }
     }
   }
 }

@@ -1,6 +1,13 @@
 const initQuery = {
   query: `{
       user {
+        settings {
+          theme
+          dashboardLayout {
+            x
+            y
+          }
+        }
         status
         goal {
          name

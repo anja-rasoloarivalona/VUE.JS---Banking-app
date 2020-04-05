@@ -27,7 +27,7 @@ const theme = {
     '--app-color-main': 'blue',
     '--app-bg-secondary': 'blue'
   },
-  'light-orange': {
+  'light-orangered': {
     '--app-bg-primary': '#f5f5f5',
     '--app-item-bg': '#fff',
     '--app-text-color': 'black',

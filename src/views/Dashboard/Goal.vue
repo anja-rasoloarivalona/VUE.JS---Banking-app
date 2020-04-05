@@ -11,7 +11,7 @@
             <Progress
                 :radius="40"
                 :strokeWidth="8"
-                :strokeColor="theme[currentTheme]['--app-color-main']"
+                :strokeColor="strokeColor"
                 :value="goalPercentage">
             </Progress>
         </div>
@@ -34,6 +34,9 @@ export default {
     ]),
     goalPercentage () {
       return (this.$store.state.user.balance / this.$store.state.user.goal.amount) * 100
+    },
+    strokeColor () {
+      return theme[this.currentTheme]['--app-color-main']
     }
   },
   components: {

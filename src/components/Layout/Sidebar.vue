@@ -2,50 +2,37 @@
     <div class="sidebar">
         <div class="sidebar__header"></div>
         <transition name="fade" mode="out-in" appear>
-            <component
-                :is="mode"
-            >
-            </component>
+            <ul class="sidebar__list" key="dashboard">
+              <li class="sidebar__list__item">
+                  <div class="sidebar__list__item__title">
+                      <h2>Upcoming</h2>
+                      <div class="sidebar__list__item__subtitle">
+                          <div>Rent</div>
+                          <div>4/01/2020</div>
+                      </div>
+                  </div>
+                  <div class="sidebar__list__item__details">
+                      <div class="sidebar__list__item__details__amount">$640</div>
+                  </div>
+              </li>
+              <li class="sidebar__list__item">
+                  <div class="sidebar__list__item__title">
+                      <h2>Credit</h2>
+                      <div class="sidebar__list__item__subtitle">
+                          <div>Available</div>
+                      </div>
+                  </div>
+                  <div class="sidebar__list__item__details">
+                      <div class="sidebar__list__item__details__amount">$150</div>
+                  </div>
+              </li>
+            </ul>
         </transition>
     </div>
 </template>
 
 <script>
-import SidebarDashboard from './SidebarDasboard'
-import SibebarTransactions from './SidebarTransactions'
-import SidebarSettings from './SidebarSettings'
 export default {
-  data () {
-    return {
-      mode: 'dashboard',
-
-      keys: {
-        sidebarbashboard: 1
-      }
-    }
-  },
-  watch: {
-    $route (to, from) {
-      if (to.path !== '/') {
-        this.mode = to.path.substring(1)
-      } else {
-        this.mode = 'dashboard'
-      }
-    }
-  },
-  mounted () {
-    const activePath = this.$router.currentRoute.path
-    if (activePath !== '/') {
-      this.mode = activePath.substring(1)
-    } else {
-      this.mode = 'dashboard'
-    }
-  },
-  components: {
-    dashboard: SidebarDashboard,
-    transactions: SibebarTransactions,
-    settings: SidebarSettings
-  }
 }
 </script>
 

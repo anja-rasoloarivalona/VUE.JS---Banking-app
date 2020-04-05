@@ -28,6 +28,11 @@ export default {
       colorsList: ['Brown', 'Chocolate', 'Coral', 'Crimson', 'DarkCyan', 'DarkBlue', 'FireBrick', 'OrangeRed', 'Teal']
     }
   },
+  mounted () {
+    if (this.parentColorsList) {
+      this.colorsList = this.parentColorsList
+    }
+  },
   model: {
     props: 'value',
     event: 'click'
@@ -42,17 +47,19 @@ export default {
     }
   },
   props: {
-    value: String
+    value: String,
+    parentColorsList: Array
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .color {
     width: 30%;
     display: flex;
+    align-items: center;
         & span {
-          width: 6rem;
+          width: 10rem;
           font-size: $font-m;
           color: $color-grey--dark;
         }

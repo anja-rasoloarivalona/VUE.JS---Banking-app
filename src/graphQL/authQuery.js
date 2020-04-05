@@ -6,6 +6,8 @@ const loginQuery = input => {
                 user {
                     _id
                     name
+                    email
+                    password
                     status
                     wallets {
                       _id

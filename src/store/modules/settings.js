@@ -1,6 +1,7 @@
 const state = {
-  theme: 'green',
-  currentSettingView: null
+  theme: null,
+  currentSettingView: null,
+  showSettingsPannel: false
 }
 
 const getters = {
@@ -9,6 +10,9 @@ const getters = {
   },
   currentSettingView: state => {
     return state.currentSettingView
+  },
+  currentSettingsPannelState: state => {
+    return state.showSettingsPannel
   }
 }
 
@@ -18,6 +22,9 @@ const mutations = {
   },
   setCurrentView (state, view) {
     state.currentSettingView = view
+  },
+  toggleSettingsPannel (state) {
+    state.showSettingsPannel = !state.showSettingsPannel
   }
 
 }

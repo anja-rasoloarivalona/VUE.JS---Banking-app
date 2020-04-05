@@ -23,6 +23,7 @@ export default new Vuex.Store({
       try {
         const response = await axios.post('/', graphqlQuery)
         const resData = response.data.data.user
+        console.log('init', resData)
         commit('initAppData', resData)
         if (resData.status === 'active') {
           commit('setAppStatus', 'running')

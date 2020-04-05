@@ -19,6 +19,7 @@ $font-m: 1.3rem;
 $font-l: 1.4rem;
 $font-xl: 1.6rem;
 
+// Default 
 :root {
     --app-bg-primary: #f5f5f5;
     --app-bg-secondary: #027a66;
@@ -30,26 +31,74 @@ $font-xl: 1.6rem;
     --app-line-color: #ece9e9;
 }
 
-[theme="green"] {
+// ---- LIGHT THEMES ---------------------------
+
+[theme="light-green"] {
     --app-bg-primary: #f5f5f5;
-    --app-bg-secondary: #027a66;
     --app-item-bg: #fff;
     --app-text-color: black;
     --app-title-color-primary: #b1afaf;
     --app-title-color-secondary: #797979;
-    --app-color-main: #027a66;  
     --app-line-color: #ece9e9;
+    --app-bg-secondary: #027a66;
+    --app-color-main: #027a66;  
 }
 
-[theme="dark"] {
+[theme="light-blue"] {
+    --app-bg-primary: #f5f5f5;
+    --app-item-bg: #fff;
+    --app-text-color: black;
+    --app-title-color-primary: #b1afaf;
+    --app-title-color-secondary: #797979;
+    --app-line-color: #ece9e9;
+    --app-bg-secondary: blue;
+    --app-color-main: blue;  
+}
+
+[theme="light-orangered"] {
+    --app-bg-primary: #f5f5f5;
+    --app-item-bg: #fff;
+    --app-text-color: black;
+    --app-title-color-primary: #b1afaf;
+    --app-title-color-secondary: #797979;
+    --app-line-color: #ece9e9;
+    --app-bg-secondary: orangered;
+    --app-color-main: orangered;  
+}
+
+// ------- DARK THEME -------------------------
+
+[theme="dark-green"] {
     --app-bg-primary: black;
     --app-bg-secondary: #161313;
     --app-item-bg: #111111;
     --app-text-color: white;
     --app-title-color-primary: #b1afaf;
     --app-title-color-secondary: #797979;
-    --app-color-main: orangered;
     --app-line-color: #2e2e2e;
+    --app-color-main: #027a66;
+}
+
+[theme="dark-blue"] {
+    --app-bg-primary: black;
+    --app-bg-secondary: #161313;
+    --app-item-bg: #111111;
+    --app-text-color: white;
+    --app-title-color-primary: #b1afaf;
+    --app-title-color-secondary: #797979;
+    --app-line-color: #2e2e2e;
+    --app-color-main: blue;
+}
+
+[theme="dark-orangered"] {
+    --app-bg-primary: black;
+    --app-bg-secondary: #161313;
+    --app-item-bg: #111111;
+    --app-text-color: white;
+    --app-title-color-primary: #b1afaf;
+    --app-title-color-secondary: #797979;
+    --app-line-color: #2e2e2e;
+    --app-color-main: orangered;
 }
 
 

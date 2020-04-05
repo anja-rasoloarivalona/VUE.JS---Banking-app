@@ -6,6 +6,8 @@ const state = {
   token: null,
   userId: null,
   userName: null,
+  userEmail: null,
+  userPassword: null,
   userStatus: null,
   appStatus: 'authentication'
 }
@@ -22,6 +24,8 @@ const mutations = {
     state.token = authData.token
     state.userId = authData.userId
     state.userName = authData.userName
+    state.userEmail = authData.userEmail
+    state.userPassword = authData.userPassword
     state.userStatus = authData.userStatus
     state.appStatus = authData.appStatus
     localStorage.setItem('bank-data', JSON.stringify(authData))
@@ -55,6 +59,8 @@ const actions = {
         token: resData.token,
         userId: resData.user._id,
         userName: resData.user.name,
+        userEmail: resData.user.email,
+        userPassword: resData.user.password,
         userStatus: resData.user.status,
         appStatus: resData.user.status === 'created' ? 'welcome' : 'running',
         expiryDate: expiryDate

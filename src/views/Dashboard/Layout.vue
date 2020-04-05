@@ -77,7 +77,7 @@ export default {
     this.layout[3].h = 6 + (2 * 3)
   },
   mounted () {
-    console.log('gwegew', this.isSettingUp)
+
   },
   computed: {
     ...mapGetters([

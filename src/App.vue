@@ -4,6 +4,7 @@
     <div v-else-if="!loading" class="app-main">
       <sidebar></sidebar>
       <navbar></navbar>
+      <settings></settings>
       <div class="app__view">
         <router-view/>
       </div>
@@ -14,8 +15,9 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 import axios from 'axios'
-import Sidebar from './components/Layout/Sidebar/Sidebar'
+import Sidebar from './components/Layout/Sidebar'
 import Navbar from './components/Layout/Navbar'
+import Settings from './components/Layout/Settings/Settings'
 export default {
   data () {
     return {
@@ -42,12 +44,14 @@ export default {
   },
   components: {
     Sidebar,
-    Navbar
+    Navbar,
+    Settings
   },
   created: async function () {
+    // localStorage.removeItem('bank-data')
     const htmlElement = document.documentElement
-    htmlElement.setAttribute('theme', 'dark')
-    this.setTheme('dark')
+    htmlElement.setAttribute('theme', 'dark-blue')
+    this.setTheme('dark-blue')
 
     const localData = localStorage.getItem('bank-data')
     if (!localData) {

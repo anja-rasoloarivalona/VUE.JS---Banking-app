@@ -36,8 +36,6 @@ export default {
       return (this.$store.state.user.balance / this.$store.state.user.goal.amount) * 100
     },
     strokeColor () {
-      console.log(theme)
-      console.log(this.currentTheme)
       return theme[this.currentTheme]['--app-color-main']
     }
   },

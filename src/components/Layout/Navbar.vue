@@ -12,7 +12,7 @@
       </ul>
       <div class="nav__cta">
         <app-icon name="bell" size="large" color="secondary"/>
-        <app-icon name="settings" size="large" :color="isSettingsPannelShowed" @click="toggleSettingsPannel"/>
+        <app-icon name="settings" size="large" :color="isSettingsPannelShowed" @click="showSettingsPannel"/>
         <div class="nav__cta__userImg"></div>
       </div>
     </div>
@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'toggleSettingsPannel'
+      'showSettingsPannel'
     ])
   },
   mounted () {

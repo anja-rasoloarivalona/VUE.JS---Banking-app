@@ -23,8 +23,11 @@ const mutations = {
   setCurrentView (state, view) {
     state.currentSettingView = view
   },
-  toggleSettingsPannel (state) {
-    state.showSettingsPannel = !state.showSettingsPannel
+  showSettingsPannel (state) {
+    state.showSettingsPannel = true
+  },
+  hideSettingsPannel (state) {
+    state.showSettingsPannel = false
   }
 
 }

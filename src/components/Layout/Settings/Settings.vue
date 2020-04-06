@@ -1,5 +1,7 @@
 <template>
-    <div class="settings">
+    <div class="settings" >
+        <div class="settings__back" @click="close">
+        </div>
         <div class="settings__pannel">
             <ul class="settings__pannel__list">
                 <li class="settings__pannel__list__item" @click="mode = 'account'" :class="{active: mode === 'account'}">Account</li>
@@ -7,7 +9,7 @@
                 <li class="settings__pannel__list__item" @click="mode = 'ghost'" :class="{active: mode === 'ghost'}">Ghost mode</li>
             </ul>
             <div class="settings__pannel__view">
-                <div class="settings__close" @click="toggleSettingsPannel">
+                <div class="settings__close" @click="hideSettingsPannel">
                     <app-icon name="close" size="large" color="grey"/>
                 </div>
                 <component :is="mode"></component>
@@ -27,6 +29,12 @@ export default {
       mode: 'account'
     }
   },
+  mounted () {
+    console.log('heeere')
+  },
+  destroyed () {
+    console.log('bye')
+  },
   computed: {
     ...mapGetters([
       'currentSettingsPannelState'
@@ -34,11 +42,11 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'toggleSettingsPannel'
+      'hideSettingsPannel'
     ]),
-    hideSettingsPannel () {
+    close () {
       if (this.currentSettingsPannelState) {
-        this.toggleSettingsPannel()
+        this.hideSettingsPannel()
       }
     }
   },
@@ -52,17 +60,26 @@ export default {
 
 <style lang="scss" scoped>
 .settings {
-    position: fixed;
     width: 100vw;
     height: 100vh;
-    background: rgba(26, 26, 26, 0.856);
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: relative;
+    &__back {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(26, 26, 26, 0.856);
+        z-index: 10;
+    }
     &__pannel {
-        min-width: 60rem;
-        min-height: 35rem;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        z-index: 11;
+        width: 60rem;
+        height: 35rem;
         background: var(--app-item-bg);
         display: flex;
         font-size: $font-m;

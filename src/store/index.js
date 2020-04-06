@@ -27,6 +27,7 @@ export default new Vuex.Store({
         console.log('init', resData)
         commit('initAppData', resData)
         commit('setTheme', theme)
+        commit('setPreviousTheme', theme)
         const htmlElement = document.documentElement
         htmlElement.setAttribute('theme', theme)
         if (resData.status === 'active') {

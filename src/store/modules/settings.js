@@ -1,5 +1,6 @@
 const state = {
   theme: null,
+  previousTheme: null,
   currentSettingView: null,
   showSettingsPannel: false
 }
@@ -7,6 +8,9 @@ const state = {
 const getters = {
   currentTheme: state => {
     return state.theme
+  },
+  previousTheme: state => {
+    return state.previousTheme
   },
   currentSettingView: state => {
     return state.currentSettingView
@@ -19,6 +23,9 @@ const getters = {
 const mutations = {
   setTheme (state, theme) {
     state.theme = theme
+  },
+  setPreviousTheme (state, theme) {
+    state.previousTheme = theme
   },
   setCurrentView (state, view) {
     state.currentSettingView = view

@@ -40,12 +40,15 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'currentTheme'
+      'currentTheme',
+      'previousTheme'
     ])
   },
   methods: {
     ...mapMutations([
-      'setTheme'
+      'setTheme',
+      'setPreviousTheme',
+      'hideSettingsPannel'
     ]),
     changeTheme () {
       let result
@@ -87,9 +90,18 @@ export default {
         const response = await axios.post('', graphqlQuery)
         const resData = response.data.data.setTheme
         this.setTheme(resData.settings.theme)
+        this.setPreviousTheme(resData.settings.theme)
+        this.hideSettingsPannel()
       } catch (err) {
         console.log(err)
       }
+    }
+  },
+  beforeDestroy () {
+    if (this.currentTheme !== this.previousTheme) {
+      this.setTheme(this.previousTheme)
+      const htmlElement = document.documentElement
+      htmlElement.setAttribute('theme', this.previousTheme)
     }
   }
 }

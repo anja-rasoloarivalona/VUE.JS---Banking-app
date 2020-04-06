@@ -29,12 +29,6 @@ export default {
       mode: 'account'
     }
   },
-  mounted () {
-    console.log('heeere')
-  },
-  destroyed () {
-    console.log('bye')
-  },
   computed: {
     ...mapGetters([
       'currentSettingsPannelState'

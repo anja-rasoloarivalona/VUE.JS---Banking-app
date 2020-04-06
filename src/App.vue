@@ -39,9 +39,7 @@ export default {
   methods: {
     ...mapMutations([
       'setIsAuthToTrue',
-      'setAppStatus',
-      'setTheme',
-      'toggleSettingsPannel'
+      'setAppStatus'
     ])
   },
   components: {

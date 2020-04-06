@@ -4,7 +4,7 @@
     <div v-else-if="!loading" class="app-main">
       <sidebar></sidebar>
       <navbar></navbar>
-      <settings></settings>
+      <settings v-if="currentSettingsPannelState"></settings>
       <div class="app__view">
         <router-view/>
       </div>
@@ -27,7 +27,8 @@ export default {
   computed: {
     ...mapGetters([
       'currentTheme',
-      'currentAppStatus'
+      'currentAppStatus',
+      'currentSettingsPannelState'
     ]),
     isAppReady () {
       if (this.currentAppStatus !== 'running') {
@@ -39,7 +40,8 @@ export default {
     ...mapMutations([
       'setIsAuthToTrue',
       'setAppStatus',
-      'setTheme'
+      'setTheme',
+      'toggleSettingsPannel'
     ])
   },
   components: {
@@ -49,9 +51,9 @@ export default {
   },
   created: async function () {
     // localStorage.removeItem('bank-data')
-    const htmlElement = document.documentElement
-    htmlElement.setAttribute('theme', 'dark-blue')
-    this.setTheme('dark-blue')
+    // const htmlElement = document.documentElement
+    // htmlElement.setAttribute('theme', 'dark-blue')
+    // this.setTheme('dark-blue')
 
     const localData = localStorage.getItem('bank-data')
     if (!localData) {

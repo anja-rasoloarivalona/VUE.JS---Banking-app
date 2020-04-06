@@ -23,8 +23,12 @@ export default new Vuex.Store({
       try {
         const response = await axios.post('/', graphqlQuery)
         const resData = response.data.data.user
+        const theme = resData.settings.theme
         console.log('init', resData)
         commit('initAppData', resData)
+        commit('setTheme', theme)
+        const htmlElement = document.documentElement
+        htmlElement.setAttribute('theme', theme)
         if (resData.status === 'active') {
           commit('setAppStatus', 'running')
         }

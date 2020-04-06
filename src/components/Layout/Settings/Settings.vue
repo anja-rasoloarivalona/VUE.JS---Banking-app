@@ -7,6 +7,9 @@
                 <li class="settings__pannel__list__item" @click="mode = 'ghost'" :class="{active: mode === 'ghost'}">Ghost mode</li>
             </ul>
             <div class="settings__pannel__view">
+                <div class="settings__close" @click="toggleSettingsPannel">
+                    <app-icon name="close" size="large" color="grey"/>
+                </div>
                 <component :is="mode"></component>
             </div>
         </div>
@@ -14,6 +17,7 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
 import Account from './Account'
 import Design from './Design'
 import Ghost from './Ghost'
@@ -21,6 +25,21 @@ export default {
   data () {
     return {
       mode: 'account'
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'currentSettingsPannelState'
+    ])
+  },
+  methods: {
+    ...mapMutations([
+      'toggleSettingsPannel'
+    ]),
+    hideSettingsPannel () {
+      if (this.currentSettingsPannelState) {
+        this.toggleSettingsPannel()
+      }
     }
   },
   components: {
@@ -67,7 +86,14 @@ export default {
         &__view {
             width: calc(100% - 15rem);
             background: var(--app-line-color);
+            position: relative;
         }
+    }
+    &__close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem
+
     }
 }
 </style>

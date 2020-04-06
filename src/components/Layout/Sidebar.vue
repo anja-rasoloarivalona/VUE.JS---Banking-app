@@ -3,27 +3,16 @@
         <div class="sidebar__header"></div>
         <transition name="fade" mode="out-in" appear>
             <ul class="sidebar__list" key="dashboard">
-              <li class="sidebar__list__item">
+              <li class="sidebar__list__item" v-for="(item, key) in items" :key="key">
                   <div class="sidebar__list__item__title">
-                      <h2>Upcoming</h2>
+                      <h2>{{key}}</h2>
                       <div class="sidebar__list__item__subtitle">
-                          <div>Rent</div>
-                          <div>4/01/2020</div>
+                          <div>{{item.subtitle}}</div>
+                          <div v-if="item.date">{{item.date | short-date}}</div>
                       </div>
                   </div>
                   <div class="sidebar__list__item__details">
-                      <div class="sidebar__list__item__details__amount">$640</div>
-                  </div>
-              </li>
-              <li class="sidebar__list__item">
-                  <div class="sidebar__list__item__title">
-                      <h2>Credit</h2>
-                      <div class="sidebar__list__item__subtitle">
-                          <div>Available</div>
-                      </div>
-                  </div>
-                  <div class="sidebar__list__item__details">
-                      <div class="sidebar__list__item__details__amount">$150</div>
+                      <div class="sidebar__list__item__details__amount">${{ item.value | amount}}</div>
                   </div>
               </li>
             </ul>
@@ -32,7 +21,42 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
+  data () {
+    return {
+      items: {
+        balance: {
+          subtitle: 'Available',
+          value: this.$store.state.user.balance
+        },
+        upcoming: null,
+        credit: {
+          subtitle: 'Available',
+          value: 150
+        },
+        budget: {
+          subtitle: 'Remaining',
+          value: 400
+        }
+      }
+    }
+  },
+  mounted () {
+    console.log('upc', this.upcoming)
+    this.items.balance.value = this.userBalance
+    this.items.upcoming = {
+      subtitle: this.upcoming.name,
+      date: this.upcoming.date,
+      value: this.upcoming.value
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'userBalance',
+      'upcoming'
+    ])
+  }
 }
 </script>
 
@@ -49,7 +73,6 @@ export default {
     }
     &__list {
         list-style: none;
-        // background: red;
         &__item {
             padding: 2rem 1rem;
             border-radius: 1rem;
@@ -61,10 +84,12 @@ export default {
             &__title {
                 display: flex;
                 flex-direction: column;
+                width: 50%;
                 & h2 {
                     height: 3rem;
                     display: flex;
                     align-items: center;
+                    text-transform: capitalize;
                 }
             }
             &__subtitle {
@@ -79,7 +104,7 @@ export default {
                 display: flex;
                 align-items: center;
                 justify-content: flex-end;
-                width: 100%;
+                width: 50%;
                 &__amount {
                     font-size: $font-xl;
                     padding-right: 1rem;

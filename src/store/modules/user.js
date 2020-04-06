@@ -63,6 +63,29 @@ const getters = {
   },
   userBalance: state => {
     return state.balance
+  },
+  upcoming: state => {
+    const datedTransactions = [...state.incomes]
+    state.expenses.forEach(expense => {
+      if (expense.expenseType === 'fixed') {
+        datedTransactions.push(expense)
+      }
+    })
+    let result = {
+      name: datedTransactions[0].name,
+      date: new Date(datedTransactions[0].nextPayout),
+      value: datedTransactions[0].amount
+    }
+    datedTransactions.forEach(transaction => {
+      if (new Date(transaction.nextPayout) < result.date) {
+        result = {
+          name: transaction.name,
+          date: new Date(transaction.date),
+          value: transaction.amount
+        }
+      }
+    })
+    return result
   }
 }
 

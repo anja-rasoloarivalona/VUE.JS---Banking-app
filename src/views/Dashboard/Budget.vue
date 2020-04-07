@@ -42,8 +42,9 @@ export default {
             used: expense.used
           })
         }
-        this.variableBudgetCounter = variableBudgetCounter
       })
+      this.variableBudgetCounter = variableBudgetCounter
+      console.log(this.budget)
     }
   },
   computed: {
@@ -102,7 +103,7 @@ export default {
         &__bar {
             height: 100%;
             max-width: 100%;
-            background: var(--app-bg-secondary);
+            background: var( --app-line-color);
             position: relative;
             border-radius: .5rem;
             overflow: hidden;

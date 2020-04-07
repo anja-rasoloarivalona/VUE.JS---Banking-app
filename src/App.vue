@@ -36,11 +36,30 @@ export default {
       } else return true
     }
   },
+  watch: {
+    '$store.state.user.wallets': {
+      handler: 'setBalanceAmount',
+      immediate: true
+    }
+  },
   methods: {
     ...mapMutations([
       'setIsAuthToTrue',
-      'setAppStatus'
-    ])
+      'setAppStatus',
+      'initBalance'
+    ]),
+    setBalanceAmount () {
+      let balance = 0
+      const creditCard = ['Visa', 'MasterCard']
+      this.$store.state.user.wallets.forEach(wallet => {
+        if (!creditCard.includes(wallet.walletType)) {
+          balance += wallet.amount
+        } else {
+          balance -= wallet.amount
+        }
+      })
+      this.initBalance(balance)
+    }
   },
   components: {
     Sidebar,
@@ -49,10 +68,6 @@ export default {
   },
   created: async function () {
     // localStorage.removeItem('bank-data')
-    // const htmlElement = document.documentElement
-    // htmlElement.setAttribute('theme', 'dark-blue')
-    // this.setTheme('dark-blue')
-
     const localData = localStorage.getItem('bank-data')
     if (!localData) {
       console.log('no local data')

@@ -2,41 +2,20 @@
     <div class="balance dashboard__section">
         <h2 class="dashboard__section__title">Balance</h2>
         <div class="balance__value">
-            <strong>${{balance | amount}}</strong>
+            <strong>${{userBalance | amount}}</strong>
         </div>
     </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-  data () {
-    return {
-      balance: 0
-    }
-  },
-  watch: {
-    '$store.state.user.wallets': {
-      handler: 'setBalanceAmount',
-      immediate: true
-    }
-  },
-  methods: {
-    setBalanceAmount () {
-      let balance = 0
-      const creditCard = ['Visa', 'MasterCard']
-      this.$store.state.user.wallets.forEach(wallet => {
-        if (!creditCard.includes(wallet.walletType)) {
-          balance += wallet.amount
-        } else {
-          balance -= wallet.amount
-        }
-      })
-      this.balance = balance
-      this.$store.commit('initBalance', balance)
-    }
+  computed: {
+    ...mapGetters([
+      'userBalance'
+    ])
   }
 }
-// Total height = title 5rem + value 5rem = 10rem
 </script>
 
 <style lang="scss" scoped>

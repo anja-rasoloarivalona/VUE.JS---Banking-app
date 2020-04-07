@@ -5,6 +5,7 @@ import Dashboard from '../views/Dashboard/Dashboard'
 import Transactions from '../views/Transactions/Transactions'
 import Wallets from '../views/Wallets/Wallets'
 import Budget from '../views/Budget/Budget'
+import Calendar from '../views/Calendar/Calendar'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,10 @@ const routes = [
   {
     path: '/budget',
     component: Budget
+  },
+  {
+    path: '/calendar',
+    component: Calendar
   },
   {
     path: '*',

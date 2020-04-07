@@ -9,6 +9,7 @@
         <router-link to="/transactions" tag="div"><a>Transactions</a></router-link>
         <router-link to="/budget" tag="div"><a>Budget</a></router-link>
         <router-link to="/wallet" tag="div"><a>Wallet</a></router-link>
+        <router-link to="/calendar" tag="div"><a>Calendar</a></router-link>
       </ul>
       <div class="nav__cta">
         <app-icon name="bell" size="large" color="secondary"/>

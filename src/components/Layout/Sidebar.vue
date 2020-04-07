@@ -1,6 +1,8 @@
 <template>
     <div class="sidebar">
-        <div class="sidebar__header"></div>
+        <div class="sidebar__header">
+            <div class="sidebar__header__logo"></div>
+        </div>
         <transition name="fade" mode="out-in" appear>
             <ul class="sidebar__list" key="dashboard">
               <li class="sidebar__list__item" v-for="(item, key) in items" :key="key">
@@ -28,12 +30,12 @@ export default {
       items: {
         balance: {
           subtitle: 'Available',
-          value: this.$store.state.user.balance
+          value: 0
         },
         upcoming: null,
         credit: {
-          subtitle: 'Available',
-          value: 150
+          subtitle: 'Used',
+          value: 0
         },
         budget: {
           subtitle: 'Remaining',
@@ -42,9 +44,24 @@ export default {
       }
     }
   },
-  mounted () {
-    console.log('upc', this.upcoming)
-    this.items.balance.value = this.userBalance
+  watch: {
+    userBalance: {
+      immediate: true,
+      handler (balance) {
+        this.items.balance.value = balance
+      }
+    },
+    creditBalance: {
+      immediate: true,
+      handler (credit) {
+        this.items.credit.value = credit
+      }
+    }
+  },
+  created () {
+    // console.log(this.$store.state.user.balance)
+    // this.items.credit.value = this.creditBalance
+    // this.items.balance.value = this.userBalance
     this.items.upcoming = {
       subtitle: this.upcoming.name,
       date: this.upcoming.date,
@@ -54,7 +71,8 @@ export default {
   computed: {
     ...mapGetters([
       'userBalance',
-      'upcoming'
+      'upcoming',
+      'creditBalance'
     ])
   }
 }
@@ -70,6 +88,17 @@ export default {
     &__header {
         height: 9rem;
         margin-bottom: 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &__logo {
+            width: 15rem;
+            height: 6rem;
+            background-image: url('../../assets/logo.png');
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
     }
     &__list {
         list-style: none;

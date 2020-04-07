@@ -86,6 +86,16 @@ const getters = {
       }
     })
     return result
+  },
+  creditBalance: state => {
+    const credits = ['Visa', 'MasterCard']
+    let creditBalance = 0
+    state.wallets.forEach(wallet => {
+      if (credits.includes(wallet.walletType)) {
+        creditBalance += wallet.amount
+      }
+    })
+    return creditBalance
   }
 }
 

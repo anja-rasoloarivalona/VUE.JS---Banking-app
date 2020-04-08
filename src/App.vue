@@ -125,7 +125,6 @@ body {
     grid-row: 2 / 3;
     grid-column: 3 / 4;
     background: var(--app-bg-primary);
-    // background: red;
     min-height: calc(100vh - 9rem);
     width: 100%;
     padding-top: 2rem;

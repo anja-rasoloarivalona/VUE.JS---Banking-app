@@ -5,20 +5,62 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
+    //   attrs: null
       attrs: [
         {
           key: 'today',
-          dot: 'green',
+          highlight: {
+            class: 'orangered'
+          },
           popover: {
             label: 'Rent'
+          },
+          dates: [new Date('04/19/2020')]
+        },
+        {
+          key: 'tomorrow',
+          highlight: {
+            class: 'orangered'
+          },
+          popover: {
+            label: 'LOL'
           },
           dates: [new Date()]
         }
       ]
     }
+  },
+  created () {
+    const transactions = []
+    const attrs = []
+    for (const i in this.usersIncomesAndExpenses) {
+      const transaction = this.usersIncomesAndExpenses[i]
+      if (transaction.lastPayout && transaction.nextPayout) {
+        transactions.push(transaction)
+      }
+    }
+    console.log(this.attrs)
+    transactions.forEach(transaction => {
+      attrs.push({
+        key: transaction.name,
+        dot: transaction.color,
+        popover: {
+          label: transaction.name
+        },
+        dates: [new Date(transaction.lastPayout)]
+      })
+    })
+    console.log(attrs)
+    // this.attrs = attrs
+  },
+  computed: {
+    ...mapGetters([
+      'usersIncomesAndExpenses'
+    ])
   }
 }
 </script>
@@ -63,5 +105,12 @@ export default {
 }
 .vc-text-gray-800 {
     color: var(--app-color-main);
+}
+// .vc-highlight {
+//     background: orangered !important;
+// }
+
+.orangered {
+    background: orangered !important;
 }
 </style>

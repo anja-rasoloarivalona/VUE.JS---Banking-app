@@ -6,7 +6,8 @@
                 <app-basic-input v-model="walletInput.amount" :id="'amount'" />
                 <app-basic-input v-model="walletInput.creditLimit" :id="'limit'" v-if="['Visa', 'MasterCard'].includes(walletInput.walletType)"/>
                 <app-basic-input v-model="walletInput.shortId" :id="'Last  4 numbers'" />
-                <div class="form__color">
+                <app-color-input v-model="walletInput.color" @click="chooseColor($event)"></app-color-input>
+                <!-- <div class="form__color">
                       <span>Color</span>
                       <div class="form__color__select">
                         <div class="form__color__select__value" :style="{background: walletInput.color}" @click="showColorList = !showColorList"></div>
@@ -19,7 +20,7 @@
                           </li>
                         </ul>
                       </div>
-                </div>
+                </div> -->
                 <app-btn normal @click.native="walletAction">
                     <span v-if="!loading" v-text="editedWallet ? 'Edit': 'Add'">Add</span>
                     <app-spinner v-else></app-spinner>
@@ -37,6 +38,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import Wallet from '@/components/UI/Wallet'
 import { addWallet, editWallet } from '@/graphQL/walletsQuery'
 export default {
@@ -82,11 +84,10 @@ export default {
       this.loading = true
       const graphqlQuery = addWallet(this.walletInput)
       try {
-        const response = await this.$http.post('', graphqlQuery)
-        const resData = await response.json()
-        const responseData = resData.data.addWallet
-        responseData.type = 'wallets'
-        this.$store.commit('addUserItem', responseData)
+        const response = await axios.post('', graphqlQuery)
+        const resData = response.data.data.addWallet
+        resData.type = 'wallets'
+        this.$store.commit('addUserItem', resData)
         this.$emit('hideForm')
         this.loading = false
       } catch (err) {
@@ -98,12 +99,10 @@ export default {
       this.loading = true
       const graphqlQuery = editWallet(this.walletInput)
       try {
-        await this.$http.post('', graphqlQuery)
-        const response = await this.$http.post('', graphqlQuery)
-        const resData = await response.json()
-        const responseData = resData.data.editWallet
-        responseData.type = 'wallets'
-        this.$store.commit('editUserItem', responseData)
+        const response = await axios.post('', graphqlQuery)
+        const resData = response.data.data.editWallet
+        resData.type = 'wallets'
+        this.$store.commit('editUserItem', resData)
         this.loading = false
         this.$emit('hideForm')
       } catch (err) {

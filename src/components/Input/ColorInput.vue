@@ -25,7 +25,7 @@ export default {
   data () {
     return {
       showList: false,
-      colorsList: ['Brown', 'Chocolate', 'Coral', 'Crimson', 'DarkCyan', 'DarkBlue', 'FireBrick', 'OrangeRed', 'Teal']
+      colorsList: ['#f03985', '#db0f0f', '#e2610b', '#d3a308', '#51b418', '#008080', '#0377c4', '#667EEA', '#9140d3']
     }
   },
   mounted () {
@@ -58,6 +58,16 @@ export default {
     width: 30%;
     display: flex;
     align-items: center;
+    margin-bottom: 2rem;
+    // background: #f03985;
+    // background: #db0f0f;
+    // background: #51b418;
+    // background: #e2610b;
+    // background: #d3a308;
+    // background: #008080;
+    // background: #0377c4;
+    // background: #667EEA;
+    // background: #9140d3;
         & span {
           width: 10rem;
           font-size: $font-m;
@@ -75,7 +85,7 @@ export default {
           &__list {
             position: absolute;
             top: 0rem;
-            left: 6rem;
+            left: 8rem;
             list-style: none;
             width: 6rem;
             display: grid;

@@ -106,6 +106,7 @@ export default {
             padding: 2rem 1rem;
             border-radius: 1rem;
             background: var(--app-item-bg);
+            background-image: var(--app-item-bg-gradient);
             display: flex;
             align-items: center;
             margin-bottom: 3rem;

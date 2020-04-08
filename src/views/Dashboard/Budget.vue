@@ -44,7 +44,6 @@ export default {
         }
       })
       this.variableBudgetCounter = variableBudgetCounter
-      console.log(this.budget)
     }
   },
   computed: {

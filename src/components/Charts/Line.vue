@@ -12,12 +12,17 @@ export default {
           yAxes: [{
             ticks: {
               beginAtZero: true,
-              stepSize: 1000
+              stepSize: 2000
+            },
+            gridLines: {
+              color: '#2e2e2e'
+              // display: false
             }
           }],
           xAxes: [{
             gridLines: {
-              display: false
+              color: '#2e2e2e'
+              // display: false
             }
           }]
         },
@@ -32,16 +37,17 @@ export default {
   },
   props: ['data', 'gradient1', 'gradient2'],
   mounted () {
-    this.gradient = this.$refs.canvas.getContext('2d').createLinearGradient(0, 0, 0, 650)
+    this.gradient = this.$refs.canvas.getContext('2d').createLinearGradient(0, 0, 0, 310)
     this.gradient.addColorStop(0, this.gradient1)
     this.gradient.addColorStop(0.4, this.gradient2)
 
     const d = this.data
     d.datasets.forEach(i => {
       i.backgroundColor = this.gradient
-      i.borderColor = 'grey'
-      i.pointBackgroundColor = 'grey'
+      i.borderColor = '#ff7315'
+      i.pointBackgroundColor = '#ff7315'
       i.borderWidth = 1
+      i.lineTension = 0
     })
     this.renderChart(d, this.options)
   }

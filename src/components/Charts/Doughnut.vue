@@ -7,6 +7,7 @@ export default {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        cutoutPercentage: 70,
         legend: {
           position: 'right'
         },

@@ -75,8 +75,9 @@ export default {
 
   &__section {
       background: var(--app-item-bg);
-      background-image: var(--app-item-bg-gradient);
-      // box-shadow: 3px 3px 3px rgba(8, 8, 8, 0.2) inset, -2px -2px 3px rgba(109, 109, 109, 0.05) inset;
+      // box-shadow:  2px 2px 4px #191919, -2px -2px 4px #212121;
+      // background-image: var(--app-item-bg-gradient);
+      // box-shadow: 2px 2px 2px rgba(8, 8, 8, 0.2) inset, -1px -1px 3px rgba(109, 109, 109, 0.05) inset;
       border-radius: .5rem;
     &__title {
       height: 3rem;

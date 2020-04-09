@@ -1,8 +1,10 @@
 <template>
     <div class="chart dashboard__section">
         <h2 class="dashboard__section__title">Planned expenditures</h2>
-        <div class="chart__container">
-            <doughnut-chart :styles="chartStyles" :datacollection="data"></doughnut-chart>
+        <div class="chart__expenses">
+          <div class="chart__expenses__container">
+              <doughnut-chart :styles="chartStyles" :datacollection="data"></doughnut-chart>
+          </div>
         </div>
     </div>
 </template>
@@ -15,7 +17,7 @@ export default {
     return {
       data: null,
       chartStyles: {
-        height: '170px',
+        height: '130px',
         width: '100%',
         position: 'relative'
       }
@@ -39,7 +41,7 @@ export default {
     }
     const datasets = {
       data: data,
-      backgroundColor: ['red', 'yellow', 'blue', 'violet', 'salmon', 'cyan']
+      backgroundColor: ['#059782', '#99a1d7', '#2bac49', '#3144af', '#59bcd8']
     }
 
     const datacollection = {
@@ -62,11 +64,17 @@ export default {
     height: 100%;
     padding: 1rem;
     padding-left: 3rem;
-
-    &__container {
-        position: relative;
-        width: 100%;
-        height: 17rem;
+    display: flex;
+    flex-direction: column;
+    &__expenses {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      &__container {
+          position: relative;
+          width: 100%;
+          height: 13rem;
+        }
     }
 }
 </style>

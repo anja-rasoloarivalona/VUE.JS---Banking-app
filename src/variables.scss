@@ -93,15 +93,15 @@ $font-xl: 1.6rem;
 }
 
 [theme="dark-orangered"] {
-    --app-bg-primary: #0c0c0c;
+    --app-bg-primary: rgb(18, 18, 18);
     --app-bg-secondary: #161313;
-    --app-item-bg: #111111;
-    --app-item-bg-gradient: linear-gradient(302deg, rgba(54,54,54,1) 0%, rgba(51,54,54,1) 100%);
+    --app-item-bg: #1d1d1d;
+    --app-item-bg-gradient: linear-gradient(to right bottom, rgb(29, 29, 29) 30%, rgb(28, 28, 28) 70%);
     --app-text-color: white;
     --app-title-color-primary: #b1afaf;
     --app-title-color-secondary: #797979;
     --app-line-color: #2e2e2e;
-    --app-color-main: orangered;
+    --app-color-main: #ff7315;
 }
 
 

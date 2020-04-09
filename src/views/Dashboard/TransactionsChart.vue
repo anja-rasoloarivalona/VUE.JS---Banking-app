@@ -2,7 +2,7 @@
     <div class="chart dashboard__section">
         <h2 class="dashboard__section__title">History</h2>
         <div class="chart__container">
-            <line-chart :data="datacollection" :styles="myStyles" :gradient1="'green'" :gradient2="'transparent'" ></line-chart>
+            <line-chart :data="datacollection" :styles="myStyles" :gradient1="'#FF6835'" :gradient2="'transparent'" ></line-chart>
         </div>
     </div>
 </template>

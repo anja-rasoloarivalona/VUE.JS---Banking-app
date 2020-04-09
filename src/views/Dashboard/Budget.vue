@@ -5,7 +5,7 @@
         <h3 class="budget__item__key">{{ item.name }}</h3>
         <div class="budget__item__barContainer">
           <div class="budget__item__bar" :style="{ width:  item.amount / max * 100 + '%' }">
-              <div class="budget__item__usedbar" :style="{width: item.used * oneDollarWidth + 'vw'}">
+              <div class="budget__item__usedbar" :style="{width: item.used * oneDollarWidth + 'vw', background: item.color}">
                   ${{ item.used | amount }}
               </div>
           </div>
@@ -39,7 +39,8 @@ export default {
             _id: expense._id,
             name: expense.name,
             amount: expense.amount,
-            used: expense.used
+            used: expense.used,
+            color: expense.color
           })
         }
       })
@@ -112,7 +113,7 @@ export default {
             left: 0;
             top: 0;
             height: 100%;
-            background: var(--app-color-main);
+            // background: var(--app-color-main);
             display: flex;
             align-items: center;
             padding-left: 2rem;

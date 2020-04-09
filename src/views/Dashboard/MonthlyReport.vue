@@ -5,15 +5,15 @@
             <div class="monthly__details__item monthly__details__item--income">
                 <h3>Income</h3>
                 <div class="monthly__details__item__amount">
-                    <app-icon name="arrow" color="green" />
-                    <div>+ ${{report.income | amount}}</div>
+                    <app-icon name="arrow" color="primary" />
+                    <div>${{report.income | amount}}</div>
                 </div>
             </div>
             <div class="monthly__details__item monthly__details__item--expense">
                 <h3>Expense</h3>
                 <div class="monthly__details__item__amount">
-                    <app-icon name="arrow" color="red" />
-                    <div>- ${{report.expense | amount}}</div>
+                    <app-icon name="arrow" color="grey" />
+                    <div>${{report.expense | amount}}</div>
                 </div>
             </div>
         </div>

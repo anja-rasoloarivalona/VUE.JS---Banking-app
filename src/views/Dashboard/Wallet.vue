@@ -35,7 +35,6 @@ export default {
 
 <style lang="scss" scoped>
 .wallet {
-    padding: 1.5rem;
     width: 100%;
     & h2 {
         margin-bottom: 1rem;

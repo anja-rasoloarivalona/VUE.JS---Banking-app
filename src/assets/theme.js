@@ -62,7 +62,7 @@ const theme = {
     '--app-title-color-primary': '#b1afaf',
     '--app-title-color-secondary': '#797979',
     '--app-bg-secondary': '#161313',
-    '--app-color-main': 'orangered'
+    '--app-color-main': '#FF6835'
   }
 }
 

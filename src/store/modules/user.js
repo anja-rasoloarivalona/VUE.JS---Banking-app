@@ -80,11 +80,12 @@ const getters = {
       if (new Date(transaction.nextPayout) < result.date) {
         result = {
           name: transaction.name,
-          date: new Date(transaction.date),
+          date: new Date(transaction.nextPayout),
           value: transaction.amount
         }
       }
     })
+    console.log('store', result)
     return result
   },
   creditBalance: state => {

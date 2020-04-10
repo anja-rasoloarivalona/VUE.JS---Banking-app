@@ -63,9 +63,7 @@ export default {
     }
   },
   created () {
-    // console.log(this.$store.state.user.balance)
-    // this.items.credit.value = this.creditBalance
-    // this.items.balance.value = this.userBalance
+    console.log('upcoming', this.upcoming)
     this.items.upcoming = {
       subtitle: this.upcoming.name,
       date: this.upcoming.date,

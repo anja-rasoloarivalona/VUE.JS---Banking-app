@@ -4,7 +4,7 @@
     <div v-else-if="!loading" class="app-main">
       <sidebar></sidebar>
       <navbar></navbar>
-      <settings v-if="currentSettingsPannelState"></settings>
+      <backdrop v-if="currentBackdropState.show"></backdrop>
       <div class="app__view">
         <router-view/>
       </div>
@@ -17,7 +17,7 @@ import { mapGetters, mapMutations } from 'vuex'
 import axios from 'axios'
 import Sidebar from './components/Layout/Sidebar'
 import Navbar from './components/Layout/Navbar'
-import Settings from './components/Layout/Settings/Settings'
+import Backdrop from './components/Layout/Backdrop'
 export default {
   data () {
     return {
@@ -28,7 +28,7 @@ export default {
     ...mapGetters([
       'currentTheme',
       'currentAppStatus',
-      'currentSettingsPannelState'
+      'currentBackdropState'
     ]),
     isAppReady () {
       if (this.currentAppStatus !== 'running') {
@@ -64,7 +64,7 @@ export default {
   components: {
     Sidebar,
     Navbar,
-    Settings
+    Backdrop
   },
   created: async function () {
     // localStorage.removeItem('bank-data')
@@ -157,6 +157,35 @@ body {
     }
     to {
         transform: rotateY(0deg);
+    }
+}
+
+.fade-enter-active {
+    animation: fade-in .5s ease-out forwards;
+}
+.fade-leave-active {
+    animation: fade-out .5s ease-out forwards;
+}
+
+@keyframes fade-in {
+    from {
+        transform: translateY(2rem);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0rem);
+        opacity: 1;
+    }
+}
+
+@keyframes fade-out {
+    from {
+        transform: translateY(0rem);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(2rem);
+        opacity: 0;
     }
 }
 

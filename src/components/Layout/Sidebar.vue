@@ -162,33 +162,4 @@ export default {
     }
 }
 
-.fade-enter-active {
-    animation: fade-in .5s ease-out forwards;
-}
-.fade-leave-active {
-    animation: fade-out .5s ease-out forwards;
-}
-
-@keyframes fade-in {
-    from {
-        transform: translateY(2rem);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0rem);
-        opacity: 1;
-    }
-}
-
-@keyframes fade-out {
-    from {
-        transform: translateY(0rem);
-        opacity: 1;
-    }
-    to {
-        transform: translateY(2rem);
-        opacity: 0;
-    }
-}
-
 </style>

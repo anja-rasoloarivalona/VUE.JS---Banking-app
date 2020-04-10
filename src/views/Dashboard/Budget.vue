@@ -118,6 +118,7 @@ export default {
             align-items: center;
             padding-left: 2rem;
             color: $color-white;
+            border-radius: .5rem;
         }
         &__max {
             margin-left: 2rem;

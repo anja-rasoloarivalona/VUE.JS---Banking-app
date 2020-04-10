@@ -68,7 +68,7 @@ export default {
 .navBg {
   grid-column: 2 / -1;
   grid-row: 1 / 2;
-  background: var(--app-bg-secondary);
+  background: var(--app-item-bg);
   position: relative;
   z-index: 2;
   &__in {

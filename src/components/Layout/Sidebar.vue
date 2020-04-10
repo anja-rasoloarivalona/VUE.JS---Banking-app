@@ -19,6 +19,10 @@
               </li>
             </ul>
         </transition>
+
+        <div class="sidebar__add">
+          <app-icon name="add" size="xxl" color="surface"></app-icon>
+        </div>
     </div>
 </template>
 
@@ -83,8 +87,8 @@ export default {
     position: fixed;
     width: 25rem;
     height: 100vh;
-    background: var(--app-color-main);
-    // background: var(--app-item-bg);
+    // background: var(--app-color-main);
+    background: var(--app-item-bg);
     // background-image: var(--app-item-bg-gradient);
     padding: 0 2rem;
     &__header {
@@ -143,6 +147,21 @@ export default {
                 }
             }
         }
+    }
+    &__add {
+      width: 8rem;
+      height: 8rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--mainColor);
+      position: absolute;
+      bottom: 5rem;
+      left: 0;
+      right: 0;
+      margin: auto;
+      cursor: pointer;
     }
 }
 

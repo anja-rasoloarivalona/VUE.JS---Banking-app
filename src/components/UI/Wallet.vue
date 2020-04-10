@@ -70,7 +70,7 @@ export default {
           width: 1px;
           height: 1px;
           &.dot {
-            background: rgb(131, 131, 131);
+            background: rgb(104, 103, 103);
           }
         }
       }

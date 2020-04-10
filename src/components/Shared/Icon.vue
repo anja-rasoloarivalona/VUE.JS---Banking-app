@@ -50,6 +50,11 @@ export default {
   height: 3rem;
 }
 
+.icon.xxl {
+  width: 5rem;
+  height: 5rem;
+}
+
 /* colors */
 
 .primary {
@@ -58,6 +63,9 @@ export default {
 
 .secondary {
   fill: var(--app-title-color-secondary);
+}
+.surface {
+  fill: var(--surfaceColor)
 }
 
 .red {

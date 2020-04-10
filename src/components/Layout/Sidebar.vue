@@ -63,7 +63,6 @@ export default {
     }
   },
   created () {
-    console.log('upcoming', this.upcoming)
     this.items.upcoming = {
       subtitle: this.upcoming.name,
       date: this.upcoming.date,

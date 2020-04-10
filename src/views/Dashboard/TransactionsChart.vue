@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import Months from '@/utilities/months'
 import { mapGetters } from 'vuex'
 import LineChart from '@/components/Charts/Line'
 export default {
@@ -67,9 +68,25 @@ export default {
     data.reverse()
 
     const balanceData = []
+    let currentMonth = null
+    console.log(currentMonth)
+    console.log(data)
+    console.log(Months)
+
     data.forEach(label => {
       balanceData.push(label.balance)
-      this.datacollection.labels.push(label.shortDate)
+      if (!currentMonth) {
+        currentMonth = Months[parseInt(label.shortDate.split('/')[0]) - 1]
+        this.datacollection.labels.push(`${currentMonth} ${label.shortDate.split('/')[1]}`)
+      } else {
+        if (currentMonth === Months[parseInt(label.shortDate.split('/')[0]) - 1]) {
+          this.datacollection.labels.push(`${label.shortDate.split('/')[1]}`)
+        } else {
+          currentMonth = Months[parseInt(label.shortDate.split('/')[0]) - 1]
+          this.datacollection.labels.push(`${currentMonth} ${label.shortDate.split('/')[1]}`)
+        }
+      }
+      // this.datacollection.labels.push(label.shortDate)
     })
     this.datacollection.datasets = [{
       label: 'Balance',

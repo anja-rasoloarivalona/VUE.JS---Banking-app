@@ -85,7 +85,6 @@ const getters = {
         }
       }
     })
-    console.log('store', result)
     return result
   },
   creditBalance: state => {

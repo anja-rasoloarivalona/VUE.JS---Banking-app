@@ -1,8 +1,5 @@
 <template>
     <div class="transactions-form">
-      <div class="transactions-form__close" @click="$emit('closeForm')">
-              <app-icon name="close" size="large" color="primary"/>
-        </div>
         <form>
             <div class="transactions-form__input-date">
                 <label for="date">
@@ -197,11 +194,8 @@ export default {
 
 <style lang="scss">
 .transactions-form {
-    &__close {
-      display: flex;
-      justify-content: flex-end;
-      margin: 1rem 0;
-    }
+    padding: 3rem;
+    width: 65rem;
     & form {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -224,7 +218,7 @@ export default {
             margin-bottom: 0.5rem;
             font-size: 13px;
             &:first-child {
-                color: $color-grey--dark;
+                color: var(--textColor--dark);
             }
             & input {
                 height: 4rem;

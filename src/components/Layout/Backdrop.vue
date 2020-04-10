@@ -14,10 +14,11 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 import Settings from './Settings/Settings'
+import TransactionsFrom from '@/components/Forms/TransactionsForm'
 export default {
   data () {
     return {
-      mode: 'settings'
+      mode: null
     }
   },
   computed: {
@@ -28,10 +29,23 @@ export default {
   methods: {
     ...mapMutations([
       'closeBackdrop'
-    ])
+    ]),
+    setBackdropModal () {
+      this.mode = this.currentBackdropState.modal
+    }
+  },
+  watch: {
+    currentBackdropState: {
+      handler: 'setBackdropModal',
+      immediate: true
+    }
+  },
+  mounted () {
+    console.log(this.currentBackdropState)
   },
   components: {
-    settings: Settings
+    settings: Settings,
+    transactions: TransactionsFrom
   }
 }
 </script>

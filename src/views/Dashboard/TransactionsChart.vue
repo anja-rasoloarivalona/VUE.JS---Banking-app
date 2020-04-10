@@ -69,10 +69,6 @@ export default {
 
     const balanceData = []
     let currentMonth = null
-    console.log(currentMonth)
-    console.log(data)
-    console.log(Months)
-
     data.forEach(label => {
       balanceData.push(label.balance)
       if (!currentMonth) {
@@ -86,7 +82,6 @@ export default {
           this.datacollection.labels.push(`${currentMonth} ${label.shortDate.split('/')[1]}`)
         }
       }
-      // this.datacollection.labels.push(label.shortDate)
     })
     this.datacollection.datasets = [{
       label: 'Balance',

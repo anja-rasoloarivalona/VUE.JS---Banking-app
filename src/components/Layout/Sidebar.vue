@@ -20,14 +20,14 @@
             </ul>
         </transition>
 
-        <div class="sidebar__add">
-          <app-icon name="add" size="xxl" color="surface"></app-icon>
+        <div class="sidebar__add" @click="openBackdrop('transactions')">
+            <app-icon name="add" size="xxl" color="surface"></app-icon>
         </div>
     </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -61,6 +61,11 @@ export default {
         this.items.credit.value = credit
       }
     }
+  },
+  methods: {
+    ...mapMutations([
+      'openBackdrop'
+    ])
   },
   created () {
     this.items.upcoming = {

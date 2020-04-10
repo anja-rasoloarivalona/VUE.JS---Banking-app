@@ -1,5 +1,5 @@
 <template>
-    <div class="transactionsContainer" v-if="!showForm">
+    <div class="transactionsContainer">
         <div class="transactions__empty" v-if="this.$store.state.user.monthlyReports.length < 1">
            <div>No  transaction</div>
            <app-btn normal primary @click.native="showForm = true">New transaction</app-btn>
@@ -9,29 +9,22 @@
             <transactions-table @editTransaction="edit"></transactions-table>
         </div>
     </div>
-    <div v-else>
-        <transactions-form @closeForm="showForm = false" :editedTransaction="editedTransaction"></transactions-form>
-    </div>
 </template>
 
 <script>
-import TransactionsForm from './TransactionsForm'
 import TransactionTable from './TransactionsTable'
 export default {
   data () {
     return {
-      showForm: false,
       editedTransaction: false
     }
   },
   methods: {
     edit (transaction) {
-      this.showForm = true
       this.editedTransaction = transaction
     }
   },
   components: {
-    'transactions-form': TransactionsForm,
     'transactions-table': TransactionTable
   }
 }

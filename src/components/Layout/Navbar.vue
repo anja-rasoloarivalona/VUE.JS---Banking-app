@@ -120,7 +120,7 @@ export default {
       }
       & div {
           svg {
-            fill: red !important
+            // fill: red !important
           }
       }
   }

@@ -59,13 +59,13 @@ label {
         width: 10rem;
         margin-bottom: 0.5rem;
         font-size: $font-m;
-        color: var(--app-title-color-secondary);
+        color: var(--textColor--dark);
     }
 }
 .select {
     width: 100%;
-    background: var(--app-item-bg);
-    color: var(--app-text-color);
+    background: var(--surfaceColor);
+    color: var(--textColor);
     position: relative;
     &.bg-grey {
       background: $color-grey--light;
@@ -90,7 +90,7 @@ label {
             position: absolute;
             width: .7rem;
             height: .5rem;
-            background: $color-grey--dark;
+            background: var(--textColor--dark);
             right: 1rem;
             clip-path: polygon(50% 100%, 0 0, 100% 0);
         }
@@ -99,9 +99,9 @@ label {
         position: absolute;
         top: 4rem;
         left: 0;
-        border: 1px solid $color-grey--dark;
-        background: var(--app-item-bg);
-        color: var(--app-text-color);
+        border: 1px solid var(--textColor--dark);
+        background: var(--surfaceColor);
+        color: var(--textColor);
         width: 100%;
         border-bottom-left-radius: .5rem;
         border-bottom-right-radius: .5rem;
@@ -115,11 +115,11 @@ label {
             font-size: $font-m;
             cursor: pointer;
             &:hover {
-                // background: $color-grey--light;
+                background: var(--on-surfaceColor)
             }
             &.active {
-                background: var(--app-color-main);
-                color: var(--app-text-color);
+                background: var(--mainColor);
+                color: var(--textColor);
             }
         }
     }

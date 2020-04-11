@@ -214,13 +214,13 @@ export default {
     border-width: 0px !important;
 }
 .vc-bg-white {
-    background: var(--app-item-bg) !important;
+    background: var(--surfaceColor) !important;
 }
 
 .vc-text-base {
     font-size: 13px !important;
     font-family: "Open Sans", sans-serif !important;
-    color: var(--app-text-color) !important;
+    color: var(--textColor) !important;
 }
 
 </style>

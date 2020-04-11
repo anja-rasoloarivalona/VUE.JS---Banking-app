@@ -101,10 +101,10 @@ export default {
     align-items: center;
 }
 .vc-text-gray-900 {
-    color: var(--app-text-color) !important
+    color: var(--textColor) !important
 }
 .vc-text-gray-800 {
-    color: var(--app-color-main);
+    color: var(--mainColor);
 }
 // .vc-highlight {
 //     background: orangered !important;

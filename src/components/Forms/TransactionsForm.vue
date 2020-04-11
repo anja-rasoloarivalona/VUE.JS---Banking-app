@@ -4,7 +4,7 @@
             <div class="transactions-form__input-date">
                 <label for="date">
                     <span>date</span>
-                    <app-date-picker v-model='input.date' id="date"/>
+                    <app-date-picker v-model='input.date' id="date" locale="en"/>
                 </label>
             </div>
             <app-select-input :id="'name'" v-model="input.name" :options="[...Object.keys(usersIncomesAndExpenses), 'New transaction']" />

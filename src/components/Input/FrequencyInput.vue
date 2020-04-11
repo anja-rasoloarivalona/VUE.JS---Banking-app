@@ -42,7 +42,7 @@ export default {
         width: 10rem;
         margin-bottom: 0.5rem;
         font-size: $font-m;
-        color: $color-grey--dark;
+        color: var(--surfaceColor);
     }
     &__container {
         display: flex;

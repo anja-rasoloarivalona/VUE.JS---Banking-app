@@ -68,11 +68,11 @@ export default {
 .navBg {
   grid-column: 2 / -1;
   grid-row: 1 / 2;
-  background: var(--app-item-bg);
+  background: var(--surfaceColor);
   position: relative;
   z-index: 2;
   &__in {
-    background: var(--app-bg-primary);
+    background: var(--backgroundColor);
     height: 100%;
     width: 100%;
     position: absolute;
@@ -87,7 +87,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid var(--app-line-color);
+  border-bottom: 1px solid var(--on-surfaceColor);
   position: relative;
   z-index: 3;
   margin: 0 1rem;
@@ -96,12 +96,12 @@ export default {
     div {
       margin-right: 3rem;
       a {
-        color: var(--app-title-color-secondary);
+        color: var(--textColor--dark);
         text-decoration: none;
         font-size: $font-m;
       }
       &.router-link-exact-active a {
-            color: var(--app-color-main);
+            color: var(--mainColor);
       }
     }
   }

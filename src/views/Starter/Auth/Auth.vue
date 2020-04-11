@@ -12,10 +12,23 @@
 </template>
 
 <script>
+import theme from '@/assets/theme'
+import { mapGetters } from 'vuex'
 import AuthForm from './Form/Form'
 export default {
   props: {
     action: String
+  },
+  computed: {
+    ...mapGetters([
+      'currentTheme'
+    ]),
+    backgroundColor () {
+      return theme[this.currentTheme]['--mainColor']
+    }
+  },
+  mounted () {
+    // console.log(theme[this.currentTheme])
   },
   components: {
     authForm: AuthForm
@@ -33,7 +46,7 @@ export default {
         height: 100%;
         background-image: linear-gradient(to right,
             #027a66ea 10%,
-            #027a66b4),
+            #027a66b4 ),
             url("../../../assets/landing.png");
         background-repeat: no-repeat;
         background-size: cover;

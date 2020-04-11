@@ -40,7 +40,6 @@ export default {
 
 <style lang="scss" scoped>
 .available {
-    // border-radius: 1rem;
     display: flex;
     flex-direction: column;
     padding: 1rem;
@@ -52,7 +51,7 @@ export default {
     &__value {
       height: 5rem;
       font-size: 2.4rem;
-      color: var(--app-color-main);
+      color: var(--mainColor);
     }
 }
 </style>

@@ -74,16 +74,13 @@ export default {
   grid-column: 2 / 3;
 
   &__section {
-      background: var(--app-item-bg);
-      // box-shadow:  2px 2px 4px #191919, -2px -2px 4px #212121;
-      // background-image: var(--app-item-bg-gradient);
-      // box-shadow: 2px 2px 2px rgba(8, 8, 8, 0.2) inset, -1px -1px 3px rgba(109, 109, 109, 0.05) inset;
+      background: var(--surfaceColor);
       border-radius: .5rem;
     &__title {
       height: 3rem;
       display: flex;
       align-items: center;
-      color: var(--app-text-color);
+      color: var(--textColor);
     }
   }
 }

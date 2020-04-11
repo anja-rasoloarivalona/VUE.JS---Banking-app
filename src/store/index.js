@@ -12,6 +12,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   strict: true,
   state: {
+
   },
   getters: {
 
@@ -25,7 +26,6 @@ export default new Vuex.Store({
         const response = await axios.post('/', graphqlQuery)
         const resData = response.data.data.user
         const theme = resData.settings.theme
-        console.log('init', resData)
         commit('initAppData', resData)
         commit('setTheme', theme)
         commit('setPreviousTheme', theme)

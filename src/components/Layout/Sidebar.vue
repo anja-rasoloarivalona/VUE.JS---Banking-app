@@ -90,7 +90,7 @@ export default {
     width: 25rem;
     height: 100vh;
     // background: var(--app-color-main);
-    background: var(--app-item-bg);
+    background: var(--surfaceColor);
     // background-image: var(--app-item-bg-gradient);
     padding: 0 2rem;
     &__header {
@@ -113,7 +113,7 @@ export default {
         &__item {
             padding: 2rem 1rem;
             border-radius: 1rem;
-            background: var(--app-line-color);
+            background: var(--on-surfaceColor);
             display: flex;
             align-items: center;
             margin-bottom: 3rem;

@@ -95,10 +95,10 @@ export default {
 <style lang="scss" scoped>
 .transaction {
   &.bg-white {
-    background: var(--app-bg-secondary);
+    // background: var(--app-bg-secondary);
   }
   &.bg-blue {
-    background: var(--app-item-bg);
+    background: var(--on-surfaceColor);
   }
   &__id {
     // background: turquoise;

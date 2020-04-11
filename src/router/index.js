@@ -6,6 +6,7 @@ import Transactions from '../views/Transactions/Transactions'
 import Wallets from '../views/Wallets/Wallets'
 import Budget from '../views/Budget/Budget'
 import Calendar from '../views/Calendar/Calendar'
+import store from '../store'
 
 Vue.use(VueRouter)
 
@@ -43,6 +44,11 @@ const router = new VueRouter({
   mode: 'hash',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  console.log(store.state.auth.isAuth)
+  next()
 })
 
 export default router

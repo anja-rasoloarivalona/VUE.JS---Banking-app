@@ -58,11 +58,11 @@ export default {
 /* colors */
 
 .primary {
-  fill: var(--app-color-main);
+  fill: var(--mainColor);
 }
 
 .secondary {
-  fill: var(--app-title-color-secondary);
+  fill: var(--textColor--dark);
 }
 .surface {
   fill: var(--surfaceColor)

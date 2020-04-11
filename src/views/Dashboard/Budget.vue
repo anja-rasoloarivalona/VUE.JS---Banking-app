@@ -93,7 +93,7 @@ export default {
             width: 10rem;
             min-width: 10rem;
             text-transform: capitalize;
-            color: var(--app-title-color-secondary);
+            color: var(--textColor--dark);
         }
         &__barContainer {
           height: 2rem;
@@ -103,7 +103,7 @@ export default {
         &__bar {
             height: 100%;
             max-width: 100%;
-            background: var( --app-line-color);
+            background: var(--on-surfaceColor);
             position: relative;
             border-radius: .5rem;
             overflow: hidden;
@@ -113,7 +113,6 @@ export default {
             left: 0;
             top: 0;
             height: 100%;
-            // background: var(--app-color-main);
             display: flex;
             align-items: center;
             padding-left: 2rem;
@@ -122,7 +121,7 @@ export default {
         }
         &__max {
             margin-left: 2rem;
-            color: var(--app-text-color)
+            color: var(--textColor)
         }
     }
 }

@@ -50,14 +50,14 @@ export default {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
     box-shadow:  3px 3px 7px #191919, -3px -3px 7px #212121;
-    background: var( --app-line-color);
+    background: var(--on-surfaceColor);
     cursor: pointer;
     &__chip  {
       &__content {
         border-radius: .5rem;
         width: 3rem;
         height: 2rem;
-        background: var( --app-line-color);
+        background: var( --on-surfaceColor);
         background-image: linear-gradient(to bottom right, rgb(28, 28, 28), rgb(56, 56, 56));
         box-shadow: 3px 2px 2px rgba(8, 8, 8, 0.2) inset, -1px -1px 3px rgba(109, 109, 109, 0.05) inset;
         display: grid;
@@ -76,18 +76,16 @@ export default {
       }
     }
     &__supplier {
-      // background: blue;
       display: flex;
       justify-content: flex-end;
-      color: var(--app-text-color);
+      color: var(--textColor);
       font-size: $font-s;
     }
     &__type {
-      // background: yellow;
       display: flex;
       align-items: flex-end;
       justify-content: flex-end;
-      color: var(--app-title-color-secondary);
+      color: var(--textColor--dark);
       font-size: $font-s;
     }
     &__amount {
@@ -95,7 +93,7 @@ export default {
       display: flex;
       align-items: flex-end;
       font-size: $font-m;
-      color: var(--app-color-main)
+      color: var(--mainColor)
     }
     &.xl {
       min-width: 40rem;

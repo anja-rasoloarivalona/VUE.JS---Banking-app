@@ -2,12 +2,13 @@
     <div class="chart dashboard__section">
         <h2 class="dashboard__section__title">History</h2>
         <div class="chart__container">
-            <line-chart :data="datacollection" :styles="myStyles" :gradient1="'#FF6835'" :gradient2="'transparent'" ></line-chart>
+            <line-chart :data="datacollection" :styles="myStyles" :gradient1="chartColor" :gradient2="'transparent'" ></line-chart>
         </div>
     </div>
 </template>
 
 <script>
+import theme from '@/assets/theme'
 import Months from '@/utilities/months'
 import { mapGetters } from 'vuex'
 import LineChart from '@/components/Charts/Line'
@@ -22,7 +23,8 @@ export default {
         height: '170px',
         width: '100%',
         position: 'relative'
-      }
+      },
+      theme: theme
     }
   },
   created () {
@@ -91,8 +93,12 @@ export default {
   computed: {
     ...mapGetters([
       'userTransactions',
-      'userBalance'
-    ])
+      'userBalance',
+      'currentTheme'
+    ]),
+    chartColor () {
+      return theme[this.currentTheme]['--mainColor']
+    }
   },
   components: {
     LineChart

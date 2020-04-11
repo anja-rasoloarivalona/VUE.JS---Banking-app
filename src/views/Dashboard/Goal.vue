@@ -36,7 +36,7 @@ export default {
       return (this.$store.state.user.balance / this.$store.state.user.goal.amount) * 100
     },
     strokeColor () {
-      return theme[this.currentTheme]['--app-color-main']
+      return theme[this.currentTheme]['--mainColor']
     }
   },
   components: {
@@ -62,11 +62,11 @@ export default {
             display: flex;
             align-items: center;
             &__key {
-                color: var(--app-title-color-secondary);
+                color: var(--textColor--dark);
                 margin-right: .5rem;
             }
             &__value {
-                color: var(--app-text-color);
+                color: var(--textColor);
                 font-size: $font-m;
             }
         }

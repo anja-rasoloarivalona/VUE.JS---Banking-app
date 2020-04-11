@@ -1,7 +1,8 @@
 <script>
-import { Line } from 'vue-chartjs'
+import { Line, mixins } from 'vue-chartjs'
 export default {
   extends: Line,
+  mixins: mixins.reactiveProp,
   data () {
     return {
       options: {
@@ -44,8 +45,8 @@ export default {
     const d = this.data
     d.datasets.forEach(i => {
       i.backgroundColor = this.gradient
-      i.borderColor = '#ff7315'
-      i.pointBackgroundColor = '#ff7315'
+      i.borderColor = this.gradient1
+      i.pointBackgroundColor = this.gradient1
       i.borderWidth = 1
       i.lineTension = 0
     })

@@ -56,36 +56,29 @@ export default {
     padding: 1rem;
     padding-left: 3rem;
     height: 23.1rem;
-    // overflow: hidden;
     & h2 {
         margin-bottom: 1rem;
     }
     &__table {
       &__date {
          width: 10.5%;
-          // background: red;
       }
       &__name {
         width: 10%;
-          // background: green;
       }
       &__wallet {
         width: 13%;
-          // background: blue;
       }
       &__amount {
         width: 10%;
-          // background: orange;
       }
       &__status {
         width: 10%;
-          // background: salmon;
       }
     }
 }
 table, table th {
-  // border-top: 1px solid var(--app-line-color);
-  border-bottom: 1px solid var(--app-line-color);
+  border-bottom: 1px solid var(--on-surfaceColor);
   border-collapse: collapse;
 }
 table {
@@ -94,8 +87,8 @@ table {
     height: 5rem;
     text-align: start;
     padding-left: 2rem;
-    background: var(--app-bg-primary);
     font-size: $font-s;
+    // background: var(--on-surfaceColor);
   }
 }
 

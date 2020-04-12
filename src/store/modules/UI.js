@@ -1,25 +1,28 @@
 const state = {
-  showBackdrop: false,
+  isBackdropMounted: false,
   backdropModal: null
 }
 
 const getters = {
-  currentBackdropState: state => {
-    return {
-      show: state.showBackdrop,
-      modal: state.backdropModal
-    }
+  backdropState: state => {
+    return state.isBackdropMounted
+  },
+  backdropModal: state => {
+    return state.backdropModal
   }
 }
 
 const mutations = {
   openBackdrop (state, modal) {
-    state.showBackdrop = true
+    state.isBackdropMounted = true
     state.backdropModal = modal
   },
   closeBackdrop (state) {
-    state.showBackdrop = false
+    state.isBackdropMounted = false
     state.backdropModal = null
+  },
+  setModalView (state, modal) {
+    state.backdropModal = modal
   }
 }
 

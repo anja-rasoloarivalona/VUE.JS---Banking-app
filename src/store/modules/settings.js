@@ -1,8 +1,6 @@
 const state = {
   theme: null,
-  previousTheme: null,
-  currentSettingView: null,
-  showSettingsPannel: false
+  previousTheme: null
 }
 
 const getters = {
@@ -11,12 +9,6 @@ const getters = {
   },
   previousTheme: state => {
     return state.previousTheme
-  },
-  currentSettingView: state => {
-    return state.currentSettingView
-  },
-  currentSettingsPannelState: state => {
-    return state.showSettingsPannel
   }
 }
 
@@ -26,15 +18,6 @@ const mutations = {
   },
   setPreviousTheme (state, theme) {
     state.previousTheme = theme
-  },
-  setCurrentView (state, view) {
-    state.currentSettingView = view
-  },
-  showSettingsPannel (state) {
-    state.showSettingsPannel = true
-  },
-  hideSettingsPannel (state) {
-    state.showSettingsPannel = false
   }
 
 }

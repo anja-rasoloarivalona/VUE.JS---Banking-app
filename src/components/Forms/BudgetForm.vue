@@ -1,23 +1,23 @@
 <template>
   <div class="budget-form-container">
-      <div class="budget-form__close" @click="$emit('closeForm')">
-                    <app-icon name="close" size="large" color="primary"/>
-      </div>
       <form class="budget-form">
+              <app-select-input v-model="type" :id="'type'" :options="['income', 'expense']"/>
+              <!------------------------------- INCOME TEMPLATE ----------------------------->
               <template v-if="type === 'income'">
                   <app-basic-input v-model="income.name" :id="'name'" />
                   <app-basic-input v-model="income.amount" :id="'amount'"  />
-                  <app-basic-input v-model="income.from" :id="'from'" />
-                  <app-frequency-input v-model="income.frequency" :id="'frequency'"/>
                   <div class="input-date">
                       <label for="lastPayout">
                           <span>last payout</span>
                           <app-date-picker v-model='income.lastPayout' id="lastPayout"/>
                       </label>
                   </div>
+                  <app-basic-input v-model="income.from" :id="'from'" />
+                  <app-frequency-input v-model="income.frequency" :id="'frequency'"/>
                   <app-select-input :id="'auto writing'"  :options="['yes', 'no']" v-model="income.autoWriting" />
                   <app-select-input :id="'notification'"  :options="['yes', 'no']" v-model="income.notification" />
               </template>
+              <!------------------------------- EXPENSE TEMPLATE ----------------------------->
               <template v-if="type === 'expense'">
                   <app-basic-input v-model="expense.name" :id="'name'" />
                   <app-basic-input v-model="expense.amount" :id="'amount'"  />
@@ -43,24 +43,15 @@
                   <app-spinner v-else></app-spinner>
               </app-btn>
       </form>
-      <div class="budget-preview">
-        <div class="budget-preview__color">
-          <app-color-input v-model="income.color" v-if="type === 'income'"></app-color-input>
-          <app-color-input v-model="expense.color" v-else></app-color-input>
-        </div>
-        <div class="budget-preview__item">
-          <component :is="type" :income="income" :expense="expense" large></component>
-        </div>
-      </div>
   </div>
 </template>
 
 <script>
-import Income from '@/components/UI/Income'
-import Expense from '@/components/UI/Expense'
+import { mapActions, mapMutations } from 'vuex'
 export default {
   data () {
     return {
+      type: 'income',
       attrs: [
         {
           key: 'today',
@@ -69,6 +60,7 @@ export default {
         }
       ],
       date: new Date(),
+
       income: {
         name: '',
         amount: 0,
@@ -99,7 +91,6 @@ export default {
     }
   },
   props: {
-    type: String,
     selected: Object
   },
   mounted () {
@@ -114,37 +105,44 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'addIncome',
+      'editIncome',
+      'addExpense',
+      'editExpense'
+
+    ]),
+    ...mapMutations([
+      'closeBackdrop'
+    ]),
     submit: async function () {
       this.loading = true
       let result = false
       // SUBMIT INCOME
       if (this.type === 'income') {
         if (this.selected) {
-          result = await this.$store.dispatch('editIncome', this.income)
+          result = await this.editIncome(this.income)
         } else {
-          result = await this.$store.dispatch('addIncome', this.income)
+          result = await this.addIncome(this.income)
         }
       }
       // SUBMIT EXPENSE
       if (this.type === 'expense') {
         if (this.selected) {
-          result = await this.$store.dispatch('editExpense', this.expense)
+          result = await this.editExpense(this.expense)
         } else {
-          result = await this.$store.dispatch('addExpense', this.expense)
+          result = await this.addExpense(this.expense)
         }
       }
       // CHECK RESULT
       if (result) {
         this.loading = false
-        this.$emit('closeForm')
+        this.closeBackdrop()
+        this.$router.push('budget')
       } else {
         this.loading = false
       }
     }
-  },
-  components: {
-    Income,
-    Expense
   }
 }
 </script>
@@ -153,19 +151,23 @@ export default {
 .budget-form-container {
   display: flex;
   position: relative;
+  // background: blue;
+  height: 100%;
 }
 .budget-form {
-    background: var(--app-bg-primary);
-    width: 40%;
+    // background: red;
+    width: 100%;
+    // padding: 0 1rem;
     padding-top: 2rem;
+    padding-bottom: 7rem;
     position: relative;
-    padding-bottom: 5rem;
     // & .input {
     //   background: salmon;
     // }
     & button {
         position: absolute;
-        bottom: 1rem;
+        bottom: 3rem;
+        right: 0
     }
     &__close {
         position: absolute;

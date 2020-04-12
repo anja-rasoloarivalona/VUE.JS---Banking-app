@@ -38,19 +38,34 @@ export default {
   },
   props: ['data', 'gradient1', 'gradient2'],
   mounted () {
-    this.gradient = this.$refs.canvas.getContext('2d').createLinearGradient(0, 0, 0, 310)
-    this.gradient.addColorStop(0, this.gradient1)
-    this.gradient.addColorStop(0.4, this.gradient2)
+    this.displayChart()
+  },
+  watch: {
+    gradient1: {
+      handler: 'displayChart',
+      immediate: false
+    },
+    data: {
+      handler: 'displayChart',
+      immediate: false
+    }
+  },
+  methods: {
+    displayChart () {
+      this.gradient = this.$refs.canvas.getContext('2d').createLinearGradient(0, 0, 0, 310)
+      this.gradient.addColorStop(0, this.gradient1)
+      this.gradient.addColorStop(0.4, this.gradient2)
 
-    const d = this.data
-    d.datasets.forEach(i => {
-      i.backgroundColor = this.gradient
-      i.borderColor = this.gradient1
-      i.pointBackgroundColor = this.gradient1
-      i.borderWidth = 1
-      i.lineTension = 0
-    })
-    this.renderChart(d, this.options)
+      const d = this.data
+      d.datasets.forEach(i => {
+        i.backgroundColor = this.gradient
+        i.borderColor = this.gradient1
+        i.pointBackgroundColor = this.gradient1
+        i.borderWidth = 1
+        i.lineTension = 0
+      })
+      this.renderChart(d, this.options)
+    }
   }
 }
 </script>

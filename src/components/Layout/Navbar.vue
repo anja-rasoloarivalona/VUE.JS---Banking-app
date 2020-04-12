@@ -13,7 +13,7 @@
       </ul>
       <div class="nav__cta">
         <app-icon name="bell" size="large" color="secondary"/>
-        <app-icon name="settings" size="large" :color="isSettingsPannelShowed" @click="openBackdrop('settings')"/>
+        <app-icon name="settings" size="large" :color="isSettingsPannelShowed" @click="openBackdrop('account')"/>
         <div class="nav__cta__userImg"></div>
       </div>
     </div>
@@ -30,10 +30,11 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'currentBackdropState'
+      'backdropState',
+      'backdropModal'
     ]),
     isSettingsPannelShowed () {
-      if (this.currentBackdropState.modal === 'settings') {
+      if (this.backdropState && this.backdropModal === 'settings') {
         return 'primary'
       } else return 'secondary'
     }

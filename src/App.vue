@@ -4,7 +4,7 @@
     <div v-else-if="!loading" class="app-main">
       <sidebar></sidebar>
       <navbar></navbar>
-      <backdrop v-if="currentBackdropState.show"></backdrop>
+      <backdrop v-if="backdropState"></backdrop>
       <div class="app__view">
         <router-view/>
       </div>
@@ -17,7 +17,7 @@ import { mapGetters, mapMutations } from 'vuex'
 import axios from 'axios'
 import Sidebar from './components/Layout/Sidebar'
 import Navbar from './components/Layout/Navbar'
-import Backdrop from './components/Layout/Backdrop'
+import Backdrop from './components/Layout/Backdrop/Backdrop'
 export default {
   data () {
     return {
@@ -28,7 +28,7 @@ export default {
     ...mapGetters([
       'currentTheme',
       'currentAppStatus',
-      'currentBackdropState'
+      'backdropState'
     ]),
     isAppReady () {
       if (this.currentAppStatus !== 'running') {
@@ -113,6 +113,10 @@ body {
   &::-webkit-scrollbar {
     display: none;
   }
+}
+
+::-webkit-scrollbar {
+    display: none !important;
 }
 
 .app-main {

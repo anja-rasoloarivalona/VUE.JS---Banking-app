@@ -36,13 +36,12 @@ export default {
     & label {
         display: flex;
         flex-direction: column;
-        margin-bottom: 2rem;
     }
     & span {
         width: 10rem;
         margin-bottom: 0.5rem;
         font-size: $font-m;
-        color: var(--surfaceColor);
+        color: var(--textColor--dark)
     }
     &__container {
         display: flex;

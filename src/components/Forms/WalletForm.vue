@@ -1,5 +1,4 @@
 <template>
-    <div class="walletForm">
         <form class="form">
                 <app-select-input v-model="walletInput.walletType" :id="'type'"  :options="walletTypes" />
                 <app-basic-input v-model="walletInput.supplier" :id="'supplier'" />
@@ -26,20 +25,10 @@
                     <app-spinner v-else></app-spinner>
                 </app-btn>
         </form>
-        <div class="walletForm__preview">
-          <div class="walletForm__preview__wallet">
-              <div class="walletForm__preview__wallet__close" @click="$emit('hideForm')">
-                  <app-icon name="close" size="large" color="grey"/>
-              </div>
-              <app-wallet :wallet="walletInput" large></app-wallet>
-          </div>
-        </div>
-    </div>
 </template>
 
 <script>
 import axios from 'axios'
-import Wallet from '@/components/UI/Wallet'
 import { addWallet, editWallet } from '@/graphQL/walletsQuery'
 export default {
   data () {
@@ -110,24 +99,15 @@ export default {
         console.log(err)
       }
     }
-  },
-  components: {
-    'app-wallet': Wallet
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.walletForm {
-    margin-top: 4rem;
+.form {
     width: 100%;
-    display: flex;
-    background: $color-grey--light;
-    border-radius: .5rem;
-    & .form {
-      width: 30%;
-      padding: 2rem;
-      padding-bottom: 4rem;
+    padding-bottom: 4rem;
+    position: relative;
       &__color {
         display: flex;
         align-items: center;
@@ -168,30 +148,10 @@ export default {
       }
       & button {
         height: 3.5rem;
+        position: absolute;
+        right: 0;
+        bottom: 2rem;
       }
-    }
-    &__preview {
-      width: 100%;
-      background: $color-grey--light;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 4rem;
-      &__wallet {
-        width: 100%;
-        height: 100%;
-        background: $color-white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: .5rem;
-        position: relative;
-        &__close {
-          position: absolute !important;
-          top: 1rem;
-          right: 1rem;
-        }
-      }
-    }
 }
+
 </style>

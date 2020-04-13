@@ -18,8 +18,11 @@
                 </div>
             </div>
         </div>
-        <div class="design__item">
+        <!-- <div class="design__item">
             <app-color-input v-model="colorMain" :parentColorsList="['green', 'blue', 'orangered']" @click="changeColor($event)"></app-color-input>
+        </div> -->
+        <div class="design__item">
+
         </div>
         <app-btn normal primary @click.native="submitTheme">Save</app-btn>
     </div>
@@ -109,7 +112,6 @@ export default {
 
 <style lang="scss" scoped>
 .design {
-    padding: 1rem;
     position: relative;
     height: 100%;
     &__item {
@@ -117,7 +119,6 @@ export default {
         align-items: center;
         margin-bottom: 1rem;
         padding: 1rem 0;
-        padding-left: 2rem;
         &__key {
             width: 10rem;
             color: var(--app-title-color-secondary)

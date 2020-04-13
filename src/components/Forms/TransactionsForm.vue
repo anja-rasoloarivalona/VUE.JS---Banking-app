@@ -1,6 +1,5 @@
 <template>
     <div class="transactions-form">
-        <h2 class="transactions-form__title" v-text="editedTransaction ? 'Edit transaction' : 'Add a new transaction'">Add a new transaction</h2>
         <form>
             <div class="transactions-form__input-date">
                 <label for="date">
@@ -195,14 +194,8 @@ export default {
 
 <style lang="scss">
 .transactions-form {
-    padding: 3rem;
-    width: 65rem;
     height: 50rem;
     position: relative;
-    &__title {
-      color: var(--textColor--dark);
-      margin-bottom: 3rem;
-    }
     & form {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -236,6 +229,7 @@ export default {
     & button {
       position: absolute;
       bottom: 3rem;
+      right: 0;
     }
 }
 .vc-border {

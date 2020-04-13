@@ -151,19 +151,12 @@ export default {
 .budget-form-container {
   display: flex;
   position: relative;
-  // background: blue;
   height: 100%;
 }
 .budget-form {
-    // background: red;
     width: 100%;
-    // padding: 0 1rem;
-    padding-top: 2rem;
     padding-bottom: 7rem;
     position: relative;
-    // & .input {
-    //   background: salmon;
-    // }
     & button {
         position: absolute;
         bottom: 3rem;
@@ -175,22 +168,7 @@ export default {
         top: -4rem;
     }
 }
-.budget-preview {
-  width: 60%;
-  display: flex;
-  flex-direction: column;
-  &__color {
-    display: flex;
-    justify-content: center;
-    padding-top: 2rem;
-  }
-  &__item {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-}
+
 .input-date {
   display: flex;
   flex-direction: column;

@@ -23,12 +23,10 @@ export default {
 
 <style lang="scss" scoped>
 .account {
-    padding: 1rem;
     &__item {
         display: flex;
         margin-bottom: 1rem;
         padding: 1rem 0;
-        padding-left: 2rem;
         &__key {
             width: 10rem;
             color: var(--app-title-color-secondary)

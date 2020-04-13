@@ -37,7 +37,7 @@ export default {
   data () {
     return {
       mode: 'settings',
-      views: ['account', 'budget', 'design', 'ghost', 'transactions', 'wallet']
+      views: ['account', 'budget', 'design', 'edit dashboard', 'ghost', 'transactions', 'wallet']
     }
   },
   computed: {
@@ -113,8 +113,10 @@ export default {
               text-transform: capitalize;
               cursor: pointer;
               transition: all .1s ease-in;
+              color: var(--textColor--dark);
               &.active {
                 background:var(--mainColor);
+                color: $color-white
               }
             }
         }
@@ -128,6 +130,7 @@ export default {
           }
           &__title {
             height: 5rem;
+            margin-bottom: 2rem;
             display: flex;
             align-items: center;
             text-transform: capitalize;

@@ -1,12 +1,13 @@
 <template>
-    <div>
-        Walllet
-    </div>
+    <wallet-form></wallet-form>
 </template>
 
 <script>
+import WalletForm from '@/components/Forms/WalletForm'
 export default {
-
+  components: {
+    walletForm: WalletForm
+  }
 }
 </script>
 

@@ -107,7 +107,12 @@ export default {
 .form {
     width: 100%;
     padding-bottom: 4rem;
-    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: max-content;
+    grid-auto-rows: max-content;
+    column-gap: 2rem;
+    row-gap: 1rem;
       &__color {
         display: flex;
         align-items: center;
@@ -149,8 +154,8 @@ export default {
       & button {
         height: 3.5rem;
         position: absolute;
-        right: 0;
-        bottom: 2rem;
+        right: 3rem;
+        bottom: 3rem;
       }
 }
 

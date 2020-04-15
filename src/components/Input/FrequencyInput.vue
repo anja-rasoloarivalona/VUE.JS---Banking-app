@@ -1,5 +1,5 @@
 <template>
-    <div class="input">
+    <div class="input frequency">
         <label :for="id">
             <span>{{ id }}</span>
             <div class="input__container">

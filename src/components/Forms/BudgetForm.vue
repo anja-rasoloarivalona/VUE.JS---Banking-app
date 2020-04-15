@@ -13,8 +13,8 @@
                       </label>
                   </div>
                   <app-basic-input v-model="income.from" :id="'from'" />
-                  <app-frequency-input v-model="income.frequency" :id="'frequency'"/>
                   <app-select-input :id="'auto writing'"  :options="['yes', 'no']" v-model="income.autoWriting" />
+                  <app-frequency-input v-model="income.frequency" :id="'frequency'"/>
                   <app-select-input :id="'notification'"  :options="['yes', 'no']" v-model="income.notification" />
               </template>
               <!------------------------------- EXPENSE TEMPLATE ----------------------------->
@@ -150,17 +150,24 @@ export default {
 <style lang="scss">
 .budget-form-container {
   display: flex;
-  position: relative;
   height: 100%;
 }
 .budget-form {
     width: 100%;
     padding-bottom: 7rem;
-    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: max-content;
+    grid-auto-rows: max-content;
+    column-gap: 2rem;
+    row-gap: 1rem;
+    & .input.frequency {
+      grid-column: 1 / 3;
+    }
     & button {
         position: absolute;
         bottom: 3rem;
-        right: 0
+        right: 3rem
     }
     &__close {
         position: absolute;

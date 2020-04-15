@@ -124,10 +124,7 @@ export default {
           background: var(--on-surfaceColor);
           flex: 1;
           padding: 0 3rem;
-          overflow-y: scroll;
-          &::-webkit-scrollbar {
-            display: none !important;
-          }
+          position: relative;
           &__title {
             height: 5rem;
             margin-bottom: 2rem;

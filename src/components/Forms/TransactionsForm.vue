@@ -195,7 +195,6 @@ export default {
 <style lang="scss">
 .transactions-form {
     height: 50rem;
-    position: relative;
     & form {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -229,7 +228,7 @@ export default {
     & button {
       position: absolute;
       bottom: 3rem;
-      right: 0;
+      right: 3rem;
     }
 }
 .vc-border {

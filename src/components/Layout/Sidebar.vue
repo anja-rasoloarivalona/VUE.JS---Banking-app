@@ -6,7 +6,11 @@
         </div>
         <transition name="fade" mode="out-in" appear>
             <ul class="sidebar__list" key="dashboard">
-              <li class="sidebar__list__item" v-for="(item, key) in items" :key="key">
+              <li class="sidebar__list__item"
+                  v-for="(item, key) in items"
+                  :key="key"
+                  :class="{'bg-surfaceColor ': currentTheme.includes('light'), 'bg-on-surfaceColor': currentTheme.includes('dark') }"
+              >
                   <div class="sidebar__list__item__title">
                       <h2>{{key}}</h2>
                       <div class="sidebar__list__item__subtitle">
@@ -21,8 +25,12 @@
             </ul>
         </transition>
 
-        <div class="sidebar__add" @click="openBackdrop('transactions')">
-            <app-icon name="add" size="xxl" color="surface"></app-icon>
+        <div
+          class="sidebar__add"
+          @click="openBackdrop('transactions')"
+           :class="{'bg-surfaceColor ': currentTheme.includes('light'), 'bg-mainColor': currentTheme.includes('dark') }"
+        >
+            <app-icon name="add" size="xxl" :color="addButtonBackground"></app-icon>
         </div>
     </div>
 </template>
@@ -81,7 +89,14 @@ export default {
       'upcoming',
       'creditBalance',
       'currentTheme'
-    ])
+    ]),
+    addButtonBackground () {
+      if (this.currentTheme.includes('light')) {
+        return 'primary'
+      } else {
+        return 'surface'
+      }
+    }
   }
 }
 </script>
@@ -91,6 +106,7 @@ export default {
     position: fixed;
     width: 25rem;
     height: 100vh;
+    // background: #e4e1e1;
     // background: var(--app-color-main);
     // background: var(--surfaceColor);
     padding: 0 2rem;
@@ -114,7 +130,7 @@ export default {
         &__item {
             padding: 2rem 1rem;
             border-radius: 1rem;
-            background: var(--on-surfaceColor);
+            // background: var(--on-surfaceColor);
             display: flex;
             align-items: center;
             margin-bottom: 3rem;
@@ -158,7 +174,7 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--mainColor);
+      // background: var(--mainColor);
       position: absolute;
       bottom: 5rem;
       left: 0;

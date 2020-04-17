@@ -1,4 +1,5 @@
 <script>
+import { mapGetters } from 'vuex'
 import { Line, mixins } from 'vue-chartjs'
 export default {
   extends: Line,
@@ -16,14 +17,12 @@ export default {
               stepSize: 2000
             },
             gridLines: {
-              color: '#2e2e2e'
-              // display: false
+              color: this.colorLine
             }
           }],
           xAxes: [{
             gridLines: {
-              color: '#2e2e2e'
-              // display: false
+              color: this.colorLine
             }
           }]
         },
@@ -48,6 +47,10 @@ export default {
     data: {
       handler: 'displayChart',
       immediate: false
+    },
+    currentTheme: {
+      handler: 'setColorLine',
+      immediate: true
     }
   },
   methods: {
@@ -65,7 +68,63 @@ export default {
         i.lineTension = 0
       })
       this.renderChart(d, this.options)
+    },
+    setColorLine (theme) {
+      if (theme.includes('dark')) {
+        this.options = {
+          ...this.options,
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true,
+                stepSize: 2000
+              },
+              gridLines: {
+                color: '#2e2e2e'
+              }
+            }],
+            xAxes: [{
+              gridLines: {
+                color: '#2e2e2e'
+              }
+            }]
+          }
+        }
+      } else {
+        this.options = {
+          ...this.options,
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true,
+                stepSize: 2000
+              },
+              gridLines: {
+                color: '#e4e1e1'
+              }
+            }],
+            xAxes: [{
+              gridLines: {
+                color: '#e4e1e1'
+              }
+            }]
+          }
+        }
+      }
+      this.displayChart()
     }
+  },
+  computed: {
+    ...mapGetters([
+      'currentTheme'
+    ])
+    // colorLine () {
+    //   if (this.currentTheme.includes('dark')) {
+    //     return '#2e2e2e'
+    //   } else {
+    //     return 'grey'
+    //   }
+    // }
   }
 }
 </script>

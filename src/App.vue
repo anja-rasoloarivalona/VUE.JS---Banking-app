@@ -123,6 +123,10 @@ body {
   background: var(--surfaceColor);
 }
 
+.bg-on-surfaceColor {
+  background: var(--on-surfaceColor);
+}
+
 ::-webkit-scrollbar {
     display: none !important;
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="navContainer">
-    <div class="navBg">
+    <div class="navBg" :class="{'bg-mainColor': currentTheme.includes('light'), 'bg-surfaceColor': currentTheme.includes('dark') }">
       <div class="navBg__in"></div>
     </div>
     <div class="nav">
@@ -31,7 +31,8 @@ export default {
   computed: {
     ...mapGetters([
       'backdropState',
-      'backdropModal'
+      'backdropModal',
+      'currentTheme'
     ]),
     isSettingsPannelShowed () {
       if (this.backdropState && this.backdropModal === 'settings') {
@@ -69,7 +70,6 @@ export default {
 .navBg {
   grid-column: 2 / -1;
   grid-row: 1 / 2;
-  background: var(--surfaceColor);
   position: relative;
   z-index: 2;
   &__in {

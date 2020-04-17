@@ -1,5 +1,6 @@
 <template>
-    <div class="sidebar">
+    <div class="sidebar"
+         :class="{'bg-mainColor': currentTheme.includes('light'), 'bg-surfaceColor': currentTheme.includes('dark') }">
         <div class="sidebar__header">
             <div class="sidebar__header__logo"></div>
         </div>
@@ -78,7 +79,8 @@ export default {
     ...mapGetters([
       'userBalance',
       'upcoming',
-      'creditBalance'
+      'creditBalance',
+      'currentTheme'
     ])
   }
 }
@@ -90,8 +92,7 @@ export default {
     width: 25rem;
     height: 100vh;
     // background: var(--app-color-main);
-    background: var(--surfaceColor);
-    // background-image: var(--app-item-bg-gradient);
+    // background: var(--surfaceColor);
     padding: 0 2rem;
     &__header {
         height: 9rem;

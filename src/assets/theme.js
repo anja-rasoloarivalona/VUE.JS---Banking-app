@@ -1,40 +1,36 @@
 const theme = {
   default: {
-    '--app-bg-primary': '#f5f5f5',
-    '--app-bg-secondary': '#027a66',
-    '--app-item-bg': '#fff',
-    '--app-text-color': 'black',
-    '--app-title-color-primary': '#b1afaf',
-    '--app-title-color-secondary': '#797979',
-    '--app-color-main': '#027a66'
+    '--mainColor': '#027a66',
+    '--textColor': 'black',
+    '--textColor-dark': '#797979',
+    '--backgroundColor': '#f5f5f5',
+    '--surfaceColor': '#fff',
+    '--on-surfaceColor': '#b1afaf'
   },
 
   'light-green': {
-    '--app-bg-primary': '#f5f5f5',
-    '--app-item-bg': '#fff',
-    '--app-text-color': 'black',
-    '--app-title-color-primary': '#b1afaf',
-    '--app-title-color-secondary': '#797979',
-    '--app-color-main': '#027a66',
-    '--app-bg-secondary': '#027a66'
+    '--mainColor': '#027a66',
+    '--textColor': 'black',
+    '--textColor-dark': '#797979',
+    '--backgroundColor': '#f5f5f5',
+    '--surfaceColor': '#fff',
+    '--on-surfaceColor': '#b1afaf'
   },
   'light-blue': {
-    '--app-bg-primary': '#f5f5f5',
-    '--app-item-bg': '#fff',
-    '--app-text-color': 'black',
-    '--app-title-color-primary': '#b1afaf',
-    '--app-title-color-secondary': '#797979',
-    '--app-color-main': 'blue',
-    '--app-bg-secondary': 'blue'
+    '--mainColor': '#0084ff',
+    '--textColor': 'black',
+    '--textColor-dark': '#797979',
+    '--backgroundColor': '#f5f5f5',
+    '--surfaceColor': '#fff',
+    '--on-surfaceColor': '#b1afaf'
   },
   'light-orangered': {
-    '--app-bg-primary': '#f5f5f5',
-    '--app-item-bg': '#fff',
-    '--app-text-color': 'black',
-    '--app-title-color-primary': '#b1afaf',
-    '--app-title-color-secondary': '#797979',
-    '--app-color-main': 'orangered',
-    '--app-bg-secondary': 'orangered'
+    '--mainColor': '#ff7315',
+    '--textColor': 'black',
+    '--textColor-dark': '#797979',
+    '--backgroundColor': '#f5f5f5',
+    '--surfaceColor': '#fff',
+    '--on-surfaceColor': '#b1afaf'
   },
 
   'dark-green': {

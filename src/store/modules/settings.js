@@ -1,6 +1,8 @@
 const state = {
   theme: null,
-  previousTheme: null
+  previousTheme: null,
+  editingDashboard: false,
+  editingTransaction: false
 }
 
 const getters = {
@@ -9,6 +11,12 @@ const getters = {
   },
   previousTheme: state => {
     return state.previousTheme
+  },
+  isEditingDashboard: state => {
+    return state.editingDashboard
+  },
+  isEditingTransaction: state => {
+    return state.editingTransaction
   }
 }
 
@@ -18,6 +26,12 @@ const mutations = {
   },
   setPreviousTheme (state, theme) {
     state.previousTheme = theme
+  },
+  editTransaction (state, transaction) {
+    state.editingTransaction = transaction
+  },
+  resetEditTransaction (state) {
+    state.editingTransaction = false
   }
 
 }

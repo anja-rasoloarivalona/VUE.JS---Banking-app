@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 import axios from 'axios'
 import { deleteTransactionQuery } from '@/graphQL/transactionsQuery'
 export default {
@@ -62,11 +62,16 @@ export default {
     })
   },
   methods: {
+    ...mapMutations([
+      'editTransaction',
+      'openBackdrop'
+    ]),
     closeCtaList () {
       this.showCtaList = false
     },
     edit () {
-      this.$emit('editTransaction1', this.transaction)
+      this.openBackdrop('transactions')
+      this.editTransaction(this.transaction)
     },
     deleteTransaction: async function () {
       const graphqlQuery = deleteTransactionQuery(this.transaction)

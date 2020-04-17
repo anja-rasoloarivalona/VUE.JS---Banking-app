@@ -81,10 +81,10 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'currentSettingView'
+      'isEditingDashboard'
     ]),
     isSettingUp () {
-      if (this.currentSettingView && this.currentSettingView === 'dashboard') {
+      if (this.isEditingDashboard) {
         return true
       } else {
         return false

@@ -15,14 +15,14 @@
             <app-basic-input :id="'counter party'" v-model="input.counterparty" v-if="showCounterparty"/>
         </form>
         <app-btn normal primary @click.native="submitForm">
-                <span v-if="!loading" v-text="editedTransaction ? 'Edit': 'Add'"></span>
+                <span v-if="!loading" v-text="isEditingTransaction ? 'Edit': 'Add'"></span>
                 <app-spinner v-else></app-spinner>
         </app-btn>
     </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -97,7 +97,8 @@ export default {
   computed: {
     ...mapGetters([
       'usersIncomesAndExpenses',
-      'walletsNameAndId'
+      'walletsNameAndId',
+      'isEditingTransaction'
     ]),
     isFixedExpenses () {
       if (this.userFixedExpenses.includes(this.input.name)) {
@@ -126,7 +127,7 @@ export default {
   },
   mounted () {
     this.userWallets = Object.keys(this.walletsNameAndId)
-    if (!this.editedTransaction) {
+    if (!this.isEditingTransaction) {
       const userFixedExpenses = []
       const usersIncomesAndExpenses = this.usersIncomesAndExpenses
       for (const transaction in usersIncomesAndExpenses) {
@@ -139,29 +140,32 @@ export default {
       this.input.usedWallet = Object.keys(this.walletsNameAndId)[0]
       this.input.walletId = this.walletsNameAndId[this.input.usedWallet]
     } else {
-      console.log('mounted', this.editedTransaction)
+      console.log('mounted', this.isEditingTransaction)
       let usedWallet = ''
       for (const walletName in this.walletsNameAndId) {
-        if (this.walletsNameAndId[walletName] === this.editedTransaction.usedWalletId) {
+        if (this.walletsNameAndId[walletName] === this.isEditingTransaction.usedWalletId) {
           usedWallet = walletName
         }
       }
       const editedData = {
-        ...this.editedTransaction,
-        date: new Date(this.editedTransaction.date),
-        amount: this.editedTransaction.amount >= 0 ? this.editedTransaction.amount : this.editedTransaction.amount * -1,
-        walletId: this.editedTransaction.usedWallet,
+        ...this.isEditingTransaction,
+        date: new Date(this.isEditingTransaction.date),
+        amount: this.isEditingTransaction.amount >= 0 ? this.isEditingTransaction.amount : this.isEditingTransaction.amount * -1,
+        walletId: this.isEditingTransaction.usedWallet,
         usedWallet: usedWallet
       }
       this.input = editedData
       console.log('editing', this.input)
-      this.date = this.editedTransaction.date
+      this.date = this.isEditingTransaction.date
     }
   },
   methods: {
+    ...mapMutations([
+      'closeBackdrop'
+    ]),
     submitForm () {
       this.loading = true
-      if (this.editedTransaction) {
+      if (this.isEditingTransaction) {
         this.editTransaction()
       } else {
         this.addTransaction()
@@ -171,7 +175,7 @@ export default {
       const res = await this.$store.dispatch('addTransaction', this.input)
       if (res) {
         this.loading = false
-        this.$emit('closeForm')
+        this.closeBackdrop()
       } else {
         this.loading = false
       }
@@ -180,14 +184,11 @@ export default {
       const res = await this.$store.dispatch('editTransaction', this.input)
       if (res) {
         this.loading = false
-        this.$emit('closeForm')
+        this.closeBackdrop()
       } else {
         this.loading = false
       }
     }
-  },
-  props: {
-    editedTransaction: [Boolean, Object]
   }
 }
 </script>

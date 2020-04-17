@@ -115,6 +115,14 @@ body {
   }
 }
 
+.bg-mainColor {
+  background: var(--mainColor);
+}
+
+.bg-surfaceColor {
+  background: var(--surfaceColor);
+}
+
 ::-webkit-scrollbar {
     display: none !important;
 }

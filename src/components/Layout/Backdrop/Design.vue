@@ -6,7 +6,10 @@
                 <div class="design__item__value--theme__choice" :class="{active: currentTheme.includes('light')}">
                     Light
                 </div>
-                <div class="design__item__value--theme__togglerBar">
+                <div
+                  class="design__item__value--theme__togglerBar"
+                  :class="{'bg-on-surfaceColor': currentTheme.includes('light'), 'bg-surfaceColor': currentTheme.includes('dark') }"
+                >
                     <div class="design__item__value--theme__toggler"
                          :class="{light: currentTheme.includes('light'), dark: currentTheme.includes('dark')}"
                          @click="changeTheme"
@@ -162,7 +165,7 @@ export default {
                     margin: 0 1rem;
                     width: 8rem;
                     height: 2rem;
-                    background: var(--surfaceColor);
+                    // background: var(--surfaceColor);
                     border-radius: 1rem;
                     position: relative;
                 }

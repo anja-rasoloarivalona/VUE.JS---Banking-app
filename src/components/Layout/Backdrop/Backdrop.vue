@@ -6,7 +6,7 @@
                     <app-icon name="close" size="large" color="grey"/>
                 </div>
 
-                <div class="backdrop__modal__list">
+                <div class="backdrop__modal__list" :class="{'bg-on-surfaceColor': currentTheme.includes('light'), 'bg-default': currentTheme.includes('dark') }">
                     <div
                       v-for="view in views"
                       :key="view"
@@ -16,7 +16,7 @@
                         {{ view }}
                     </div>
                 </div>
-                <div class="backdrop__modal__view">
+                <div class="backdrop__modal__view" :class="{'bg-surfaceColor': currentTheme.includes('light'), 'bg-on-surfaceColor': currentTheme.includes('dark') }">
                       <h2 class="backdrop__modal__view__title">{{ mode }}</h2>
                     <component :is="mode"></component>
                 </div>
@@ -43,7 +43,8 @@ export default {
   computed: {
     ...mapGetters([
       'backdropState',
-      'backdropModal'
+      'backdropModal',
+      'currentTheme'
     ])
   },
   methods: {
@@ -85,7 +86,6 @@ export default {
     align-items: center;
     justify-content: center;
     &__modal {
-        background: var(--backgroundColor);
         font-size: $font-m;
         border-radius: .5rem;
         overflow: hidden;
@@ -100,9 +100,8 @@ export default {
             z-index: 12;
         }
         &__list {
-            // padding-top: 2rem;
-            // background: red;
             width: 17rem;
+            // background: var(--backgroundColor);
             &__item {
               height: 5rem;
               margin-bottom: .5rem;
@@ -121,7 +120,7 @@ export default {
             }
         }
         &__view {
-          background: var(--on-surfaceColor);
+          // background: var(--on-surfaceColor);
           flex: 1;
           padding: 0 3rem;
           position: relative;
@@ -132,7 +131,6 @@ export default {
             align-items: center;
             text-transform: capitalize;
             color: var(--textColor--dark)
-            // font-size: $font-xl;
           }
         }
     }

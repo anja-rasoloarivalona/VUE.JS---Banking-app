@@ -6,13 +6,14 @@
               :id="id"
               @input="updateSelf($event.target.value)"
               :value="value"
-              :class="{'bg-grey': bgGrey }"
+              :class="{'bg-grey': currentTheme.includes('light') }"
             />
         </label>
     </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   model: {
     prop: 'value',
@@ -22,6 +23,11 @@ export default {
     value: [String, Number],
     id: String,
     bgGrey: Boolean
+  },
+  computed: {
+    ...mapGetters([
+      'currentTheme'
+    ])
   },
   methods: {
     updateSelf (name) {

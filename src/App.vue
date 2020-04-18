@@ -116,6 +116,9 @@ body {
 }
 
 // background classes
+.bg-default {
+  background: var(--backgroundColor);
+}
 .bg-mainColor {
   background: var(--mainColor);
 }

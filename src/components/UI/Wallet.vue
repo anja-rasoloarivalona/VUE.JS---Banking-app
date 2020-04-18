@@ -1,8 +1,13 @@
 <template>
   <!-- <div class="wallet" :class="{xl:large}" :style="{background: wallet.color}" v-bind="$attrs"> -->
-  <div class="wallet" :class="{xl:large}" v-bind="$attrs">
+  <div
+      class="wallet"
+      :class="{xl:large}"
+      v-bind="$attrs"
+      :style="{boxShadow: boxShadow}"
+  >
     <div class="wallet__chip">
-      <div class="wallet__chip__content">
+      <div class="wallet__chip__content" :class="{light: currentTheme.includes('light'), dark: currentTheme.includes('dark')}">
         <div
           v-for="(point, i) in chipPoints"
           :key='i'
@@ -13,12 +18,13 @@
       </div>
     </div>
     <div class="wallet__supplier">{{wallet.supplier}}</div>
-    <div class="wallet__amount">${{wallet.amount | amount }}</div>
-    <div class="wallet__type">{{wallet.walletType}}</div>
+    <div class="wallet__amount" :class="{'txt-mainColor': currentTheme.includes('dark')}">${{wallet.amount | amount }}</div>
+    <div class="wallet__type" :class="{'txt-darkColor': currentTheme.includes('dark')}">{{wallet.walletType}}</div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
@@ -29,6 +35,29 @@ export default {
         ' ', 'x', 'x', 'x', 'x', 'x', ' ',
         ' ', 'x', 'x', 'x', 'x', ' ', ' '
       ]
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'currentTheme'
+    ]),
+    boxShadow () {
+      if (this.currentTheme.includes('light')) {
+        return '2px 2px 3px #b8b7b7, -3px -3px 7px #ebebeb'
+      } else {
+        return '3px 3px 7px #191919, -3px -3px 7px #212121'
+      }
+    }
+  },
+  watch: {
+    currentTheme: {
+      handler: 'setWalletStyle',
+      immediate: true
+    }
+  },
+  methods: {
+    setWalletStyle () {
+
     }
   },
   props: {
@@ -49,7 +78,7 @@ export default {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
-    box-shadow:  3px 3px 7px #191919, -3px -3px 7px #212121;
+    color: $color-white;
     background: var(--on-surfaceColor);
     cursor: pointer;
     &__chip  {
@@ -58,14 +87,19 @@ export default {
         width: 3rem;
         height: 2rem;
         background: var( --on-surfaceColor);
-        background-image: linear-gradient(to bottom right, rgb(28, 28, 28), rgb(56, 56, 56));
-        box-shadow: 3px 2px 2px rgba(8, 8, 8, 0.2) inset, -1px -1px 3px rgba(109, 109, 109, 0.05) inset;
         display: grid;
         grid-template-columns: repeat(7,1fr);
         grid-template-rows: repeat(5, 1fr);
         align-items: center;
         justify-items: center;
         padding: 2px;
+        &.light {
+          background-image: linear-gradient(to bottom right, rgb(212, 212, 212), rgb(175, 174, 174));
+        }
+        &.dark {
+          background-image: linear-gradient(to bottom right, rgb(28, 28, 28), rgb(56, 56, 56));
+          box-shadow: 3px 2px 2px rgba(8, 8, 8, 0.2) inset, -1px -1px 3px rgba(109, 109, 109, 0.05) inset;
+        }
         &__point {
           width: 1px;
           height: 1px;
@@ -78,14 +112,14 @@ export default {
     &__supplier {
       display: flex;
       justify-content: flex-end;
-      color: var(--textColor);
+      // color: var(--textColor);
       font-size: $font-s;
     }
     &__type {
       display: flex;
       align-items: flex-end;
       justify-content: flex-end;
-      color: var(--textColor--dark);
+      // color: var(--textColor--dark);
       font-size: $font-s;
     }
     &__amount {
@@ -93,7 +127,6 @@ export default {
       display: flex;
       align-items: flex-end;
       font-size: $font-m;
-      color: var(--mainColor)
     }
     &.xl {
       min-width: 40rem;

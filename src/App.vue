@@ -115,16 +115,28 @@ body {
   }
 }
 
+// background classes
 .bg-mainColor {
   background: var(--mainColor);
 }
-
 .bg-surfaceColor {
   background: var(--surfaceColor);
 }
-
 .bg-on-surfaceColor {
   background: var(--on-surfaceColor);
+}
+
+// text color classes
+.txt-mainColor {
+  color: var(--mainColor);
+}
+
+.txt-whiteColor {
+  color: $color-white
+}
+
+.txt-darkColor {
+  color: var(--textColor--dark)
 }
 
 ::-webkit-scrollbar {

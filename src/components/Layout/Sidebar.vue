@@ -148,7 +148,7 @@ export default {
             }
             &__subtitle {
                 display: flex;
-                color: var(--app-title-color-secondary);
+                color: var(--textColor--dark);
                 font-size: $font-s;
                 & div:first-child {
                     margin-right: .5rem;

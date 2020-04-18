@@ -80,7 +80,7 @@ export default {
       height: 3rem;
       display: flex;
       align-items: center;
-      color: var(--textColor);
+      color: var(--textColor--dark)
     }
   }
 }

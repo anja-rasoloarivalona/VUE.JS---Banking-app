@@ -75,7 +75,7 @@ export default {
     ...mapMutations([
       'setTheme',
       'setPreviousTheme',
-      'hideSettingsPannel'
+      'closeBackdrop'
     ]),
     changeTheme () {
       let result
@@ -119,7 +119,7 @@ export default {
         const resData = response.data.data.setTheme
         this.setTheme(resData.settings.theme)
         this.setPreviousTheme(resData.settings.theme)
-        this.hideSettingsPannel()
+        this.closeBackdrop()
       } catch (err) {
         console.log(err)
       }
@@ -197,8 +197,9 @@ export default {
             margin-right: 3rem;
             border-radius: .5rem;
             cursor: pointer;
+            color: $color-white;
             &.active {
-              border: 2px solid var(--textColor)
+              border: 2px solid $color-white
             }
           }
         }

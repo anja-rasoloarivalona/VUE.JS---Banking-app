@@ -37,6 +37,7 @@ export default {
   },
   props: ['data', 'gradient1', 'gradient2'],
   mounted () {
+    console.log('mounted', this.$refs.canvas)
     this.displayChart()
   },
   watch: {
@@ -118,13 +119,6 @@ export default {
     ...mapGetters([
       'currentTheme'
     ])
-    // colorLine () {
-    //   if (this.currentTheme.includes('dark')) {
-    //     return '#2e2e2e'
-    //   } else {
-    //     return 'grey'
-    //   }
-    // }
   }
 }
 </script>

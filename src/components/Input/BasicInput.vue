@@ -56,16 +56,12 @@ export default {
 
     & input {
         height: 4rem;
-        background: var(--surfaceColor);
         color: var(--textColor);
         border: none;
         padding-left: 1rem;
         border-radius: 0.5rem;
         &:focus {
         outline: none;
-        }
-        &.bg-grey {
-          background: $color-grey--light;
         }
     }
 }

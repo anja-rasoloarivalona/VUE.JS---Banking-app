@@ -3,7 +3,7 @@
       <span v-if="id">{{ id }}</span>
       <div
         class="select"
-        :class="{'bg-grey': bgGrey, 'all-radius': !showList, 'top-radius': showList}"
+        :class="{'bg-grey': currentTheme.includes('light'), 'all-radius': !showList, 'top-radius': showList}"
         v-click-outside="closeList">
           <div class="select__value" @click.stop="showList = !showList">{{ value }}</div>
           <ul class="select__list" v-show="showList">
@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
@@ -37,6 +38,11 @@ export default {
     closeList: function () {
       this.showList = false
     }
+  },
+  computed: {
+    ...mapGetters([
+      'currentTheme'
+    ])
   },
   props: {
     value: [String, Number],
@@ -64,12 +70,8 @@ export default {
 }
 .select {
     width: 100%;
-    background: var(--surfaceColor);
     color: var(--textColor);
     position: relative;
-    &.bg-grey {
-      background: $color-grey--light;
-    }
     &.all-radius {
       border-radius: .5rem;
     }

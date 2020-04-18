@@ -93,59 +93,9 @@ export default {
 </script>
 
 <style lang="scss">
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: inherit;
-}
-
-html {
-  font-size: 62.5%;
-}
-
-body {
-  box-sizing: border-box;
-  font-family: "Open Sans", sans-serif;
-  overflow-x: hidden;
-  color: var(--textColor);
-  &::-webkit-scrollbar {
-    display: none;
-  }
-}
-
-// background classes
-.bg-default {
-  background: var(--backgroundColor);
-}
-.bg-mainColor {
-  background: var(--mainColor);
-}
-.bg-surfaceColor {
-  background: var(--surfaceColor);
-}
-.bg-on-surfaceColor {
-  background: var(--on-surfaceColor);
-}
-
-// text color classes
-.txt-mainColor {
-  color: var(--mainColor);
-}
-
-.txt-whiteColor {
-  color: $color-white
-}
-
-.txt-darkColor {
-  color: var(--textColor--dark)
-}
-
 ::-webkit-scrollbar {
     display: none !important;
 }
-
 .app-main {
   display: grid;
   grid-template-columns: 25rem minmax(8rem, 1fr) minmax(70vw, 120rem) minmax(8rem, 1fr);
@@ -167,57 +117,4 @@ body {
     }
   }
 }
-
-.flip-enter-active {
-    animation: flip-in .5s ease-out forwards;
-}
-.flip-leave-active {
-    animation: flip-out .5s ease-out forwards;
-}
-@keyframes flip-out {
-    from {
-        transform: rotateY(0deg);
-    }
-    to {
-        transform: rotateY(90deg);
-    }
-}
-@keyframes flip-in {
-    from {
-        transform: rotateY(90deg);
-    }
-    to {
-        transform: rotateY(0deg);
-    }
-}
-
-.fade-enter-active {
-    animation: fade-in .5s ease-out forwards;
-}
-.fade-leave-active {
-    animation: fade-out .5s ease-out forwards;
-}
-
-@keyframes fade-in {
-    from {
-        transform: translateY(2rem);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0rem);
-        opacity: 1;
-    }
-}
-
-@keyframes fade-out {
-    from {
-        transform: translateY(0rem);
-        opacity: 1;
-    }
-    to {
-        transform: translateY(2rem);
-        opacity: 0;
-    }
-}
-
 </style>

@@ -1,12 +1,7 @@
 <template>
     <div class="transactions-form">
         <form>
-            <div class="transactions-form__input-date">
-                <label for="date">
-                    <span>date</span>
-                    <app-date-picker v-model='input.date' id="date" locale="en"/>
-                </label>
-            </div>
+            <app-date-input :id="'last payout'" v-model="input.date" />
             <app-select-input :id="'name'" v-model="input.name" :options="[...Object.keys(usersIncomesAndExpenses), 'New transaction']" />
             <app-basic-input  :id="'amount'" v-model="input.amount" />
             <app-basic-input  :id="'details'" v-model="input.details" />

@@ -6,7 +6,7 @@
                     <app-icon name="close" size="large" color="grey"/>
                 </div>
 
-                <div class="backdrop__modal__list" :class="{'bg-on-surfaceColor': currentTheme.includes('light'), 'bg-default': currentTheme.includes('dark') }">
+                <div class="backdrop__modal__list" :class="{'bg-grey': currentTheme.includes('light'), 'bg-default': currentTheme.includes('dark') }">
                     <div
                       v-for="view in views"
                       :key="view"

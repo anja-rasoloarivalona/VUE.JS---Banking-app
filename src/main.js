@@ -14,9 +14,10 @@ import Icon from './components/Shared/Icon'
 import BasicInput from './components/Input/BasicInput'
 import SelectInput from './components/Input/SelectInput'
 import FrequencyInput from './components/Input/FrequencyInput'
+import DateInput from './components/Input/DateInput'
 import ColorInput from './components/Input/ColorInput'
 import Calendar from 'v-calendar/lib/components/calendar.umd'
-import DatePicker from 'v-calendar/lib/components/date-picker.umd'
+// import DatePicker from 'v-calendar/lib/components/date-picker.umd'
 Vue.config.productionTip = false
 
 // Vue.use(VueResource)
@@ -53,7 +54,7 @@ Vue.component('app-select-input', SelectInput)
 Vue.component('app-frequency-input', FrequencyInput)
 Vue.component('app-color-input', ColorInput)
 Vue.component('app-calendar', Calendar)
-Vue.component('app-date-picker', DatePicker)
+Vue.component('app-date-input', DateInput)
 Vue.directive('click-outside', {
   bind: function (el, binding, vnode) {
     el.clickOutsideEvent = function (event) {

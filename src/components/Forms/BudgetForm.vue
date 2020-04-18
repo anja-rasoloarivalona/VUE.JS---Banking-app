@@ -6,12 +6,7 @@
               <template v-if="type === 'income'">
                   <app-basic-input v-model="income.name" :id="'name'" />
                   <app-basic-input v-model="income.amount" :id="'amount'"  />
-                  <div class="input-date">
-                      <label for="lastPayout">
-                          <span>last payout</span>
-                          <app-date-picker v-model='income.lastPayout' id="lastPayout"/>
-                      </label>
-                  </div>
+                  <app-date-input v-model="income.lastPayout" :id="'last payout'"/>
                   <app-basic-input v-model="income.from" :id="'from'" />
                   <app-select-input :id="'auto writing'"  :options="['yes', 'no']" v-model="income.autoWriting" />
                   <app-frequency-input v-model="income.frequency" :id="'frequency'"/>
@@ -24,12 +19,7 @@
                   <app-basic-input v-model="expense.category" :id="'category'" />
                   <app-select-input v-model="expense.expenseType" :id="'Expense Type'"  :options="['variable', 'fixed']"/>
                   <app-basic-input v-model="expense.used" :id="'used'"  v-if="expense.expenseType === 'variable'"/>
-                  <div class="input-date" v-if="expense.expenseType === 'fixed'">
-                      <label for="lastPayout">
-                          <span>last payout</span>
-                          <app-date-picker v-model='expense.lastPayout' id="lastPayout"/>
-                      </label>
-                  </div>
+                  <app-date-input v-model="expense.lastPayout" id="last payout" v-if="expense.expenseType === 'fixed'"/>
                   <app-frequency-input
                       :id="'frequency'"
                       v-model="expense.frequency"
@@ -174,40 +164,6 @@ export default {
         right: 0rem;
         top: -4rem;
     }
-}
-
-.input-date {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-    & label {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 2rem;
-    }
-    & span {
-        width: 100%;
-        margin-bottom: 0.5rem;
-        font-size: 13px;
-        &:first-child {
-            color: $color-grey--dark;
-        }
-        & input {
-            height: 4rem;
-        }
-    }
-}
-.vc-border {
-    border-width: 0px !important;
-}
-.vc-bg-white {
-    background: var(--surfaceColor) !important;
-}
-
-.vc-text-base {
-    font-size: 13px !important;
-    font-family: "Open Sans", sans-serif !important;
-    color: var(--textColor) !important;
 }
 
 </style>

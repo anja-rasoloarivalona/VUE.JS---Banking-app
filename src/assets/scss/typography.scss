@@ -1,0 +1,17 @@
+$font-xs: 1rem;
+$font-s: 1.2rem;
+$font-m: 1.3rem;
+$font-l: 1.4rem;
+$font-xl: 1.6rem;
+
+.txt-mainColor {
+    color: var(--mainColor);
+}
+  
+.txt-whiteColor {
+    color: $color-white
+}
+  
+.txt-darkColor {
+    color: var(--textColor--dark)
+}

@@ -1,5 +1,5 @@
 <template>
-    <label :for="id">
+    <label :for="id" class="label">
       <span v-if="id">{{ id }}</span>
       <div
         class="select"
@@ -51,7 +51,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-label {
+.label {
   display: flex;
   flex-direction: column;
   margin-bottom: 2rem;

@@ -80,10 +80,8 @@ export default {
 
 <style lang="scss" scoped>
 .budget {
-    width: 100%;
     padding: 1rem;
     padding-left: 3rem;
-    // border-radius: 2rem;
     margin: 0;
     &__item {
     display: flex;

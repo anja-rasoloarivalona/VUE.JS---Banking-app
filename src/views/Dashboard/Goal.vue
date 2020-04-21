@@ -48,8 +48,6 @@ export default {
 <style lang="scss">
 .goal {
     display: flex;
-    height: 11rem;
-    max-height: 11rem;
     padding: 1rem;
     padding-left: 3rem;
     & h2 {

@@ -12,7 +12,7 @@
                       :key="view"
                       class="backdrop__modal__list__item"
                       :class="{active: mode === view}"
-                      @click="setModalView(view)">
+                      @click="changeModalView(view)">
                         {{ view }}
                     </div>
                 </div>
@@ -50,10 +50,19 @@ export default {
   methods: {
     ...mapMutations([
       'closeBackdrop',
-      'setModalView'
+      'setModalView',
+      'editDashboard'
     ]),
     setBackdropModal () {
       this.mode = this.backdropModal
+    },
+    changeModalView (nextView) {
+      if (nextView !== 'edit dashboard') {
+        this.setModalView(nextView)
+      } else {
+        this.editDashboard()
+        this.closeBackdrop()
+      }
     }
   },
   watch: {

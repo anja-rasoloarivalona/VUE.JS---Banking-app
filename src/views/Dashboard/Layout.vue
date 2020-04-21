@@ -46,11 +46,12 @@
 // 18: 350
 
 import VueGridLayout from 'vue-grid-layout'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 // import axios from 'axios'
 export default {
   data () {
     return {
+      defaultLayout: [],
       layout: [
         { x: 0, y: 0, w: 4, h: 6, i: 'dashboard-balance' },
         { x: 0, y: 6, w: 8, h: 0, i: 'dashboard-budget' },
@@ -72,12 +73,23 @@ export default {
         budgetHeight = budgetHeight + 3
       }
     })
-    this.layout[1].h = budgetHeight
-    this.layout[2].h = 4 + (this.$store.state.user.wallets.length * 7)
-    this.layout[3].h = 6 + (2 * 3)
+
+    this.layout.find((item, index) => {
+      if (item.i === 'dashboard-budget') {
+        this.layout[index].h = budgetHeight
+      }
+      if (item.i === 'dashboard-wallet') {
+        this.layout[index].h = 4 + (this.$store.state.user.wallets.length * 7)
+      }
+      if (item.i === 'dashboard-transactions') {
+        this.layout[index].h = 6 + (2 * 3)
+      }
+    })
+    this.defaultLayout = this.layout
+    this.setCurrentDashboardLayout(this.layout)
   },
   mounted () {
-
+    // this.setCurrentL(this.layout)
   },
   computed: {
     ...mapGetters([
@@ -92,6 +104,13 @@ export default {
     }
   },
   methods: {
+    ...mapMutations([
+      'setDefaultDashboardLayout',
+      'setCurrentDashboardLayout'
+    ]),
+    setCurrentL (layout) {
+      this.setCurrentDashboardLayout(layout)
+    },
     layoutUpdatedEvent: function (newLayout) {
       this.updatedLayout = newLayout
       console.log('Updated layout: ', newLayout)

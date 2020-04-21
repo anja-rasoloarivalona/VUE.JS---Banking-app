@@ -45,14 +45,6 @@ import AvailableInstantly from './AvailableInstantly'
 import ExpensesChart from './ExpensesChart'
 
 export default {
-  data () {
-    return {
-      cashFlow: {
-        income: 1400,
-        expenses: 1200
-      }
-    }
-  },
   components: {
     dashboardTransactions: Transactions,
     dashboardLayout: Layout,
@@ -76,6 +68,8 @@ export default {
   &__section {
       background: var(--surfaceColor);
       border-radius: .5rem;
+      width: 100%;
+      height: 100%;
     &__title {
       height: 3rem;
       display: flex;

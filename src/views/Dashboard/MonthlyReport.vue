@@ -43,8 +43,6 @@ export default {
 
 <style lang="scss">
 .monthly {
-    height: 11rem;
-    max-height: 11rem;
     padding: 1rem;
     padding-left: 3rem;
     & h2 {

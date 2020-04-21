@@ -4,39 +4,45 @@
         <div class="sidebar__header">
             <div class="sidebar__header__logo"></div>
         </div>
-        <transition name="fade" mode="out-in" appear>
-            <ul class="sidebar__list" key="dashboard">
-              <li class="sidebar__list__item"
-                  v-for="(item, key) in items"
-                  :key="key"
-                  :class="{'bg-surfaceColor ': currentTheme.includes('light'), 'bg-on-surfaceColor': currentTheme.includes('dark') }"
-              >
-                  <div class="sidebar__list__item__title">
-                      <h2>{{key}}</h2>
-                      <div class="sidebar__list__item__subtitle">
-                          <div>{{item.subtitle}}</div>
-                          <div v-if="item.date">{{item.date | short-date}}</div>
-                      </div>
-                  </div>
-                  <div class="sidebar__list__item__details">
-                      <div class="sidebar__list__item__details__amount">${{ item.value | amount}}</div>
-                  </div>
-              </li>
-            </ul>
-        </transition>
 
-        <div
-          class="sidebar__add"
-          @click="openBackdrop('transactions')"
-           :class="{'bg-surfaceColor ': currentTheme.includes('light'), 'bg-mainColor': currentTheme.includes('dark') }"
-        >
-            <app-icon name="add" size="xxl" :color="addButtonBackground"></app-icon>
-        </div>
+        <template v-if="!isEditingDashboard">
+          <transition name="fade" mode="out-in" appear>
+              <ul class="sidebar__list" key="dashboard">
+                <li class="sidebar__list__item"
+                    v-for="(item, key) in items"
+                    :key="key"
+                    :class="{'bg-surfaceColor ': currentTheme.includes('light'), 'bg-on-surfaceColor': currentTheme.includes('dark') }"
+                >
+                    <div class="sidebar__list__item__title">
+                        <h2>{{key}}</h2>
+                        <div class="sidebar__list__item__subtitle">
+                            <div>{{item.subtitle}}</div>
+                            <div v-if="item.date">{{item.date | short-date}}</div>
+                        </div>
+                    </div>
+                    <div class="sidebar__list__item__details">
+                        <div class="sidebar__list__item__details__amount">${{ item.value | amount}}</div>
+                    </div>
+                </li>
+              </ul>
+          </transition>
+
+          <div
+            class="sidebar__add"
+            @click="openBackdrop('transactions')"
+            :class="{'bg-surfaceColor ': currentTheme.includes('light'), 'bg-mainColor': currentTheme.includes('dark') }"
+          >
+              <app-icon name="add" size="xxl" :color="addButtonBackground"></app-icon>
+          </div>
+        </template>
+        <editing-dashboard v-else/>
+
     </div>
 </template>
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
+import EditingDashboard from './EditingDashboard'
 export default {
   data () {
     return {
@@ -88,7 +94,8 @@ export default {
       'userBalance',
       'upcoming',
       'creditBalance',
-      'currentTheme'
+      'currentTheme',
+      'isEditingDashboard'
     ]),
     addButtonBackground () {
       if (this.currentTheme.includes('light')) {
@@ -97,6 +104,9 @@ export default {
         return 'surface'
       }
     }
+  },
+  components: {
+    'editing-dashboard': EditingDashboard
   }
 }
 </script>
@@ -119,7 +129,7 @@ export default {
         &__logo {
             width: 15rem;
             height: 6rem;
-            background-image: url('../../assets/logo.png');
+            background-image: url('../../../assets/logo.png');
             background-position: center;
             background-size: contain;
             background-repeat: no-repeat;

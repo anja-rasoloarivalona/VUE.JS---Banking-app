@@ -24,7 +24,6 @@ export default {
     flex-direction: column;
     padding: 1rem;
     padding-left: 3rem;
-    width: 100%;
     & h2 {
         margin-bottom: 1rem;
     }

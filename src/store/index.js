@@ -29,6 +29,11 @@ export default new Vuex.Store({
         commit('initAppData', resData)
         commit('setTheme', theme)
         commit('setPreviousTheme', theme)
+        if (resData.settings.dashboardLayout.length > 3) {
+          commit('setCurrentDashboardLayout', resData.settings.dashboardLayout)
+        } else {
+          commit('setDefaultDashboardLayout', resData)
+        }
         const htmlElement = document.documentElement
         htmlElement.setAttribute('theme', theme)
         if (resData.status === 'active') {

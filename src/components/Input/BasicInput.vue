@@ -6,8 +6,14 @@
               :id="id"
               @input="updateSelf($event.target.value)"
               :value="value"
-              :class="{'bg-grey': currentTheme.includes('light') }"
+              class="bg-grey"
             />
+            <!-- <input
+              :id="id"
+              @input="updateSelf($event.target.value)"
+              :value="value"
+              :class="{'bg-grey': currentTheme.includes('light') }"
+            /> -->
         </label>
     </div>
 </template>

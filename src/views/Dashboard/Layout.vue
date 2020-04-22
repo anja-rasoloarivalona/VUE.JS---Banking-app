@@ -51,49 +51,17 @@ import { mapGetters, mapMutations } from 'vuex'
 export default {
   data () {
     return {
-      defaultLayout: [],
-      layout: [
-        { x: 0, y: 0, w: 4, h: 6, i: 'dashboard-balance' },
-        { x: 0, y: 6, w: 8, h: 0, i: 'dashboard-budget' },
-        { x: 8, y: 0, w: 4, h: 5, i: 'dashboard-wallet' },
-        { x: 0, y: 12, w: 8, h: 6, i: 'dashboard-transactions' },
-        { x: 4, y: 0, w: 4, h: 6, i: 'dashboard-goal' },
-        { x: 4, y: 0, w: 4, h: 6, i: 'dashboard-monthly-report' },
-        { x: 0, y: 12, w: 8, h: 12, i: 'dashboard-transactions-chart' },
-        { x: 0, y: 6, w: 4, h: 6, i: 'dashboard-available-instantly' },
-        { x: 8, y: 0, w: 4, h: 12, i: 'dashboard-expenses-chart' }
-      ],
+      layout: [],
       updatedLayout: null
     }
   },
   created () {
-    let budgetHeight = 3
-    this.$store.state.user.expenses.forEach(expense => {
-      if (expense.expenseType === 'variable') {
-        budgetHeight = budgetHeight + 3
-      }
-    })
-
-    this.layout.find((item, index) => {
-      if (item.i === 'dashboard-budget') {
-        this.layout[index].h = budgetHeight
-      }
-      if (item.i === 'dashboard-wallet') {
-        this.layout[index].h = 4 + (this.$store.state.user.wallets.length * 7)
-      }
-      if (item.i === 'dashboard-transactions') {
-        this.layout[index].h = 6 + (2 * 3)
-      }
-    })
-    this.defaultLayout = this.layout
-    this.setCurrentDashboardLayout(this.layout)
-  },
-  mounted () {
-    // this.setCurrentL(this.layout)
+    this.layout = this.dashboardData.currentDashboardLayout
   },
   computed: {
     ...mapGetters([
-      'isEditingDashboard'
+      'isEditingDashboard',
+      'dashboardData'
     ]),
     isSettingUp () {
       if (this.isEditingDashboard) {
@@ -105,12 +73,8 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'setDefaultDashboardLayout',
       'setCurrentDashboardLayout'
     ]),
-    setCurrentL (layout) {
-      this.setCurrentDashboardLayout(layout)
-    },
     layoutUpdatedEvent: function (newLayout) {
       this.updatedLayout = newLayout
       console.log('Updated layout: ', newLayout)

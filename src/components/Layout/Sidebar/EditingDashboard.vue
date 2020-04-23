@@ -3,13 +3,14 @@
         <p>Feel free to change place or resize any elements of the dashboard</p>
         <div class="edit-dashboard__list">
             <h3>Displayed items</h3>
-            <div class="edit-dashboard__list__item" v-for="(item, key) in dashboardItems" :key="key">
-                <div class="edit-dashboard__list__item__key">{{ key }}</div>
-                <input type="checkbox" :checked="item"/>
+            <div class="edit-dashboard__list__item" v-for="(item, index) in data" :key="item.i">
+                <div class="edit-dashboard__list__item__key">{{ item.i }}</div>
+                <input type="checkbox" v-model="data[index].displayed" @change="updateLayout"/>
             </div>
         </div>
         <div class="edit-dashboard__cta">
-            <app-btn normal secondary @click.native="submit">Save</app-btn>
+            <app-btn normal secondary>Cancel</app-btn>
+            <app-btn normal primary @click.native="submit">Save</app-btn>
         </div>
     </div>
 </template>
@@ -21,28 +22,11 @@ import axios from 'axios'
 export default {
   data () {
     return {
-      dashboardItems: {}
+      data: []
     }
   },
   mounted () {
-    const dashboardItems = {}
-    this.dashboardData.defaultDashboardLayout.forEach(item => {
-      let key
-      if (item.i.split('-').length > 2) {
-        key = `${item.i.split('-')[1]} ${item.i.split('-')[2]}`
-      } else {
-        key = item.i.split('-')[1]
-      }
-      dashboardItems[key] = true
-    })
-    this.dashboardItems = dashboardItems
-    console.log(this.dashboardData.currentDashboardLayout)
-  },
-  watch: {
-    // dashboardItems: function (items) {
-    //   const current = this.dashboardData.currentDashboardLayout
-
-    // }
+    this.data = this.dashboardData.currentDashboardLayout
   },
   computed: {
     ...mapGetters([
@@ -53,6 +37,11 @@ export default {
     ...mapMutations([
       'setCurrentDashboardLayout'
     ]),
+    updateLayout () {
+      const res = this.data.filter(i => i.displayed === true)
+      this.setCurrentDashboardLayout(res)
+      console.log('res', res)
+    },
     submit: async function () {
       const graphqlQuery = editDashboardQuery(this.dashboardData.currentDashboardLayout)
       try {
@@ -99,6 +88,11 @@ export default {
                 cursor: pointer;
             }
         }
+    }
+    &__cta {
+      background: blue;
+      display: flex;
+      justify-content: space-between;
     }
 }
 </style>

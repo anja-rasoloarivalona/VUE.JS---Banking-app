@@ -54,8 +54,11 @@ export default {
       updatedLayout: null
     }
   },
-  created () {
-    this.layout = this.dashboardData.currentDashboardLayout
+  watch: {
+    'dashboardData.currentDashboardLayout': {
+      handler: 'setLayout',
+      immediate: true
+    }
   },
   computed: {
     ...mapGetters([
@@ -74,6 +77,9 @@ export default {
     ...mapMutations([
       'setCurrentDashboardLayout'
     ]),
+    setLayout () {
+      this.layout = this.dashboardData.currentDashboardLayout
+    },
     layoutUpdatedEvent: function (newLayout) {
       this.updatedLayout = newLayout
     }

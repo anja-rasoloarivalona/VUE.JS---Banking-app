@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard">
     <dashboard-layout>
-      <template #balance>
+      <template #balance v-if="isShown('balance')">
         <balance></balance>
       </template>
       <template #wallet>
@@ -43,8 +43,24 @@ import Monthly from './MonthlyReport'
 import History from './History'
 import Available from './AvailableInstantly'
 import Expenses from './ExpensesChart'
+import { mapGetters } from 'vuex'
 
 export default {
+  computed: {
+    ...mapGetters([
+      'dashboardData'
+    ])
+  },
+  methods: {
+    isShown (item) {
+      const found = this.dashboardData.currentDashboardLayout.find(d => d.i === item)
+      if (found.displayed) {
+        return true
+      } else {
+        return false
+      }
+    }
+  },
   components: {
     Transactions,
     DashboardLayout,

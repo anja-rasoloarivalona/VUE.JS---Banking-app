@@ -51,7 +51,7 @@ export default {
     ...mapMutations([
       'closeBackdrop',
       'setModalView',
-      'editDashboard'
+      'setEditDashboardToTrue'
     ]),
     setBackdropModal () {
       this.mode = this.backdropModal
@@ -60,7 +60,7 @@ export default {
       if (nextView !== 'edit dashboard') {
         this.setModalView(nextView)
       } else {
-        this.editDashboard()
+        this.setEditDashboardToTrue()
         this.closeBackdrop()
       }
     }

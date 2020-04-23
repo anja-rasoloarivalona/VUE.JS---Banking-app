@@ -35,8 +35,11 @@
               <app-icon name="add" size="xxl" :color="addButtonBackground"></app-icon>
           </div>
         </template>
-        <editing-dashboard v-else/>
-
+        <template v-else>
+            <transition name="fade" mode="out-in" appear>
+                <editing-dashboard />
+            </transition>
+        </template>
     </div>
 </template>
 

@@ -1,12 +1,12 @@
 const editDashboardQuery = (layout) => {
   const d = {}
   layout.forEach(item => {
-    d[item.i.split('-')[1]] = {
+    d[item.i] = {
       h: item.h,
       w: item.w,
       x: item.x,
       y: item.y,
-      i: item.i.split('-')[1],
+      i: item.i,
       displayed: true
     }
   })

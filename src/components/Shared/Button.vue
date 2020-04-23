@@ -5,7 +5,8 @@
     <button
         v-bind="$attrs"
         v-else
-        :class="{'app-btn': normal, 'primary': primary, 'secondary': secondary}"
+        class="app-btn"
+        :class="{'normal': normal, 'small': small, 'primary': primary, 'secondary': secondary}"
     >
         <slot></slot>
     </button>
@@ -16,6 +17,7 @@ export default {
   props: {
     link: String,
     normal: Boolean,
+    small: Boolean,
     primary: Boolean,
     secondary: Boolean
   }
@@ -23,27 +25,34 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-button:focus {
-    outline: none !important;
-}
 .app-btn {
-    width: 11rem;
     padding: 1rem 0;
     border: none;
     border-radius: .5rem;
     color: $color-white;
     cursor: pointer;
     transition: all .3 ease-in;
-    &.primary{
-        background: $color-primary;
-        &:disabled {
-        background: $color-grey--main;
-        color: $color-grey--dark;
-        cursor: not-allowed;
+    &:focus {
+    outline: none !important;
     }
+}
+
+.normal {
+    width: 11rem;
+}
+.small {
+    width: 7rem;
+}
+
+.primary{
+    background: $color-primary;
+    &:disabled {
+    background: $color-grey--main;
+    color: $color-grey--dark;
+    cursor: not-allowed;
     }
-    &.secondary{
+}
+.secondary{
         background: $color-secondary;
-    }
 }
 </style>

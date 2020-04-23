@@ -31,12 +31,14 @@ const getters = {
 }
 
 const mutations = {
+  // THEME
   setTheme (state, theme) {
     state.theme = theme
   },
   setPreviousTheme (state, theme) {
     state.previousTheme = theme
   },
+  // DASHBOARD
   setDefaultDashboardLayout (state, data) {
     const layout = [
       { x: 0, y: 0, w: 4, h: 6, i: 'balance' },
@@ -70,8 +72,11 @@ const mutations = {
     console.log('set dafaukt', data)
     state.currentDashboardLayout = layout
   },
-  editDashboard (state) {
+  setEditDashboardToTrue (state) {
     state.editingDashboard = true
+  },
+  setEditDashboardToFalse (state) {
+    state.editingDashboard = false
   },
   setCurrentDashboardLayout (state, layout) {
     state.currentDashboardLayout = layout
@@ -79,14 +84,12 @@ const mutations = {
   setPreviousDashboardLayout (state, layout) {
     state.previousDashboardLayout = layout
   },
+  // TRANSACTION
   editTransaction (state, transaction) {
     state.editingTransaction = transaction
   },
   resetEditTransaction (state) {
     state.editingTransaction = false
-  },
-  resetEditDashboard (state) {
-    state.editingDashboard = false
   }
 
 }

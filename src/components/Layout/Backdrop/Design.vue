@@ -43,7 +43,6 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
-// import theme from '@/assets/theme'
 import axios from 'axios'
 export default {
   data () {

@@ -6,6 +6,10 @@ const initQuery = {
           dashboardLayout {
             x
             y
+            w
+            h
+            i
+            displayed
           }
         }
         status

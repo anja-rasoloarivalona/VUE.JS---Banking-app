@@ -1,61 +1,61 @@
 <template>
   <div class="dashboard">
     <dashboard-layout>
-      <template #dashboard-balance>
-        <dashboard-balance></dashboard-balance>
+      <template #balance>
+        <balance></balance>
       </template>
-      <template #dashboard-wallet>
-        <dashboard-wallet></dashboard-wallet>
+      <template #wallet>
+        <wallet></wallet>
       </template>
-      <template #dashboard-budget>
-        <dashboard-budget></dashboard-budget>
+      <template #budget>
+        <budget></budget>
       </template>
-      <template #dashboard-transactions>
-        <dashboard-transactions></dashboard-transactions>
+      <template #transactions>
+        <transactions></transactions>
       </template>
-      <template #dashboard-goal>
-        <dashboard-goal></dashboard-goal>
+      <template #goal>
+        <goal></goal>
       </template>
-      <template #dashboard-monthly-report>
-        <dashboard-monthly-report></dashboard-monthly-report>
+      <template #monthly>
+        <monthly></monthly>
       </template>
-      <template #dashboard-transactions-chart>
-        <dashboard-transactions-chart></dashboard-transactions-chart>
+      <template #history>
+        <history></history>
       </template>
-      <template #dashboard-available-instantly>
-        <dashboard-available-instantly></dashboard-available-instantly>
+      <template #available>
+        <available></available>
       </template>
-      <template #dashboard-expenses-chart>
-        <dashboard-expenses-chart></dashboard-expenses-chart>
+      <template #expenses>
+        <expenses></expenses>
       </template>
     </dashboard-layout>
   </div>
 </template>
 
 <script>
-import Layout from './Layout'
+import DashboardLayout from './Layout'
 import Budget from './Budget'
 import Balance from './Balance'
 import Wallet from './Wallet'
 import Transactions from './Transactions'
 import Goal from './Goal'
-import MonthlyReport from './MonthlyReport'
-import TransactionsChart from './TransactionsChart'
-import AvailableInstantly from './AvailableInstantly'
-import ExpensesChart from './ExpensesChart'
+import Monthly from './MonthlyReport'
+import History from './History'
+import Available from './AvailableInstantly'
+import Expenses from './ExpensesChart'
 
 export default {
   components: {
-    dashboardTransactions: Transactions,
-    dashboardLayout: Layout,
-    dashboardBalance: Balance,
-    dashboardBudget: Budget,
-    dashboardWallet: Wallet,
-    dashboardGoal: Goal,
-    dashboardMonthlyReport: MonthlyReport,
-    dashboardTransactionsChart: TransactionsChart,
-    dashboardAvailableInstantly: AvailableInstantly,
-    dashboardExpensesChart: ExpensesChart
+    Transactions,
+    DashboardLayout,
+    Balance,
+    Budget,
+    Wallet,
+    Goal,
+    Monthly,
+    History,
+    Available,
+    Expenses
   }
 }
 </script>

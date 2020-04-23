@@ -47,7 +47,6 @@
 
 import VueGridLayout from 'vue-grid-layout'
 import { mapGetters, mapMutations } from 'vuex'
-// import axios from 'axios'
 export default {
   data () {
     return {
@@ -77,26 +76,6 @@ export default {
     ]),
     layoutUpdatedEvent: function (newLayout) {
       this.updatedLayout = newLayout
-      console.log('Updated layout: ', newLayout)
-    },
-    submit: async function () {
-      // const graphqlQuery = {
-      //   query: `{
-      //       updateDashboardLayout(layoutInput: "${this.newLayout}") {
-      //         x
-      //         y
-      //         w
-      //         h
-      //         i
-      //       }
-      //     }`
-      // }
-      // try {
-      //   const response = axios.post('', graphqlQuery)
-      //   console.log(response)
-      // } catch (err) {
-      //   console.log(err)
-      // }
     }
   },
   components: {

@@ -2,18 +2,18 @@
     <div class="input">
         <label :for="id">
             <span>{{ id }}</span>
-            <input
-              :id="id"
-              @input="updateSelf($event.target.value)"
-              :value="value"
-              class="bg-grey"
-            />
             <!-- <input
               :id="id"
               @input="updateSelf($event.target.value)"
               :value="value"
-              :class="{'bg-grey': currentTheme.includes('light') }"
+              class="bg-grey"
             /> -->
+            <input
+              :id="id"
+              @input="updateSelf($event.target.value)"
+              :value="value"
+              :class="{'bg-grey': currentTheme.includes('light'), 'bg-surfaceColor': currentTheme.includes('dark') }"
+            />
         </label>
     </div>
 </template>

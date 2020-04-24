@@ -17,6 +17,7 @@ $color-red: red;
     --backgroundColor: #f5f5f5;
     --surfaceColor: #fff;
     --on-surfaceColor: #b1afaf;
+    --calendarBackground: #f5f5f5;
     --layer: linear-gradient(to right, rgb(20, 20, 20), rgb(20, 20, 20) );
 }
 
@@ -27,56 +28,62 @@ $color-red: red;
     --backgroundColor: #f5f5f5;
     --surfaceColor: #fff;
     --on-surfaceColor: #b1afaf;
+    --calendarBackground: #f5f5f5;
     --layer: linear-gradient(to right, rgb(20, 20, 20), rgb(20, 20, 20) );
 }
 
 [theme="light-blue"] {
-    --mainColor: #0084ff;
+    --mainColor: #2790f3;
     --textColor: black;
     --textColor--dark: #797979;
     --backgroundColor: #f5f5f5;
     --surfaceColor: #fff;
     --on-surfaceColor: #b1afaf;
+    --calendarBackground: #f5f5f5;
     --layer: linear-gradient(to right, rgb(20, 20, 20), rgb(20, 20, 20) );
 }
 
 [theme="light-orangered"] {
-    --mainColor: #ff7315;
+    --mainColor: #f38033;
     --textColor: black;
     --textColor--dark: #797979;
     --backgroundColor: #f5f5f5;
     --surfaceColor: #fff;
     --on-surfaceColor: #b1afaf;
+    --calendarBackground: #f5f5f5;
     --layer: linear-gradient(to right, rgb(20, 20, 20), rgb(20, 20, 20) );
 }
 
 // ------- DARK THEME -------------------------
 
 [theme="dark-green"] {
-    --mainColor: #027a66;
+    --mainColor: #2d9e8b;
     --textColor: #ffffff;
     --textColor--dark: #797979;
     --backgroundColor: rgb(20, 20, 20);
     --surfaceColor: rgb(29, 29, 29);
     --on-surfaceColor: rgb(46, 46, 46);
+    --calendarBackground: rgb(29, 29, 29);
     --layer: linear-gradient(to right, rgb(20, 20, 20), rgb(20, 20, 20) )
 }
 
 [theme="dark-orangered"] {
-    --mainColor: #ff7315;
+    --mainColor: #f38033;
     --textColor: #ffffff;
     --textColor--dark: #797979;
     --backgroundColor: rgb(20, 20, 20);
     --surfaceColor: rgb(29, 29, 29);
     --on-surfaceColor: rgb(46, 46, 46);
+    --calendarBackground: rgb(29, 29, 29);
     --layer: linear-gradient(to right, rgb(20, 20, 20), rgb(20, 20, 20) )
 }
 
 [theme="dark-blue"] {
-    --mainColor: #0084ff;
+    --mainColor: #2790f3;
     --textColor: #ffffff;
     --textColor--dark: #797979;
     --backgroundColor: rgb(20, 20, 20);
     --surfaceColor: rgb(25, 25, 25);
+    --calendarBackground: rgb(29, 29, 29);
     --on-surfaceColor: rgb(46, 46, 46);
 }

@@ -3,7 +3,7 @@
       <span v-if="id">{{ id }}</span>
       <div
         class="select"
-        :class="{'bg-grey': currentTheme.includes('light'), 'all-radius': !showList, 'top-radius': showList}"
+        :class="{'bg-grey': currentTheme.includes('light'), 'bg-surfaceColor': currentTheme.includes('dark') ,'all-radius': !showList, 'top-radius': showList}"
         v-click-outside="closeList">
           <div class="select__value" @click.stop="showList = !showList">{{ value }}</div>
           <ul class="select__list" v-show="showList">

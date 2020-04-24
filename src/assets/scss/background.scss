@@ -5,12 +5,12 @@
     background: var(--mainColor);
 }
 .bg-surfaceColor {
-    background: var(--surfaceColor);
+    background: var(--surfaceColor) !important;
 }
 .bg-on-surfaceColor {
     background: var(--on-surfaceColor);
 }
 
 .bg-grey {
-    background: #f5f5f5;
+    background: #f5f5f5 !important;
 }

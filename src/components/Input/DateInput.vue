@@ -2,7 +2,7 @@
     <div class="input-date">
         <label :for="id">
             <span>{{ id }}</span>
-            <date-picker :id="id" :value="value" :class="{'bg-grey': currentTheme.includes('light')}"/>
+            <date-picker :id="id" :value="value" />
         </label>
     </div>
 </template>
@@ -56,8 +56,9 @@ export default {
 .vc-border {
     border-width: 0px !important;
 }
+
 .vc-bg-white {
-    background: #f5f5f5 !important;
+    background: var(--calendarBackground) !important;
 }
 
 .vc-text-base {

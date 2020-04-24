@@ -41,6 +41,7 @@ export default {
     }
     const datasets = {
       data: data,
+      // backgroundColor: ['#B34912', '#FF600D', '#B39612', '#FFD40D']
       backgroundColor: ['#059782', '#99a1d7', '#2bac49', '#3144af', '#59bcd8']
     }
 

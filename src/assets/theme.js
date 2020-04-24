@@ -17,7 +17,7 @@ const theme = {
     '--on-surfaceColor': '#b1afaf'
   },
   'light-blue': {
-    '--mainColor': '#0084ff',
+    '--mainColor': '#2790f3',
     '--textColor': 'black',
     '--textColor-dark': '#797979',
     '--backgroundColor': '#f5f5f5',
@@ -25,7 +25,7 @@ const theme = {
     '--on-surfaceColor': '#b1afaf'
   },
   'light-orangered': {
-    '--mainColor': '#ff7315',
+    '--mainColor': '#f38033',
     '--textColor': 'black',
     '--textColor-dark': '#797979',
     '--backgroundColor': '#f5f5f5',
@@ -34,7 +34,7 @@ const theme = {
   },
 
   'dark-green': {
-    '--mainColor': '#027a66',
+    '--mainColor': '#2d9e8b',
     '--textColor': '#ffffff',
     '--textColor-dark': '#797979',
     '--backgroundColor': 'rgb(20, 20, 20)',
@@ -42,7 +42,7 @@ const theme = {
     '--on-surfaceColor': 'rgb(46, 46, 46)'
   },
   'dark-orangered': {
-    '--mainColor': '#ff7315',
+    '--mainColor': '#f38033',
     '--textColor': '#ffffff',
     '--textColor-dark': '#797979',
     '--backgroundColor': 'rgb(20, 20, 20)',
@@ -50,7 +50,7 @@ const theme = {
     '--on-surfaceColor': 'rgb(46, 46, 46)'
   },
   'dark-blue': {
-    '--mainColor': '#0084ff',
+    '--mainColor': '#2790f3',
     '--textColor': '#ffffff',
     '--textColor-dark': '#797979',
     '--backgroundColor': 'rgb(20, 20, 20)',

@@ -12,7 +12,7 @@ export default {
     //   attrs: null
       attrs: [
         {
-          key: 'today',
+          // key: 'today',
           highlight: {
             class: 'orangered'
           },
@@ -22,7 +22,7 @@ export default {
           dates: [new Date('04/19/2020')]
         },
         {
-          key: 'tomorrow',
+          // key: 'tomorrow',
           highlight: {
             class: 'orangered'
           },

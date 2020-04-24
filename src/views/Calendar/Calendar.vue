@@ -59,7 +59,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'usersIncomesAndExpenses'
+      'usersIncomesAndExpenses',
+      'secondaryColors'
     ])
   }
 }

@@ -5,7 +5,8 @@ const state = {
   editingTransaction: false,
   currentDashboardLayout: [],
   defaultDashboardLayout: [],
-  previousDashboardLayout: []
+  previousDashboardLayout: [],
+  secondaryColors: ['#059782', '#99a1d7', '#2bac49', '#3144af', '#59bcd8']
 }
 
 const getters = {
@@ -14,6 +15,9 @@ const getters = {
   },
   previousTheme: state => {
     return state.previousTheme
+  },
+  secondaryColors: state => {
+    return state.secondaryColors
   },
   isEditingDashboard: state => {
     return state.editingDashboard

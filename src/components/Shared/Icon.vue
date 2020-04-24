@@ -45,6 +45,11 @@ export default {
   height: 2rem;
 }
 
+.icon.xlarge {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
 .icon.extra-large {
   width: 3rem;
   height: 3rem;

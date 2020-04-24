@@ -3,6 +3,7 @@ const state = {
   previousTheme: null,
   editingDashboard: false,
   editingTransaction: false,
+  ghostMode: false,
   currentDashboardLayout: [],
   defaultDashboardLayout: [],
   previousDashboardLayout: [],
@@ -18,6 +19,9 @@ const getters = {
   },
   secondaryColors: state => {
     return state.secondaryColors
+  },
+  isGhostModeActivated: state => {
+    return state.ghostMode
   },
   isEditingDashboard: state => {
     return state.editingDashboard
@@ -94,6 +98,12 @@ const mutations = {
   },
   resetEditTransaction (state) {
     state.editingTransaction = false
+  },
+  activateGhostMode (state) {
+    state.ghostMode = true
+  },
+  deactivateGhostMode (state) {
+    state.ghostMode = false
   }
 
 }

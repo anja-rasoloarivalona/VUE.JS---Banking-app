@@ -1,54 +1,32 @@
 <template>
     <div class="setup">
-        <setup-side-nav
+      <navbar></navbar>
+        <side-nav
           :currentSetup="mode"
           @selectSetup="selectSetup($event)"
         />
         <div class="setup__view">
-          <h2 class="setup__view__title">{{title}}</h2>
-          <br>
-          <p class="setup__view__desc">
-            <span>{{description[title].line1}}</span>
-            <span>{{description[title].line2}}</span>
-          </p>
           <component
             :is="mode"
-            @startSetupIncome="mode = 'setup-income'"
-            @startSetupExpense="mode = 'setup-expense'"
-            @startSetupSavingsPlan="mode ='setup-savings-plan'"
+            @startSetupIncome="mode = 'incomes'"
+            @startSetupExpense="mode = 'expenses'"
+            @startSetupSavingsPlan="mode ='goal'"
           />
         </div>
     </div>
 </template>
 
 <script>
-import SetupSideNav from './SetupSideNav'
-import SetupWallet from './SetupWallet/SetupWallet'
-import SetupIncome from './SetupBudget/SetupIncome'
-import SetupExpense from './SetupBudget/SetupExpense'
-import SetupSavingsPlan from './SetupSavingsPlan/SetupSavingsPlan'
+import SideNav from './SetupSideNav'
+import Navbar from './SetupNavbar'
+import Wallets from './SetupWallet/SetupWallet'
+import Incomes from './SetupBudget/SetupIncome'
+import Expenses from './SetupBudget/SetupExpense'
+import Goal from './SetupSavingsPlan/SetupSavingsPlan'
 export default {
   data () {
     return {
-      mode: 'setup-wallet',
-      description: {
-        wallet: {
-          line1: "Let's begin with your wallet. Here you can provide information about all the different methods you use to make a transaction.",
-          line2: 'For example, you can enter your debit card, your credit card or your wallet to store cash.'
-        },
-        income: {
-          line1: "Now let's setup your budget",
-          line2: 'Here, you can specify your incomes'
-        },
-        expense: {
-          line1: "It's time to specify all of your expenses",
-          line2: 'There two types of expenses: fixes and variables'
-        },
-        savings: {
-          line1: 'We are almost done',
-          line2: "Let's now finish with your savings plan"
-        }
-      }
+      mode: 'wallets'
     }
   },
   computed: {
@@ -62,11 +40,12 @@ export default {
     }
   },
   components: {
-    setupWallet: SetupWallet,
-    setupIncome: SetupIncome,
-    setupExpense: SetupExpense,
-    setupSavingsPlan: SetupSavingsPlan,
-    setupSideNav: SetupSideNav
+    Wallets,
+    Incomes,
+    Expenses,
+    Goal,
+    Navbar,
+    SideNav
   }
 }
 </script>
@@ -80,7 +59,7 @@ export default {
     display: grid;
     grid-template-columns: 25rem minmax(8rem, 1fr) minmax(70vw, 120rem) minmax(8rem, 1fr);
     grid-template-rows: max-content;
-    background: $color-white;
+    background: $color-grey--light;
     position: relative;
     overflow: hidden;
     &__view {

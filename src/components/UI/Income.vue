@@ -27,7 +27,7 @@ export default {
     display: flex;
     border-radius: .5rem;
     padding: 1rem;
-    background: $color-secondary;
+    background: red;
     color: $color-white;
     cursor: pointer;
     &__text {

@@ -1,10 +1,15 @@
 <template>
-    <div class="sidebar"
-         :class="{'bg-mainColor': currentTheme.includes('light'), 'bg-surfaceColor': currentTheme.includes('dark') }">
-        <div class="sidebar__header">
+    <div class="sidebar" :class="{auth: !isUserAuthed}">
+      <template v-if="!isUserAuthed">
+              <div class="sidebar__authImg">
+                  <h1>Take control of your</h1>
+                  <h1>Personnal finance</h1>
+              </div>
+      </template>
+
+        <!-- <div class="sidebar__header">
             <div class="sidebar__header__logo"></div>
         </div>
-
         <template v-if="!isEditingDashboard">
           <transition name="fade" mode="out-in" appear>
               <ul class="sidebar__list" key="dashboard">
@@ -39,13 +44,13 @@
             <transition name="fade" mode="out-in" appear>
                 <editing-dashboard />
             </transition>
-        </template>
+        </template> -->
     </div>
 </template>
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
-import EditingDashboard from './EditingDashboard'
+// import EditingDashboard from './EditingDashboard'
 export default {
   data () {
     return {
@@ -86,14 +91,15 @@ export default {
     ])
   },
   created () {
-    this.items.upcoming = {
-      subtitle: this.upcoming.name,
-      date: this.upcoming.date,
-      value: this.upcoming.value
-    }
+    // this.items.upcoming = {
+    //   subtitle: this.upcoming.name,
+    //   date: this.upcoming.date,
+    //   value: this.upcoming.value
+    // }
   },
   computed: {
     ...mapGetters([
+      'isUserAuthed',
       'userBalance',
       'upcoming',
       'creditBalance',
@@ -109,92 +115,120 @@ export default {
     }
   },
   components: {
-    'editing-dashboard': EditingDashboard
+    // 'editing-dashboard': EditingDashboard
   }
 }
 </script>
 
 <style lang="scss">
 .sidebar {
-    position: fixed;
-    width: 25rem;
-    height: 100vh;
-    // background: #e4e1e1;
-    // background: var(--app-color-main);
-    // background: var(--surfaceColor);
-    padding: 0 2rem;
-    &__header {
-        height: 9rem;
-        margin-bottom: 3rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        &__logo {
-            width: 15rem;
-            height: 6rem;
-            background-image: url('../../../assets/logo.png');
-            background-position: center;
-            background-size: contain;
-            background-repeat: no-repeat;
+  &.auth {
+      position: fixed;
+      width: 55vw;
+      height: 100vh;
+      background-image: linear-gradient(to right,
+              #027a66ea 10%,
+              #027a66b4 ),
+              url("../../../assets/landing.png");
+      background-repeat: no-repeat;
+      background-size: cover;
+      & .sidebar {
+        &__authImg {
+          position: absolute;
+          z-index: 1;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          padding-left: 5rem;
+          color: $color-white;
+          & h1 {
+            font-size: 4rem;
+            line-height: 1.4;
+          }
         }
-    }
-    &__list {
-        list-style: none;
-        &__item {
-            padding: 2rem 1rem;
-            border-radius: 1rem;
-            // background: var(--on-surfaceColor);
-            display: flex;
-            align-items: center;
-            margin-bottom: 3rem;
+      }
+  }
 
-            &__title {
-                display: flex;
-                flex-direction: column;
-                width: 50%;
-                & h2 {
-                    height: 3rem;
-                    display: flex;
-                    align-items: center;
-                    text-transform: capitalize;
-                }
-            }
-            &__subtitle {
-                display: flex;
-                color: var(--textColor--dark);
-                font-size: $font-s;
-                & div:first-child {
-                    margin-right: .5rem;
-                }
-            }
-            &__details {
-                display: flex;
-                align-items: center;
-                justify-content: flex-end;
-                width: 50%;
-                &__amount {
-                    font-size: $font-xl;
-                    padding-right: 1rem;
-                    font-weight: 600;
-                }
-            }
-        }
-    }
-    &__add {
-      width: 8rem;
-      height: 8rem;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      // background: var(--mainColor);
-      position: absolute;
-      bottom: 5rem;
-      left: 0;
-      right: 0;
-      margin: auto;
-      cursor: pointer;
-    }
+    // position: fixed;
+    // width: 25rem;
+    // height: 100vh;
+    // padding: 0 2rem;
+    // &__header {
+    //     height: 9rem;
+    //     margin-bottom: 3rem;
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: center;
+    //     &__logo {
+    //         width: 15rem;
+    //         height: 6rem;
+    //         background-image: url('../../../assets/logo.png');
+    //         background-position: center;
+    //         background-size: contain;
+    //         background-repeat: no-repeat;
+    //     }
+    // }
+    // &__list {
+    //     list-style: none;
+    //     &__item {
+    //         padding: 2rem 1rem;
+    //         border-radius: 1rem;
+    //         // background: var(--on-surfaceColor);
+    //         display: flex;
+    //         align-items: center;
+    //         margin-bottom: 3rem;
+
+    //         &__title {
+    //             display: flex;
+    //             flex-direction: column;
+    //             width: 50%;
+    //             & h2 {
+    //                 height: 3rem;
+    //                 display: flex;
+    //                 align-items: center;
+    //                 text-transform: capitalize;
+    //             }
+    //         }
+    //         &__subtitle {
+    //             display: flex;
+    //             color: var(--textColor--dark);
+    //             font-size: $font-s;
+    //             & div:first-child {
+    //                 margin-right: .5rem;
+    //             }
+    //         }
+    //         &__details {
+    //             display: flex;
+    //             align-items: center;
+    //             justify-content: flex-end;
+    //             width: 50%;
+    //             &__amount {
+    //                 font-size: $font-xl;
+    //                 padding-right: 1rem;
+    //                 font-weight: 600;
+    //             }
+    //         }
+    //     }
+    // }
+    // &__add {
+    //   width: 8rem;
+    //   height: 8rem;
+    //   border-radius: 50%;
+    //   display: flex;
+    //   align-items: center;
+    //   justify-content: center;
+    //   // background: var(--mainColor);
+    //   position: absolute;
+    //   bottom: 5rem;
+    //   left: 0;
+    //   right: 0;
+    //   margin: auto;
+    //   cursor: pointer;
+    // }
 }
 
 </style>

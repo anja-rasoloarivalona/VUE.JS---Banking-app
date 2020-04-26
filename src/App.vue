@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <router-view name="starter" v-if="!isAppReady"/>
+    <sidebar />
+    <navbar />
+    <auth v-if="!isUserAuthed"/>
+    <!-- <router-view name="starter" v-if="!isAppReady"/>
     <div v-else-if="!loading" class="app-main">
       <sidebar></sidebar>
       <navbar></navbar>
@@ -8,7 +11,7 @@
       <div class="app__view">
         <router-view/>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -16,8 +19,9 @@
 import { mapGetters, mapMutations } from 'vuex'
 import axios from 'axios'
 import Sidebar from './components/Layout/Sidebar/Sidebar'
-import Navbar from './components/Layout/Navbar'
-import Backdrop from './components/Layout/Backdrop/Backdrop'
+import Navbar from './components/Layout/Navbar/Navbar'
+import Auth from './views/Authentication/Auth'
+// import Backdrop from './components/Layout/Backdrop/Backdrop'
 export default {
   data () {
     return {
@@ -26,6 +30,7 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'isUserAuthed',
       'currentTheme',
       'currentAppStatus',
       'backdropState'
@@ -63,8 +68,9 @@ export default {
   },
   components: {
     Sidebar,
-    Navbar,
-    Backdrop
+    Auth,
+    Navbar
+    // Backdrop
   },
   created: async function () {
     // localStorage.removeItem('bank-data')

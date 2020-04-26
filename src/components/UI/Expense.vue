@@ -34,7 +34,7 @@ export default {
     display: flex;
     border-radius: .5rem;
     padding: 1rem;
-    background: $color-secondary;
+    background: blue;
     color: $color-white;
     cursor: pointer;
     margin-bottom: 2rem;

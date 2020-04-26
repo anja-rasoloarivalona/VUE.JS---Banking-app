@@ -53,6 +53,6 @@ export default {
     }
 }
 .secondary{
-        background: $color-secondary;
+        background: yellow;
 }
 </style>

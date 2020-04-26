@@ -3,22 +3,32 @@ import axios from 'axios'
 
 const state = {
   isAuth: false,
+  authMode: 'login', // LOGION OR SIGNUP
   token: null,
   userId: null,
   userName: null,
   userEmail: null,
   userPassword: null,
   userStatus: null,
-  appStatus: 'authentication'
+  appStatus: 'auth'
 }
 
 const getters = {
   currentAppStatus: state => {
     return state.appStatus
+  },
+  isUserAuthed: state => {
+    return state.isAuth
+  },
+  authMode: state => {
+    return state.authMode
   }
 }
 
 const mutations = {
+  setAuthMode (state, mode) {
+    state.authMode = mode
+  },
   setIsAuthToTrue (state, authData) {
     state.isAuth = true
     state.token = authData.token
@@ -30,12 +40,6 @@ const mutations = {
     state.appStatus = authData.appStatus
     localStorage.setItem('bank-data', JSON.stringify(authData))
   },
-  setAppStatus (state, newStatus) {
-    state.appStatus = newStatus
-  },
-  setUserStatus (state, newStatus) {
-    state.userStatus = newStatus
-  },
   setIsAuthToFalse (state) {
     state.isAuth = false
     state.token = null
@@ -44,6 +48,12 @@ const mutations = {
     state.userStatus = null
     state.appStatus = 'authentication'
     localStorage.removeItem('bank-data')
+  },
+  setAppStatus (state, newStatus) {
+    state.appStatus = newStatus
+  },
+  setUserStatus (state, newStatus) {
+    state.userStatus = newStatus
   }
 }
 
@@ -51,7 +61,8 @@ const actions = {
   login: async function ({ commit }, input) {
     const graphqlQuery = loginQuery(input)
     try {
-      const response = await axios.post('', graphqlQuery)
+      const response = await axios.post('/', graphqlQuery)
+      console.log('response', response)
       const resData = response.data.data.login
       const remainingMilliseconds = 24 * 60 * 60 * 1000
       const expiryDate = new Date(new Date().getTime() + remainingMilliseconds).toISOString()
@@ -67,16 +78,21 @@ const actions = {
       }
       commit('setIsAuthToTrue', data)
       commit('initAppData', resData.user)
-      return true
+      return {
+        success: true
+      }
     } catch (err) {
-      console.log(err)
-      return false
+      return {
+        success: false,
+        errors: err.response.data.errors
+      }
     }
   },
   signup: async function ({ commit }, input) {
     const graphqlQuery = signupQuery(input)
     try {
-      const response = axios.post('', graphqlQuery)
+      const response = await axios.post('/', graphqlQuery)
+      console.log('auth store', response)
       const resData = response.data.data.createUser
       const remainingMilliseconds = 24 * 60 * 60 * 1000
       const expiryDate = new Date(new Date().getTime() + remainingMilliseconds).toISOString()
@@ -89,10 +105,12 @@ const actions = {
         expiryDate: expiryDate
       }
       commit('setIsAuthToTrue', data)
-      return true
+      return { succes: true }
     } catch (err) {
-      console.log(err)
-      return false
+      return {
+        succes: false,
+        errors: err.response.data.errors
+      }
     }
   }
 }

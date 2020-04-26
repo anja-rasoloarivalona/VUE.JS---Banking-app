@@ -1,7 +1,7 @@
 <template>
   <span>
       <div class="form__title">Signup</div>
-      <slot name="error"></slot>
+      <slot name="errors"></slot>
       <app-basic-input v-model="userInput.name" :id="'name'" />
       <app-basic-input v-model="userInput.email" :id="'email'" />
       <app-basic-input v-model="userInput.password" :id="'password'" />

@@ -3,7 +3,7 @@
       <header class="starter__link">
                 <div v-if="action === 'login' && mode === 'app-auth'" @click="action = 'signup'">Create account</div>
                 <div v-else-if="action === 'signup' && mode === 'app-auth'" @click="action = 'login'">Login</div>
-                <div v-else @click="logout">Logout</div>
+                <!-- <div v-else @click="logout">Logout</div> -->
       </header>
       <transition name="flip" mode="out-in">
         <component

@@ -1,8 +1,23 @@
 <template>
     <div class="setup__sidenav">
-        <h1 class="setup__sidenav__title">Setup</h1>
-        <ul class="setup__sidenav__stepsList">
+        <div class="setup__sidenav__header">
+          <div class="setup__sidenav__header__logo"></div>
+        </div>
+        <ul class="setup__sidenav__list">
+          <li
+            v-for="(step, index) in steps"
+            class="setup__sidenav__list__item"
+            :class="{active: currentSetup === step}"
+            :key="step">
+            <div class="setup__sidenav__list__item__details">
+              <div class="setup__sidenav__list__item__details__title"><h2>Step {{ index + 1}}</h2></div>
+              <div class="setup__sidenav__list__item__details__subtitle">{{ step }}</div>
+            </div>
+            <div class="setup__sidenav__list__item__logo"></div>
+          </li>
+        </ul>
 
+        <!-- <ul class="setup__sidenav__stepsList">
                 <li class="setup__sidenav__stepsList__item"
                     :class="{
                         current: currentSetup === 'setup-wallet',
@@ -53,12 +68,17 @@
                     <div class="setup__sidenav__stepsList__item__text">Savings</div>
                     <app-icon name="savings-plan" size="large" :color="checkSavings"/>
                 </li>
-        </ul>
+        </ul> -->
     </div>
 </template>
 
 <script>
 export default {
+  data () {
+    return {
+      steps: ['wallets', 'incomes', 'expenses', 'goal']
+    }
+  },
   computed: {
     checkWallets () {
       if (this.$store.state.user.wallets.length > 0) {
@@ -101,83 +121,64 @@ export default {
         position: fixed;
         height: 100vh;
         width: 25rem;
-        background: $color-grey--light;
+        background: $color-primary;
         display: flex;
         flex-direction: column;
         align-items: center;
+        &__header {
+        height: 9rem;
+        margin-bottom: 3rem;
+        display: flex;
+        align-items: center;
         justify-content: center;
-        &__title {
-            font-size: 3.5rem;
-            text-align: center;
-            padding: 4rem 0;
-            color: $color-primary;
+        &__logo {
+            width: 15rem;
+            height: 6rem;
+            background-image: url('../../../assets/logo.png');
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+          }
         }
-        &__stepsList {
+
+        &__list {
+        list-style: none;
+        width: 75%;
+        &__item {
+            height: 8rem;
+            background: $color-white;
+            border-radius: 1rem;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            list-style: none;
-            width: 100%;
-            margin-top: 3rem;
-            flex: 1;
-            & > * {
-                transform: translateX(2rem);
+            margin-bottom: 3rem;
+            padding: 1rem;
+            &.active {
+              background: $color-primary--dark;
+              & * {
+                color: $color-white
+              }
             }
-            &__item {
-                position: relative;
-                width: 6rem;
-                height: 6rem;
-                border-radius: 50%;
-                border: 3px solid $color-grey--main;
-                background: $color-grey--main;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                transition: all .3s ease-in;
-                &.current {
-                    // transition-delay: .3s;
-                    border: 3px solid $color-primary;
-                    background: $color-white;
-                    & .setup__sidenav__stepsList__item__text {
-                        color: $color-primary;
-                        font-weight: bold;
-                    }
-                }
-                &.checked {
-                   background: $color-primary;
-                   border: 3px solid $color-primary;
-                }
-                &__text {
-                    position: absolute;
-                    right:7rem;
-                    top: 0;
-                    width: 10rem;
-                    height: 100%;
+            &__details {
+              display: flex;
+              flex-direction: column;
+              width: 50%;
+              &__title {
+                & h2 {
                     display: flex;
                     align-items: center;
-                    justify-content: flex-end;
-                    color: $color-grey--main;
-                    font-size: $font-m;
+                    text-transform: capitalize;
+                    margin-bottom: 1rem;
                 }
-            }
-            &__bar {
-                width: .8rem;
-                height: 10rem;
-                background: $color-grey--main;
-                position: relative;
-                &__inner {
-                    position: absolute;
-                    top: 0;
-                    width: 100%;
-                    height: 0%;
-                    background: $color-primary;
-                    transition: all .3s ease-in;
-                    &.full {
-                        height: 100%;
-                    }
-                }
+              }
+              &__subtitle {
+                display: flex;
+                color: $color-grey--dark;
+                font-size: $font-m;
+                text-transform: capitalize;
+              }
             }
         }
+    }
     }
 }
 </style>

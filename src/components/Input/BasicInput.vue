@@ -12,7 +12,8 @@
               :id="id"
               @input="updateSelf($event.target.value)"
               :value="value"
-              :class="{'bg-grey': currentTheme.includes('light'), 'bg-surfaceColor': currentTheme.includes('dark') }"
+              class="bg-grey"
+              :class="{'bg-grey': currentTheme && currentTheme.includes('light'), 'bg-surfaceColor': currentTheme && currentTheme.includes('dark') }"
             />
         </label>
     </div>

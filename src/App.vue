@@ -2,7 +2,10 @@
   <div id="app">
     <sidebar />
     <navbar />
-    <auth v-if="!isUserAuthed"/>
+    <transition name="fade" mode="out-in" appear v-if="!isUserAuthed">
+        <auth />
+    </transition>
+    <router-view name="setup" v-else-if="currentAppStatus === 'setup'"/>
     <!-- <router-view name="starter" v-if="!isAppReady"/>
     <div v-else-if="!loading" class="app-main">
       <sidebar></sidebar>
@@ -73,7 +76,7 @@ export default {
     // Backdrop
   },
   created: async function () {
-    // localStorage.removeItem('bank-data')
+    localStorage.removeItem('bank-data')
     const localData = localStorage.getItem('bank-data')
     if (!localData) {
       console.log('no local data')

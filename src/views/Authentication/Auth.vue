@@ -111,26 +111,6 @@ export default {
     left: 0;
     right: 0;
     margin: auto;
-    &__title {
-        margin-bottom: 5rem;
-        font-size: 4rem;
-        color: $color-grey--dark;
-    }
-    & button {
-            background: $color-primary;
-            height: 4.5rem;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: none;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            & span {
-            color: $color-white;
-            margin-bottom: 0;
-            }
-    }
     &__error {
         margin: 2rem 0;
         &__item {

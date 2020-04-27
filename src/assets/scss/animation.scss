@@ -49,3 +49,32 @@
         opacity: 0;
     }
 }
+
+.fade-from-top-enter-active {
+    animation: fade-from-top-in .5s ease-out forwards;
+}
+.fade-from-top-leave-active {
+    animation: fade-from-top-out .5s ease-out forwards;
+}
+
+@keyframes fade-from-top-in {
+    from {
+        transform: translateY(-2rem);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0rem);
+        opacity: 1;
+    }
+}
+
+@keyframes fade-from-top-out {
+    from {
+        transform: translateY(0rem);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-2rem);
+        opacity: 0;
+    }
+}

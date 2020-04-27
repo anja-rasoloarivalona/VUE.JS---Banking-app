@@ -37,37 +37,37 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.auth {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    &__img {
-        width: 55%;
-        height: 100%;
-        background-image: linear-gradient(to right,
-            #027a66ea 10%,
-            #027a66b4 ),
-            url("../../../assets/landing.png");
-        background-repeat: no-repeat;
-        background-size: cover;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        padding-left: 5rem;
-        color: $color-white;
-        & h1 {
-          font-size: 4rem;
-          line-height: 1.4;
-        }
-    }
-    &__cta {
-        width: 45%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-    }
-}
+// .auth {
+//     width: 100%;
+//     height: 100%;
+//     display: flex;
+//     &__img {
+//         width: 55%;
+//         height: 100%;
+//         background-image: linear-gradient(to right,
+//             #027a66ea 10%,
+//             #027a66b4 ),
+//             url("../../../assets/landing.png");
+//         background-repeat: no-repeat;
+//         background-size: cover;
+//         display: flex;
+//         justify-content: center;
+//         flex-direction: column;
+//         padding-left: 5rem;
+//         color: $color-white;
+//         & h1 {
+//           font-size: 4rem;
+//           line-height: 1.4;
+//         }
+//     }
+//     &__cta {
+//         width: 45%;
+//         height: 100%;
+//         display: flex;
+//         align-items: center;
+//         justify-content: center;
+//         position: relative;
+//     }
+// }
 
 </style>

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import auth from './modules/auth'
 import user from './modules/user'
+import setup from './modules/setup'
 import settings from './modules/settings'
 import UI from './modules/UI'
 import { initQuery } from '@/graphQL/initQuery'
@@ -55,6 +56,7 @@ export default new Vuex.Store({
     auth,
     user,
     UI,
-    settings
+    settings,
+    setup
   }
 })

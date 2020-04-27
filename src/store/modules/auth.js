@@ -9,7 +9,6 @@ const state = {
   userName: null,
   userEmail: null,
   userPassword: null,
-  userStatus: null,
   appStatus: 'auth'
 }
 
@@ -36,7 +35,6 @@ const mutations = {
     state.userName = authData.userName
     state.userEmail = authData.userEmail
     state.userPassword = authData.userPassword
-    state.userStatus = authData.userStatus
     state.appStatus = authData.appStatus
     localStorage.setItem('bank-data', JSON.stringify(authData))
   },
@@ -45,15 +43,11 @@ const mutations = {
     state.token = null
     state.userId = null
     state.userName = null
-    state.userStatus = null
     state.appStatus = 'authentication'
     localStorage.removeItem('bank-data')
   },
   setAppStatus (state, newStatus) {
     state.appStatus = newStatus
-  },
-  setUserStatus (state, newStatus) {
-    state.userStatus = newStatus
   }
 }
 
@@ -72,8 +66,7 @@ const actions = {
         userName: resData.user.name,
         userEmail: resData.user.email,
         userPassword: resData.user.password,
-        userStatus: resData.user.status,
-        appStatus: resData.user.status === 'created' ? 'welcome' : 'running',
+        appStatus: resData.user.status,
         expiryDate: expiryDate
       }
       commit('setIsAuthToTrue', data)
@@ -100,8 +93,7 @@ const actions = {
         token: resData.token,
         userId: resData.user._id,
         userName: resData.user.name,
-        userStatus: resData.user.status,
-        appStatus: 'welcome',
+        appStatus: resData.user.status,
         expiryDate: expiryDate
       }
       commit('setIsAuthToTrue', data)

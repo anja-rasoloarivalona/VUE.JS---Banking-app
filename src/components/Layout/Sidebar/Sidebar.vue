@@ -1,10 +1,17 @@
 <template>
-    <div class="sidebar" :class="{auth: !isUserAuthed}">
+    <div class="sidebar" :class="{'not-authed': !isUserAuthed, 'authed': isUserAuthed}">
       <template v-if="!isUserAuthed">
+          <transition name="fade" mode="out-in" appear>
               <div class="sidebar__authImg">
                   <h1>Take control of your</h1>
                   <h1>Personnal finance</h1>
               </div>
+          </transition>
+      </template>
+      <template v-else>
+         <transition name="fade" mode="out-in" appear>
+              <setup />
+          </transition>
       </template>
 
         <!-- <div class="sidebar__header">
@@ -50,6 +57,7 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
+import Setup from './Setup'
 // import EditingDashboard from './EditingDashboard'
 export default {
   data () {
@@ -100,6 +108,8 @@ export default {
   computed: {
     ...mapGetters([
       'isUserAuthed',
+      'currentAppStatus',
+
       'userBalance',
       'upcoming',
       'creditBalance',
@@ -115,6 +125,7 @@ export default {
     }
   },
   components: {
+    Setup
     // 'editing-dashboard': EditingDashboard
   }
 }
@@ -122,10 +133,13 @@ export default {
 
 <style lang="scss">
 .sidebar {
-  &.auth {
-      position: fixed;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  transition: all .5s ease-in;
+  &.not-authed {
       width: 55vw;
-      height: 100vh;
       background-image: linear-gradient(to right,
               #027a66ea 10%,
               #027a66b4 ),
@@ -151,6 +165,14 @@ export default {
           }
         }
       }
+  }
+  &.authed {
+    width: 25rem;
+    padding: 0 2rem;
+    background: $color-primary;
+    & .sidebar__authImg h1 {
+      opacity: 0;
+    }
   }
 
     // position: fixed;

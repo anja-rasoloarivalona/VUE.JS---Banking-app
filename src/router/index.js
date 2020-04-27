@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Starter from '../views/Starter/Starter'
+import Setup from '../views/Setup/Setup'
+// import Starter from '../views/Starter/Starter'
 import Dashboard from '../views/Dashboard/Dashboard'
 import Transactions from '../views/Transactions/Transactions'
 import Wallets from '../views/Wallets/Wallets'
@@ -15,7 +16,7 @@ const routes = [
     path: '/',
     components: {
       default: Dashboard,
-      starter: Starter
+      setup: Setup
     }
   },
   {

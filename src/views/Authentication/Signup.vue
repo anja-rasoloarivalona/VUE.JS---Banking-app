@@ -1,6 +1,6 @@
 <template>
-  <span>
-      <div class="form__title">Signup</div>
+  <div>
+      <div class="title">Signup</div>
       <slot name="errors"></slot>
       <app-basic-input v-model="userInput.name" :id="'name'" />
       <app-basic-input v-model="userInput.email" :id="'email'" />
@@ -9,7 +9,7 @@
           <span v-if="!loading">Sign up</span>
           <app-spinner v-else></app-spinner>
       </app-btn>
-  </span>
+  </div>
 </template>
 
 <script>
@@ -23,4 +23,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.title {
+  margin-bottom: 5rem;
+  font-size: 4rem;
+  color: $color-grey--dark;
+}
+
+button {
+  background: $color-primary;
+  height: 4.5rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  & span {
+  color: $color-white;
+  margin-bottom: 0;
+  }
+}
 </style>

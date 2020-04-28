@@ -4,26 +4,15 @@
                 <app-basic-input v-model="walletInput.supplier" :id="'supplier'" />
                 <app-basic-input v-model="walletInput.amount" :id="'amount'" />
                 <app-basic-input v-model="walletInput.creditLimit" :id="'limit'" v-if="['Visa', 'MasterCard'].includes(walletInput.walletType)"/>
-                <app-basic-input v-model="walletInput.shortId" :id="'Last  4 numbers'" />
-                <app-color-input v-model="walletInput.color" @click="chooseColor($event)"></app-color-input>
-                <!-- <div class="form__color">
-                      <span>Color</span>
-                      <div class="form__color__select">
-                        <div class="form__color__select__value" :style="{background: walletInput.color}" @click="showColorList = !showColorList"></div>
-                        <ul class="form__color__select__list" v-if="showColorList">
-                          <li
-                            v-for="(color, index) in colorList"
-                            :key="index" class="form__color__select__list__item"
-                            :style="{background: color}"
-                            @click="chooseColor(color)">
-                          </li>
-                        </ul>
-                      </div>
-                </div> -->
-                <app-btn normal @click.native="walletAction">
+                <!-- <app-basic-input v-model="walletInput.shortId" :id="'Last  4 numbers'" /> -->
+                <!-- <app-color-input v-model="walletInput.color" @click="chooseColor($event)"></app-color-input> -->
+                <div class="form__cta">
+                  <app-btn normal warning v-if="isCancelBtnDisplayed" @click.native="$emit('hideForm')">Cancel</app-btn>
+                  <app-btn normal @click.native="walletAction" primary>
                     <span v-if="!loading" v-text="editedWallet ? 'Edit': 'Add'">Add</span>
                     <app-spinner v-else></app-spinner>
-                </app-btn>
+                  </app-btn>
+                </div>
         </form>
 </template>
 
@@ -48,7 +37,8 @@ export default {
     }
   },
   props: {
-    editedWallet: Object
+    editedWallet: Object,
+    isCancelBtnDisplayed: Boolean
   },
   mounted () {
     if (this.editedWallet) {
@@ -151,11 +141,19 @@ export default {
           }
         }
       }
-      & button {
-        height: 3.5rem;
+      &__cta {
+        height: 8rem;
         position: absolute;
-        right: 3rem;
-        bottom: 3rem;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        // background: red;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        // & button {
+        //   height: 3.5rem;
+        // }
       }
 }
 

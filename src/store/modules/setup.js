@@ -1,6 +1,7 @@
 const state = {
   currentSetupStep: 'wallets',
-  steps: ['wallets', 'incomes', 'expenses', 'goal']
+  steps: ['wallets', 'incomes', 'expenses', 'goal'],
+  displayWelcome: true
 }
 
 const getters = {
@@ -9,10 +10,20 @@ const getters = {
   },
   setupSteps: state => {
     return state.steps
+  },
+  isWelcomeDisplayed: state => {
+    return state.displayWelcome
+  }
+}
+
+const mutations = {
+  setCurrentSetupStep (state, step) {
+    state.currentSetupStep = step
   }
 }
 
 export default {
   state,
-  getters
+  getters,
+  mutations
 }

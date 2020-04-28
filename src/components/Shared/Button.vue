@@ -6,7 +6,7 @@
         v-bind="$attrs"
         v-else
         class="app-btn"
-        :class="{'normal': normal, 'small': small, 'primary': primary, 'secondary': secondary}"
+        :class="{'normal': normal, 'small': small, 'primary': primary, 'secondary': secondary, 'warning': warning}"
     >
         <slot></slot>
     </button>
@@ -19,7 +19,8 @@ export default {
     normal: Boolean,
     small: Boolean,
     primary: Boolean,
-    secondary: Boolean
+    secondary: Boolean,
+    warning: Boolean
   }
 }
 </script>
@@ -30,6 +31,7 @@ export default {
     border: none;
     border-radius: .5rem;
     color: $color-white;
+    margin: 1rem;
     cursor: pointer;
     transition: all .3 ease-in;
     &:focus {
@@ -52,7 +54,7 @@ export default {
     cursor: not-allowed;
     }
 }
-.secondary{
-        background: yellow;
+.warning {
+    background: $color-warning;
 }
 </style>

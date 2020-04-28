@@ -65,13 +65,13 @@ export default {
 <style lang="scss" scoped>
 .navContainer {
   position: fixed;
-  // background: red;
   right: 0;
   top: 0;
   z-index: 3;
   height: 9rem;
   &.not-authed {
     width: 45vw;
+    background: #fff;
     & .navBg {
       opacity: 0;
     }
@@ -93,6 +93,7 @@ export default {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        background: #f5f5f5;
         border-bottom: 1px solid $color-line;
         position: relative;
         z-index: 3;
@@ -105,7 +106,7 @@ export default {
       z-index: 2;
       background: $color-primary;
       &__in {
-        background: $color-white;
+        background:#f5f5f5;;
         height: 100%;
         width: 100%;
         position: absolute;

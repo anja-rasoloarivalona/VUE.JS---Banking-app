@@ -7,7 +7,7 @@
       :style="{boxShadow: boxShadow}"
   >
     <div class="wallet__chip">
-      <div class="wallet__chip__content" :class="{light: currentTheme.includes('light'), dark: currentTheme.includes('dark')}">
+      <div class="wallet__chip__content" :class="{light: currentTheme && currentTheme.includes('light'), dark: currentTheme && currentTheme.includes('dark')}">
         <div
           v-for="(point, i) in chipPoints"
           :key='i'
@@ -18,8 +18,8 @@
       </div>
     </div>
     <div class="wallet__supplier">{{wallet.supplier}}</div>
-    <div class="wallet__amount" :class="{'txt-mainColor': currentTheme.includes('dark')}">${{wallet.amount | amount }}</div>
-    <div class="wallet__type" :class="{'txt-darkColor': currentTheme.includes('dark')}">{{wallet.walletType}}</div>
+    <div class="wallet__amount" :class="{'txt-mainColor': currentTheme && currentTheme.includes('dark')}">${{wallet.amount | amount }}</div>
+    <div class="wallet__type" :class="{'txt-darkColor': currentTheme && currentTheme.includes('dark')}">{{wallet.walletType}}</div>
   </div>
 </template>
 
@@ -42,10 +42,10 @@ export default {
       'currentTheme'
     ]),
     boxShadow () {
-      if (this.currentTheme.includes('light')) {
-        return '2px 2px 3px #b8b7b7, -3px -3px 7px #ebebeb'
-      } else {
+      if (this.currentTheme && this.currentTheme.includes('dark')) {
         return '3px 3px 7px #191919, -3px -3px 7px #212121'
+      } else {
+        return '2px 2px 3px #b8b7b7, -3px -3px 7px #ebebeb'
       }
     }
   },

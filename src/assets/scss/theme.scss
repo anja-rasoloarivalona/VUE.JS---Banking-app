@@ -1,8 +1,20 @@
+:root {
+    --mainColor: #027a66;
+    --textColor: black;
+    --textColor--dark: #797979;
+    --backgroundColor: #f5f5f5;
+    --surfaceColor: #fff;
+    --on-surfaceColor: #b1afaf;
+    --calendarBackground: #f5f5f5;
+    --layer: linear-gradient(to right, rgb(20, 20, 20), rgb(20, 20, 20) );
+}
+
 $color-white: #fff;
 $color-grey--dark: #797979;
 $color-grey--light: #f5f5f5;
 $color-primary: #027a66;
 $color-primary--dark: #085044;
+$color-warning: #770101;
 
 $color-grey--main: #b1afaf;
 $color-line: #ece9e9;
@@ -31,16 +43,7 @@ $color-red: red;
 
 
 // Default 
-:root {
-    --mainColor: #027a66;
-    --textColor: black;
-    --textColor--dark: #797979;
-    --backgroundColor: #f5f5f5;
-    --surfaceColor: #fff;
-    --on-surfaceColor: #b1afaf;
-    --calendarBackground: #f5f5f5;
-    --layer: linear-gradient(to right, rgb(20, 20, 20), rgb(20, 20, 20) );
-}
+
 
 [theme="light-green"] {
     --mainColor: #027a66;

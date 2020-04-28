@@ -1,15 +1,15 @@
 <template>
   <div class="budget-form-container">
       <form class="budget-form">
-              <app-select-input v-model="type" :id="'type'" :options="['income', 'expense']"/>
+              <app-select-input v-model="type" :id="'type'" :options="['income', 'expense']" v-if="!externType"/>
               <!------------------------------- INCOME TEMPLATE ----------------------------->
               <template v-if="type === 'income'">
                   <app-basic-input v-model="income.name" :id="'name'" />
                   <app-basic-input v-model="income.amount" :id="'amount'"  />
                   <app-date-input v-model="income.lastPayout" :id="'last payout'"/>
                   <app-basic-input v-model="income.from" :id="'from'" />
-                  <app-select-input :id="'auto writing'"  :options="['yes', 'no']" v-model="income.autoWriting" />
                   <app-frequency-input v-model="income.frequency" :id="'frequency'"/>
+                  <app-select-input :id="'auto writing'"  :options="['yes', 'no']" v-model="income.autoWriting" />
                   <app-select-input :id="'notification'"  :options="['yes', 'no']" v-model="income.notification" />
               </template>
               <!------------------------------- EXPENSE TEMPLATE ----------------------------->
@@ -28,10 +28,13 @@
                       v-if="expense.expenseType === 'fixed'"
                   />
               </template>
-              <app-btn normal primary @click.native="submit" >
-                  <span v-if="!loading" v-text="selected ? 'Edit' : 'Add'"></span>
-                  <app-spinner v-else></app-spinner>
-              </app-btn>
+              <div class="budget-form__cta">
+                <app-btn normal warning v-if="isCancelBtnDisplayed" @click.native="$emit('hideForm')">Cancel</app-btn>
+                <app-btn normal primary @click.native="submit" >
+                    <span v-if="!loading" v-text="selected ? 'Edit' : 'Add'"></span>
+                    <app-spinner v-else></app-spinner>
+                </app-btn>
+              </div>
       </form>
   </div>
 </template>
@@ -81,9 +84,14 @@ export default {
     }
   },
   props: {
-    selected: Object
+    selected: Object,
+    externType: String,
+    isCancelBtnDisplayed: Boolean
   },
   mounted () {
+    if (this.externType) {
+      this.type = this.externType
+    }
     if (this.selected) {
       this[this.type] = {
         ...this.selected,
@@ -125,12 +133,17 @@ export default {
         }
       }
       // CHECK RESULT
-      if (result) {
-        this.loading = false
-        this.closeBackdrop()
-        this.$router.push('budget')
+      if (!this.externType) {
+        if (result) {
+          this.loading = false
+          this.closeBackdrop()
+          this.$router.push('budget')
+        } else {
+          this.loading = false
+        }
       } else {
         this.loading = false
+        this.$emit('hideForm')
       }
     }
   }
@@ -144,7 +157,7 @@ export default {
 }
 .budget-form {
     width: 100%;
-    padding-bottom: 7rem;
+    padding-bottom: 4rem;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: max-content;
@@ -154,10 +167,19 @@ export default {
     & .input.frequency {
       grid-column: 1 / 3;
     }
-    & button {
+    &__cta {
+        height: 8rem;
         position: absolute;
-        bottom: 3rem;
-        right: 3rem
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        // background: red;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        // & button {
+        //   height: 3.5rem;
+        // }
     }
     &__close {
         position: absolute;

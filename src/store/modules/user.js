@@ -13,6 +13,9 @@ const state = {
 }
 
 const getters = {
+  user: state => {
+    return state
+  },
   usersIncomesAndExpenses: state => {
     const usersIncomesAndExpenses = {}
     state.incomes.forEach(income => {

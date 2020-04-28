@@ -1,11 +1,13 @@
 <template>
-  <div id="app">
+  <div id="app" class="app">
     <sidebar />
     <navbar />
     <transition name="fade" mode="out-in" appear v-if="!isUserAuthed">
         <auth />
     </transition>
-    <router-view name="setup" v-else-if="currentAppStatus === 'setup'"/>
+    <div class="app__view" v-else>
+        <router-view name="setup" v-if="currentAppStatus === 'setup'"/>
+    </div>
     <!-- <router-view name="starter" v-if="!isAppReady"/>
     <div v-else-if="!loading" class="app-main">
       <sidebar></sidebar>
@@ -76,7 +78,7 @@ export default {
     // Backdrop
   },
   created: async function () {
-    localStorage.removeItem('bank-data')
+    // localStorage.removeItem('bank-data')
     const localData = localStorage.getItem('bank-data')
     if (!localData) {
       console.log('no local data')
@@ -105,25 +107,21 @@ export default {
 ::-webkit-scrollbar {
     display: none !important;
 }
-.app-main {
+.app {
   display: grid;
   grid-template-columns: 25rem minmax(8rem, 1fr) minmax(70vw, 120rem) minmax(8rem, 1fr);
   grid-template-rows: 9rem max-content;
-  background: var(--backgroundColor);
+  background: #f5f5f5;
   max-width: 100vw;
-  .app__view {
+  &__view {
     grid-row: 2 / 3;
     grid-column: 3 / 4;
-    background: var(--backgroundColor);
+    background: #f5f5f5;
     min-height: calc(100vh - 9rem);
+    height: 100%;
     width: 100%;
-    padding-top: 2rem;
+    padding-top: 3rem;
     position: relative;
-  }
-  .app__title {
-    &--md {
-      font-size: $font-xl;
-    }
   }
 }
 </style>

@@ -14,9 +14,9 @@
                </li>
            </ul>
            <div class="setup__view__content__form active" v-else>
-                <budget-form  @hideForm="hideForm" :editedWallet="editedWallet" :isCancelBtnDisplayed="true"/>
+                <budget-form  :externType="'income'" @hideForm="hideForm" :isCancelBtnDisplayed="true"/>
             </div>
-            <div class="setup__view__content__main__cta" v-if="!showForm && user.wallets.length > 0">
+            <div class="setup__view__content__main__cta" v-if="!showForm && user.incomes.length > 0">
                 <app-btn normal warning @click.native="setCurrentSetupStep('wallets')">Previous</app-btn>
                  <app-btn normal primary @click.native="setCurrentSetupStep('expenses')">Next</app-btn>
             </div>

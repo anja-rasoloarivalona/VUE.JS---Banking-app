@@ -30,10 +30,11 @@ export default {
 <style lang="scss" scoped>
 .expense {
     width: 25rem;
-    height: 10rem;
+    height: 12rem;
+    margin: 1rem 0;
     display: flex;
-    border-radius: .5rem;
-    padding: 1rem;
+    border-radius: 1rem;
+    padding: 1.5rem;
     background: blue;
     color: $color-white;
     cursor: pointer;

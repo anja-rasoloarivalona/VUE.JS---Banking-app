@@ -184,7 +184,7 @@ const actions = {
   addExpense: async function ({ commit }, expense) {
     const graphqlQuery = addExpenseQuery(expense)
     try {
-      const response = axios.post('', graphqlQuery)
+      const response = await axios.post('', graphqlQuery)
       const resData = response.data.data.addExpense
       resData.type = 'expenses'
       commit('addUserItem', resData)

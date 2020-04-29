@@ -7,6 +7,7 @@
             <wallets />
             <incomes />
             <expenses />
+            <goal />
         </div>
         <!-- <component v-else :is="currentSetupStep"></component> -->
     </div>
@@ -17,6 +18,7 @@ import Welcome from './Welcome'
 import Wallets from './Wallets'
 import Incomes from './Incomes'
 import Expenses from './Expenses'
+import Goal from './Goal'
 import { mapGetters } from 'vuex'
 import Backdrop from '@/components/Layout/Backdrop/Backdrop'
 export default {
@@ -43,7 +45,8 @@ export default {
     Backdrop,
     Wallets,
     Incomes,
-    Expenses
+    Expenses,
+    Goal
   }
 }
 </script>
@@ -69,12 +72,12 @@ export default {
             display: flex;
             flex-direction: column;
             align-items: center;
-            transition: all .3s ease-in;
+            transition: all .5s ease-in;
             &.left {
-                transform: translateX(-100%);
+                transform: translateX(-110%);
             }
             &.right {
-                transform: translateX(100%);
+                transform: translateX(110%);
             }
             &.center {
                 transform: translateX(0);

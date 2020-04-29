@@ -1,5 +1,5 @@
 <template>
-    <div class="setup__view__content" :class="{right: currentSetupStep !== 'expenses'}">
+    <div class="setup__view__content" :class="{right: currentSetupStep === 'wallets' || currentSetupStep === 'incomes', left: currentSetupStep === 'goal'}">
         <div class="setup__view__content__main" :class="{expand: user.expenses.length > 0}">
            <h1 class="setup__view__content__main__title">Expenses</h1>
            <div class="setup__view__content__main__details" v-if="user.expenses.length < 1">Now, let's setup your expenses.</div>
@@ -14,7 +14,7 @@
                </li>
            </ul>
            <div class="setup__view__content__form active" v-else>
-                <budget-form  @hideForm="hideForm" :editedWallet="editedWallet" :isCancelBtnDisplayed="true"/>
+                <budget-form  @hideForm="hideForm" :editedWallet="editedWallet" :isCancelBtnDisplayed="true" :externType="'expense'"/>
             </div>
             <div class="setup__view__content__main__cta" v-if="!showForm && user.expenses.length > 0">
                 <app-btn normal warning @click.native="setCurrentSetupStep('incomes')">Previous</app-btn>

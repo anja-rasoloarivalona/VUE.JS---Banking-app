@@ -9,6 +9,7 @@
               class="bg-grey"
             /> -->
             <input
+              v-bind="$attrs"
               :id="id"
               @input="updateSelf($event.target.value)"
               :value="value"
@@ -55,7 +56,7 @@ export default {
         margin-bottom: 2rem;
     }
     & span {
-        width: 10rem;
+        // width: 10rem;
         margin-bottom: 0.5rem;
         font-size: $font-m;
         color: var(--textColor--dark);

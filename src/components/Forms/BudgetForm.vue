@@ -8,9 +8,9 @@
                   <app-basic-input v-model="income.amount" :id="'amount'"  />
                   <app-date-input v-model="income.lastPayout" :id="'last payout'"/>
                   <app-basic-input v-model="income.from" :id="'from'" />
-                  <app-frequency-input v-model="income.frequency" :id="'frequency'"/>
                   <app-select-input :id="'auto writing'"  :options="['yes', 'no']" v-model="income.autoWriting" />
                   <app-select-input :id="'notification'"  :options="['yes', 'no']" v-model="income.notification" />
+                  <app-frequency-input v-model="income.frequency" :id="'frequency'"/>
               </template>
               <!------------------------------- EXPENSE TEMPLATE ----------------------------->
               <template v-if="type === 'expense'">
@@ -19,7 +19,6 @@
                   <app-basic-input v-model="expense.category" :id="'category'" />
                   <app-select-input v-model="expense.expenseType" :id="'Expense Type'"  :options="['variable', 'fixed']"/>
                   <app-basic-input v-model="expense.used" :id="'used'"  v-if="expense.expenseType === 'variable'"/>
-                  <app-date-input v-model="expense.lastPayout" id="last payout" v-if="expense.expenseType === 'fixed'"/>
                   <app-frequency-input
                       :id="'frequency'"
                       v-model="expense.frequency"
@@ -27,6 +26,7 @@
                       @selectPeriod="expense.frequency.period = $event"
                       v-if="expense.expenseType === 'fixed'"
                   />
+                  <app-date-input v-model="expense.lastPayout" id="last payout" v-if="expense.expenseType === 'fixed'"/>
               </template>
               <div class="budget-form__cta">
                 <app-btn normal warning v-if="isCancelBtnDisplayed" @click.native="$emit('hideForm')">Cancel</app-btn>
@@ -73,7 +73,7 @@ export default {
         category: '',
         used: 0,
         expenseType: 'variable',
-        lastPayout: '',
+        lastPayout: new Date(),
         frequency: {
           counter: 'once',
           period: 'a day',
@@ -89,6 +89,7 @@ export default {
     isCancelBtnDisplayed: Boolean
   },
   mounted () {
+    console.log('ext', this.externType)
     if (this.externType) {
       this.type = this.externType
     }
@@ -108,7 +109,6 @@ export default {
       'editIncome',
       'addExpense',
       'editExpense'
-
     ]),
     ...mapMutations([
       'closeBackdrop'
@@ -129,6 +129,7 @@ export default {
         if (this.selected) {
           result = await this.editExpense(this.expense)
         } else {
+          console.log('adding expense')
           result = await this.addExpense(this.expense)
         }
       }

@@ -167,9 +167,6 @@ export default {
             display: flex;
             align-items: center;
             justify-content: center;
-            // & button {
-            //     height: 3.5rem;
-            // }
         }
     }
 }
@@ -177,7 +174,7 @@ export default {
     font-size: $font-m;
     &__key {
         margin-bottom: .5rem;
-        color: $color-primary;
+        color: var(--mainColor);
     }
     &__value {
         height: 4rem;
@@ -185,8 +182,8 @@ export default {
         border: none;
         padding-left: 1rem;
         border-radius: 0.5rem;
-        background: $color-grey--light;
-        border: 1px solid $color-primary;
+        background: var(--backgroundColor);
+        border: 1px solid var(--mainColor);
         display: flex;
         align-items: center;
     }

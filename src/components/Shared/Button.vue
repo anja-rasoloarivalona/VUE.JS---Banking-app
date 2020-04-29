@@ -47,14 +47,14 @@ export default {
 }
 
 .primary{
-    background: $color-primary;
+    background: var(--mainColor);
     &:disabled {
-    background: $color-grey--main;
-    color: $color-grey--dark;
+    background: var(--on-surfaceColor);
+    color: var(--textColor--dark);
     cursor: not-allowed;
     }
 }
 .warning {
-    background: $color-warning;
+    background: var(--warningColor);
 }
 </style>

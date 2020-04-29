@@ -85,7 +85,7 @@ export default {
             &__main {
                 height: 16rem;
                 width: 100%;
-                background: $color-white;
+                background: var(--surfaceColor);
                 border-radius: .5rem;
                 padding: 2rem;
                 position: relative;
@@ -93,7 +93,7 @@ export default {
                     height: 90%;
                 }
                 &__title {
-                    color: $color-primary;
+                    color: var(--mainColor);
                     margin-bottom: 2rem;
                 }
                 &__details {
@@ -118,7 +118,7 @@ export default {
                             justify-content: center;
                             width: 25rem;
                             height: 12rem;
-                            border: 1px dashed $color-grey--dark;
+                            border: 1px dashed var(--textColor--dark);
                             border-radius: 1rem;
                             padding: 1rem;
                         }
@@ -130,7 +130,6 @@ export default {
                     left: 0;
                     right: 0;
                     margin: auto;
-                    // background: #d1d1d1;
                     display: flex;
                     justify-content: center;
                     padding: 2rem 0;

@@ -74,6 +74,10 @@ export default {
   fill: var(--surfaceColor)
 }
 
+.white {
+  fill: $color-white
+}
+
 .red {
   fill: $color-red
 }
@@ -89,7 +93,4 @@ export default {
   fill: $color-grey--dark
 }
 
-.white {
-  fill: $color-white
-}
 </style>

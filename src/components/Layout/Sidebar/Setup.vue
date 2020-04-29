@@ -16,59 +16,6 @@
             <div class="setup__sidenav__list__item__logo"></div>
           </li>
         </ul>
-
-        <!-- <ul class="setup__sidenav__stepsList">
-                <li class="setup__sidenav__stepsList__item"
-                    :class="{
-                        current: currentSetup === 'setup-wallet',
-                        checked : this.$store.state.user.wallets.length > 0
-                    }"
-                    @click="$emit('selectSetup', 'wallet')">
-                    <div class="setup__sidenav__stepsList__item__text">Wallet</div>
-                    <app-icon name="wallet" size="large" :color="checkWallets"/>
-                </li>
-
-                <div class="setup__sidenav__stepsList__bar">
-                    <div class="setup__sidenav__stepsList__bar__inner"
-                    :class="{full: ['setup-income', 'setup-expense', 'setup-savings-plan'].includes(currentSetup)}">
-                    </div>
-                </div>
-
-                <li class="setup__sidenav__stepsList__item"
-                    :class="{
-                      current: currentSetup === 'setup-income',
-                      checked: this.$store.state.user.incomes.length > 0 && ['setup-expense', 'setup-savings-plan'].includes(currentSetup)
-                    }"
-                    @click="$emit('selectSetup', 'income')">
-                    <div class="setup__sidenav__stepsList__item__text">Income</div>
-                    <app-icon name="income" size="large" :color="checkIncome"/>
-                </li>
-                <div class="setup__sidenav__stepsList__bar">
-                    <div class="setup__sidenav__stepsList__bar__inner"
-                    :class="{full: ['setup-expense', 'setup-savings-plan'].includes(currentSetup)}"></div>
-                </div>
-
-                <li class="setup__sidenav__stepsList__item"
-                    :class="{current: currentSetup === 'setup-expense',
-                    checked: this.$store.state.user.expenses.length > 0 && ['setup-savings-plan'].includes(currentSetup)
-                    }"
-                >
-                    <div class="setup__sidenav__stepsList__item__text">Expense</div>
-                    <app-icon name="expense" size="large" :color="checkExpense"/>
-                </li>
-                <div class="setup__sidenav__stepsList__bar">
-                    <div class="setup__sidenav__stepsList__bar__inner"
-                    :class="{full: ['setup-savings-plan'].includes(currentSetup)}"></div>
-                </div>
-
-                <li class="setup__sidenav__stepsList__item"
-                    :class="{
-                      current: currentSetup === 'setup-savings-plan'
-                    }">
-                    <div class="setup__sidenav__stepsList__item__text">Savings</div>
-                    <app-icon name="savings-plan" size="large" :color="checkSavings"/>
-                </li>
-        </ul> -->
     </div>
 </template>
 
@@ -139,16 +86,16 @@ export default {
         width: 90%;
         &__item {
             height: 8rem;
-            background: $color-white;
+            background: var(--surfaceColor);
             border-radius: 1rem;
             display: flex;
             align-items: center;
             margin-bottom: 3rem;
             padding: 1rem;
             &.active {
-              background: $color-primary--dark;
+              background: var(--mainColor--dark);
               & * {
-                color: $color-white
+                color: var(--surfaceColor)
               }
             }
             &__details {
@@ -165,7 +112,7 @@ export default {
               }
               &__subtitle {
                 display: flex;
-                color: $color-grey--dark;
+                color: var(--textColor--dark);
                 font-size: $font-m;
                 text-transform: capitalize;
               }

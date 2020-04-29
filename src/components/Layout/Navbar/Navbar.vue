@@ -71,14 +71,13 @@ export default {
   height: 9rem;
   &.not-authed {
     width: 45vw;
-    background: #fff;
+    background: var(--surfaceColor);
     & .navBg {
       opacity: 0;
     }
     & .nav {
       height: 100%;
       width: 100%;
-      // background: blue;
     }
   }
   &.authed {
@@ -94,7 +93,7 @@ export default {
         align-items: center;
         justify-content: space-between;
         background: #f5f5f5;
-        border-bottom: 1px solid $color-line;
+        border-bottom: 1px solid var(--lineColor);
         position: relative;
         z-index: 3;
         margin: 0 1rem;
@@ -104,7 +103,7 @@ export default {
       grid-row: 1 / 2;
       position: relative;
       z-index: 2;
-      background: $color-primary;
+      background: var(--mainColor);
       &__in {
         background:#f5f5f5;;
         height: 100%;

@@ -169,7 +169,7 @@ export default {
   &.authed {
     width: 25rem;
     padding: 0 2rem;
-    background: $color-primary;
+    background: var(--mainColor);
     & .sidebar__authImg h1 {
       opacity: 0;
     }

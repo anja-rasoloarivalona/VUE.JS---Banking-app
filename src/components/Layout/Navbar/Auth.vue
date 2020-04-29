@@ -34,7 +34,7 @@ export default {
     padding-right: 8rem;
     &__cta {
         font-size: $font-m;
-        color: $color-primary;
+        color: var(--mainColor);
         cursor: pointer;
         transition: all .2s ease-in;
         &:hover {

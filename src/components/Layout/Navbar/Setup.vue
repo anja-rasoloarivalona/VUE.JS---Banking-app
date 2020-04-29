@@ -54,18 +54,17 @@ export default {
         display: flex;
         &__item {
           font-size: $font-m;
-          color: $color-primary;
+          color: var(--mainColor);
           margin-right: 3rem;
           cursor: pointer;
         }
     }
     &__cta {
         font-size: $font-m;
-        color: $color-primary;
+        color: var(--mainColor);
         &__logout {
           cursor: pointer;
           transition: all .3s ease-in;
-          // background: red;
           border-radius: .5rem;
           display: flex;
           align-items: center;
@@ -74,8 +73,8 @@ export default {
             margin-right: 1rem;
           }
           &:hover {
-            background: $color-primary;
-            color: $color-white;
+            background: var(--mainColor);
+            color: var(--surfaceColor);
           }
         }
     }

@@ -37,6 +37,7 @@ export default {
   height: 1rem;
   fill: currentColor;
   cursor: pointer;
+  transition: all .3s ease-in;
 }
 
 /* sizes */

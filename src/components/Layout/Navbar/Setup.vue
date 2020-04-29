@@ -5,17 +5,34 @@
             <div class="setup__list__item" v-if="user.wallets.length > 0" @click="setCurrentSetupStep('incomes')">Incomes</div>
             <div class="setup__list__item" v-if="user.incomes.length > 0" @click="setCurrentSetupStep('expenses')">Expenses</div>
         </ul>
-        <div class="setup__cta">Logout</div>
+        <div class="setup__cta">
+          <div class="setup__cta__logout" @mouseenter="logoutHovered = true" @mouseleave="logoutHovered = false">
+              <div>Logout</div>
+              <app-icon name="logout" size="large" :color="logoutColor" />
+          </div>
+        </div>
     </div>
 </template>
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 export default {
+  data () {
+    return {
+      logoutHovered: false
+    }
+  },
   computed: {
     ...mapGetters([
       'user'
-    ])
+    ]),
+    logoutColor () {
+      if (this.logoutHovered) {
+        return 'white'
+      } else {
+        return 'primary'
+      }
+    }
   },
   methods: {
     ...mapMutations([
@@ -43,12 +60,23 @@ export default {
         }
     }
     &__cta {
-        cursor: pointer;
-        transition: all .2s ease-in;
         font-size: $font-m;
         color: $color-primary;
-        &:hover {
-            text-decoration: underline;
+        &__logout {
+          cursor: pointer;
+          transition: all .3s ease-in;
+          // background: red;
+          border-radius: .5rem;
+          display: flex;
+          align-items: center;
+          padding: 1rem 2rem;
+          & div {
+            margin-right: 1rem;
+          }
+          &:hover {
+            background: $color-primary;
+            color: $color-white;
+          }
         }
     }
 }

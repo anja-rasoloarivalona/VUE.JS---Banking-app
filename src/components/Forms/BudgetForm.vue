@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex'
+import { mapActions, mapMutations, mapGetters } from 'vuex'
 export default {
   data () {
     return {
@@ -76,12 +76,17 @@ export default {
         lastPayout: new Date(),
         frequency: {
           counter: 'once',
-          period: 'a day',
-          color: 'red'
+          period: 'a day'
         }
       },
       loading: false
     }
+  },
+  computed: {
+    ...mapGetters([
+      'user',
+      'secondaryColors'
+    ])
   },
   props: {
     selected: Object,
@@ -89,7 +94,6 @@ export default {
     isCancelBtnDisplayed: Boolean
   },
   mounted () {
-    console.log('ext', this.externType)
     if (this.externType) {
       this.type = this.externType
     }
@@ -126,11 +130,15 @@ export default {
       }
       // SUBMIT EXPENSE
       if (this.type === 'expense') {
+        const expenseData = {
+          ...this.expense,
+          color: this.secondaryColors[this.user.expenses.length]
+        }
         if (this.selected) {
-          result = await this.editExpense(this.expense)
+          result = await this.editExpense(expenseData)
         } else {
           console.log('adding expense')
-          result = await this.addExpense(this.expense)
+          result = await this.addExpense(expenseData)
         }
       }
       // CHECK RESULT

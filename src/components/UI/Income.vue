@@ -28,11 +28,9 @@ export default {
     display: flex;
     border-radius: 1rem;
     padding: 1.5rem;
-    background: red;
     color: $color-white;
     cursor: pointer;
     &__text {
-      // background: red;
       width: 50%;
     }
     &__value {

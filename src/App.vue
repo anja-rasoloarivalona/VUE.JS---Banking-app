@@ -7,6 +7,7 @@
     </transition>
     <div class="app__view" v-else>
         <router-view name="setup" v-if="currentAppStatus === 'setup'"/>
+        <router-view v-else/>
     </div>
     <!-- <router-view name="starter" v-if="!isAppReady"/>
     <div v-else-if="!loading" class="app-main">

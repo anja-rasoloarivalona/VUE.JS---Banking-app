@@ -14,7 +14,6 @@ const initQuery = {
         }
         status
         goal {
-         name
          amount
          date
         }

@@ -9,6 +9,13 @@ const loginQuery = input => {
                     email
                     password
                     status
+                    goal {
+                      amount
+                      date
+                    }
+                    settings {
+                      theme
+                    }
                     wallets {
                       _id
                       walletType

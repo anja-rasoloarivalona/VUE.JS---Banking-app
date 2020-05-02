@@ -30,14 +30,17 @@ export default {
 }
 
 button {
-  background: $color-primary;
+  background: var(--mainColor);
   height: 4.5rem;
   width: 100%;
+  margin: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   border: none;
   border-radius: 0.5rem;
+  margin: 0 !important;
+  margin-top: 2rem !important;
   cursor: pointer;
   & span {
   color: $color-white;

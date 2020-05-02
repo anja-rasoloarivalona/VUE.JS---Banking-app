@@ -17,6 +17,9 @@ const getters = {
   previousTheme: state => {
     return state.previousTheme
   },
+  localTheme: () => {
+    return localStorage.getItem('bank-theme')
+  },
   secondaryColors: state => {
     return state.secondaryColors
   },
@@ -42,6 +45,9 @@ const mutations = {
   // THEME
   setTheme (state, theme) {
     state.theme = theme
+    localStorage.setItem('bank-theme', theme)
+    const htmlElement = document.documentElement
+    htmlElement.setAttribute('theme', theme)
   },
   setPreviousTheme (state, theme) {
     state.previousTheme = theme
@@ -77,7 +83,6 @@ const mutations = {
       }
     })
     state.defaultDashboardLayout = layout
-    console.log('set dafaukt', data)
     state.currentDashboardLayout = layout
   },
   setEditDashboardToTrue (state) {

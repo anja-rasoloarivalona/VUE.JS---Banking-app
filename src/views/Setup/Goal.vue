@@ -2,9 +2,9 @@
     <div class="setup__view__content" :class="{right: currentSetupStep !== 'goal'}">
         <div class="setup__view__content__main">
             <h1 class="setup__view__content__main__title">Goal</h1>
-            <div class="setup__view__content__main__details" v-if="!goalAdded">To finish, let's setup your goal. We'll determine the earliest date you can achieve it according to your incomes and expenses data</div>
+            <div class="setup__view__content__main__details">To finish, let's setup your goal. We'll determine the earliest date you can achieve it according to your incomes and expenses data</div>
         </div>
-        <div class="setup__goal setup__view__content__form" v-if="!goalAdded">
+        <div class="setup__goal setup__view__content__form">
             <form class="form">
                 <app-basic-input v-model="goal" :id="'How much are you willing to save?'" :disabled="result"/>
                 <div class="setup__goal__result" v-if="result">
@@ -14,8 +14,8 @@
                 <div class="form__cta">
                     <app-btn normal primary @click.native="goalSimulator" v-if="!result">Simulate</app-btn>
                     <template v-else>
-                        <app-btn normal warning @click.native="result = null">Change goal</app-btn>
-                        <app-btn normal primary>Get started</app-btn>
+                        <app-btn normal warning @click.native="result = null">Change</app-btn>
+                        <app-btn normal primary @click.native="launchApp">Save</app-btn>
                     </template>
                 </div>
             </form>
@@ -24,23 +24,31 @@
 </template>
 
 <script>
+import axios from 'axios'
+import { editDashboardQuery } from '@/graphQL/editDashboardQuery'
 import { dateRangeCalculator } from '@/utilities/date-range-calculator.js'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 export default {
   data () {
     return {
       goal: 0,
-      result: null,
-      goalAdded: false
+      result: null
     }
   },
   computed: {
     ...mapGetters([
       'currentSetupStep',
-      'user'
+      'user',
+      'dashboardData'
     ])
   },
   methods: {
+    ...mapMutations([
+      'setAppStatus',
+      'addGoal',
+      'setDefaultDashboardLayout',
+      'setTheme'
+    ]),
     findNextMonth (d) {
       const year = d.getFullYear()
       let nextMonth = d.getMonth()
@@ -54,16 +62,13 @@ export default {
       return new Date(result)
     },
     goalSimulator () {
-      console.log('simulating')
       this.result = null
       const transactionsData = []
       let sumTotal = 0
-
       // Determine the total amount of money available to the user now.
       this.user.wallets.forEach(wallet => {
         sumTotal += wallet.amount
       })
-
       // Prepare incomes data for the simulation
       this.user.incomes.forEach(income => {
         transactionsData.push({
@@ -72,7 +77,6 @@ export default {
           frequency: income.frequency
         })
       })
-
       // Prepare expenses data for the simulation
       this.user.expenses.forEach(expense => {
         if (expense.expenseType === 'variable') {
@@ -94,15 +98,12 @@ export default {
           })
         }
       })
-      console.log(transactionsData)
       // Sort the array : we'll get the earliest transaction at the first index
       transactionsData.sort((a, b) => {
         return new Date(a.nextPayout) - new Date(b.nextPayout)
       })
-
       // Once the simulation is finished, the result will be stored in this variable
       let result
-
       // Launch simulation
       while (sumTotal < this.goal) {
         const currentTransaction = transactionsData[0]
@@ -115,38 +116,55 @@ export default {
           return new Date(a.nextPayout) - new Date(b.nextPayout)
         })
       }
-      console.log('result', result)
       this.result = result
-      console.log('res', this.result)
     },
-    addGoal: async function () {
+    saveGoal: async function () {
       const graphqlQuery = {
         query: `mutation {
               addGoal(goalInput: {
-                name: "${this.goal.name}",
-                amount: "${this.goal.amount}",
+                amount: "${this.goal}",
                 date: "${this.result}"
               }) {
-                name
                 amount
                 date
               }
         }`
       }
       try {
-        const response = await this.$http.post('', graphqlQuery)
-        const resData = await response.json()
-        const responseData = resData.data.addGoal
-        this.goalAdded = true
-        this.$store.commit('addGoal', responseData)
-        this.$store.commit('setUserStatus', 'active')
-        console.log(responseData)
+        const response = await axios.post('', graphqlQuery)
+        const resData = response.data.data.addGoal
+        this.addGoal(resData)
       } catch (err) {
-        console.log(err)
+        console.log('save goal', err.repsonse)
       }
     },
-    launchApp () {
-      this.$store.commit('setAppStatus', 'running')
+    initDashboardLayout: async function () {
+      this.setDefaultDashboardLayout(this.user)
+      const graphqlQuery = editDashboardQuery(this.dashboardData.currentDashboardLayout)
+      try {
+        await axios.post('/', graphqlQuery)
+      } catch (err) {
+        console.log('err init dashboard', err.repsonse)
+      }
+    },
+    launchApp: async function () {
+      try {
+        await this.saveGoal()
+        await this.initDashboardLayout()
+        this.$emit('setup-completed')
+        const localData = localStorage.getItem('bank-data')
+        const data = {
+          ...JSON.parse(localData),
+          appStatus: 'active'
+        }
+        localStorage.setItem('bank-data', JSON.stringify(data))
+        const htmlElement = document.documentElement
+        htmlElement.setAttribute('theme', 'light-green')
+        this.setAppStatus('active')
+        this.setTheme('light-green')
+      } catch (err) {
+        console.log('launc', err.response)
+      }
     }
   }
 }

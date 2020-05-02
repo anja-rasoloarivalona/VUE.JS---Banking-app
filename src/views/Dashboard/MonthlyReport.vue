@@ -21,20 +21,32 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   computed: {
+    ...mapGetters([
+      'user'
+    ]),
     report () {
-      const currentReport = {
-      }
+      const currentReport = {}
       const d = new Date()
       const period = `${d.getMonth() + 1}-${d.getFullYear()}`
-      const monthlyReports = this.$store.state.user.monthlyReports
-      monthlyReports.find((report, index) => {
-        if (report.period === period) {
-          currentReport.income = monthlyReports[index].income
-          currentReport.expense = monthlyReports[index].expense
+      const monthlyReports = this.user.monthlyReports
+      if (monthlyReports.length > 0) {
+        monthlyReports.find((report, index) => {
+          if (report.period === period) {
+            currentReport.income = monthlyReports[index].income
+            currentReport.expense = monthlyReports[index].expense
+          }
+        })
+        if (!currentReport.income && !currentReport.expense) {
+          currentReport.income = 0
+          currentReport.expense = 0
         }
-      })
+      } else {
+        currentReport.income = 0
+        currentReport.expense = 0
+      }
       return currentReport
     }
   }

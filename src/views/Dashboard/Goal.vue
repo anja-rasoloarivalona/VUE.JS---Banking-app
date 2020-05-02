@@ -4,7 +4,7 @@
             <h2 class="dashboard__section__title">Goal</h2>
             <div class="goal__detail__date">
                 <h3 class="goal__detail__date__key">Expected date:</h3>
-                <h3 class="goal__detail__date__value">{{$store.state.user.goal.date | short-date}}</h3>
+                <h3 class="goal__detail__date__value">{{user.goal.date | short-date}}</h3>
             </div>
         </div>
         <div class="goal__circle">
@@ -30,10 +30,11 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'currentTheme'
+      'currentTheme',
+      'user'
     ]),
     goalPercentage () {
-      return (this.$store.state.user.balance / this.$store.state.user.goal.amount) * 100
+      return (this.user.balance / this.user.goal.amount) * 100
     },
     strokeColor () {
       return theme[this.currentTheme]['--mainColor']

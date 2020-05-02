@@ -79,6 +79,7 @@ export default {
     ]),
     setLayout () {
       this.layout = this.dashboardData.currentDashboardLayout
+      console.log('layout', this.dashboardData.currentDashboardLayout)
     },
     layoutUpdatedEvent: function (newLayout) {
       this.updatedLayout = newLayout

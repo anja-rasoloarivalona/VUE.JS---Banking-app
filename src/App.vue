@@ -1,13 +1,13 @@
 <template>
-  <div id="app" class="app">
+  <div id="app" class="app bg-default">
     <sidebar />
     <navbar />
     <transition name="fade" mode="out-in" appear v-if="!isUserAuthed">
-        <auth />
+        <auth @appIsReady="loading = false"/>
     </transition>
-    <div class="app__view" v-else>
-        <router-view name="setup" v-if="currentAppStatus === 'setup'"/>
-        <router-view v-else/>
+    <div class="app__view bg-default" v-else>
+        <router-view name="setup" v-if="currentAppStatus.includes('setup')"/>
+        <router-view v-else-if="!loading" />
     </div>
     <!-- <router-view name="starter" v-if="!isAppReady"/>
     <div v-else-if="!loading" class="app-main">
@@ -37,9 +37,13 @@ export default {
   computed: {
     ...mapGetters([
       'isUserAuthed',
+      'isAuthLoading',
       'currentTheme',
       'currentAppStatus',
-      'backdropState'
+      'backdropState',
+      'localData',
+      'localTheme',
+      'user'
     ]),
     isAppReady () {
       if (this.currentAppStatus !== 'running') {
@@ -48,7 +52,7 @@ export default {
     }
   },
   watch: {
-    '$store.state.user.wallets': {
+    'user.wallets': {
       handler: 'setBalanceAmount',
       immediate: true
     }
@@ -57,12 +61,13 @@ export default {
     ...mapMutations([
       'setIsAuthToTrue',
       'setAppStatus',
-      'initBalance'
+      'initBalance',
+      'setTheme'
     ]),
     setBalanceAmount () {
       let balance = 0
       const creditCard = ['Visa', 'MasterCard']
-      this.$store.state.user.wallets.forEach(wallet => {
+      this.user.wallets.forEach(wallet => {
         if (!creditCard.includes(wallet.walletType)) {
           balance += wallet.amount
         } else {
@@ -80,12 +85,17 @@ export default {
   },
   created: async function () {
     // localStorage.removeItem('bank-data')
-    const localData = localStorage.getItem('bank-data')
-    if (!localData) {
+    // localStorage.removeItem('bank-theme')
+    if (this.localTheme && this.localTheme !== '') {
+      this.setTheme(this.localTheme)
+    } else {
+      this.setTheme('light-green')
+    }
+    if (!this.localData) {
       console.log('no local data')
       return
     }
-    const data = JSON.parse(localData)
+    const data = JSON.parse(this.localData)
     if (!data.token || !data.expiryDate) {
       console.log('NO TOKEN')
       return
@@ -94,10 +104,10 @@ export default {
       console.log('Token not valid anymore')
       return
     }
-    this.setIsAuthToTrue(data)
     axios.defaults.headers.common.Authorization = 'Bearer ' + data.token
     const initialization = await this.$store.dispatch('initialize')
     if (initialization) {
+      this.setIsAuthToTrue(data)
       this.loading = false
     }
   }
@@ -123,6 +133,8 @@ export default {
     width: 100%;
     padding-top: 3rem;
     position: relative;
+    display: flex;
+    justify-content: center;
   }
 }
 </style>

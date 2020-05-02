@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard">
     <dashboard-layout>
-      <template #balance v-if="isShown('balance')">
+      <template #balance>
         <balance></balance>
       </template>
       <template #wallet>
@@ -52,14 +52,14 @@ export default {
     ])
   },
   methods: {
-    isShown (item) {
-      const found = this.dashboardData.currentDashboardLayout.find(d => d.i === item)
-      if (found.displayed) {
-        return true
-      } else {
-        return false
-      }
-    }
+    // isShown (item) {
+    //   const found = this.dashboardData.currentDashboardLayout.find(d => d.i === item)
+    //   if (found.displayed) {
+    //     return true
+    //   } else {
+    //     return false
+    //   }
+    // }
   },
   components: {
     Transactions,
@@ -78,9 +78,9 @@ export default {
 
 <style lang='scss'>
 .dashboard {
+  width: 100%;
   max-width: 120rem;
-  grid-column: 2 / 3;
-
+  // grid-column: 2 / 3;
   &__section {
       background: var(--surfaceColor);
       border-radius: .5rem;

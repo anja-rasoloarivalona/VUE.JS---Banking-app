@@ -1,5 +1,5 @@
 <template>
-    <div class="auth">
+    <div class="auth" >
         <form @submit="submitForm" class="form">
             <transition name="flip" mode="out-in">
                 <component
@@ -23,7 +23,7 @@
 import { validator } from '@/utilities/input-validator.js'
 import Login from './Login'
 import Signup from './Signup'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -38,10 +38,23 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'authMode'
+      'authMode',
+      'localTheme',
+      'currentTheme'
     ])
   },
+  mounted () {
+    console.log('auth local theme', this.localTheme)
+    console.log('current theme', this.currentTheme)
+  },
   methods: {
+    ...mapMutations([
+      'setIsAuthToTrue',
+      'initAppData',
+      'setDefaultDashboardLayout',
+      'setTheme',
+      'setPreviousTheme'
+    ]),
     submitForm () {
       const data = this.userInput
       let errors
@@ -69,6 +82,12 @@ export default {
       const result = await this.$store.dispatch('login', this.userInput)
       if (result.success) {
         this.loading = false
+        this.initAppData(result.appData)
+        this.setDefaultDashboardLayout(result.appData)
+        this.setTheme(result.appData.settings.theme)
+        this.setPreviousTheme(result.appData.settings.theme)
+        this.setIsAuthToTrue(result.authData)
+        this.$emit('appIsReady')
       } else {
         this.loading = false
         this.errors = result.errors
@@ -100,6 +119,7 @@ export default {
     height: 100vh;
     right: 0;
     top: 0;
+    background: var(--backgroundColor);
     // background: red;
 }
 .form {

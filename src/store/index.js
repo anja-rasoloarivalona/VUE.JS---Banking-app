@@ -27,28 +27,16 @@ export default new Vuex.Store({
         const response = await axios.post('/', graphqlQuery)
         const resData = response.data.data.user
         const theme = resData.settings.theme
-
-        console.log(resData)
-
-        console.log('initalizing', this.state.settings.secondaryColors)
-
         commit('initAppData', resData)
-
         commit('setTheme', theme)
         commit('setPreviousTheme', theme)
         commit('setDefaultDashboardLayout', resData)
-
         if (resData.settings.dashboardLayout.length > 0) {
           commit('setCurrentDashboardLayout', resData.settings.dashboardLayout)
         }
-        const htmlElement = document.documentElement
-        htmlElement.setAttribute('theme', theme)
-        if (resData.status === 'active') {
-          commit('setAppStatus', 'running')
-        }
         return true
       } catch (err) {
-        console.log(err)
+        console.log(err.response)
       }
     }
   },

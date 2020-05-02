@@ -1,5 +1,12 @@
 <template>
-    <div class="sidebar" :class="{'not-authed': !isUserAuthed, 'authed': isUserAuthed}">
+    <div
+      class="sidebar"
+      :class="{
+        'not-authed': !isUserAuthed,
+        'authed': isUserAuthed,
+        'bg-surfaceColor': currentTheme && currentTheme.includes('dark'),
+        'bg-mainColor': currentTheme && currentTheme.includes('light')
+      }">
       <template v-if="!isUserAuthed">
           <transition name="fade" mode="out-in" appear>
               <div class="sidebar__authImg">
@@ -10,89 +17,18 @@
       </template>
       <template v-else>
          <transition name="fade" mode="out-in" appear>
-              <setup />
+           <component :is="currentAppStatus"></component>
           </transition>
       </template>
-
-        <!-- <div class="sidebar__header">
-            <div class="sidebar__header__logo"></div>
-        </div>
-        <template v-if="!isEditingDashboard">
-          <transition name="fade" mode="out-in" appear>
-              <ul class="sidebar__list" key="dashboard">
-                <li class="sidebar__list__item"
-                    v-for="(item, key) in items"
-                    :key="key"
-                    :class="{'bg-surfaceColor ': currentTheme.includes('light'), 'bg-on-surfaceColor': currentTheme.includes('dark') }"
-                >
-                    <div class="sidebar__list__item__title">
-                        <h2>{{key}}</h2>
-                        <div class="sidebar__list__item__subtitle">
-                            <div>{{item.subtitle}}</div>
-                            <div v-if="item.date">{{item.date | short-date}}</div>
-                        </div>
-                    </div>
-                    <div class="sidebar__list__item__details">
-                        <div class="sidebar__list__item__details__amount">${{ item.value | amount}}</div>
-                    </div>
-                </li>
-              </ul>
-          </transition>
-
-          <div
-            class="sidebar__add"
-            @click="openBackdrop('transactions')"
-            :class="{'bg-surfaceColor ': currentTheme.includes('light'), 'bg-mainColor': currentTheme.includes('dark') }"
-          >
-              <app-icon name="add" size="xxl" :color="addButtonBackground"></app-icon>
-          </div>
-        </template>
-        <template v-else>
-            <transition name="fade" mode="out-in" appear>
-                <editing-dashboard />
-            </transition>
-        </template> -->
     </div>
 </template>
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 import Setup from './Setup'
+import Active from './Active'
 // import EditingDashboard from './EditingDashboard'
 export default {
-  data () {
-    return {
-      items: {
-        balance: {
-          subtitle: 'Available',
-          value: 0
-        },
-        upcoming: null,
-        credit: {
-          subtitle: 'Used',
-          value: 0
-        },
-        budget: {
-          subtitle: 'Remaining',
-          value: 400
-        }
-      }
-    }
-  },
-  watch: {
-    userBalance: {
-      immediate: true,
-      handler (balance) {
-        this.items.balance.value = balance
-      }
-    },
-    creditBalance: {
-      immediate: true,
-      handler (credit) {
-        this.items.credit.value = credit
-      }
-    }
-  },
   methods: {
     ...mapMutations([
       'openBackdrop'
@@ -109,22 +45,11 @@ export default {
     ...mapGetters([
       'isUserAuthed',
       'currentAppStatus',
-
-      'userBalance',
-      'upcoming',
-      'creditBalance',
-      'currentTheme',
-      'isEditingDashboard'
-    ]),
-    addButtonBackground () {
-      if (this.currentTheme.includes('light')) {
-        return 'primary'
-      } else {
-        return 'surface'
-      }
-    }
+      'currentTheme'
+    ])
   },
   components: {
+    Active,
     Setup
     // 'editing-dashboard': EditingDashboard
   }
@@ -169,7 +94,7 @@ export default {
   &.authed {
     width: 25rem;
     padding: 0 2rem;
-    background: var(--mainColor);
+    // background: var(--surfaceColor);
     & .sidebar__authImg h1 {
       opacity: 0;
     }

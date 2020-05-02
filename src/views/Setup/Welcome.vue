@@ -1,6 +1,6 @@
 <template>
     <div class="welcome">
-        <h1>Welcome Anja!</h1>
+        <h1>Welcome {{this.$store.state.auth.userName}}!</h1>
         <div class="welcome__text">Let's setup your account</div>
         <app-btn normal primary @click.native="$emit('hideWelcome')">Setup</app-btn>
     </div>

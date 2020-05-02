@@ -13,7 +13,6 @@
               <div class="setup__sidenav__list__item__details__title"><h2>Step {{ index + 1}}</h2></div>
               <div class="setup__sidenav__list__item__details__subtitle">{{ step }}</div>
             </div>
-            <div class="setup__sidenav__list__item__logo"></div>
           </li>
         </ul>
     </div>

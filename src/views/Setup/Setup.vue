@@ -1,13 +1,16 @@
 <template>
     <div class="setup">
         <backdrop v-if="displayBackdrop">
-            <welcome v-if="displayWelcome" @hideWelcome="hideWelcome"/>
+            <transition name="fade" mode="out-in" appear="">
+                <welcome v-if="displayWelcome" @hideWelcome="hideWelcome"/>
+            </transition>
+            <completed v-if="currentAppStatus === 'setup-completed'"/>
         </backdrop>
-        <div class="setup__view"  v-else>
+        <div class="setup__view"  v-else-if="!loading">
             <wallets />
             <incomes />
             <expenses />
-            <goal />
+            <goal @setup-completed="displayBackdrop = true"/>
         </div>
         <!-- <component v-else :is="currentSetupStep"></component> -->
     </div>
@@ -19,25 +22,38 @@ import Wallets from './Wallets'
 import Incomes from './Incomes'
 import Expenses from './Expenses'
 import Goal from './Goal'
+import Completed from './Completed'
 import { mapGetters } from 'vuex'
 import Backdrop from '@/components/Layout/Backdrop/Backdrop'
 export default {
   data () {
     return {
-      displayBackdrop: true,
-      displayWelcome: true
+      loading: true,
+      displayBackdrop: false,
+      displayWelcome: false
     }
   },
   computed: {
     ...mapGetters([
-      'user'
+      'user',
+      'currentAppStatus'
     // 'currentSetupStep'
     ])
   },
+  mounted () {
+    this.loadWelcome()
+  },
   methods: {
+    loadWelcome () {
+      setTimeout(() => {
+        this.displayBackdrop = true
+        this.displayWelcome = true
+      }, 1000)
+    },
     hideWelcome () {
       this.displayBackdrop = false
       this.displayWelcome = false
+      this.loading = false
     }
   },
   components: {
@@ -46,7 +62,8 @@ export default {
     Wallets,
     Incomes,
     Expenses,
-    Goal
+    Goal,
+    Completed
   }
 }
 </script>
@@ -54,7 +71,7 @@ export default {
 <style lang="scss" >
 .setup {
     width: 100%;
-    height: 100%;
+    max-width: 120rem;
     position: relative;
     display: flex;
     justify-content: center;

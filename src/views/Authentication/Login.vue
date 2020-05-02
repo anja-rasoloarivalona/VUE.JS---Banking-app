@@ -23,23 +23,25 @@ export default {
 
 <style lang="scss" scoped>
 .title {
-        margin-bottom: 5rem;
-        font-size: 4rem;
-        color: $color-grey--dark;
-  }
+  margin-bottom: 5rem;
+  font-size: 4rem;
+  color: $color-grey--dark;
+}
 button {
-            background: $color-primary;
-            height: 4.5rem;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: none;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            & span {
-            color: $color-white;
-            margin-bottom: 0;
-            }
+  background: var(--mainColor);
+  height: 4.5rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  margin: 0 !important;
+  margin-top: 2rem !important;
+    & span {
+        color: $color-white;
+        margin-bottom: 0;
     }
+}
 </style>

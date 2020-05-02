@@ -21,6 +21,9 @@ const getters = {
   },
   authMode: state => {
     return state.authMode
+  },
+  localData: () => {
+    return localStorage.getItem('bank-data')
   }
 }
 
@@ -43,7 +46,7 @@ const mutations = {
     state.token = null
     state.userId = null
     state.userName = null
-    state.appStatus = 'authentication'
+    state.appStatus = 'auth'
     localStorage.removeItem('bank-data')
   },
   setAppStatus (state, newStatus) {
@@ -56,7 +59,6 @@ const actions = {
     const graphqlQuery = loginQuery(input)
     try {
       const response = await axios.post('/', graphqlQuery)
-      console.log('response', response)
       const resData = response.data.data.login
       const remainingMilliseconds = 24 * 60 * 60 * 1000
       const expiryDate = new Date(new Date().getTime() + remainingMilliseconds).toISOString()
@@ -69,10 +71,12 @@ const actions = {
         appStatus: resData.user.status,
         expiryDate: expiryDate
       }
-      commit('setIsAuthToTrue', data)
-      commit('initAppData', resData.user)
+      // commit('setIsAuthToTrue', data)
+      // commit('initAppData', resData.user)
       return {
-        success: true
+        success: true,
+        authData: data,
+        appData: resData.user
       }
     } catch (err) {
       return {
@@ -85,7 +89,6 @@ const actions = {
     const graphqlQuery = signupQuery(input)
     try {
       const response = await axios.post('/', graphqlQuery)
-      console.log('auth store', response)
       const resData = response.data.data.createUser
       const remainingMilliseconds = 24 * 60 * 60 * 1000
       const expiryDate = new Date(new Date().getTime() + remainingMilliseconds).toISOString()
@@ -96,6 +99,7 @@ const actions = {
         appStatus: resData.user.status,
         expiryDate: expiryDate
       }
+      axios.defaults.headers.common.Authorization = 'Bearer ' + resData.token
       commit('setIsAuthToTrue', data)
       return { succes: true }
     } catch (err) {

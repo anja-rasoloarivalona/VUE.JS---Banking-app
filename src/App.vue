@@ -1,23 +1,17 @@
 <template>
   <div id="app" class="app bg-default">
-    <sidebar />
-    <navbar />
-    <transition name="fade" mode="out-in" appear v-if="!isUserAuthed">
-        <auth @appIsReady="loading = false"/>
-    </transition>
-    <div class="app__view bg-default" v-else>
-        <router-view name="setup" v-if="currentAppStatus.includes('setup')"/>
-        <router-view v-else-if="!loading" />
+    <loader v-if="loading"/>
+    <template v-else>
+      <sidebar />
+      <navbar />
+      <transition name="fade" mode="out-in" appear v-if="!isUserAuthed">
+          <auth />
+      </transition>
+      <div class="app__view bg-default" v-else>
+          <router-view name="setup" v-if="currentAppStatus.includes('setup')"/>
+          <router-view v-else />
     </div>
-    <!-- <router-view name="starter" v-if="!isAppReady"/>
-    <div v-else-if="!loading" class="app-main">
-      <sidebar></sidebar>
-      <navbar></navbar>
-      <backdrop v-if="backdropState"></backdrop>
-      <div class="app__view">
-        <router-view/>
-      </div>
-    </div> -->
+    </template>
   </div>
 </template>
 
@@ -27,6 +21,7 @@ import axios from 'axios'
 import Sidebar from './components/Layout/Sidebar/Sidebar'
 import Navbar from './components/Layout/Navbar/Navbar'
 import Auth from './views/Authentication/Auth'
+import Loader from './components/Layout/Loader/Loader'
 // import Backdrop from './components/Layout/Backdrop/Backdrop'
 export default {
   data () {
@@ -37,7 +32,6 @@ export default {
   computed: {
     ...mapGetters([
       'isUserAuthed',
-      'isAuthLoading',
       'currentTheme',
       'currentAppStatus',
       'backdropState',
@@ -80,7 +74,8 @@ export default {
   components: {
     Sidebar,
     Auth,
-    Navbar
+    Navbar,
+    Loader
     // Backdrop
   },
   created: async function () {
@@ -93,19 +88,22 @@ export default {
     }
     if (!this.localData) {
       console.log('no local data')
+      this.loading = false
       return
     }
     const data = JSON.parse(this.localData)
     if (!data.token || !data.expiryDate) {
       console.log('NO TOKEN')
+      this.loading = false
       return
     }
     if (new Date(data.expiryDate) <= new Date()) {
       console.log('Token not valid anymore')
+      this.loading = false
       return
     }
     axios.defaults.headers.common.Authorization = 'Bearer ' + data.token
-    const initialization = await this.$store.dispatch('initialize')
+    const initialization = await this.$store.dispatch('fetchUserData')
     if (initialization) {
       this.setIsAuthToTrue(data)
       this.loading = false
@@ -122,12 +120,13 @@ export default {
   display: grid;
   grid-template-columns: 25rem minmax(8rem, 1fr) minmax(70vw, 120rem) minmax(8rem, 1fr);
   grid-template-rows: 9rem max-content;
-  background: #f5f5f5;
+  // background: #f5f5f5;
   max-width: 100vw;
+  min-height: 100vh;
   &__view {
     grid-row: 2 / 3;
     grid-column: 3 / 4;
-    background: #f5f5f5;
+    // background: #f5f5f5;
     min-height: calc(100vh - 9rem);
     height: 100%;
     width: 100%;

@@ -98,6 +98,8 @@ export default {
 <style lang="scss" scoped>
 .active {
     &__sidenav {
+      width: 100%;
+        height: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;

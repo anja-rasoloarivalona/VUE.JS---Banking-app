@@ -43,14 +43,10 @@ export default {
       'currentTheme'
     ])
   },
-  mounted () {
-    console.log('auth local theme', this.localTheme)
-    console.log('current theme', this.currentTheme)
-  },
   methods: {
     ...mapMutations([
       'setIsAuthToTrue',
-      'initAppData',
+      'setUserData',
       'setDefaultDashboardLayout',
       'setTheme',
       'setPreviousTheme'
@@ -82,12 +78,11 @@ export default {
       const result = await this.$store.dispatch('login', this.userInput)
       if (result.success) {
         this.loading = false
-        this.initAppData(result.appData)
+        this.setUserData(result.appData)
         this.setDefaultDashboardLayout(result.appData)
         this.setTheme(result.appData.settings.theme)
         this.setPreviousTheme(result.appData.settings.theme)
         this.setIsAuthToTrue(result.authData)
-        this.$emit('appIsReady')
       } else {
         this.loading = false
         this.errors = result.errors

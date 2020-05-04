@@ -8,14 +8,20 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
       available: 0
     }
   },
+  computed: {
+    ...mapGetters([
+      'user'
+    ])
+  },
   watch: {
-    '$store.state.user.wallets': {
+    'user.wallets': {
       handler: 'setAvailable',
       immediate: true
     }
@@ -24,7 +30,7 @@ export default {
     setAvailable () {
       let available = 0
       const creditCard = ['Visa', 'MasterCard']
-      this.$store.state.user.wallets.forEach(wallet => {
+      this.user.wallets.forEach(wallet => {
         if (!creditCard.includes(wallet.walletType)) {
           available += wallet.amount
         } else {

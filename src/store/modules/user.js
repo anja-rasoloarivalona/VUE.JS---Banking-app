@@ -103,7 +103,7 @@ const getters = {
 }
 
 const mutations = {
-  initAppData (state, data) {
+  setUserData (state, data) {
     state.wallets = data.wallets
     state.incomes = data.incomes
     state.expenses = data.expenses

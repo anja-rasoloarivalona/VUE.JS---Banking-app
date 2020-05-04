@@ -22,6 +22,7 @@ const loginQuery = input => {
                       amount
                       supplier
                       shortId
+                      creditLimit
                       color
                     }
                     monthlyReports {

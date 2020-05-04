@@ -21,13 +21,13 @@ export default new Vuex.Store({
   mutations: {
   },
   actions: {
-    async initialize ({ commit }) {
+    async fetchUserData ({ commit }) {
       const graphqlQuery = initQuery
       try {
         const response = await axios.post('/', graphqlQuery)
         const resData = response.data.data.user
         const theme = resData.settings.theme
-        commit('initAppData', resData)
+        commit('setUserData', resData)
         commit('setTheme', theme)
         commit('setPreviousTheme', theme)
         commit('setDefaultDashboardLayout', resData)

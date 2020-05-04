@@ -52,6 +52,7 @@ const loginQuery = input => {
                       lastPayout
                       nextPayout
                       used
+                      color
                       frequency {
                         counter
                         period
@@ -70,6 +71,7 @@ const loginQuery = input => {
                       nextPayout
                       autoWriting
                       notification
+                      color
                     }
                 }
             }

@@ -53,11 +53,11 @@ const initQuery = {
           lastPayout
           nextPayout
           used
+          color
           frequency {
               counter
               period
           }
-          color
         }
         incomes {
           _id

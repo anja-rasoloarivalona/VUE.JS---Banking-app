@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
@@ -24,17 +25,15 @@ export default {
     }
   },
   watch: {
-    '$store.state.expenses': {
+    'user.expenses': {
       handler: 'setBudget',
       immediate: true
     }
   },
   methods: {
     setBudget () {
-      let variableBudgetCounter = 0
-      this.$store.state.user.expenses.forEach(expense => {
+      this.user.expenses.forEach(expense => {
         if (expense.expenseType === 'variable') {
-          variableBudgetCounter++
           this.budget.push({
             _id: expense._id,
             name: expense.name,
@@ -44,10 +43,12 @@ export default {
           })
         }
       })
-      this.variableBudgetCounter = variableBudgetCounter
     }
   },
   computed: {
+    ...mapGetters([
+      'user'
+    ]),
     max () {
       let max = 0
       this.budget.forEach(item => {

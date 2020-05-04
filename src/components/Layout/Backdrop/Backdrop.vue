@@ -1,5 +1,5 @@
 <template>
-    <div class="backdrop">
+    <div class="backdrop" @click.self="closeBackdrop">
         <slot />
     </div>
 </template>

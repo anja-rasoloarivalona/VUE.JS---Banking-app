@@ -18,7 +18,7 @@
       </template>
       <template v-else>
          <transition name="fade" mode="out-in" appear>
-           <component :is="currentAppStatus"></component>
+           <component :is="displayed"></component>
           </transition>
       </template>
     </div>
@@ -28,31 +28,32 @@
 import { mapGetters, mapMutations } from 'vuex'
 import Setup from './Setup'
 import Active from './Active'
-// import EditingDashboard from './EditingDashboard'
+import EditingDashboard from './EditingDashboard'
 export default {
   methods: {
     ...mapMutations([
       'openBackdrop'
     ])
   },
-  created () {
-    // this.items.upcoming = {
-    //   subtitle: this.upcoming.name,
-    //   date: this.upcoming.date,
-    //   value: this.upcoming.value
-    // }
-  },
   computed: {
     ...mapGetters([
       'isUserAuthed',
       'currentAppStatus',
-      'currentTheme'
-    ])
+      'currentTheme',
+      'isEditingDashboard'
+    ]),
+    displayed () {
+      if (!this.isEditingDashboard) {
+        return this.currentAppStatus
+      } else {
+        return 'editingDashboard'
+      }
+    }
   },
   components: {
     Active,
-    Setup
-    // 'editing-dashboard': EditingDashboard
+    Setup,
+    EditingDashboard
   }
 }
 </script>

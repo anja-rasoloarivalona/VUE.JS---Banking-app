@@ -23,7 +23,7 @@
               </ul>
           <div
             class="active__sidenav__add"
-            @click="openBackdrop('transactions')"
+            @click="openModal('transactions')"
             :class="{'bg-surfaceColor ': currentTheme && currentTheme.includes('light'), 'bg-mainColor': currentTheme && currentTheme.includes('dark') }"
           >
               <app-icon name="add" size="xxl" :color="addButtonBackground"></app-icon>
@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -73,6 +73,11 @@ export default {
         this.items.credit.value = credit
       }
     }
+  },
+  methods: {
+    ...mapMutations([
+      'openModal'
+    ])
   },
   computed: {
     ...mapGetters([

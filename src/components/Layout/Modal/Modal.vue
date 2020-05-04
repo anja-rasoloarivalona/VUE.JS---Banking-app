@@ -1,8 +1,7 @@
 <template>
-    <backdrop @click.native.self="closeModal">
         <transition name="fade" appear>
             <div class="modal">
-                <div class="modal__close" @click="closeModal">
+                <div class="modal__close" @click="closeBackdrop">
                     <app-icon name="close" size="large" color="grey"/>
                 </div>
                 <div class="modal__list" :class="{'bg-grey': currentTheme.includes('light'), 'bg-default': currentTheme.includes('dark') }">
@@ -17,17 +16,15 @@
                 </div>
                 <div class="modal__view" :class="{'bg-surfaceColor': currentTheme.includes('light'), 'bg-on-surfaceColor': currentTheme.includes('dark') }">
                     <h2 class="modal__view__title">{{ modal.active }}</h2>
-                    <component :is="modal.active" @hideForm="closeModal"></component>
+                    <component :is="modal.active" @hideForm="closeBackdrop"></component>
                 </div>
             </div>
         </transition>
-    </backdrop>
 </template>
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 import Account from './Account'
-import Backdrop from '../Backdrop/Backdrop'
 import Design from './Design'
 import Expense from '@/components/Forms/ExpenseForm'
 import Ghost from './Ghost'
@@ -51,7 +48,7 @@ export default {
   methods: {
     ...mapMutations([
       'setModal',
-      'closeModal',
+      'closeBackdrop',
       'setEditDashboardToTrue'
     ]),
     changeModalView (nextView) {
@@ -64,7 +61,6 @@ export default {
   },
   components: {
     Account,
-    Backdrop,
     Design,
     Expense,
     Ghost,

@@ -10,7 +10,9 @@
       <div class="app__view bg-default" v-else>
           <router-view name="setup" v-if="currentAppStatus.includes('setup')"/>
           <router-view v-else />
-          <modal v-if="modal.isDisplayed"/>
+          <backdrop v-if="backdrop.isDisplayed">
+              <modal v-if="modal.isDisplayed"/>
+          </backdrop>
     </div>
     </template>
   </div>
@@ -24,6 +26,7 @@ import Navbar from './components/Layout/Navbar/Navbar'
 import Auth from './views/Authentication/Auth'
 import Loader from './components/Layout/Loader/Loader'
 import Modal from './components/Layout/Modal/Modal'
+import Backdrop from './components/Layout/Backdrop/Backdrop'
 export default {
   data () {
     return {
@@ -36,6 +39,7 @@ export default {
       'currentTheme',
       'currentAppStatus',
       'modal',
+      'backdrop',
       'localData',
       'localTheme',
       'user'
@@ -77,8 +81,8 @@ export default {
     Auth,
     Navbar,
     Loader,
-    Modal
-    // Backdrop
+    Modal,
+    Backdrop
   },
   created: async function () {
     // localStorage.removeItem('bank-data')

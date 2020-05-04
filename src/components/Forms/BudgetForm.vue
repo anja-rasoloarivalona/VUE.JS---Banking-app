@@ -1,9 +1,8 @@
 <template>
   <div class="budget-form-container">
       <form class="budget-form">
-              <app-select-input v-model="type" :id="'type'" :options="['income', 'expense']" v-if="!externType"/>
               <!------------------------------- INCOME TEMPLATE ----------------------------->
-              <template v-if="type === 'income'">
+              <template v-if="currentType === 'income'">
                   <app-basic-input v-model="income.name" :id="'name'" />
                   <app-basic-input v-model="income.amount" :id="'amount'"  />
                   <app-date-input v-model="income.lastPayout" :id="'last payout'"/>
@@ -13,7 +12,7 @@
                   <app-frequency-input v-model="income.frequency" :id="'frequency'"/>
               </template>
               <!------------------------------- EXPENSE TEMPLATE ----------------------------->
-              <template v-if="type === 'expense'">
+              <template v-if="currentType === 'expense'">
                   <app-basic-input v-model="expense.name" :id="'name'" />
                   <app-basic-input v-model="expense.amount" :id="'amount'"  />
                   <app-basic-input v-model="expense.category" :id="'category'" />
@@ -44,7 +43,7 @@ import { mapActions, mapMutations, mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      type: 'income',
+      currentType: 'income',
       attrs: [
         {
           key: 'today',
@@ -90,13 +89,17 @@ export default {
   },
   props: {
     selected: Object,
-    externType: String,
+    type: String,
     isCancelBtnDisplayed: Boolean
   },
-  mounted () {
-    if (this.externType) {
-      this.type = this.externType
+  watch: {
+    type: {
+      handler: 'setCurrentType',
+      immediate: true
     }
+  },
+  mounted () {
+    console.log('mounted', this.type)
     if (this.selected) {
       this[this.type] = {
         ...this.selected,
@@ -117,11 +120,17 @@ export default {
     ...mapMutations([
       'closeBackdrop'
     ]),
+    setCurrentType () {
+      console.log('fired')
+      console.log(this.type)
+      this.currentType = this.type
+      console.log(this.currentType)
+    },
     submit: async function () {
       this.loading = true
       let result = false
       // SUBMIT INCOME
-      if (this.type === 'income') {
+      if (this.currentType === 'income') {
         if (this.selected) {
           result = await this.editIncome(this.income)
         } else {
@@ -129,7 +138,7 @@ export default {
         }
       }
       // SUBMIT EXPENSE
-      if (this.type === 'expense') {
+      if (this.currentType === 'expense') {
         const expenseData = {
           ...this.expense,
           color: this.secondaryColors[this.user.expenses.length]

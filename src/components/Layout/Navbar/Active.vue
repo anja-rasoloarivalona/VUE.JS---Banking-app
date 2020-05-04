@@ -10,7 +10,7 @@
       <div class="active__cta">
         <app-icon name="eye" size="large" color="secondary" v-if="!isGhostModeActivated" @click="activateGhostMode"/>
         <app-icon name="eye-blocked" size="large" color="secondary" v-else @click="deactivateGhostMode"/>
-        <app-icon name="settings" size="large" :color="isSettingsPannelShowed" @click="openBackdrop('account')"/>
+        <app-icon name="settings" size="large" :color="isSettingsPannelShowed" @click="openModal('account')"/>
         <app-icon name="logout" size="large" color="secondary" @click="setIsAuthToFalse"/>
       </div>
     </div>
@@ -27,13 +27,12 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'backdropState',
-      'backdropModal',
+      'modal',
       'currentTheme',
       'isGhostModeActivated'
     ]),
     isSettingsPannelShowed () {
-      if (this.backdropState && this.backdropModal === 'settings') {
+      if (this.modal.isDisplayed) {
         return 'primary'
       } else return 'secondary'
     }
@@ -45,7 +44,7 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'openBackdrop',
+      'openModal',
       'activateGhostMode',
       'deactivateGhostMode',
       'setIsAuthToFalse'

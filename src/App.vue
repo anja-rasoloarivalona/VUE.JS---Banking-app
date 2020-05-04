@@ -10,6 +10,7 @@
       <div class="app__view bg-default" v-else>
           <router-view name="setup" v-if="currentAppStatus.includes('setup')"/>
           <router-view v-else />
+          <modal v-if="modal.isDisplayed"/>
     </div>
     </template>
   </div>
@@ -22,7 +23,7 @@ import Sidebar from './components/Layout/Sidebar/Sidebar'
 import Navbar from './components/Layout/Navbar/Navbar'
 import Auth from './views/Authentication/Auth'
 import Loader from './components/Layout/Loader/Loader'
-// import Backdrop from './components/Layout/Backdrop/Backdrop'
+import Modal from './components/Layout/Modal/Modal'
 export default {
   data () {
     return {
@@ -34,7 +35,7 @@ export default {
       'isUserAuthed',
       'currentTheme',
       'currentAppStatus',
-      'backdropState',
+      'modal',
       'localData',
       'localTheme',
       'user'
@@ -75,7 +76,8 @@ export default {
     Sidebar,
     Auth,
     Navbar,
-    Loader
+    Loader,
+    Modal
     // Backdrop
   },
   created: async function () {

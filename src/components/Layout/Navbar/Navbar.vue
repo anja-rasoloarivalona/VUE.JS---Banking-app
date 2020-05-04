@@ -90,7 +90,7 @@ export default {
         grid-column: 3 / 4;
         grid-row: 1 / 2;
         width: 100%;
-        max-width: 120rem;
+        max-width: 118rem;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -98,17 +98,15 @@ export default {
         position: relative;
         z-index: 3;
         margin: 0 1rem;
+        // padding: 0 1rem;
     }
     .navBg {
       grid-column: 2 / -1;
       grid-row: 1 / 2;
       position: relative;
       z-index: 2;
-      // background: var(--mainColor);
-      // background: red;
       width: 100%;
       &__in {
-        // background:#f5f5f5;;
         height: 100%;
         width: 100%;
         position: absolute;

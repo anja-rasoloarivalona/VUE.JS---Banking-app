@@ -12,7 +12,6 @@
             <expenses />
             <goal @setup-completed="displayBackdrop = true"/>
         </div>
-        <!-- <component v-else :is="currentSetupStep"></component> -->
     </div>
 </template>
 
@@ -42,6 +41,7 @@ export default {
   },
   mounted () {
     this.loadWelcome()
+    console.log('mounted')
   },
   methods: {
     loadWelcome () {

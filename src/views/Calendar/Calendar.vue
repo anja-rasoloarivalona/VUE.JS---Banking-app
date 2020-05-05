@@ -72,6 +72,7 @@ export default {
     top: 0;
     left: 0;
     width: 100%;
+    max-width: 120rem;
     height: 90%;
     padding-top: 3rem;
 }

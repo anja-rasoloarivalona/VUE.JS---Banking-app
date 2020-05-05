@@ -56,6 +56,8 @@ export default {
 
 <style lang="scss" scoped>
 .wallets {
+  width: 100%;
+  max-width: 120rem;
     & button {
         margin-bottom: 3rem;
     }

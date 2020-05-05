@@ -81,6 +81,8 @@ export default {
 
 <style lang="scss" scoped>
 .budget {
+    width: 100%;
+  max-width: 120rem;
     &__section {
         background: var(--app-item-bg);
         padding: 1rem;

@@ -18,7 +18,7 @@
                     v-for="(transaction, index) in userTransactions"
                     :key="transaction._id"
                     :transaction="transaction"
-                    :class="{'bg-white': index % 2 === 0, 'bg-secondary': index % 2 !== 0 }"
+                    :class="{'bg-on-surfaceColor': index % 2 === 0, 'bg-surfaceColor': index % 2 !== 0 }"
                     @editTransaction1="edit"
                 >
                 </app-transaction>

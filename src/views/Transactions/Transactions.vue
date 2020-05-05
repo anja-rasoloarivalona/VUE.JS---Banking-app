@@ -32,7 +32,8 @@ export default {
 
 <style lang="scss" scoped>
 .transactionsContainer {
-
+  width: 100%;
+  max-width: 120rem;
 }
 .transactions {
     &__empty {

@@ -17,9 +17,14 @@
           </transition>
       </template>
       <template v-else>
-         <transition name="fade" mode="out-in" appear>
-           <component :is="displayed"></component>
+        <div class="sidebar__content">
+          <div class="sidebar__content__header">
+            <div class="sidebar__content__header__logo"></div>
+          </div>
+          <transition name="fade" mode="out-in" appear>
+              <component :is="displayed"></component>
           </transition>
+        </div>
       </template>
     </div>
 </template>
@@ -102,6 +107,25 @@ export default {
     // background: var(--surfaceColor);
     & .sidebar__authImg h1 {
       opacity: 0;
+    }
+  }
+  &__content {
+    height: 100%;
+    width: 100%;
+    &__header {
+      height: 9rem;
+      margin-bottom: 3rem;
+      display: flex;
+      align-items: center;
+        justify-content: center;
+        &__logo {
+            width: 15rem;
+            height: 6rem;
+            background-image: url('../../../assets/logo.png');
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+          }
     }
   }
 }

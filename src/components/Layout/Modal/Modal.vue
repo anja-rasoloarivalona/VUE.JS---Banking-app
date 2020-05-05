@@ -56,7 +56,7 @@ export default {
         return this.setModal(nextView)
       }
       this.setEditDashboardToTrue()
-      this.closeModal()
+      this.closeBackdrop()
     }
   },
   components: {

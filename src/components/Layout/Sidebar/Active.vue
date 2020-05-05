@@ -103,27 +103,11 @@ export default {
 <style lang="scss" scoped>
 .active {
     &__sidenav {
-      width: 100%;
+        width: 100%;
         height: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
-        &__header {
-        height: 9rem;
-        margin-bottom: 3rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        &__logo {
-            width: 15rem;
-            height: 6rem;
-            background-image: url('../../../assets/logo.png');
-            background-position: center;
-            background-size: contain;
-            background-repeat: no-repeat;
-          }
-        }
-
         &__list {
         list-style: none;
         width: 90%;

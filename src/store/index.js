@@ -26,15 +26,7 @@ export default new Vuex.Store({
       try {
         const response = await axios.post('/', graphqlQuery)
         const resData = response.data.data.user
-        const theme = resData.settings.theme
-        commit('setUserData', resData)
-        commit('setTheme', theme)
-        commit('setPreviousTheme', theme)
-        commit('setDefaultDashboardLayout', resData)
-        if (resData.settings.dashboardLayout.length > 0) {
-          commit('setCurrentDashboardLayout', resData.settings.dashboardLayout)
-        }
-        return true
+        return resData
       } catch (err) {
         console.log(err.response)
       }

@@ -78,11 +78,10 @@ export default {
       const result = await this.$store.dispatch('login', this.userInput)
       if (result.success) {
         this.loading = false
-        this.setUserData(result.appData)
-        this.setDefaultDashboardLayout(result.appData)
-        this.setTheme(result.appData.settings.theme)
-        this.setPreviousTheme(result.appData.settings.theme)
-        this.setIsAuthToTrue(result.authData)
+        this.$emit('successLogin', {
+          auth: result.authData,
+          app: result.appData
+        })
       } else {
         this.loading = false
         this.errors = result.errors

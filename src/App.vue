@@ -5,7 +5,7 @@
       <sidebar />
       <navbar />
       <transition name="fade" mode="out-in" appear v-if="!isUserAuthed">
-          <auth />
+          <auth @successLogin="initializeApp($event)"/>
       </transition>
       <div class="app__view bg-default" v-else>
           <router-view name="setup" v-if="currentAppStatus.includes('setup')"/>
@@ -58,11 +58,23 @@ export default {
   },
   methods: {
     ...mapMutations([
+      // INIT APPLICATION
+      'setUserData',
       'setIsAuthToTrue',
+      'setDefaultDashboardLayout',
+      'setTheme',
+      'setPreviousTheme',
+      // OTHER
       'setAppStatus',
-      'initBalance',
-      'setTheme'
+      'initBalance'
     ]),
+    initializeApp ({ auth, app }) {
+      this.setUserData(app)
+      this.setIsAuthToTrue(auth)
+      this.setDefaultDashboardLayout(app)
+      this.setTheme(app.settings.theme)
+      this.setPreviousTheme(app.settings.theme)
+    },
     setBalanceAmount () {
       let balance = 0
       const creditCard = ['Visa', 'MasterCard']
@@ -97,21 +109,21 @@ export default {
       this.loading = false
       return
     }
-    const data = JSON.parse(this.localData)
-    if (!data.token || !data.expiryDate) {
+    const authData = JSON.parse(this.localData)
+    if (!authData.token || !authData.expiryDate) {
       console.log('NO TOKEN')
       this.loading = false
       return
     }
-    if (new Date(data.expiryDate) <= new Date()) {
+    if (new Date(authData.expiryDate) <= new Date()) {
       console.log('Token not valid anymore')
       this.loading = false
       return
     }
-    axios.defaults.headers.common.Authorization = 'Bearer ' + data.token
-    const initialization = await this.$store.dispatch('fetchUserData')
-    if (initialization) {
-      this.setIsAuthToTrue(data)
+    axios.defaults.headers.common.Authorization = 'Bearer ' + authData.token
+    const appData = await this.$store.dispatch('fetchUserData')
+    if (appData) {
+      this.initializeApp({ auth: authData, app: appData })
       this.loading = false
     }
   }

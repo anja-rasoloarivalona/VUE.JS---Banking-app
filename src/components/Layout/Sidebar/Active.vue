@@ -1,8 +1,5 @@
 <template>
     <div class="active__sidenav">
-        <div class="active__sidenav__header">
-            <div class="active__sidenav__header__logo"></div>
-        </div>
         <ul class="active__sidenav__list" key="dashboard">
                 <li class="active__sidenav__list__item"
                     v-for="(item, key) in items"

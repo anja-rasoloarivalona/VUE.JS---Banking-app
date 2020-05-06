@@ -14,7 +14,7 @@
                </li>
            </ul>
            <div class="setup__view__content__form active" v-else>
-                <budget-form  @hideForm="hideForm" :editedWallet="editedWallet" :isCancelBtnDisplayed="true" :externType="'expense'"/>
+                <ExpenseForm  @hideForm="hideForm" :editedWallet="editedWallet" :isCancelBtnDisplayed="true" :externType="'expense'"/>
             </div>
             <div class="setup__view__content__main__cta" v-if="!showForm && user.expenses.length > 0">
                 <app-btn normal warning @click.native="setCurrentSetupStep('incomes')">Previous</app-btn>
@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="setup__view__content__form" v-if="user.expenses.length < 1">
-            <budget-form :externType="'expense'" @hideForm="hideForm"></budget-form>
+            <ExpenseForm  @hideForm="hideForm"></ExpenseForm>
         </div>
 
     </div>
@@ -31,7 +31,7 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 import Expense from '@/components/UI/Expense'
-import BudgetForm from '@/components/Forms/BudgetForm'
+import ExpenseForm from '@/components/Forms/ExpenseForm'
 export default {
   data () {
     return {
@@ -53,7 +53,7 @@ export default {
     }
   },
   components: {
-    BudgetForm,
+    ExpenseForm,
     Expense
   }
 }

@@ -30,6 +30,7 @@ export default {
     padding: 1.5rem;
     color: $color-white;
     cursor: pointer;
+    background: var(--mainColor);
     &__text {
       width: 50%;
     }

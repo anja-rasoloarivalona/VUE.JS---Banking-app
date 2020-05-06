@@ -9,7 +9,9 @@
       </transition>
       <div class="app__view bg-default" v-else>
           <router-view name="setup" v-if="currentAppStatus.includes('setup')"/>
-          <router-view v-else />
+          <transition v-else :name="routerTransition" mode="out-in" appear>
+              <router-view />
+          </transition>
           <backdrop v-if="backdrop.isDisplayed">
               <modal v-if="modal.isDisplayed"/>
           </backdrop>
@@ -30,7 +32,8 @@ import Backdrop from './components/Layout/Backdrop/Backdrop'
 export default {
   data () {
     return {
-      loading: true
+      loading: true,
+      routerTransition: 'slide-from-right'
     }
   },
   computed: {
@@ -54,6 +57,19 @@ export default {
     'user.wallets': {
       handler: 'setBalanceAmount',
       immediate: true
+    },
+    '$route' (to, from) {
+      const paths = ['/', '/transactions', '/budget', '/wallet', '/calendar']
+      const toIndex = paths.indexOf(to.path)
+      const fromIndex = paths.indexOf(from.path)
+      if (fromIndex < toIndex) {
+        this.routerTransition = 'slide-from-right'
+      } else {
+        this.routerTransition = 'slide-from-left'
+      }
+      console.log('routes', fromIndex, toIndex)
+      // console.log('to', to)
+      // console.log('from', from)
     }
   },
   methods: {

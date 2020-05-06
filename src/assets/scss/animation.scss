@@ -1,3 +1,4 @@
+// FLIP 
 .flip-enter-active {
     animation: flip-in .5s ease-out forwards;
 }
@@ -21,13 +22,13 @@
     }
 }
 
+// FADE
 .fade-enter-active {
     animation: fade-in .5s ease-out forwards;
 }
 .fade-leave-active {
     animation: fade-out .5s ease-out forwards;
 }
-
 @keyframes fade-in {
     from {
         transform: translateY(2rem);
@@ -38,7 +39,6 @@
         opacity: 1;
     }
 }
-
 @keyframes fade-out {
     from {
         transform: translateY(0rem);
@@ -50,13 +50,13 @@
     }
 }
 
+// FADE FROM TOP
 .fade-from-top-enter-active {
     animation: fade-from-top-in .5s ease-out forwards;
 }
 .fade-from-top-leave-active {
     animation: fade-from-top-out .5s ease-out forwards;
 }
-
 @keyframes fade-from-top-in {
     from {
         transform: translateY(-2rem);
@@ -67,7 +67,6 @@
         opacity: 1;
     }
 }
-
 @keyframes fade-from-top-out {
     from {
         transform: translateY(0rem);
@@ -76,5 +75,55 @@
     to {
         transform: translateY(-2rem);
         opacity: 0;
+    }
+}
+
+// ---------- SLIDE ------------------------ //
+ 
+/*** FROM RIGHT ***/
+.slide-from-right-enter-active {
+    animation: slide-from-right-in .3s ease-out forwards;
+}
+.slide-from-right-leave-active {
+    animation: slide-from-right-out .3s ease-out forwards;
+}
+@keyframes slide-from-right-in {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+@keyframes slide-from-right-out {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-110%);
+    }
+}
+
+/*** FROM LEFT ***/
+.slide-from-left-enter-active {
+    animation: slide-from-left-in .3s ease-out forwards;
+}
+.slide-from-left-leave-active {
+    animation: slide-from-left-out .3s ease-out forwards;
+}
+@keyframes slide-from-left-in {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+@keyframes slide-from-left-out {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(110%);
     }
 }

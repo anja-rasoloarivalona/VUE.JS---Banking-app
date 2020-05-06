@@ -29,6 +29,7 @@ export default {
   },
   mounted () {
     this.data = this.dashboardData.currentDashboardLayout
+    console.log('data', this.data)
   },
   computed: {
     ...mapGetters([

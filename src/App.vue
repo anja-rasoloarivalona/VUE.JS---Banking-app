@@ -67,9 +67,6 @@ export default {
       } else {
         this.routerTransition = 'slide-from-left'
       }
-      console.log('routes', fromIndex, toIndex)
-      // console.log('to', to)
-      // console.log('from', from)
     }
   },
   methods: {

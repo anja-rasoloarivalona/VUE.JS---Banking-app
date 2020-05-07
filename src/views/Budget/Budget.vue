@@ -1,6 +1,14 @@
 <template>
     <div class="budget">
-        <div class="budget__section"
+        <div class="budget__nav">
+            <div class="budget__nav__item" :class="{active: active === 'plan'}" @click="active = 'plan'">Plan</div>
+            <div class="budget__nav__item" :class="{active: active === 'report'}" @click="active = 'report'">Report</div>
+        </div>
+        <div class="budget__view">
+            <plan />
+        </div>
+
+        <!-- <div class="budget__section"
             v-if="!selected || selectedType === 'income'"
             :class="{'app-bg-primary': showForm}"
         >
@@ -43,17 +51,19 @@
                 >
                 </app-expense>
             </ul>
-        </div>
+        </div> -->
     </div>
 </template>
 
 <script>
-import BudgetForm from '@/components/Forms/BudgetForm'
-import Income from '@/components/UI/Income'
-import Expense from '@/components/UI/Expense'
+// import BudgetForm from '@/components/Forms/BudgetForm'
+// import Income from '@/components/UI/Income'
+// import Expense from '@/components/UI/Expense'
+import Plan from './Plan'
 export default {
   data () {
     return {
+      active: 'plan',
       showForm: false,
       selected: null,
       selectedType: null
@@ -72,9 +82,10 @@ export default {
     }
   },
   components: {
-    'app-income': Income,
-    'app-expense': Expense,
-    'budget-form': BudgetForm
+    Plan
+    // 'app-income': Income,
+    // 'app-expense': Expense,
+    // 'budget-form': BudgetForm
   }
 }
 </script>
@@ -82,7 +93,37 @@ export default {
 <style lang="scss" scoped>
 .budget {
     width: 100%;
-  max-width: 120rem;
+    max-width: 120rem;
+    background: var(--surfaceColor);
+    border-radius: .5rem;
+    display: flex;
+    flex-direction: column;
+    &__nav {
+        display: flex;
+        background: var(--backgroundColor);
+        font-size: $font-m;
+        &__item {
+            width: 15rem;
+            padding: 1.6rem 0;
+            // margin-right: 1rem;
+            // background: red;
+            background: var(--on-surfaceColor);
+            color: var(--textColor--dark);
+            text-align: center;
+            transition: all .3s ease-in;
+            &.active {
+                background: var(--surfaceColor);
+                color: var(--mainColor)
+            }
+        }
+    }
+    &__view {
+        // background: red;
+        width: 100%;
+        flex: 1;
+        padding: 3rem;
+        // height: 100%;
+    }
     &__section {
         background: var(--app-item-bg);
         padding: 1rem;

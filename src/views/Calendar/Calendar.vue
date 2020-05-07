@@ -24,7 +24,7 @@ export default {
         {
           // key: 'tomorrow',
           highlight: {
-            class: 'orangered'
+            class: 'bg-059782'
           },
           popover: {
             label: 'LOL'
@@ -43,19 +43,28 @@ export default {
         transactions.push(transaction)
       }
     }
-    console.log(this.attrs)
     transactions.forEach(transaction => {
+      let customClass
+      if (transaction.color && transaction.color !== 'undefined') {
+        console.log(transaction.color === 'undefined')
+        customClass = transaction.color.substring(1)
+      } else {
+        customClass = 'mainColor'
+      }
       attrs.push({
         key: transaction.name,
-        dot: transaction.color,
+        highlight: {
+          class: `bg-${customClass}`
+        },
         popover: {
           label: transaction.name
+          // hideIndicator: true
         },
-        dates: [new Date(transaction.lastPayout)]
+        dates: [new Date(transaction.lastPayout), new Date(transaction.nextPayout)]
       })
     })
-    console.log(attrs)
-    // this.attrs = attrs
+    console.log('attrs', attrs)
+    this.attrs = attrs
   },
   computed: {
     ...mapGetters([
@@ -108,11 +117,26 @@ export default {
 .vc-text-gray-800 {
     color: var(--mainColor);
 }
-// .vc-highlight {
-//     background: orangered !important;
-// }
 
-.orangered {
-    background: orangered !important;
+// EXPENSES COLOOOOOR
+
+.bg-mainColor {
+    background: var(--mainColor) !important;
+}
+
+.bg-059782 {
+  background: #059782 !important;
+}
+.bg-99a1d7 {
+  background: #99a1d7 !important;
+}
+.bg-2bac49 {
+  background: #2bac49 !important;
+}
+.bg-3144af {
+  background: #3144af !important;
+}
+.bg-59bcd8 {
+  background: #59bcd8 !important;
 }
 </style>

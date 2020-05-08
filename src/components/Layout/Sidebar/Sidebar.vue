@@ -30,16 +30,11 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters } from 'vuex'
 import Setup from './Setup'
 import Active from './Active'
 import EditingDashboard from './EditingDashboard'
 export default {
-  methods: {
-    ...mapMutations([
-      'openBackdrop'
-    ])
-  },
   computed: {
     ...mapGetters([
       'isUserAuthed',

@@ -10,11 +10,11 @@
       <div class="active__cta" v-click-outside="hideCtaList">
         <app-icon name="eye" size="large" color="secondary" v-if="!isGhostModeActivated" @click="activateGhostMode"/>
         <app-icon name="eye-blocked" size="large" color="secondary" v-else @click="deactivateGhostMode"/>
-        <app-icon name="settings" size="large" :color="isSettingsPannelShowed" @click="showList = !showList"/>
+        <app-icon name="settings" size="large" :color="isSettingsPannelShowed" @click="showList = !showList" />
         <app-icon name="logout" size="large" color="secondary" @click="setIsAuthToFalse"/>
         <div class="active__cta__list" v-if="showList">
             <div class="active__cta__list__item">Account</div>
-            <div class="active__cta__list__item">Settings</div>
+            <div class="active__cta__list__item" @click="openBackdrop('settings')">Settings</div>
             <div class="active__cta__list__item">Logout</div>
         </div>
       </div>
@@ -32,12 +32,12 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'modal',
+      'settingsModal',
       'currentTheme',
       'isGhostModeActivated'
     ]),
     isSettingsPannelShowed () {
-      if (this.modal.isDisplayed) {
+      if (this.settingsModal.isDisplayed) {
         return 'primary'
       } else return 'secondary'
     }
@@ -49,20 +49,15 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'openModal',
+      'openBackdrop',
       'activateGhostMode',
       'deactivateGhostMode',
       'setIsAuthToFalse'
     ]),
     hideCtaList () {
-      console.log('hide?')
       if (this.showList) {
-        console.log('yes?')
         this.showList = false
       }
-    },
-    test () {
-      console.log('clicked test')
     }
   },
   mounted () {

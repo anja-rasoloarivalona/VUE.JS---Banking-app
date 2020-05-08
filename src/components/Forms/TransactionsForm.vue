@@ -1,7 +1,8 @@
 <template>
     <div class="transactions-form">
+        <slot />
         <form>
-            <app-date-input :id="'last payout'" v-model="input.date" />
+            <app-date-input :id="'date'" v-model="input.date" />
             <app-select-input :id="'name'" v-model="input.name" :options="[...Object.keys(usersIncomesAndExpenses), 'New transaction']" />
             <app-basic-input  :id="'amount'" v-model="input.amount" />
             <app-basic-input  :id="'details'" v-model="input.details" />
@@ -9,10 +10,13 @@
             <app-select-input :id="'status'" v-model="input.status" :options="['Paid', 'Pending']" />
             <app-basic-input :id="'counter party'" v-model="input.counterparty" v-if="showCounterparty"/>
         </form>
-        <app-btn normal primary @click.native="submitForm">
-                <span v-if="!loading" v-text="isEditingTransaction ? 'Edit': 'Add'"></span>
-                <app-spinner v-else></app-spinner>
-        </app-btn>
+        <div class="transactions-form__cta">
+            <app-btn normal warning v-if="isCancelBtnDisplayed" @click.native="closeBackdrop">Cancel</app-btn>
+            <app-btn normal primary @click.native="submitForm">
+                    <span v-if="!loading" v-text="isEditingTransaction ? 'Edit': 'Add'"></span>
+                    <app-spinner v-else></app-spinner>
+            </app-btn>
+        </div>
     </div>
 </template>
 
@@ -32,7 +36,7 @@ export default {
         status: 'Paid',
         transactionType: null,
         counterparty: '',
-        category: ''// for expenses only
+        category: ''
       },
       loading: false,
       date: new Date(),
@@ -135,7 +139,6 @@ export default {
       this.input.usedWallet = Object.keys(this.walletsNameAndId)[0]
       this.input.walletId = this.walletsNameAndId[this.input.usedWallet]
     } else {
-      console.log('mounted', this.isEditingTransaction)
       let usedWallet = ''
       for (const walletName in this.walletsNameAndId) {
         if (this.walletsNameAndId[walletName] === this.isEditingTransaction.usedWalletId) {
@@ -150,7 +153,6 @@ export default {
         usedWallet: usedWallet
       }
       this.input = editedData
-      console.log('editing', this.input)
       this.date = this.isEditingTransaction.date
     }
   },
@@ -184,13 +186,15 @@ export default {
         this.loading = false
       }
     }
+  },
+  props: {
+    isCancelBtnDisplayed: Boolean
   }
 }
 </script>
 
 <style lang="scss">
 .transactions-form {
-    height: 50rem;
     & form {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -200,9 +204,9 @@ export default {
         row-gap: 1rem;
     }
     &__input-date {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
         & label {
             display: flex;
             flex-direction: column;
@@ -220,11 +224,9 @@ export default {
             }
         }
     }
-
-    & button {
-      position: absolute;
-      bottom: 3rem;
-      right: 3rem;
+    &__cta {
+       display: flex;
+       justify-content: center;
     }
 }
 .vc-border {

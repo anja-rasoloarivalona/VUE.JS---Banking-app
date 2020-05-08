@@ -45,7 +45,6 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'openBackdrop',
       'activateGhostMode',
       'deactivateGhostMode',
       'setIsAuthToFalse'

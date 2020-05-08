@@ -1,36 +1,45 @@
 const state = {
-  displayModal: false,
-  activeModal: null,
-  displayBackdrop: false
+  displayBackdrop: false,
+  displaySettingsModal: false,
+  activeSettingsModal: 'general',
+  activeBackdrop: null
 }
 
 const getters = {
-  modal: state => {
+  settingsModal: state => {
     return {
-      isDisplayed: state.displayModal,
-      active: state.activeModal
+      isDisplayed: state.displaySettingsModal,
+      active: state.activeSettingsModal
     }
   },
   backdrop: state => {
     return {
-      isDisplayed: state.displayBackdrop
+      isDisplayed: state.displayBackdrop,
+      active: state.activeBackdrop
     }
   }
 }
 
 const mutations = {
-  setModal (state, modal) {
-    state.activeModal = modal
+  setSettingsModal (state, modal) {
+    state.activeSettingsModal = modal
   },
-  openModal (state, modal) {
-    state.displayBackdrop = true
-    state.activeModal = modal
-    state.displayModal = true
-  },
+  // openSettingsModal (state, modal) {
+  //   state.displayBackdrop = true
+  //   state.displaySettingsModal = true
+  //   state.activeSettingsModal = modal
+  // },
   closeBackdrop (state) {
     state.displayBackdrop = false
-    state.displayModal = false
-    state.activeModal = null
+    state.displaySettingsModal = false
+    state.activeSettingsModal = 'general'
+    state.activeBackdrop = null
+  },
+  openBackdrop (state, activeBackdrop) {
+    state.displayBackdrop = true
+    if (activeBackdrop) {
+      state.activeBackdrop = activeBackdrop
+    }
   }
 }
 

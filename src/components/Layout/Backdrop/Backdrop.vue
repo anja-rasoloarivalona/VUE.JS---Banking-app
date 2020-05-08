@@ -1,16 +1,27 @@
 <template>
     <div class="backdrop" @click.self="closeBackdrop">
-        <slot />
+        <component :is="backdrop.active"></component>
     </div>
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
+import Transactions from './Transactions'
+import Settings from './Settings/Settings'
 export default {
   methods: {
     ...mapMutations([
       'closeBackdrop'
     ])
+  },
+  computed: {
+    ...mapGetters([
+      'backdrop'
+    ])
+  },
+  components: {
+    Transactions,
+    Settings
   }
 }
 </script>

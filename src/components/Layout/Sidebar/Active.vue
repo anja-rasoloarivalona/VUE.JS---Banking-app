@@ -20,7 +20,7 @@
               </ul>
           <div
             class="active__sidenav__add"
-            @click="openModal('transactions')"
+            @click="openBackdrop('transactions')"
             :class="{'bg-surfaceColor ': currentTheme && currentTheme.includes('light'), 'bg-mainColor': currentTheme && currentTheme.includes('dark') }"
           >
               <app-icon name="add" size="xxl" :color="addButtonBackground"></app-icon>
@@ -73,7 +73,7 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'openModal'
+      'openBackdrop'
     ])
   },
   computed: {

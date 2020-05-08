@@ -13,7 +13,7 @@
               <router-view />
           </transition>
           <backdrop v-if="backdrop.isDisplayed">
-              <modal v-if="modal.isDisplayed"/>
+              <!-- <modal v-if="modal.isDisplayed"/> -->
           </backdrop>
     </div>
     </template>
@@ -27,7 +27,7 @@ import Sidebar from './components/Layout/Sidebar/Sidebar'
 import Navbar from './components/Layout/Navbar/Navbar'
 import Auth from './views/Authentication/Auth'
 import Loader from './components/Layout/Loader/Loader'
-import Modal from './components/Layout/Modal/Modal'
+// import Modal from './components/Layout/Modal/Modal'
 import Backdrop from './components/Layout/Backdrop/Backdrop'
 export default {
   data () {
@@ -106,7 +106,7 @@ export default {
     Auth,
     Navbar,
     Loader,
-    Modal,
+    // Modal,
     Backdrop
   },
   created: async function () {

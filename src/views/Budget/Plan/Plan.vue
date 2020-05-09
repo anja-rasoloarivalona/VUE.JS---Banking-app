@@ -1,37 +1,7 @@
 <template>
     <div class="plan">
-        <header class="plan__header">
-            <div class="plan__header__details">
-                <h1>Monthly average</h1>
-                <div class="plan__header__details__item">
-                    <div class="plan__header__details__item__key">
-                        Incomes
-                    </div>
-                    <div class="plan__header__details__item__value">
-                        $ 1200
-                    </div>
-                </div>
-                <div class="plan__header__details__item">
-                    <div class="plan__header__details__item__key">
-                        Expenses
-                    </div>
-                    <div class="plan__header__details__item__value">
-                        $ 780
-                    </div>
-                </div>
-                <div class="plan__header__details__item">
-                    <div class="plan__header__details__item__key">
-                        Savings
-                    </div>
-                    <div class="plan__header__details__item__value">
-                        $ 420
-                    </div>
-                </div>
-            </div>
-            <div class="plan__header__chart">
-                 <doughnut-chart :styles="chartStyles" :datacollection="data"></doughnut-chart>
-            </div>
-        </header>
+        <plan-header></plan-header>
+
         <div class="plan__item">
             <div class="plan__item__title">
                 <h2>Incomes</h2>
@@ -56,6 +26,7 @@
                 </ul>
             </div>
         </div>
+
         <div class="plan__item">
             <div class="plan__item__title">
                 <h2>Expenses</h2>
@@ -79,10 +50,10 @@
 </template>
 
 <script>
-import DoughnutChart from '@/components/Charts/Doughnut'
 import { mapGetters, mapMutations } from 'vuex'
 import IncomeLineTable from '@/components/UI/IncomeLineTable'
 import ExpenseLineTable from '@/components/UI/ExpenseLineTable'
+import PlanHeader from './PlanHeader'
 export default {
   data () {
     return {
@@ -122,7 +93,7 @@ export default {
     }
   },
   components: {
-    DoughnutChart,
+    PlanHeader,
     IncomeLineTable,
     ExpenseLineTable
   }
@@ -131,37 +102,6 @@ export default {
 
 <style lang="scss" scoped>
 .plan {
-    &__header {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 3rem;
-        &__details {
-            width: 50%;
-            & h1 {
-                margin-bottom: 2rem;
-            }
-            &__item {
-                display: flex;
-                align-items: center;
-                font-size: $font-m;
-                margin-bottom: 2rem;
-                &__key {
-                    height: 100%;
-                    width: 15rem;
-                }
-
-            }
-        }
-        &__chart {
-            width: 100%;
-            height: 100%;
-            flex: 1;
-            position: relative;
-            width: 100%;
-            height: 13rem;
-        }
-    }
     &__item {
         padding: 2rem;
         border: 1px solid var(--lineColor);

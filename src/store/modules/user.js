@@ -2,6 +2,7 @@ import { editIncomeQuery, addIncomeQuery } from '@/graphQL/incomeQuery'
 import { editExpenseQuery, addExpenseQuery } from '@/graphQL/expenseQuery'
 import { addTransactionQuery, editTransactionQuery } from '@/graphQL/transactionsQuery'
 import axios from 'axios'
+import Vue from 'vue'
 
 const state = {
   goal: null,
@@ -132,7 +133,8 @@ const mutations = {
       }
     })
     delete userItem.type
-    state[userItemType][itemIndex] = data
+    Vue.set(state[userItemType], itemIndex, data)
+    // state[userItemType][itemIndex] = data
   },
 
   addGoal (state, goal) {
@@ -174,6 +176,7 @@ const actions = {
       const resData = response.data.data.editIncome
       resData.type = 'incomes'
       resData.nextPayout = new Date(resData.nextPayout)
+      console.log('res data', resData)
       commit('editUserItem', resData)
       return true
     } catch (err) {
@@ -196,10 +199,12 @@ const actions = {
   },
   editExpense: async function ({ commit }, expense) {
     const graphqlQuery = editExpenseQuery(expense)
+    console.log(graphqlQuery)
     try {
       const response = await axios.post('', graphqlQuery)
       const resData = response.data.data.editExpense
       resData.type = 'expenses'
+      console.log('edit expense', resData)
       commit('editUserItem', resData)
       return true
     } catch (err) {
@@ -220,7 +225,6 @@ const actions = {
     }
   },
   editTransaction: async function ({ commit }, transaction) {
-    console.log('before query', transaction)
     const graphqlQuery = editTransactionQuery(transaction)
     try {
       const response = await axios.post('', graphqlQuery)

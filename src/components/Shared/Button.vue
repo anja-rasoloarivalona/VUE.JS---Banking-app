@@ -27,7 +27,7 @@ export default {
 
 <style lang="scss" scoped>
 .app-btn {
-    padding: 1rem 0;
+    height: 3.5rem;
     border: none;
     border-radius: .5rem;
     color: $color-white;

@@ -1,0 +1,129 @@
+<template>
+  <div
+    class="income"
+    :class="{'bg-on-surfaceColor': parseInt(index) % 2 === 0, 'bg-surfaceColor': parseInt(index) % 2 !== 0 }"
+    @mouseleave="showList = false"
+>
+    <h3>{{ income.name }}</h3>
+    <div>${{ income.amount | amount }}</div>
+    <div>{{ income.lastPayout | short-date }}</div>
+    <div>{{ income.nextPayout | short-date }}</div>
+    <div class="income__cta" @click="showList = !showList" @mouseenter="showList = true">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <ul class="income__cta__list" v-if="showList">
+      <li class="income__cta__list__item" @click="editIncome(income)">
+        Edit
+      </li>
+      <li class="income__cta__list__item">
+        Delete
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script>
+import { mapMutations } from 'vuex'
+export default {
+  data () {
+    return {
+      showList: false
+    }
+  },
+  methods: {
+    ...mapMutations([
+      'openBackdrop',
+      'setEditedIncome'
+    ]),
+    editIncome (income) {
+      this.setEditedIncome(income)
+      this.openBackdrop('income')
+    }
+  },
+  props: {
+    income: {
+      required: true,
+      type: Object
+    },
+    index: Number
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.income {
+  display: flex;
+  padding: 2rem 0;
+  padding-left: 2rem;
+  position: relative;
+  & > * {
+    width: calc(100% / 4);
+    font-size: $font-m;
+  }
+  &__cta {
+    position: absolute;
+    right: 1rem;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 3rem !important;
+    height: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease-in;
+    cursor: pointer;
+    background: transparent;
+    & span {
+      width: 3px !important;
+      height: 3px;
+      background: $color-grey--main;
+      border-radius: 50%;
+      margin: 1px;
+      transition: all 0.3s ease-in;
+    }
+    &:hover {
+      background: $color-grey--main;
+      & span {
+        background: $color-white;
+      }
+    }
+    &__list {
+        background: $color-white;
+        box-shadow: 1px 5px 12px -1px rgba(15,15,15,1);
+        border-radius: .5rem;
+        padding: 1rem 0;
+        position: absolute;
+        right: 0;
+        top: 100%;
+        list-style: none;
+        width: 15rem;
+        color: var(--textColor--dark);
+        &::after {
+            content: "";
+            position: absolute;
+            top: -1.2rem;
+            right: 12%;
+            // margin-left: -5px;
+            border-width: 6px;
+            border-style: solid;
+            border-color:  transparent transparent $color-white transparent ;
+          }
+        &__item {
+            padding: 1rem 0;
+            padding-left: 1rem;
+            cursor: pointer;
+            // transition: all .3s ease-in;
+            &:hover {
+                background: var(--mainColor);
+                color: $color-white
+            }
+        }
+    }
+  }
+}
+</style>

@@ -33,13 +33,10 @@ export default {
 
 <style lang="scss" scoped>
 .transactions {
-    position: relative;
     padding: 3rem;
     width: 50vw;
     border-radius: .5rem;
-    // height: 60vh;
     &__header {
-        background: red($color: #000000);
         display: flex;
         align-items: center;
         justify-content: space-between;

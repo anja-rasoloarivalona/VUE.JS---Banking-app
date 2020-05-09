@@ -99,7 +99,7 @@ export default {
     }
   },
   mounted () {
-    console.log('mounted', this.type)
+    console.log('mounted')
     if (this.selected) {
       this[this.type] = {
         ...this.selected,

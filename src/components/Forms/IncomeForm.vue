@@ -1,26 +1,29 @@
 <template>
-    <form class="form">
-        <app-basic-input v-model="income.name" id="name"/>
-        <app-basic-input v-model="income.amount" id="amount" />
-        <app-date-input v-model="income.lastPayout" id="last payout" />
-        <app-basic-input v-model="income.from" id="from" />
-        <app-select-input v-model="income.autoWriting" id="auto writing" :options="['yes', 'no']" />
-        <app-select-input v-model="income.notification" id="notification" :options="['yes', 'no']" />
-        <app-frequency-input v-model="income.frequency" id="frequency"/>
-        <div class="form__cta">
-            <app-btn normal warning v-if="isCancelBtnDisplayed" @click.native="$emit('hideForm')">
+  <div class="income-form">
+      <slot />
+      <form>
+          <app-basic-input v-model="income.name" id="name"/>
+          <app-basic-input v-model="income.amount" id="amount" />
+          <app-date-input v-model="income.lastPayout" id="last payout" />
+          <app-basic-input v-model="income.from" id="from" />
+          <app-select-input v-model="income.autoWriting" id="auto writing" :options="['yes', 'no']" />
+          <app-select-input v-model="income.notification" id="notification" :options="['yes', 'no']" />
+          <app-frequency-input v-model="income.frequency" id="frequency"/>
+      </form>
+      <div class="income-form__cta">
+            <app-btn normal warning v-if="isCancelBtnDisplayed" @click.native="close">
                 Cancel
             </app-btn>
             <app-btn normal primary @click.native="submit" >
-                    <span v-if="!loading" v-text="edited ? 'Edit' : 'Add'"></span>
+                    <span v-if="!loading" v-text="editedIncome ? 'Edit' : 'Add'"></span>
                     <app-spinner v-else></app-spinner>
             </app-btn>
         </div>
-    </form>
+    </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -39,14 +42,23 @@ export default {
       }
     }
   },
+  mounted () {
+    if (this.editedIncome) {
+      this.income = {
+        ...this.editedIncome,
+        lastPayout: new Date(this.editedIncome.lastPayout),
+        autoWriting: this.editedIncome.autoWriting ? 'yes' : 'no',
+        notification: this.editedIncome.notification ? 'yes' : 'no'
+      }
+    }
+  },
   computed: {
     ...mapGetters([
       'user',
-      'currentAppStatus'
+      'editedIncome'
     ])
   },
   props: {
-    edited: Object,
     isCancelBtnDisplayed: Boolean
   },
   methods: {
@@ -54,20 +66,24 @@ export default {
       'addIncome',
       'editIncome'
     ]),
+    ...mapMutations([
+      'closeBackdrop'
+    ]),
+    close () {
+      this.closeBackdrop()
+      this.$emit('hideForm')
+    },
     submit: async function () {
       this.loading = true
       let result = false
-      if (this.edited) {
+      if (this.editedIncome) {
         result = await this.editIncome(this.income)
       } else {
         result = await this.addIncome(this.income)
       }
       if (result) {
         this.loading = false
-        if (this.currentAppStatus === 'active') {
-          this.$router.push('budget')
-        }
-        this.$emit('hideForm')
+        this.close()
       } else {
         this.loading = false
       }
@@ -77,28 +93,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.form {
-    height: 100%;
-    width: 100%;
-    padding-bottom: 4rem;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: max-content;
-    grid-auto-rows: max-content;
-    column-gap: 2rem;
-    row-gap: 1rem;
-    & .input.frequency {
-      grid-column: 1 / 3;
-    }
-    &__cta {
-        height: 8rem;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+.income-form {
+  & form {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: max-content;
+      grid-auto-rows: max-content;
+      column-gap: 2rem;
+      row-gap: 1rem;
+      & .input.frequency {
+        grid-column: 1 / 3;
+      }
+  }
+  &__cta {
+      display: flex;
+      justify-content: center;
+      // position: relative;
+      // z-index: 10;
+  }
 }
+
 </style>

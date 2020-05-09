@@ -8,6 +8,8 @@
 import { mapGetters, mapMutations } from 'vuex'
 import Transactions from './Transactions'
 import Settings from './Settings/Settings'
+import Income from './Income'
+import Expense from './Expense'
 export default {
   methods: {
     ...mapMutations([
@@ -21,7 +23,9 @@ export default {
   },
   components: {
     Transactions,
-    Settings
+    Settings,
+    Income,
+    Expense
   }
 }
 </script>

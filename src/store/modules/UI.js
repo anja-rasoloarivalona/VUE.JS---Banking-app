@@ -2,7 +2,9 @@ const state = {
   displayBackdrop: false,
   displaySettingsModal: false,
   activeSettingsModal: 'general',
-  activeBackdrop: null
+  activeBackdrop: null,
+  editedIncome: null,
+  editedExpense: null
 }
 
 const getters = {
@@ -17,6 +19,12 @@ const getters = {
       isDisplayed: state.displayBackdrop,
       active: state.activeBackdrop
     }
+  },
+  editedIncome: state => {
+    return state.editedIncome
+  },
+  editedExpense: state => {
+    return state.editedExpense
   }
 }
 
@@ -24,16 +32,19 @@ const mutations = {
   setSettingsModal (state, modal) {
     state.activeSettingsModal = modal
   },
-  // openSettingsModal (state, modal) {
-  //   state.displayBackdrop = true
-  //   state.displaySettingsModal = true
-  //   state.activeSettingsModal = modal
-  // },
+  setEditedIncome (state, editedIncome) {
+    state.editedIncome = editedIncome
+  },
+  setEditedExpense (state, editedExpense) {
+    state.editedExpense = editedExpense
+  },
   closeBackdrop (state) {
     state.displayBackdrop = false
     state.displaySettingsModal = false
     state.activeSettingsModal = 'general'
     state.activeBackdrop = null
+    state.editedIncome = null
+    state.editedExpense = null
   },
   openBackdrop (state, activeBackdrop) {
     state.displayBackdrop = true

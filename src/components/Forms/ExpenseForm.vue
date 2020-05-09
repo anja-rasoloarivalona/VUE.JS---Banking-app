@@ -1,7 +1,7 @@
 <template>
     <div class="expense-form">
-    <slot />
-    <form>
+      <slot />
+      <form>
         <app-basic-input v-model="expense.name" id="name" />
         <app-basic-input v-model="expense.amount" id="amount"  />
         <app-basic-input v-model="expense.category" id="category" />
@@ -9,8 +9,8 @@
         <app-basic-input v-model="expense.used" id="used"  v-if="expense.expenseType === 'variable'"/>
         <app-frequency-input v-model="expense.frequency" id="frequency" v-if="expense.expenseType === 'fixed'"/>
         <app-date-input v-model="expense.lastPayout" id="last payout" v-if="expense.expenseType === 'fixed'"/>
-    </form>
-    <div class="expense-form__cta">
+      </form>
+      <div class="expense-form__cta">
             <app-btn normal warning v-if="isCancelBtnDisplayed" @click.native="$emit('hideForm')">
                 Cancel
             </app-btn>

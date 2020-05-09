@@ -33,9 +33,12 @@
             </div>
         </header>
         <div class="plan__item">
-            <h2 class="plan__item__title">
-                Incomes
-            </h2>
+            <div class="plan__item__title">
+                <h2>Incomes</h2>
+                <div class="plan__item__title__add" @click="openBackdrop('income')">
+                    <app-icon name="add" size="large" color="secondary"></app-icon>
+                </div>
+            </div>
             <div class="plan__item__details">
                 <div class="plan__item__details__header">
                     <div>Name</div>
@@ -54,9 +57,12 @@
             </div>
         </div>
         <div class="plan__item">
-            <h2 class="plan__item__title">
-                Expenses
-            </h2>
+            <div class="plan__item__title">
+                <h2>Expenses</h2>
+                <div class="plan__item__title__add" @click="openBackdrop('expense')">
+                    <app-icon name="add" size="large" color="secondary"></app-icon>
+                </div>
+            </div>
             <div class="plan__item__details">
                 <div class="plan__item__details__header">
                     <div>Name</div>
@@ -74,7 +80,7 @@
 
 <script>
 import DoughnutChart from '@/components/Charts/Doughnut'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 import IncomeLineTable from '@/components/UI/IncomeLineTable'
 import ExpenseLineTable from '@/components/UI/ExpenseLineTable'
 export default {
@@ -91,6 +97,11 @@ export default {
   computed: {
     ...mapGetters([
       'user'
+    ])
+  },
+  methods: {
+    ...mapMutations([
+      'openBackdrop'
     ])
   },
   created () {
@@ -120,15 +131,12 @@ export default {
 
 <style lang="scss" scoped>
 .plan {
-    // background: blue;
     &__header {
-        // background: salmon;
         display: flex;
         align-items: center;
         justify-content: center;
         margin-bottom: 3rem;
         &__details {
-            // background: yellowgreen;
             width: 50%;
             & h1 {
                 margin-bottom: 2rem;
@@ -141,13 +149,11 @@ export default {
                 &__key {
                     height: 100%;
                     width: 15rem;
-                    // background: orange;
                 }
 
             }
         }
         &__chart {
-            // background: brown;
             width: 100%;
             height: 100%;
             flex: 1;
@@ -157,7 +163,6 @@ export default {
         }
     }
     &__item {
-        // background: red;
         padding: 2rem;
         border: 1px solid var(--lineColor);
         margin-bottom: 2rem;
@@ -165,9 +170,22 @@ export default {
         &__title {
             text-transform: uppercase;
             margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            & h2 {
+                // background: red;
+                width: 13rem
+            }
+            &__add {
+                // background: red;
+                border-radius: 50%;
+                border: 1px solid var(--textColor--dark);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
         }
         &__details {
-            // background: blue;
             &__header {
                 background: var(--backgroundColor);
                 padding: 2rem 0;

@@ -1,7 +1,6 @@
 <template>
     <div class="plan">
         <plan-header></plan-header>
-
         <div class="plan__item">
             <div class="plan__item__title">
                 <h2>Incomes</h2>

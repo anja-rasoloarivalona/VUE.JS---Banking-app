@@ -1,6 +1,8 @@
 <template>
     <div class="backdrop" @click.self="closeBackdrop">
+      <transition name="fade" mode="out-in" appear>
         <component :is="backdrop.active"></component>
+      </transition>
     </div>
 </template>
 

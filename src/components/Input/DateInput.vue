@@ -2,7 +2,7 @@
     <div class="input-date">
         <label :for="id">
             <span>{{ id }}</span>
-            <date-picker :id="id" :value="value" />
+            <date-picker :id="id" :value="value" @input="updateSelf"/>
         </label>
     </div>
 </template>
@@ -14,7 +14,7 @@ import DatePicker from 'v-calendar/lib/components/date-picker.umd'
 export default {
   model: {
     prop: 'value',
-    event: 'click'
+    event: 'input'
   },
   components: {
     'date-picker': DatePicker
@@ -27,6 +27,11 @@ export default {
   props: {
     id: String,
     value: [String, Date]
+  },
+  methods: {
+    updateSelf (val) {
+      this.$emit('input', val)
+    }
   }
 }
 </script>

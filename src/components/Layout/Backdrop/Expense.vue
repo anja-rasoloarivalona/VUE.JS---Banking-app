@@ -1,5 +1,5 @@
 <template>
-    <div class="expense" :class="{'bg-surfaceColor': currentTheme.includes('light'), 'bg-on-surfaceColor': currentTheme.includes('dark') }">
+    <div class="expense" :class="{'bg-surfaceColor': currentTheme.includes('light'), 'bg-surfaceColor': currentTheme.includes('dark') }">
         <expense-form isCancelBtnDisplayed>
             <div class="expense__header">
                 <h1 v-text="editedExpense ? 'Edit expense' : 'Add expense'"></h1>
@@ -42,6 +42,9 @@ export default {
         align-items: center;
         justify-content: space-between;
         margin-bottom: 3rem;
+        & h1 {
+          color: var(--textColor--dark)
+        }
     }
 }
 </style>

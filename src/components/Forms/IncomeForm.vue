@@ -77,6 +77,7 @@ export default {
       this.loading = true
       let result = false
       if (this.editedIncome) {
+        console.log('submit', this.income.lastPayout)
         result = await this.editIncome(this.income)
       } else {
         result = await this.addIncome(this.income)

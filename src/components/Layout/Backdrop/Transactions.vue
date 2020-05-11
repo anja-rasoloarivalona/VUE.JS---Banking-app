@@ -1,5 +1,5 @@
 <template>
-    <div class="transactions" :class="{'bg-surfaceColor': currentTheme.includes('light'), 'bg-on-surfaceColor': currentTheme.includes('dark') }">
+    <div class="transactions" :class="{'bg-surfaceColor': currentTheme.includes('light'), 'bg-surfaceColor': currentTheme.includes('dark') }">
         <transactions-form isCancelBtnDisplayed>
             <div class="transactions__header">
                 <h1>Add transaction</h1>
@@ -41,6 +41,9 @@ export default {
         align-items: center;
         justify-content: space-between;
         margin-bottom: 3rem;
+        & h1 {
+          color: var(--textColor--dark)
+        }
     }
 }
 </style>

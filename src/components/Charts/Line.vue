@@ -37,7 +37,6 @@ export default {
   },
   props: ['data', 'gradient1', 'gradient2'],
   mounted () {
-    console.log('mounted', this.$refs.canvas)
     this.displayChart()
   },
   watch: {
@@ -112,7 +111,6 @@ export default {
           }
         }
       }
-      this.displayChart()
     }
   },
   computed: {

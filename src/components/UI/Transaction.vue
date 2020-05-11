@@ -76,11 +76,11 @@ export default {
     deleteTransaction: async function () {
       const graphqlQuery = deleteTransactionQuery(this.transaction)
       try {
-        const response = await axios.post('', graphqlQuery)
+        const response = await axios.post('/', graphqlQuery)
         const resData = response.data.data.deleteTransaction
         this.$store.commit('deleteTransaction', resData)
       } catch (err) {
-        console.log(err)
+        console.log(err.response)
         this.loading = false
       }
     }

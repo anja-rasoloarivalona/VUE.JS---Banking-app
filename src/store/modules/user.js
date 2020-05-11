@@ -204,7 +204,6 @@ const actions = {
       const response = await axios.post('', graphqlQuery)
       const resData = response.data.data.editExpense
       resData.type = 'expenses'
-      console.log('edit expense', resData)
       commit('editUserItem', resData)
       return true
     } catch (err) {
@@ -220,7 +219,7 @@ const actions = {
       commit('addTransaction', resData)
       return true
     } catch (err) {
-      console.log(err)
+      console.log(err.response)
       return false
     }
   },

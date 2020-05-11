@@ -2,13 +2,13 @@
     <div class="transactions-form">
         <slot />
         <form>
-            <app-date-input :id="'date'" v-model="input.date" />
-            <app-select-input :id="'name'" v-model="input.name" :options="[...Object.keys(usersIncomesAndExpenses), 'New transaction']" />
+            <app-date-input   :id="'date'"  v-model="input.date" />
+            <app-select-input :id="'name'" v-model="input.name" :options="[...Object.keys(usersIncomesAndExpenses), 'New transaction']" v-if="!isEditingTransaction" />
             <app-basic-input  :id="'amount'" v-model="input.amount" />
             <app-basic-input  :id="'details'" v-model="input.details" />
             <app-select-input :id="'wallet'" v-model="input.usedWallet" :options="userWallets" />
             <app-select-input :id="'status'" v-model="input.status" :options="['Paid', 'Pending']" />
-            <app-basic-input :id="'counter party'" v-model="input.counterparty" v-if="showCounterparty"/>
+            <app-basic-input  :id="'counter party'" v-model="input.counterparty" v-if="showCounterparty"/>
         </form>
         <div class="transactions-form__cta">
             <app-btn normal warning v-if="isCancelBtnDisplayed" @click.native="closeBackdrop">Cancel</app-btn>
@@ -27,6 +27,7 @@ export default {
     return {
       input: {
         _id: null,
+        budgetId: null,
         date: new Date(),
         name: null,
         amount: 0,
@@ -46,9 +47,10 @@ export default {
   },
   watch: {
     'input.name': function (name) {
-      const transactionType = this.usersIncomesAndExpenses[name].transactionType
-      if (!this.editedTransaction) {
+      if (!this.isEditingTransaction) {
         // ADDING A NEW TRANSACTION
+        const transactionType = this.usersIncomesAndExpenses[name].transactionType
+        this.input.budgetId = this.usersIncomesAndExpenses[name]._id
         this.input.transactionType = transactionType
         if (transactionType === 'expense') {
           // THE NEW TRANSACTION IS AN EXPENSE
@@ -70,16 +72,8 @@ export default {
           this.input.amount = this.usersIncomesAndExpenses[name].amount
           this.input.category = ''
         }
-      } else {
-        // EDITING A PREVIOUS TRANSACTION
-        this.input.transactionType = this.usersIncomesAndExpenses[name].transactionType
-        if (transactionType === 'expense') {
-          this.input.category = this.usersIncomesAndExpenses[name].category
-        } else {
-          this.input.category = ''
-        }
       }
-      // CHECK IF THE CURRENT EXPENSE TRANSACTION IS A PAYMENT FOR THE CREDIT CARD
+      // CHECK IF THE CURRENT EXPENSE TRANSACTION IS A PAYMENT FOR THE CREDIT CARD : We need to make sure that the credit card receiving the payment doesn't not appear in the list of payment
       const creditCards = ['Visa', 'MasterCard']
       if (name && creditCards.includes(name.split(' ')[0])) {
         const updatedWallets = { ...this.walletsNameAndId }

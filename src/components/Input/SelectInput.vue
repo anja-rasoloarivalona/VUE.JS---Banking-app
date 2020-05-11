@@ -2,8 +2,8 @@
     <label :for="id" class="label">
       <span v-if="id">{{ id }}</span>
       <div
-        class="select bg-white"
-        :class="{'bg-white': currentTheme && currentTheme.includes('light'), 'bg-surfaceColor': currentTheme && currentTheme.includes('dark') ,'all-radius': !showList, 'top-radius': showList}"
+        class="select"
+        :class="{'bg-white': currentTheme.includes('light'), 'bg-on-surfaceColor': currentTheme.includes('dark') ,'all-radius': !showList, 'top-radius': showList}"
         v-click-outside="closeList">
           <div class="select__value" @click.stop="showList = !showList">{{ value }}</div>
           <ul class="select__list" v-show="showList">

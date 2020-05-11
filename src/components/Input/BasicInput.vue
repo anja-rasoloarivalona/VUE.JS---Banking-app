@@ -2,19 +2,12 @@
     <div class="input">
         <label :for="id">
             <span>{{ id }}</span>
-            <!-- <input
-              :id="id"
-              @input="updateSelf($event.target.value)"
-              :value="value"
-              class="bg-grey"
-            /> -->
             <input
               v-bind="$attrs"
               :id="id"
               @input="updateSelf($event.target.value)"
               :value="value"
-              class="bg-white"
-              :class="{'bg-white': currentTheme && currentTheme.includes('light'), 'bg-surfaceColor': currentTheme && currentTheme.includes('dark') }"
+              :class="{'bg-white': currentTheme.includes('light'), 'bg-on-surfaceColor': currentTheme.includes('dark') }"
             />
         </label>
     </div>

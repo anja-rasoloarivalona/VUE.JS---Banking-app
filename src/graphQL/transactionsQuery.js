@@ -25,8 +25,9 @@ const deleteTransactionQuery = (input) => {
 const query = (action, input) => {
   return `${action}(transactionInput: {
           _id: "${input._id}",
-          date: "${input.date}",
           name: "${input.name}",
+          budgetId: "${input.budgetId}",
+          date: "${input.date}",
           counterparty: "${input.counterparty}",
           amount: "${input.amount}",
           details: "${input.details}",
@@ -41,11 +42,14 @@ const queryResult = `
                 period
                 income
                 expense
+                budget {
+                  amount
+                  used
+                }
                 transactions {
                   _id
-                  shortId
+                  budgetId
                   date
-                  name
                   counterparty
                   amount
                   details

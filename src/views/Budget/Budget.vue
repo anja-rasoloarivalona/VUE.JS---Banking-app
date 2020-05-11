@@ -5,13 +5,16 @@
             <div class="budget__nav__item" :class="{active: active === 'report'}" @click="active = 'report'">Report</div>
         </div>
         <div class="budget__view">
-            <plan />
+          <transition :name="budgetTransitionAnimation" mode="out-in">
+            <component :is="active"></component>
+          </transition>
         </div>
     </div>
 </template>
 
 <script>
 import Plan from './Plan/Plan'
+import Report from './Report/Report'
 export default {
   data () {
     return {
@@ -19,6 +22,15 @@ export default {
       showForm: false,
       selected: null,
       selectedType: null
+    }
+  },
+  computed: {
+    budgetTransitionAnimation () {
+      if (this.active === 'plan') {
+        return 'slide-from-left'
+      } else {
+        return 'slide-from-right'
+      }
     }
   },
   methods: {
@@ -34,7 +46,8 @@ export default {
     }
   },
   components: {
-    Plan
+    Plan,
+    Report
   }
 }
 </script>
@@ -60,6 +73,7 @@ export default {
             color: var(--textColor--dark);
             text-align: center;
             transition: all .3s ease-in;
+            cursor: pointer;
             &.active {
                 background: var(--surfaceColor);
                 color: var(--mainColor)
@@ -71,6 +85,7 @@ export default {
         width: 100%;
         flex: 1;
         padding: 3rem;
+        overflow: hidden;
         // height: 100%;
     }
     &__section {

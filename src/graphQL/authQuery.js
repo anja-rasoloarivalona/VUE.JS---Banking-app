@@ -29,11 +29,14 @@ const loginQuery = input => {
                         period
                         income
                         expense
+                        budget {
+                          amount
+                          used
+                        }
                         transactions {
                           _id
-                          shortId
+                          budgetId
                           date
-                          name
                           counterparty
                           amount
                           details

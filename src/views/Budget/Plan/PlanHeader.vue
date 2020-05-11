@@ -114,6 +114,8 @@ export default {
     &__item {
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      width: 30rem;
       font-size: $font-m;
       margin-bottom: 2rem;
       &__key {

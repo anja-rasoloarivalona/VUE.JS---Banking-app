@@ -3,9 +3,13 @@
       <span v-if="id">{{ id }}</span>
       <div
         class="select"
-        :class="{'bg-white': currentTheme.includes('light'), 'bg-on-surfaceColor': currentTheme.includes('dark') ,'all-radius': !showList, 'top-radius': showList}"
+        :class="{
+          'bg-white': currentTheme.includes('light'),
+          'bg-on-surfaceColor': currentTheme.includes('dark') ,
+          'all-radius': !showList,
+          'top-radius': showList}"
         v-click-outside="closeList">
-          <div class="select__value" @click.stop="showList = !showList">{{ value }}</div>
+          <div class="select__value" :class="{active: showList}" @click.stop="showList = !showList">{{ value }}</div>
           <ul class="select__list" v-show="showList">
               <li v-for="(option, index) in options"
                   :key="index" class="select__list__item"
@@ -76,8 +80,20 @@ export default {
       border-radius: .5rem;
     }
     &.top-radius {
+      border-radius: 0;
       border-top-left-radius: .5rem;
       border-top-right-radius: .5rem;
+    }
+    &.bg-white {
+      & .select {
+        &__list {
+          &__item {
+            &:hover {
+              background: whitesmoke;
+            }
+          }
+        }
+      }
     }
     &__value {
         height: 4rem;
@@ -87,6 +103,14 @@ export default {
         position: relative;
         font-size: $font-m;
         cursor: pointer;
+        &.active {
+          // border-top-left-radius: .5rem;
+          // border-top-right-radius: .5rem;
+          // border: 1px solid var(--mainColor);
+          // border-bottom: 1px solid var(--mainColor);
+          // box-sizing: content-box;
+          // border-bottom: none;
+        }
         &::after {
             content: '';
             position: absolute;
@@ -99,9 +123,10 @@ export default {
     }
     &__list {
         position: absolute;
-        top: 4rem;
+        top: 4.1rem;
         left: 0;
-        border: 1px solid var(--textColor--dark);
+        border: 1px solid var(--mainColor);
+        // border-top: none;
         background: var(--surfaceColor);
         color: var(--textColor);
         width: 100%;
@@ -117,11 +142,14 @@ export default {
             font-size: $font-m;
             cursor: pointer;
             &:hover {
-                background: var(--on-surfaceColor)
+                // background: var(--on-surfaceColor);
             }
             &.active {
                 background: var(--mainColor);
-                color: var(--textColor);
+                color: $color-white;
+                 &:hover {
+                  background: var(--mainColor) !important;
+                }
             }
         }
     }

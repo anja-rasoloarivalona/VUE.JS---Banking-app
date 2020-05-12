@@ -193,7 +193,7 @@ const actions = {
       commit('addUserItem', resData)
       return true
     } catch (err) {
-      console.log(err)
+      console.log(err.response)
       return false
     }
   },

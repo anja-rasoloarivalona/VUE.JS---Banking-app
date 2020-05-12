@@ -34,6 +34,7 @@ const query = (action, input) => {
                 amount
                 category
                 expenseType
+                currentPeriod
                 frequency {
                     counter
                     period

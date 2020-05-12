@@ -1,5 +1,6 @@
 <template>
     <div class="backdrop" @click.self="closeBackdrop">
+      <slot />
       <transition name="fade" mode="out-in" appear>
         <component :is="backdrop.active"></component>
       </transition>

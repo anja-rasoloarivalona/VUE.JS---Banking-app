@@ -1,5 +1,6 @@
 import { loginQuery, signupQuery } from '@/graphQL/authQuery'
 import axios from 'axios'
+import router from '../../router'
 
 const state = {
   isAuth: false,
@@ -48,6 +49,7 @@ const mutations = {
     state.userName = null
     state.appStatus = 'auth'
     localStorage.removeItem('bank-data')
+    router.push('/')
   },
   setAppStatus (state, newStatus) {
     state.appStatus = newStatus

@@ -13,7 +13,6 @@
               <router-view />
           </transition>
           <backdrop v-if="backdrop.isDisplayed">
-              <!-- <modal v-if="modal.isDisplayed"/> -->
           </backdrop>
     </div>
     </template>
@@ -27,7 +26,6 @@ import Sidebar from './components/Layout/Sidebar/Sidebar'
 import Navbar from './components/Layout/Navbar/Navbar'
 import Auth from './views/Authentication/Auth'
 import Loader from './components/Layout/Loader/Loader'
-// import Modal from './components/Layout/Modal/Modal'
 import Backdrop from './components/Layout/Backdrop/Backdrop'
 export default {
   data () {
@@ -46,12 +44,7 @@ export default {
       'localData',
       'localTheme',
       'user'
-    ]),
-    isAppReady () {
-      if (this.currentAppStatus !== 'running') {
-        return false
-      } else return true
-    }
+    ])
   },
   watch: {
     'user.wallets': {
@@ -106,7 +99,6 @@ export default {
     Auth,
     Navbar,
     Loader,
-    // Modal,
     Backdrop
   },
   created: async function () {

@@ -36,12 +36,10 @@ export default {
     ...mapGetters([
       'user',
       'currentAppStatus'
-    // 'currentSetupStep'
     ])
   },
   mounted () {
     this.loadWelcome()
-    console.log('mounted')
   },
   methods: {
     loadWelcome () {

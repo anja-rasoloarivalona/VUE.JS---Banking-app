@@ -43,7 +43,6 @@ const loginQuery = input => {
                           usedWalletId
                           status
                           transactionType
-                          category
                         }
                     }
                     expenses {

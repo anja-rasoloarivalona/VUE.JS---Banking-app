@@ -36,8 +36,7 @@ export default {
         walletId: '',
         status: 'Paid',
         transactionType: null,
-        counterparty: '',
-        category: ''
+        counterparty: ''
       },
       loading: false,
       date: new Date(),
@@ -54,7 +53,6 @@ export default {
         this.input.transactionType = transactionType
         if (transactionType === 'expense') {
           // THE NEW TRANSACTION IS AN EXPENSE
-          this.input.category = this.usersIncomesAndExpenses[name].category
           if (this.usersIncomesAndExpenses[name].expenseType === 'fixed') {
             // --------THE EXPENSE IS FIXED
             this.input.date = new Date(this.usersIncomesAndExpenses[name].nextPayout)
@@ -70,7 +68,6 @@ export default {
           this.input.date = new Date(this.usersIncomesAndExpenses[name].nextPayout)
           this.input.counterparty = this.usersIncomesAndExpenses[name].from
           this.input.amount = this.usersIncomesAndExpenses[name].amount
-          this.input.category = ''
         }
       }
       // CHECK IF THE CURRENT EXPENSE TRANSACTION IS A PAYMENT FOR THE CREDIT CARD : We need to make sure that the credit card receiving the payment doesn't not appear in the list of payment

@@ -33,8 +33,7 @@ const query = (action, input) => {
           details: "${input.details}",
           usedWalletId: "${input.walletId}",
           status: "${input.status}",
-          transactionType: "${input.transactionType}",
-          category: "${input.category}"
+          transactionType: "${input.transactionType}"
       }) { ${queryResult}}`
 }
 const queryResult = `
@@ -56,7 +55,6 @@ const queryResult = `
                   usedWalletId
                   status
                   transactionType
-                  category
                 }
               }
               wallets {

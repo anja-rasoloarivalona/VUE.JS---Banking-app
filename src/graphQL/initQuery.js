@@ -35,7 +35,6 @@ const initQuery = {
             usedWalletId
             status
             transactionType
-            category
           }
         }
         wallets {

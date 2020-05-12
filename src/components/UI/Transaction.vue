@@ -7,7 +7,7 @@
         <div>{{transaction.date | short-date}}</div>
     </td>
     <td class="transaction__name">
-        <div>{{transaction.name}}</div>
+        <div>{{transactionName}}</div>
     </td>
     <td class="transaction__counterparty" v-if="!short">
         <div>{{transaction.counterparty}}</div>
@@ -54,6 +54,8 @@ export default {
     }
   },
   mounted () {
+    console.log(this.transaction)
+    console.log('us', this.usersIncomesAndExpenses)
     const entries = Object.entries(this.walletsNameAndId)
     entries.forEach(entry => {
       if (entry[1].toString() === this.transaction.usedWalletId.toString()) {
@@ -87,8 +89,18 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'walletsNameAndId'
-    ])
+      'walletsNameAndId',
+      'usersIncomesAndExpenses'
+    ]),
+    transactionName () {
+      let res = ''
+      for (const name in this.usersIncomesAndExpenses) {
+        if (this.usersIncomesAndExpenses[name]._id === this.transaction.budgetId) {
+          res = name
+        }
+      }
+      return res
+    }
   },
   props: {
     transaction: Object,

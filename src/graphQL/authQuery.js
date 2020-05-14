@@ -30,6 +30,7 @@ const loginQuery = input => {
                         income
                         expense
                         budget {
+                          _id
                           amount
                           used
                         }

@@ -104,7 +104,8 @@ export default {
     &__item {
         padding: 2rem;
         border: 1px solid var(--lineColor);
-        margin-bottom: 2rem;
+        // box-shadow: -3px -3px 6px #1a1919, 2px 2px 5px #222222;
+        margin-bottom: 4rem;
         border-radius: .5rem;
         &__title {
             text-transform: uppercase;

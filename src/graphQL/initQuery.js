@@ -22,6 +22,7 @@ const initQuery = {
           income
           expense
           budget {
+            _id
             amount
             used
           }

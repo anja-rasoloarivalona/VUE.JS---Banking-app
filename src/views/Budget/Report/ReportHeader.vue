@@ -10,7 +10,7 @@
                     Incomes
                 </div>
                 <div class="header__details__item__value">
-                    $ 1200
+                    ${{currentReport.income | amount}}
                 </div>
             </div>
             <div class="header__details__item">
@@ -18,7 +18,7 @@
                     Expenses
                 </div>
                 <div class="header__details__item__value">
-                    $ 600
+                    ${{currentReport.expense | amount}}
                 </div>
             </div>
             <div class="header__details__item">
@@ -26,7 +26,7 @@
                     Savings
                 </div>
                 <div class="header__details__item__value">
-                    $ 600
+                    ${{currentReport.savings | amount}}
                 </div>
             </div>
         </div>
@@ -39,13 +39,50 @@ export default {
   data () {
     return {
       period: '',
-      lists: []
+      lists: [],
+      currentReport: {
+        income: 0,
+        expense: 0,
+        savings: 0
+      }
     }
   },
   computed: {
     ...mapGetters([
       'user'
     ])
+  },
+  watch: {
+    period: {
+      handler: 'setPeriod',
+      immediate: true
+    }
+    // period: function (val) {
+    //   const reports = this.user.monthlyReports
+    //   reports.find((report, index) => {
+    //     if (report.period === val) {
+    //       this.currentReport.income = reports[index].income
+    //       this.currentReport.expense = reports[index].expense
+    //       this.currentReport.savings = reports[index].income - reports[index].expense
+    //     }
+    //   })
+    //   this.$emit('changePeriod', val)
+    // }
+  },
+  methods: {
+    setPeriod (val) {
+      const reports = this.user.monthlyReports
+      reports.find((report, index) => {
+        if (report.period === val) {
+          this.currentReport.income = reports[index].income
+          this.currentReport.expense = reports[index].expense
+          this.currentReport.savings = reports[index].income - reports[index].expense
+        }
+      })
+      if (val !== '') {
+        this.$emit('changePeriod', val)
+      }
+    }
   },
   mounted () {
     this.user.monthlyReports.forEach(report => {

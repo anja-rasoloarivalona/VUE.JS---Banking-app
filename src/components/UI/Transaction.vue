@@ -1,8 +1,5 @@
 <template>
-  <tr class="transaction">
-    <td class="transaction__id" v-if="!short">
-      <div>#{{ transaction.shortId}}</div>
-    </td>
+  <tr class="transaction" @mouseleave="showCtaList = false">
     <td class="transaction__date">
         <div>{{transaction.date | short-date}}</div>
     </td>
@@ -25,12 +22,12 @@
     </td>
     <td class="transaction__status" v-click-outside="closeCtaList">
         <div>{{transaction.status}}</div>
-        <div class="transaction__cta" @click="showCtaList = !showCtaList">
+        <div class="transaction__cta" @click="showCtaList = !showCtaList"  @mouseenter="showCtaList = true">
           <span></span>
           <span></span>
           <span></span>
         </div>
-        <ul class="transaction__cta__list" v-if="showCtaList">
+        <ul class="transaction__cta__list" v-if="showCtaList" :class="{isLast: isLast }">
           <li class="transaction__cta__list__item" @click="edit">
               Edit
           </li>
@@ -50,18 +47,20 @@ export default {
   data () {
     return {
       walletName: '',
-      showCtaList: false
+      showCtaList: false,
+      isLast: false
     }
   },
   mounted () {
-    console.log(this.transaction)
-    console.log('us', this.usersIncomesAndExpenses)
     const entries = Object.entries(this.walletsNameAndId)
     entries.forEach(entry => {
       if (entry[1].toString() === this.transaction.usedWalletId.toString()) {
         this.walletName = entry[0]
       }
     })
+    if (this.index + 1 === this.lastIndex) {
+      this.isLast = true
+    }
   },
   methods: {
     ...mapMutations([
@@ -104,7 +103,9 @@ export default {
   },
   props: {
     transaction: Object,
-    short: Boolean
+    short: Boolean,
+    index: Number,
+    lastIndex: Number
   }
 }
 </script>
@@ -186,21 +187,40 @@ export default {
       }
     }
     &__list {
-      width: 10rem;
       background: $color-white;
-      position: absolute;
-      list-style: none;
-      top: 5rem;
-      right: 0;
-      z-index: 2;
-      box-shadow: 0px 0px 13px 2px rgba(209,202,209,1);
+      box-shadow: 1px 5px 12px -1px rgba(15,15,15,1);
       border-radius: .5rem;
+      padding: 1rem 0;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      list-style: none;
+      width: 15rem;
+      color: var(--textColor--dark);
+      z-index: 3;
+      &::after {
+            content: "";
+            position: absolute;
+            top: -1.2rem;
+            right: 12%;
+            border-width: 6px;
+            border-style: solid;
+            border-color:  transparent transparent $color-white transparent ;
+      }
+      &.isLast {
+          top: -145%;
+          &::after {
+            bottom: -1.2rem;
+            top: unset;
+            border-color: $color-white transparent transparent transparent  ;
+          }
+        }
       &__item {
-        padding: 1rem;
+        padding: 1rem 0;
         cursor: pointer;
-        transition: all .3s ease-in;
+        padding-left: 1rem;
         &:hover {
-          background: $color-grey--dark;
+          background: var(--mainColor);
           color: $color-white
         }
       }

@@ -57,17 +57,6 @@ export default {
       handler: 'setPeriod',
       immediate: true
     }
-    // period: function (val) {
-    //   const reports = this.user.monthlyReports
-    //   reports.find((report, index) => {
-    //     if (report.period === val) {
-    //       this.currentReport.income = reports[index].income
-    //       this.currentReport.expense = reports[index].expense
-    //       this.currentReport.savings = reports[index].income - reports[index].expense
-    //     }
-    //   })
-    //   this.$emit('changePeriod', val)
-    // }
   },
   methods: {
     setPeriod (val) {

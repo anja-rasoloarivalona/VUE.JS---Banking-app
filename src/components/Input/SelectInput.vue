@@ -1,5 +1,5 @@
 <template>
-    <label :for="id" class="label">
+    <label :for="id" class="label" :class="{row: row}">
       <span v-if="id">{{ id }}</span>
       <div
         class="select"
@@ -55,7 +55,8 @@ export default {
       required: true
     },
     id: String,
-    bgGrey: Boolean
+    bgGrey: Boolean,
+    row: Boolean
   }
 }
 </script>
@@ -65,6 +66,10 @@ export default {
   display: flex;
   flex-direction: column;
   margin-bottom: 2rem;
+  &.row {
+    flex-direction: row;
+    align-items: center;
+  }
   & span {
         width: 10rem;
         margin-bottom: 0.5rem;

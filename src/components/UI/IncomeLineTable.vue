@@ -13,7 +13,7 @@
       <span></span>
       <span></span>
     </div>
-    <ul class="income__cta__list" v-if="showList">
+    <ul class="income__cta__list" v-if="showList" :class="{isLast: isLast }">
       <li class="income__cta__list__item" @click="editIncome(income)">
         Edit
       </li>
@@ -29,7 +29,8 @@ import { mapMutations } from 'vuex'
 export default {
   data () {
     return {
-      showList: false
+      showList: false,
+      isLast: false
     }
   },
   methods: {
@@ -42,12 +43,18 @@ export default {
       this.openBackdrop('income')
     }
   },
+  mounted () {
+    if (this.index + 1 === this.lastIndex) {
+      this.isLast = true
+    }
+  },
   props: {
     income: {
       required: true,
       type: Object
     },
-    index: Number
+    index: Number,
+    lastIndex: Number
   }
 }
 </script>
@@ -108,16 +115,22 @@ export default {
             position: absolute;
             top: -1.2rem;
             right: 12%;
-            // margin-left: -5px;
             border-width: 6px;
             border-style: solid;
             border-color:  transparent transparent $color-white transparent ;
+        }
+        &.isLast {
+          top: -165%;
+          &::after {
+            bottom: -1.2rem;
+            top: unset;
+            border-color: $color-white transparent transparent transparent  ;
           }
+        }
         &__item {
             padding: 1rem 0;
             padding-left: 1rem;
             cursor: pointer;
-            // transition: all .3s ease-in;
             &:hover {
                 background: var(--mainColor);
                 color: $color-white

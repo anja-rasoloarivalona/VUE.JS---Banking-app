@@ -20,7 +20,9 @@
                        v-for="(income, index) in user.incomes"
                        :key="income._id"
                        :income="income"
-                       :index="index">
+                       :index="index"
+                       :lastIndex="user.expenses.length"
+                    >
                     </income-line-table>
                 </ul>
             </div>
@@ -41,7 +43,14 @@
                     <div>Next Payout</div>
                 </div>
                 <ul class="plan__item__details__list">
-                    <expense-line-table v-for="(expense, index) in user.expenses" :key="index" :expense="expense" :index="index"></expense-line-table>
+                    <expense-line-table
+                        v-for="(expense, index) in user.expenses"
+                        :key="index"
+                        :expense="expense"
+                        :index="index"
+                        :lastIndex="user.expenses.length"
+                    >
+                    </expense-line-table>
                 </ul>
             </div>
         </div>
@@ -127,7 +136,7 @@ export default {
         }
         &__details {
             &__header {
-                background: var(--backgroundColor);
+                // background: var(--backgroundColor);
                 padding: 2rem 0;
                 display: flex;
                 font-size: $font-m;

@@ -3,7 +3,6 @@
         <table class="transactions__table">
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Date</th>
                     <th>Name</th>
                     <th>Counterparty</th>
@@ -15,8 +14,10 @@
             </thead>
             <tbody>
                 <app-transaction
-                    v-for="(transaction, index) in userTransactions"
+                    v-for="(transaction, index) in displayedTransactions"
                     :key="transaction._id"
+                    :index="index"
+                    :lastIndex="displayedTransactions.length"
                     :transaction="transaction"
                     :class="{'bg-on-surfaceColor': index % 2 === 0, 'bg-surfaceColor': index % 2 !== 0 }"
                     @editTransaction1="edit"
@@ -31,15 +32,42 @@
 import Transaction from '@/components/UI/Transaction'
 import { mapGetters } from 'vuex'
 export default {
+  data () {
+    return {
+      displayedTransactions: []
+    }
+  },
   methods: {
     edit (transaction) {
       this.$emit('editTransaction', transaction)
+    },
+    setDisplayedTransactions (currentPeriod) {
+      const res = []
+      this.userTransactions.forEach(transaction => {
+        const d = new Date(transaction.date)
+        const period = `${d.getMonth() + 1}-${d.getFullYear()}`
+        if (period === currentPeriod) {
+          res.push(transaction)
+        }
+      })
+      this.displayedTransactions = res
     }
   },
   computed: {
     ...mapGetters([
       'userTransactions'
     ])
+  },
+  watch: {
+    period: function (currentPeriod) {
+      this.setDisplayedTransactions(currentPeriod)
+    },
+    userTransactions: function () {
+      this.setDisplayedTransactions(this.period)
+    }
+  },
+  props: {
+    period: String
   },
   components: {
     appTransaction: Transaction
@@ -49,8 +77,6 @@ export default {
 
 <style lang="scss" scoped>
 table, table th {
-//   border-top: 1px solid $color-line;
-  border-bottom: 1px solid var(--app-line-color);
   border-collapse: collapse;
 }
 table {
@@ -61,7 +87,7 @@ table {
     padding-left: 2rem;
     font-size: $font-s;
     background: var(--app-bg-primary);
-    color: var(--app-title-color-secondary);
+    color: var(--textColor--dark);
   }
 }
 </style>

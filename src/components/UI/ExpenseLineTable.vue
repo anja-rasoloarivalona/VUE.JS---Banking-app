@@ -17,7 +17,7 @@
             <span></span>
             <span></span>
         </div>
-        <ul class="expense__cta__list" v-if="showList">
+        <ul class="expense__cta__list" v-if="showList" :class="{isLast: isLast }">
             <li class="expense__cta__list__item" @click="editExpense(expense)">
                 Edit
             </li>
@@ -33,7 +33,8 @@ import { mapMutations } from 'vuex'
 export default {
   data () {
     return {
-      showList: false
+      showList: false,
+      isLast: false
     }
   },
   methods: {
@@ -46,12 +47,18 @@ export default {
       this.openBackdrop('expense')
     }
   },
+  mounted () {
+    if (this.index + 1 === this.lastIndex) {
+      this.isLast = true
+    }
+  },
   props: {
     expense: {
       required: true,
       type: Object
     },
-    index: Number
+    index: Number,
+    lastIndex: Number
   }
 }
 </script>
@@ -127,7 +134,15 @@ export default {
             border-width: 6px;
             border-style: solid;
             border-color:  transparent transparent $color-white transparent ;
+        }
+        &.isLast {
+          top: -165%;
+          &::after {
+            bottom: -1.2rem;
+            top: unset;
+            border-color: $color-white transparent transparent transparent  ;
           }
+        }
         &__item {
             padding: 1rem 0;
             padding-left: 1rem;

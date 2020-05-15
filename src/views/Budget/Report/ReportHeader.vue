@@ -3,7 +3,7 @@
         <div class="header__details">
             <div class="header__details__title">
                 <h1>Period</h1>
-                <app-select-input v-model="period" :options="lists"/>
+                <app-select-input v-model="period" :options="periodLists"/>
             </div>
             <div class="header__details__item">
                 <div class="header__details__item__key">
@@ -26,7 +26,7 @@
                     Savings
                 </div>
                 <div class="header__details__item__value">
-                    ${{currentReport.savings | amount}}
+                    ${{currentReport.income - currentReport.expense | amount}}
                 </div>
             </div>
         </div>
@@ -34,23 +34,14 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      period: '',
-      lists: [],
-      currentReport: {
-        income: 0,
-        expense: 0,
-        savings: 0
-      }
+      period: ''
     }
   },
-  computed: {
-    ...mapGetters([
-      'user'
-    ])
+  mounted () {
+    this.period = this.currentPeriod
   },
   watch: {
     period: {
@@ -59,27 +50,16 @@ export default {
     }
   },
   methods: {
-    setPeriod (val) {
-      const reports = this.user.monthlyReports
-      reports.find((report, index) => {
-        if (report.period === val) {
-          this.currentReport.income = reports[index].income
-          this.currentReport.expense = reports[index].expense
-          this.currentReport.savings = reports[index].income - reports[index].expense
-        }
-      })
-      if (val !== '') {
-        this.$emit('changePeriod', val)
+    setPeriod (period) {
+      if (period !== '') {
+        this.$emit('changePeriod', period)
       }
     }
   },
-  mounted () {
-    this.user.monthlyReports.forEach(report => {
-      this.lists.push(report.period)
-    })
-    const d = new Date()
-    const period = `${d.getMonth() + 1}-${d.getFullYear()}`
-    this.period = period
+  props: {
+    currentPeriod: String,
+    currentReport: Object,
+    periodLists: Array
   }
 }
 </script>

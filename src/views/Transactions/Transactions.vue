@@ -1,4 +1,5 @@
 <template>
+  <keep-alive>
     <div class="transactionsContainer">
         <div class="transactions__empty" v-if="this.$store.state.user.monthlyReports.length < 1">
            <div>No  transaction</div>
@@ -12,6 +13,7 @@
             <transactions-table @editTransaction="edit" :period="period"></transactions-table>
         </div>
     </div>
+  </keep-alive>
 </template>
 
 <script>

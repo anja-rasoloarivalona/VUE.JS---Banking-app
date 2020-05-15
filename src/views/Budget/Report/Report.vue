@@ -1,6 +1,12 @@
 <template>
     <div class="report">
-      <report-header @changePeriod="setPeriod"></report-header>
+      <report-header
+          v-if="currentPeriod !== ''"
+          @changePeriod="setData"
+          :currentPeriod="currentPeriod"
+          :currentReport="currentReport"
+          :periodLists="periodLists">
+      </report-header>
       <div class="report__item" v-if="currentReport.budget">
             <div class="report__item__title">
                 <h2>Incomes</h2>
@@ -48,11 +54,16 @@ import ReportHeader from './ReportHeader'
 export default {
   data () {
     return {
-      period: '',
+      currentPeriod: '',
       currentReport: {},
       userIncomes: [],
-      userExpenses: []
+      userExpenses: [],
+      periodLists: []
     }
+  },
+  mounted () {
+    const d = new Date()
+    this.currentPeriod = `${d.getMonth() + 1}-${d.getFullYear()}`
   },
   computed: {
     ...mapGetters([
@@ -64,32 +75,41 @@ export default {
     currentReport: function (report) {
       this.userIncomes = report.budget.filter(i => i.type === 'income')
       this.userExpenses = report.budget.filter(i => i.type === 'expense')
-      // console.log('current report change', report)
+    },
+    currentPeriod: function (period) {
+      this.setData(period)
+    },
+    'user.monthlyReports': function (reports) {
+      this.setData(this.currentPeriod, reports)
     }
   },
   methods: {
-    setPeriod: async function (val) {
-      this.period = val
-      const report = this.user.monthlyReports.filter(report => report.period === val)[0]
-      report.budget.forEach((budget, index) => {
-        for (const key in this.usersIncomesAndExpenses) {
-          if (this.usersIncomesAndExpenses[key]._id === budget._id) {
-            report.budget[index].name = this.usersIncomesAndExpenses[key].name
-            report.budget[index].transactions = []
-            report.budget[index].type = this.usersIncomesAndExpenses[key].transactionType
-            report.budget[index].color = this.usersIncomesAndExpenses[key].color
+    setData (period, reports) {
+      const userReports = reports || this.user.monthlyReports
+      const currentPeriod = period || this.currentPeriod
+      const currentReport = userReports.filter(report => report.period === currentPeriod)[0]
+      currentReport.budget.forEach((budget, index) => {
+        for (const name in this.usersIncomesAndExpenses) {
+          if (this.usersIncomesAndExpenses[name]._id === budget._id) {
+            currentReport.budget[index].name = name
+            currentReport.budget[index].transactions = []
+            currentReport.budget[index].type = this.usersIncomesAndExpenses[name].transactionType
+            currentReport.budget[index].color = this.usersIncomesAndExpenses[name].color
           }
         }
-        report.transactions.forEach(transaction => {
+        currentReport.transactions.forEach(transaction => {
           if (transaction.budgetId === budget._id) {
-            report.budget[index].transactions.push(transaction)
+            currentReport.budget[index].transactions.push(transaction)
           }
         })
       })
-      this.currentReport = report
-    },
-        scrollToTop () {
-      window.scrollTo(0, 0)
+      this.currentReport = currentReport
+
+      const list = []
+      userReports.forEach(report => {
+        list.push(report.period)
+      })
+      this.periodLists = list
     }
   },
   components: {

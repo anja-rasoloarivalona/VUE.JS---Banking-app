@@ -15,6 +15,14 @@ const loginQuery = input => {
                     }
                     settings {
                       theme
+                      dashboardLayout {
+                        x
+                        y
+                        w
+                        h
+                        i
+                        displayed
+                      }
                     }
                     wallets {
                       _id

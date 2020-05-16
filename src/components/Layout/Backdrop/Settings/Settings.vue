@@ -45,7 +45,8 @@ export default {
           component: 'ghost'
         },
         {
-          name: 'edit dashboard'
+          name: 'edit dashboard',
+          component: 'edit'
         }
       ]
     }
@@ -63,7 +64,7 @@ export default {
       'setEditDashboardToTrue'
     ]),
     changeSettingsModalView (nextview) {
-      if (nextview !== 'edit dashboard') {
+      if (nextview !== 'edit') {
         return this.setSettingsModal(nextview)
       }
       this.setEditDashboardToTrue()

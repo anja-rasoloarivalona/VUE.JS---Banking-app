@@ -25,7 +25,6 @@
 
 <script>
 import axios from 'axios'
-import { editDashboardQuery } from '@/graphQL/editDashboardQuery'
 import { dateRangeCalculator } from '@/utilities/date-range-calculator.js'
 import { mapGetters, mapMutations } from 'vuex'
 export default {
@@ -38,15 +37,13 @@ export default {
   computed: {
     ...mapGetters([
       'currentSetupStep',
-      'user',
-      'dashboardData'
+      'user'
     ])
   },
   methods: {
     ...mapMutations([
       'setAppStatus',
       'addGoal',
-      'setDefaultDashboardLayout',
       'setTheme'
     ]),
     findNextMonth (d) {
@@ -131,26 +128,16 @@ export default {
         }`
       }
       try {
-        const response = await axios.post('', graphqlQuery)
+        const response = await axios.post('/', graphqlQuery)
         const resData = response.data.data.addGoal
         this.addGoal(resData)
       } catch (err) {
-        console.log('save goal', err.repsonse)
-      }
-    },
-    initDashboardLayout: async function () {
-      this.setDefaultDashboardLayout(this.user)
-      const graphqlQuery = editDashboardQuery(this.dashboardData.currentDashboardLayout)
-      try {
-        await axios.post('/', graphqlQuery)
-      } catch (err) {
-        console.log('err init dashboard', err.repsonse)
+        console.log(err.repsonse)
       }
     },
     launchApp: async function () {
       try {
         await this.saveGoal()
-        await this.initDashboardLayout()
         this.$emit('setup-completed')
         const localData = localStorage.getItem('bank-data')
         const data = {

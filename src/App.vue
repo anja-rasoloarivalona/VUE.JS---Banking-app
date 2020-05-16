@@ -68,6 +68,7 @@ export default {
       'setUserData',
       'setIsAuthToTrue',
       'setDefaultDashboardLayout',
+      'setCurrentDashboardLayout',
       'setTheme',
       'setPreviousTheme',
       // OTHER
@@ -75,9 +76,11 @@ export default {
       'initBalance'
     ]),
     initializeApp ({ auth, app }) {
+      console.log('init', app)
       this.setUserData(app)
       this.setIsAuthToTrue(auth)
-      this.setDefaultDashboardLayout(app)
+      this.setDefaultDashboardLayout(app.settings.dashboardLayout)
+      this.setCurrentDashboardLayout(app.settings.dashboardLayout)
       this.setTheme(app.settings.theme)
       this.setPreviousTheme(app.settings.theme)
     },
@@ -127,6 +130,7 @@ export default {
     }
     axios.defaults.headers.common.Authorization = 'Bearer ' + authData.token
     const appData = await this.$store.dispatch('fetchUserData')
+    console.log('app data', appData)
     if (appData) {
       this.initializeApp({ auth: authData, app: appData })
       this.loading = false

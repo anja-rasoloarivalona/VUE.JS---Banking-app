@@ -4,10 +4,13 @@
             <h3>Displayed items</h3>
             <div class="edit-dashboard__list__item" v-for="(item, index) in data" :key="item.i">
                   <div class="edit-dashboard__list__item__key">{{ item.i }}</div>
-                  <div class="edit-dashboard__list__item__toggle" :class="{active: data[index].displayed}" @click="selectItem(index)">
-                      <div class="edit-dashboard__list__item__toggle__content"></div>
+                  <div
+                    class="edit-dashboard__list__item__switch"
+                    :class="{active: data[index].displayed}"
+                    @click="selectItem(index)"
+                  >   <div class="edit-dashboard__list__item__switch__bar"></div>
+                      <div class="edit-dashboard__list__item__switch__toggle"></div>
                   </div>
-                  <!-- <input type="checkbox" v-model="data[index].displayed" @change="updateLayout"/> -->
             </div>
         </div>
         <div class="edit-dashboard__cta">
@@ -72,12 +75,11 @@ export default {
     color: var(--textColor--dark);
     // background: red;
     height: 100%;
+    padding: 0 2rem;
     &__list {
         font-size: $font-m;
         margin-bottom: 5rem;
-        // background: red;
         & h3 {
-          // background: blue;
           text-align: center;
         }
         &__item {
@@ -87,39 +89,49 @@ export default {
             justify-content: space-between;
             width: 100%;
             height: 2rem;
-            // background: yellow;
-            &__key {
-                text-transform: capitalize;
-                color: var(--textColor--dark)
-            }
-            &__toggle {
+            &__switch {
               background: var(--on-surfaceColor);
-              height: 2.5rem;
-              width: 6rem;
+              height: 1.5rem;
+              width: 5rem;
               position: relative;
               border-radius: 1.5rem;
               cursor: pointer;
               box-shadow: inset 0 3px 10px rgba(0, 0, 0, 0.247);
-              &.active {
-                // background: var(--mainColor--dark);
-                & .edit-dashboard__list__item__toggle__content {
-                  background: var(--mainColor);
-                  transform: translateX(3.3rem);
-                }
+              &__bar {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 0%;
+                height: 100%;
+                border-radius: 1.5rem;
+                background: var(--mainColor--dark);
+                transition: all .3s ease-in;
               }
-              &__content {
+              &__toggle {
+                background: var(--mainColor);
                 position: absolute;
                 top: 0;
                 bottom: 0;
-                left: .4rem;
+                left: 0;
                 margin: auto;
                 width: 2rem;
                 height: 2rem;
-                background: grey;
-                box-shadow: 0 8px 6px -4px rgba(0,0,0,.25);
+                box-shadow: -1px 0px 5px 1px rgba(37, 37, 37, 0.829);
                 border-radius: 50%;
                 transition: all .3s ease-in;
               }
+              &.active {
+                & .edit-dashboard__list__item__switch__toggle {
+                  transform: translateX(3rem);
+                }
+                & .edit-dashboard__list__item__switch__bar {
+                  width: 100%;
+                }
+              }
+            }
+            &__key {
+                text-transform: capitalize;
+                color: var(--textColor--dark)
             }
             & input {
                 cursor: pointer;
@@ -129,7 +141,6 @@ export default {
     &__cta {
       display: flex;
       justify-content: space-between;
-      // background: red;
       & button {
         margin: 0;
       }

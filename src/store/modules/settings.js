@@ -54,7 +54,6 @@ const mutations = {
   },
   // DASHBOARD
   setDefaultDashboardLayout (state, layout) {
-    console.log('fired', layout)
     state.defaultDashboardLayout = layout
   },
   setCurrentDashboardLayout (state, layout) {

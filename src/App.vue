@@ -76,7 +76,6 @@ export default {
       'initBalance'
     ]),
     initializeApp ({ auth, app }) {
-      console.log('init', app)
       this.setUserData(app)
       this.setIsAuthToTrue(auth)
       this.setDefaultDashboardLayout(app.settings.dashboardLayout)
@@ -130,7 +129,6 @@ export default {
     }
     axios.defaults.headers.common.Authorization = 'Bearer ' + authData.token
     const appData = await this.$store.dispatch('fetchUserData')
-    console.log('app data', appData)
     if (appData) {
       this.initializeApp({ auth: authData, app: appData })
       this.loading = false

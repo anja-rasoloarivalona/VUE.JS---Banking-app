@@ -29,18 +29,32 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'user'
+      'user',
+      'userTransactions'
     ])
   },
   mounted () {
-    this.user.monthlyReports.forEach(report => {
-      this.periodList.push(report.period)
-    })
-    const d = new Date()
-    const period = `${d.getMonth() + 1}-${d.getFullYear()}`
-    this.period = period
+    this.load()
+  },
+  watch: {
+    userTransactions: function () {
+      this.load()
+    }
   },
   methods: {
+    load () {
+      const list = []
+      this.user.monthlyReports.forEach(report => {
+        if (report.transactions.length > 0) {
+          list.push(report.period)
+        }
+      })
+      this.periodList = list
+
+      const d = new Date()
+      const period = `${d.getMonth() + 1}-${d.getFullYear()}`
+      this.period = period
+    },
     edit (transaction) {
       this.editedTransaction = transaction
     }

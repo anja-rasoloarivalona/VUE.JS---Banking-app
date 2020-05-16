@@ -11,7 +11,7 @@
             <app-basic-input  :id="'counter party'" v-model="input.counterparty" v-if="showCounterparty"/>
         </form>
         <div class="transactions-form__cta">
-            <app-btn normal warning v-if="isCancelBtnDisplayed" @click.native="closeBackdrop">Cancel</app-btn>
+            <app-btn normal warning v-if="isCancelBtnDisplayed" @click.native="close">Cancel</app-btn>
             <app-btn normal primary @click.native="submitForm">
                     <span v-if="!loading" v-text="isEditingTransaction ? 'Edit': 'Add'"></span>
                     <app-spinner v-else></app-spinner>
@@ -149,8 +149,13 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'closeBackdrop'
+      'closeBackdrop',
+      'resetEditTransaction'
     ]),
+    close () {
+      this.closeBackdrop()
+      this.resetEditTransaction()
+    },
     submitForm () {
       this.loading = true
       if (this.isEditingTransaction) {
@@ -163,7 +168,7 @@ export default {
       const res = await this.$store.dispatch('addTransaction', this.input)
       if (res) {
         this.loading = false
-        this.closeBackdrop()
+        this.close()
       } else {
         this.loading = false
       }
@@ -172,7 +177,7 @@ export default {
       const res = await this.$store.dispatch('editTransaction', this.input)
       if (res) {
         this.loading = false
-        this.closeBackdrop()
+        this.close()
       } else {
         this.loading = false
       }

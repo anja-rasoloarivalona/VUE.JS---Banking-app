@@ -1,5 +1,5 @@
 <template>
-    <div class="backdrop" @click.self="closeBackdrop">
+    <div class="backdrop" @click.self="close">
       <slot />
       <transition name="fade" mode="out-in" appear>
         <component :is="backdrop.active"></component>
@@ -16,8 +16,13 @@ import Expense from './Expense'
 export default {
   methods: {
     ...mapMutations([
-      'closeBackdrop'
-    ])
+      'closeBackdrop',
+      'resetEditTransaction'
+    ]),
+    close () {
+      this.closeBackdrop()
+      this.resetEditTransaction()
+    }
   },
   computed: {
     ...mapGetters([

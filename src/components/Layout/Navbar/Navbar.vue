@@ -1,8 +1,5 @@
 <template>
   <div class="navContainer" :class="{'not-authed': !isUserAuthed, 'authed': isUserAuthed}">
-    <div class="navBg" :class="{'bg-mainColor': currentTheme && currentTheme.includes('light'), 'bg-surfaceColor': currentTheme && currentTheme.includes('dark') }">
-      <div class="navBg__in bg-default"></div>
-    </div>
     <div class="nav bg-default">
       <transition name="fade-from-top" mode="out-in">
           <component :is="currentAppStatus"></component>
@@ -71,9 +68,6 @@ export default {
   &.not-authed {
     width: 45vw;
     background: var(--surfaceColor);
-    & .navBg {
-      opacity: 0;
-    }
     & .nav {
       height: 100%;
       width: 100%;
@@ -97,21 +91,6 @@ export default {
         position: relative;
         z-index: 3;
         margin: 0 1rem;
-        // padding: 0 1rem;
-    }
-    .navBg {
-      grid-column: 2 / -1;
-      grid-row: 1 / 2;
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      &__in {
-        height: 100%;
-        width: 100%;
-        position: absolute;
-        z-index: 1;
-        border-top-left-radius: 4rem;
-      }
     }
   }
 }

@@ -123,7 +123,7 @@ export default {
         this.setPreviousTheme(resData.settings.theme)
         this.closeBackdrop()
       } catch (err) {
-        console.log(err)
+        console.log(err.response)
       }
     }
   },

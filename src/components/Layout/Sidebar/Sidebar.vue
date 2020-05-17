@@ -4,10 +4,14 @@
       :class="{
         'not-authed': !isUserAuthed,
         'authed': isUserAuthed,
-        'bg-surfaceColor': currentTheme && currentTheme.includes('dark'),
-        'bg-mainColor': currentTheme && currentTheme.includes('light')
-      }"
-      >
+        'bg-surfaceColor': currentTheme.includes('dark'),
+        'bg-mainColor': currentTheme.includes('light')
+      }">
+      <div
+       class="sidebar__toprounded bg-default"
+       :class="{'bg-mainColor': currentTheme.includes('light'), 'bg-surfaceColor': currentTheme.includes('dark') }">
+        <div class="sidebar__toprounded__in"></div>
+      </div>
       <template v-if="!isUserAuthed">
           <transition name="fade" mode="out-in" appear>
               <div class="sidebar__authImg">
@@ -66,6 +70,23 @@ export default {
   height: 100vh;
   transition: all .5s ease-in;
   z-index: 9;
+  &__toprounded {
+    position: absolute;
+    top: 0;
+    right: -3rem;
+    width: 3rem;
+    height: 3rem;
+    &__in {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-top-left-radius: 4.5rem;
+      background: var(--backgroundColor);
+      z-index: 1;
+    }
+  }
   &.not-authed {
       transition: all .5s ease-in;
       width: 55vw;

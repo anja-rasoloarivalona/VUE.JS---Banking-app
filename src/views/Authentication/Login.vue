@@ -29,7 +29,7 @@ export default {
 }
 button {
   background: var(--mainColor);
-  height: 4.5rem;
+  height: 4.5rem !important;
   width: 100%;
   display: flex;
   align-items: center;

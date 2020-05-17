@@ -2,7 +2,7 @@
   <div class="navContainer" :class="{'not-authed': !isUserAuthed, 'authed': isUserAuthed}">
     <div class="nav bg-default">
       <transition name="fade-from-top" mode="out-in">
-          <component :is="currentAppStatus"></component>
+          <component :is="currentNav"></component>
       </transition>
     </div>
   </div>
@@ -33,6 +33,13 @@ export default {
       if (this.backdropState && this.backdropModal === 'settings') {
         return 'primary'
       } else return 'secondary'
+    },
+    currentNav () {
+      if (this.currentAppStatus.includes('setup')) {
+        return 'setup'
+      } else {
+        return this.currentAppStatus
+      }
     }
   },
   watch: {

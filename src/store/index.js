@@ -26,6 +26,7 @@ export default new Vuex.Store({
       try {
         const response = await axios.post('/', graphqlQuery)
         const resData = response.data.data.user
+        console.log('fetch user data', resData)
         return resData
       } catch (err) {
         console.log(err.response)

@@ -98,6 +98,7 @@ const actions = {
         token: resData.token,
         userId: resData.user._id,
         userName: resData.user.name,
+        userEmail: resData.user.email,
         appStatus: resData.user.status,
         expiryDate: expiryDate
       }

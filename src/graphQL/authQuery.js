@@ -103,10 +103,20 @@ const signupQuery = input => {
                     _id
                     name
                     status
+                    email
                 }
             }
         }`
   }
 }
 
-export { loginQuery, signupQuery }
+const verifyCodeQuery = code => {
+  return {
+    query: `mutation {
+      verifyUserCode(code:"${code}")
+    }
+    `
+  }
+}
+
+export { loginQuery, signupQuery, verifyCodeQuery }

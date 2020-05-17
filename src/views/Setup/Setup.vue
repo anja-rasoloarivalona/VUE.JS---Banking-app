@@ -1,8 +1,9 @@
 <template>
     <div class="setup">
         <backdrop v-if="displayBackdrop">
-            <transition name="fade" mode="out-in" appear="">
-                <welcome v-if="displayWelcome" @hideWelcome="hideWelcome"/>
+            <transition name="fade" mode="out-in" appear>
+                <verify-code v-if="currentAppStatus === 'setup-verify-code'" @displayWelcome="loadWelcome"/>
+                <welcome v-else-if="displayWelcome" @hideWelcome="hideWelcome"/>
             </transition>
             <completed v-if="currentAppStatus === 'setup-completed'"/>
         </backdrop>
@@ -22,6 +23,7 @@ import Incomes from './Incomes'
 import Expenses from './Expenses'
 import Goal from './Goal'
 import Completed from './Completed'
+import VerifyCode from './VerifyCode'
 import { mapGetters } from 'vuex'
 import Backdrop from '@/components/Layout/Backdrop/Backdrop'
 export default {
@@ -39,10 +41,12 @@ export default {
     ])
   },
   mounted () {
-    this.loadWelcome()
+    this.displayBackdrop = true
+    // this.loadWelcome()
   },
   methods: {
     loadWelcome () {
+      console.log('loading')
       setTimeout(() => {
         this.displayBackdrop = true
         this.displayWelcome = true
@@ -61,7 +65,8 @@ export default {
     Incomes,
     Expenses,
     Goal,
-    Completed
+    Completed,
+    VerifyCode
   }
 }
 </script>

@@ -47,10 +47,14 @@ export default {
       'isEditingDashboard'
     ]),
     displayed () {
-      if (!this.isEditingDashboard) {
-        return this.currentAppStatus
-      } else {
+      if (this.isEditingDashboard) {
         return 'editingDashboard'
+      } else {
+        if (this.currentAppStatus.includes('setup')) {
+          return 'setup'
+        } else {
+          return this.currentAppStatus
+        }
       }
     }
   },
@@ -93,7 +97,7 @@ export default {
       background-image: linear-gradient(to right,
               #027a66ea 10%,
               #027a66b4 ),
-              url("../../../assets/landing.png");
+              url("../../../assets/landing.png") !important;
       background-repeat: no-repeat;
       background-size: cover;
       & .sidebar {

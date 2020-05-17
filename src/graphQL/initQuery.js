@@ -1,6 +1,7 @@
 const initQuery = {
   query: `{
       user {
+        email
         settings {
           theme
           dashboardLayout {

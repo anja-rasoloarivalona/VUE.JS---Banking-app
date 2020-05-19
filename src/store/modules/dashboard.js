@@ -13,10 +13,10 @@ const getters = {
 
 const mutations = {
   // LAYOUT MUTATIONS
-  initDashboardLayout (state, data) {
-    state.defaultLayout = data.defaultLayout
-    state.currentLayout = data.currentLayout
-    state.previousLayout = data.currentLayout
+  initDashboardLayout (state, layout) {
+    state.defaultLayout = layout
+    state.currentLayout = layout
+    state.previousLayout = layout
   },
   tryNewLayout (state, layout) {
     state.currentLayout = layout
@@ -38,6 +38,7 @@ const mutations = {
   },
   setDashboardIsBeingEditedTofalse (state) {
     state.isBeingEdited = false
+    state.currentLayout = state.previousLayout
   }
 }
 

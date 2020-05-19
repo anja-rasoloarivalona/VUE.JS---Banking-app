@@ -61,13 +61,13 @@ export default {
     ...mapMutations([
       'closeBackdrop',
       'setSettingsModal',
-      'setEditDashboardToTrue'
+      'setDashboardIsBeingEditedToTrue'
     ]),
     changeSettingsModalView (nextview) {
       if (nextview !== 'edit') {
         return this.setSettingsModal(nextview)
       }
-      this.setEditDashboardToTrue()
+      this.setDashboardIsBeingEditedToTrue()
       this.closeBackdrop()
     }
   },

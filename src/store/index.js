@@ -4,6 +4,7 @@ import auth from './modules/auth'
 import user from './modules/user'
 import setup from './modules/setup'
 import settings from './modules/settings'
+import dashboard from './modules/dashboard'
 import UI from './modules/UI'
 import { initQuery } from '@/graphQL/initQuery'
 import axios from 'axios'
@@ -43,6 +44,7 @@ export default new Vuex.Store({
     UI,
     settings,
     setup,
-    theme
+    theme,
+    dashboard
   }
 })

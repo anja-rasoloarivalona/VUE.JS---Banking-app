@@ -1,9 +1,9 @@
 <template>
     <grid-layout
-        :layout.sync="layout"
+        :layout.sync="currentLayout"
         :col-num="12"
         :row-height="10"
-        :is-draggable="isSettingUp"
+        :is-draggable="dashboard.isBeingEdited"
         :is-resizable="true"
         :is-mirrored="false"
         :vertical-compact="true"
@@ -11,14 +11,14 @@
         :use-css-transforms="true"
         @layout-updated="layoutUpdatedEvent"
     >
-    <grid-item v-for="item in layout"
+    <grid-item v-for="item in currentLayout"
         :x="item.x"
         :y="item.y"
         :w="item.w"
         :h="item.h"
         :i="item.i"
         :key="item.i"
-        :isResizable="isSettingUp"
+        :isResizable="dashboard.isBeingEdited"
         >
             <slot :name="item.i"></slot>
       </grid-item>
@@ -29,49 +29,22 @@
 // one line : 10
 // two line : 20 + 10 = 30
 // three line : 30 + 20 = 50
-// 4 lines : 40 + 30 = 70
-// 5 lines : 50 + 40 = 90
-// 6 lines : 60 + 50 = 110
-// 7 lines : 130
-// 8 : 150
-// 9 : 170
-// 10 : 190
-// 11 : 210
-// 12 : 230
-// 13 : 250
-// 14 : 270
-// 15 :  290
-// 16: 310
-// 17:  330
-// 18: 350
+// four lines : 40 + 30 = 70
 
 import VueGridLayout from 'vue-grid-layout'
 import { mapGetters, mapMutations } from 'vuex'
-import axios from 'axios'
 export default {
   data () {
     return {
-      layout: [],
       updatedLayout: null
-    }
-  },
-  watch: {
-    'dashboardData.currentDashboardLayout': {
-      handler: 'setLayout',
-      immediate: true
     }
   },
   computed: {
     ...mapGetters([
-      'isEditingDashboard',
-      'dashboardData'
+      'dashboard'
     ]),
-    isSettingUp () {
-      if (this.isEditingDashboard) {
-        return true
-      } else {
-        return false
-      }
+    currentLayout () {
+      return this.dashboard.currentLayout.filter(i => i.displayed === true)
     }
   },
   methods: {
@@ -79,44 +52,9 @@ export default {
       'setDefaultDashboardLayout',
       'setCurrentDashboardLayout'
     ]),
-    setLayout () {
-      if (this.dashboardData.currentDashboardLayout.length > 0) {
-        this.layout = this.dashboardData.currentDashboardLayout
-      } else {
-        this.retrieveLayout()
-      }
-    },
     layoutUpdatedEvent: function (newLayout) {
       this.updatedLayout = newLayout
       console.log('layout updated')
-    },
-    retrieveLayout: async function () {
-      const graphqlQuery = {
-        query: `{
-            user {
-              settings {
-                dashboardLayout {
-                  x
-                  y
-                  w
-                  h
-                  i
-                  displayed
-                }
-              }
-            }
-        }
-        `
-      }
-      try {
-        const response = await axios.post('/', graphqlQuery)
-        const resData = response.data.data.user
-        this.layout = resData.settings.dashboardLayout
-        this.setDefaultDashboardLayout(resData.settings.dashboardLayout)
-        this.setCurrentDashboardLayout(resData.settings.dashboardLayout)
-      } catch (err) {
-        console.log(err.response)
-      }
     }
   },
   components: {

@@ -1,12 +1,20 @@
 <template>
     <div class="edit-dashboard">
         <div class="edit-dashboard__list">
-            <h3>Displayed items</h3>
-            <div class="edit-dashboard__list__item" v-for="(item, index) in data" :key="item.i">
-                  <div class="edit-dashboard__list__item__key">{{ item.i }}</div>
+            <!-- <h3>Displayed items</h3> -->
+            <div class="edit-dashboard__list__item" v-for="(item, index) in dashboard.currentLayout" :key="item.i">
+                  <div
+                    class="edit-dashboard__list__item__key"
+                    :class="{
+                      light: theme.isLight,
+                      dark: theme.isDark,
+                      active: dashboard.currentLayout[index].displayed}"
+                    >
+                    {{ item.i }}
+                  </div>
                   <div
                     class="edit-dashboard__list__item__switch"
-                    :class="{active: data[index].displayed}"
+                    :class="{active: dashboard.currentLayout[index].displayed}"
                     @click="selectItem(index)"
                   >   <div class="edit-dashboard__list__item__switch__bar"></div>
                       <div class="edit-dashboard__list__item__switch__toggle"></div>
@@ -25,38 +33,27 @@ import { mapGetters, mapMutations } from 'vuex'
 import { editDashboardQuery } from '@/graphQL/editDashboardQuery'
 import axios from 'axios'
 export default {
-  data () {
-    return {
-      data: []
-    }
-  },
-  mounted () {
-    this.data = this.dashboardData.currentDashboardLayout
-    console.log('data', this.data)
-  },
   computed: {
     ...mapGetters([
-      'dashboardData'
+      'dashboard',
+      'theme'
     ])
   },
   methods: {
     ...mapMutations([
-      'setCurrentDashboardLayout',
-      'setEditDashboardToFalse'
+      'setDashboardIsBeingEditedTofalse',
+      'tryNewLayout'
     ]),
     cancel () {
-      this.setEditDashboardToFalse()
+      this.setDashboardIsBeingEditedTofalse()
     },
     selectItem (index) {
-      this.data[index].displayed = !this.data[index].displayed
-      this.updateLayout()
-    },
-    updateLayout () {
-      const res = this.data.filter(i => i.displayed === true)
-      this.setCurrentDashboardLayout(res)
+      const newLayout = this.dashboard.currentLayout
+      newLayout[index].displayed = !newLayout[index].displayed
+      this.tryNewLayout(newLayout)
     },
     submit: async function () {
-      const graphqlQuery = editDashboardQuery(this.dashboardData.currentDashboardLayout)
+      const graphqlQuery = editDashboardQuery(this.dashboard.currentLayout)
       try {
         await axios.post('/', graphqlQuery)
         this.setEditDashboardToFalse()
@@ -72,10 +69,9 @@ export default {
 .edit-dashboard {
     width: 100%;
     font-size: $font-m;
-    color: var(--textColor--dark);
-    // background: red;
     height: 100%;
     padding: 0 2rem;
+    margin-top: 4rem;
     &__list {
         font-size: $font-m;
         margin-bottom: 5rem;
@@ -131,7 +127,15 @@ export default {
             }
             &__key {
                 text-transform: capitalize;
-                color: var(--textColor--dark)
+                &.light {
+                  color: rgb(197, 197, 197);
+                  &.active {
+                      color: $color-white
+                  }
+                }
+                &.dark {
+                  color: var(--textColor--dark)
+                }
             }
             & input {
                 cursor: pointer;

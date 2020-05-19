@@ -2,13 +2,12 @@
     <div class="input-date">
         <label :for="id">
             <span>{{ id }}</span>
-            <date-picker :id="id" :value="value" @input="updateSelf"/>
+            <date-picker :id="id" :value="value" @input="updateSelf" />
         </label>
     </div>
 </template>
 
 <script>
-// import Calendar from 'v-calendar/lib/components/calendar.umd'
 import { mapGetters } from 'vuex'
 import DatePicker from 'v-calendar/lib/components/date-picker.umd'
 export default {
@@ -21,7 +20,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'currentTheme'
+      'theme'
     ])
   },
   props: {
@@ -62,7 +61,11 @@ export default {
     border-width: 0px !important;
 }
 
-.vc-bg-white {
+input.vc-bg-white  {
+  background:  var(--calendarBackground) !important;
+}
+
+.vc-bg-white  {
     background: var(--calendarBackground) !important;
 }
 

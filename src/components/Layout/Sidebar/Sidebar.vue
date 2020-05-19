@@ -2,8 +2,8 @@
     <div
       class="sidebar"
       :class="{
-        'not-authed': !isUserAuthed,
-        'authed': isUserAuthed,
+        'not-authed': !auth.isAuth,
+        'authed': auth.isAuth,
         'bg-surfaceColor': theme.isDark,
         'bg-mainColor': theme.isLight
       }">
@@ -12,7 +12,7 @@
        :class="{'bg-mainColor': theme.isLight, 'bg-surfaceColor': theme.isDark }">
         <div class="sidebar__toprounded__in"></div>
       </div>
-      <template v-if="!isUserAuthed">
+      <template v-if="!auth.isAuth">
           <transition name="fade" mode="out-in" appear>
               <div class="sidebar__authImg">
                   <h1>Take control of your</h1>
@@ -42,18 +42,17 @@ export default {
   computed: {
     ...mapGetters([
       'theme',
-      'isUserAuthed',
-      'currentAppStatus',
-      'isEditingDashboard'
+      'auth',
+      'dashboard'
     ]),
     displayed () {
-      if (this.isEditingDashboard) {
+      if (this.dashboard.isBeingEdited) {
         return 'editingDashboard'
       } else {
-        if (this.currentAppStatus.includes('setup')) {
+        if (this.auth.appStatus.includes('setup')) {
           return 'setup'
         } else {
-          return this.currentAppStatus
+          return this.auth.appStatus
         }
       }
     }

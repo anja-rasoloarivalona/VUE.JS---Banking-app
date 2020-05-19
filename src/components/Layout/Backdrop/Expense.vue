@@ -1,5 +1,5 @@
 <template>
-    <div class="expense" :class="{'bg-surfaceColor': currentTheme.includes('light'), 'bg-surfaceColor': currentTheme.includes('dark') }">
+    <div class="expense" :class="{'bg-default': theme.isLight, 'bg-surfaceColor': theme.isDark}">
         <expense-form isCancelBtnDisplayed>
             <div class="expense__header">
                 <h1 v-text="editedExpense ? 'Edit expense' : 'Add expense'"></h1>
@@ -20,6 +20,7 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'theme',
       'currentTheme',
       'editedExpense'
     ])

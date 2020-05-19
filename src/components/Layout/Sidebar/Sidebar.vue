@@ -4,12 +4,12 @@
       :class="{
         'not-authed': !isUserAuthed,
         'authed': isUserAuthed,
-        'bg-surfaceColor': currentTheme.includes('dark'),
-        'bg-mainColor': currentTheme.includes('light')
+        'bg-surfaceColor': theme.isDark,
+        'bg-mainColor': theme.isLight
       }">
       <div
        class="sidebar__toprounded bg-default"
-       :class="{'bg-mainColor': currentTheme.includes('light'), 'bg-surfaceColor': currentTheme.includes('dark') }">
+       :class="{'bg-mainColor': theme.isLight, 'bg-surfaceColor': theme.isDark }">
         <div class="sidebar__toprounded__in"></div>
       </div>
       <template v-if="!isUserAuthed">
@@ -41,9 +41,9 @@ import EditingDashboard from './EditingDashboard'
 export default {
   computed: {
     ...mapGetters([
+      'theme',
       'isUserAuthed',
       'currentAppStatus',
-      'currentTheme',
       'isEditingDashboard'
     ]),
     displayed () {

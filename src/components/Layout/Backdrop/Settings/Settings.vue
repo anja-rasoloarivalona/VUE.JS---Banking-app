@@ -4,7 +4,7 @@
             <div class="settings__close" @click="closeBackdrop">
                 <app-icon name="close" size="large"/>
             </div>
-            <div class="settings__list" :class="{'bg-grey': currentTheme.includes('light'), 'bg-default': currentTheme.includes('dark') }">
+            <div class="settings__list" :class="{'bg-grey': theme.isLight, 'bg-default': theme.isDark}">
                 <div
                     class="settings__list__item"
                     v-for="view in views"
@@ -15,7 +15,7 @@
                     {{ view.name }}
                 </div>
             </div>
-            <div class="settings__view" :class="{'bg-surfaceColor': currentTheme.includes('light'), 'bg-on-surfaceColor': currentTheme.includes('dark') }">
+            <div class="settings__view" :class="{'bg-surfaceColor': theme.isLight, 'bg-on-surfaceColor': theme.isDark}">
                 <h2 class="settings__view__title">{{ settingsModal.active}}</h2>
                 <component :is="settingsModal.active" @hideForm="closeBackdrop"></component>
             </div>
@@ -53,7 +53,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'currentTheme',
+      'theme',
       'settingsModal'
     ])
   },

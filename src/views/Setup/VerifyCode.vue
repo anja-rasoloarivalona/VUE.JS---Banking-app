@@ -16,7 +16,10 @@
         <form action="" class="verify__form">
             <app-basic-input v-model="code" id="Enter the code"/>
             <div>Back to signup</div>
-            <app-btn @click.native="submit">Confirm</app-btn>
+            <app-btn @click.native="submit">
+                <span v-if="!loading">Confirm</span>
+                <app-spinner v-else></app-spinner>
+            </app-btn>
         </form>
     </div>
 </template>
@@ -28,7 +31,8 @@ import axios from 'axios'
 export default {
   data () {
     return {
-      code: ''
+      code: '',
+      loading: false
     }
   },
   computed: {
@@ -48,16 +52,18 @@ export default {
       'setAppStatus'
     ]),
     submit: async function () {
+      this.loading = true
       const graphQLQuery = verifyCodeQuery(this.code)
       try {
         const response = await axios.post('/', graphQLQuery)
         const resData = response.data.data.verifyUserCode
-        console.log('res', resData)
         if (resData === 'succeeded') {
+          this.loading = false
           this.setAppStatus('setup')
           this.$emit('displayWelcome')
         }
       } catch (err) {
+        this.loading = false
         console.log(err.response)
       }
     }

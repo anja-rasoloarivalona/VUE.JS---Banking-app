@@ -3,20 +3,20 @@
         <div class="design__item">
             <div class="design__item__key">Theme</div>
             <div class="design__item__value design__item__value--theme">
-                <div class="design__item__value--theme__choice" :class="{active: currentTheme.includes('light')}">
+                <div class="design__item__value--theme__choice" :class="{active: theme.isLight}">
                     Light
                 </div>
                 <div
                   class="design__item__value--theme__togglerBar"
-                  :class="{'bg-on-surfaceColor': currentTheme.includes('light'), 'bg-surfaceColor': currentTheme.includes('dark') }"
+                  :class="{'bg-on-surfaceColor': theme.isLight, 'bg-surfaceColor': theme.isDark }"
                 >
                     <div class="design__item__value--theme__toggler"
-                         :class="{light: currentTheme.includes('light'), dark: currentTheme.includes('dark')}"
+                         :class="{light: theme.isLight, dark: theme.isDark}"
                          @click="changeTheme"
                     >
                     </div>
                 </div>
-                <div class="design__item__value--theme__choice" :class="{active: currentTheme.includes('dark')}">
+                <div class="design__item__value--theme__choice" :class="{active: theme.isDark}">
                     Dark
                 </div>
             </div>
@@ -65,50 +65,32 @@ export default {
     }
   },
   mounted () {
-    this.activeColor = this.currentTheme.split('-')[1]
+    this.activeColor = this.theme.currentTheme.split('-')[1]
   },
   computed: {
     ...mapGetters([
-      'currentTheme',
-      'previousTheme'
+      'theme'
     ])
   },
   methods: {
     ...mapMutations([
-      'setTheme',
-      'setPreviousTheme',
+      'tryNewTheme',
+      'saveNewTheme',
+      'cancelNewTheme',
       'closeBackdrop'
     ]),
     changeTheme () {
-      let result
-      const color = this.currentTheme.split('-')[1]
-      if (this.currentTheme.includes('dark')) {
-        result = `light-${color}`
-        this.setTheme(result)
-      } else {
-        result = `dark-${color}`
-        this.setTheme(result)
-      }
-      const htmlElement = document.documentElement
-      htmlElement.setAttribute('theme', result)
+      const nextTheme = this.theme.isLight ? `dark-${this.theme.mainColor}` : `light-${this.theme.mainColor}`
+      this.tryNewTheme(nextTheme)
     },
     changeColor (color) {
-      let result
-      if (this.currentTheme.includes('light')) {
-        result = `light-${color}`
-        this.setTheme(result)
-      } else {
-        result = `dark-${color}`
-        this.setTheme(result)
-      }
-      const htmlElement = document.documentElement
-      htmlElement.setAttribute('theme', result)
-      this.activeColor = color
+      const nextTheme = this.theme.isLight ? `light-${color}` : `dark-${color}`
+      this.tryNewTheme(nextTheme)
     },
     submitTheme: async function () {
       const graphqlQuery = {
         query: `mutation {
-                setTheme(theme: "${this.currentTheme}") {
+                setTheme(theme: "${this.theme.currentTheme}") {
                     settings {
                         theme
                     }
@@ -117,10 +99,8 @@ export default {
       `
       }
       try {
-        const response = await axios.post('', graphqlQuery)
-        const resData = response.data.data.setTheme
-        this.setTheme(resData.settings.theme)
-        this.setPreviousTheme(resData.settings.theme)
+        await axios.post('', graphqlQuery)
+        this.saveNewTheme()
         this.closeBackdrop()
       } catch (err) {
         console.log(err.response)
@@ -128,10 +108,8 @@ export default {
     }
   },
   beforeDestroy () {
-    if (this.currentTheme !== this.previousTheme) {
-      this.setTheme(this.previousTheme)
-      const htmlElement = document.documentElement
-      htmlElement.setAttribute('theme', this.previousTheme)
+    if (this.theme.currentTheme !== this.theme.previousTheme) {
+      this.cancelNewTheme()
     }
   }
 }

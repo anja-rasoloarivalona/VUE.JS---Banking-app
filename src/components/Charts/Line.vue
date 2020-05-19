@@ -48,7 +48,7 @@ export default {
       handler: 'displayChart',
       immediate: false
     },
-    currentTheme: {
+    'theme.currentTheme': {
       handler: 'setColorLine',
       immediate: true
     }
@@ -115,7 +115,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'currentTheme'
+      'theme'
     ])
   }
 }

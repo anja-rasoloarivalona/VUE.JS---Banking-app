@@ -1,8 +1,11 @@
 <template>
     <div class="completed">
-        Completed
+        <h1>Congratulations {{this.$store.state.auth.userName}}!</h1>
+        <div class="completed__text">
+          Your account is ready.
+        </div>
         <div class="completed__cta">
-            <app-btn normal primary>Get started</app-btn>
+            <app-btn normal primary @click.native="setAppStatus('active')">Get started</app-btn>
         </div>
     </div>
 </template>
@@ -18,18 +21,31 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'setDefaultDashboardLayout'
-    ]),
-    submit () {
-      this.setDefaultDashboardLayout(this.user)
-      const grapqlQuery = this.dashboardData.currentDashboardLayout
-      console.log(grapqlQuery)
-    }
+      'setAppStatus'
+    ])
   }
 
 }
 </script>
 
 <style lang="scss" scoped>
-
+.completed {
+  position: absolute;
+  width: 60rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: $color-white;
+  border-radius: .5rem;
+  padding: 2rem 0;
+  & h1 {
+        color: $color-primary;
+  }
+  &__text {
+        margin: 2rem 0;
+        font-size: $font-m;
+        color: $color-grey--dark;
+  }
+}
 </style>

@@ -8,6 +8,8 @@ import UI from './modules/UI'
 import { initQuery } from '@/graphQL/initQuery'
 import axios from 'axios'
 
+import theme from './modules/theme'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -16,7 +18,9 @@ export default new Vuex.Store({
 
   },
   getters: {
-
+    xpty: state => {
+      return state
+    }
   },
   mutations: {
   },
@@ -25,9 +29,9 @@ export default new Vuex.Store({
       const graphqlQuery = initQuery
       try {
         const response = await axios.post('/', graphqlQuery)
-        const resData = response.data.data.user
-        console.log('fetch user data', resData)
-        return resData
+        const userData = response.data.data.user
+        commit('setUserData', userData)
+        commit('initDashboardLayout', userData.settings.dashboardLayout)
       } catch (err) {
         console.log(err.response)
       }
@@ -38,6 +42,7 @@ export default new Vuex.Store({
     user,
     UI,
     settings,
-    setup
+    setup,
+    theme
   }
 })

@@ -4,17 +4,17 @@
     <template v-else>
       <sidebar />
       <navbar />
-      <transition name="fade" mode="out-in" appear v-if="!isUserAuthed">
+      <transition name="fade" mode="out-in" appear v-if="!auth.isAuth">
           <auth @successLogin="initializeApp($event)"/>
       </transition>
       <div class="app__view bg-default" v-else>
-          <router-view name="setup" v-if="currentAppStatus.includes('setup')"/>
+          <router-view name="setup" v-if="auth.appStatus.includes('setup')"/>
           <transition v-else :name="routerTransition" mode="out-in" appear>
               <router-view />
           </transition>
           <backdrop v-if="backdrop.isDisplayed">
           </backdrop>
-    </div>
+      </div>
     </template>
   </div>
 </template>
@@ -34,16 +34,27 @@ export default {
       routerTransition: 'slide-from-right'
     }
   },
+  mounted: async function () {
+    console.log('tricks', this.xpty)
+    // localStorage.removeItem('bank-data')
+    // localStorage.removeItem('bank-theme')
+    this.initTheme()
+    this.initAuthData()
+    if (!this.auth.isAuth) {
+      this.loading = false
+      return
+    }
+    axios.defaults.headers.common.Authorization = 'Bearer ' + this.auth.token
+    await this.$store.dispatch('fetchUserData')
+    this.loading = false
+  },
   computed: {
     ...mapGetters([
-      'isUserAuthed',
-      'currentTheme',
-      'currentAppStatus',
-      'modal',
+      'xpty',
       'backdrop',
-      'localData',
-      'localTheme',
-      'user'
+      'user',
+      'theme',
+      'auth'
     ])
   },
   watch: {
@@ -64,25 +75,14 @@ export default {
   },
   methods: {
     ...mapMutations([
-      // INIT APPLICATION
-      'setUserData',
-      'setIsAuthToTrue',
-      'setDefaultDashboardLayout',
-      'setCurrentDashboardLayout',
-      'setTheme',
-      'setPreviousTheme',
-      // OTHER
-      'setAppStatus',
+      'initAuthData',
+      'initTheme',
+      //  ****
+      'setSettings',
       'initBalance'
     ]),
-    initializeApp ({ auth, app }) {
-      console.log('init', auth)
-      this.setIsAuthToTrue(auth)
-      this.setUserData(app)
-      this.setDefaultDashboardLayout(app.settings.dashboardLayout)
-      this.setCurrentDashboardLayout(app.settings.dashboardLayout)
-      this.setTheme(app.settings.theme)
-      this.setPreviousTheme(app.settings.theme)
+    initializeApp ({ app }) {
+      this.setSettings(app.settings)
     },
     setBalanceAmount () {
       let balance = 0
@@ -103,43 +103,6 @@ export default {
     Navbar,
     Loader,
     Backdrop
-  },
-  created: async function () {
-    // localStorage.removeItem('bank-data')
-    // localStorage.removeItem('bank-theme')
-    if (this.localTheme && this.localTheme !== '') {
-      this.setTheme(this.localTheme)
-    } else {
-      this.setTheme('light-green')
-    }
-    if (!this.localData) {
-      console.log('no local data')
-      this.loading = false
-      return
-    }
-    const authData = JSON.parse(this.localData)
-    if (!authData.token || !authData.expiryDate) {
-      console.log('NO TOKEN')
-      this.loading = false
-      return
-    }
-    if (new Date(authData.expiryDate) <= new Date()) {
-      console.log('Token not valid anymore')
-      this.loading = false
-      return
-    }
-    axios.defaults.headers.common.Authorization = 'Bearer ' + authData.token
-    const appData = await this.$store.dispatch('fetchUserData')
-    if (appData) {
-      this.initializeApp({
-        auth: {
-          ...authData,
-          userEmail: appData.email
-        },
-        app: appData
-      })
-      this.loading = false
-    }
   }
 }
 </script>

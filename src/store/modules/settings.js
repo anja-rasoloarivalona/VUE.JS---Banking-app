@@ -1,6 +1,4 @@
 const state = {
-  theme: null,
-  previousTheme: null,
   editingDashboard: false,
   editingTransaction: false,
   ghostMode: false,
@@ -11,15 +9,6 @@ const state = {
 }
 
 const getters = {
-  currentTheme: state => {
-    return state.theme
-  },
-  previousTheme: state => {
-    return state.previousTheme
-  },
-  localTheme: () => {
-    return localStorage.getItem('bank-theme')
-  },
   secondaryColors: state => {
     return state.secondaryColors
   },
@@ -42,16 +31,22 @@ const getters = {
 }
 
 const mutations = {
+  // GENERAL
+  setSettings (state, data) {
+    state.defaultDashboardLayout = data.dashboardLayout
+    state.currentDashboardLayout = data.dashboardLayout
+  },
   // THEME
-  setTheme (state, theme) {
-    state.theme = theme
-    localStorage.setItem('bank-theme', theme)
-    const htmlElement = document.documentElement
-    htmlElement.setAttribute('theme', theme)
-  },
-  setPreviousTheme (state, theme) {
-    state.previousTheme = theme
-  },
+  // setTheme (state, theme) {
+  //   state.theme = theme
+  //   localStorage.setItem('bank-theme', theme)
+  //   const htmlElement = document.documentElement
+  //   htmlElement.setAttribute('theme', theme)
+  // },
+  // setPreviousTheme (state, theme) {
+  //   console.log('setting previous theme', theme)
+  //   state.previousTheme = theme
+  // },
   // DASHBOARD
   setDefaultDashboardLayout (state, layout) {
     state.defaultDashboardLayout = layout

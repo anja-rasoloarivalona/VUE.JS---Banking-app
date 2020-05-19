@@ -47,6 +47,7 @@
 
 import VueGridLayout from 'vue-grid-layout'
 import { mapGetters, mapMutations } from 'vuex'
+import axios from 'axios'
 export default {
   data () {
     return {
@@ -75,13 +76,47 @@ export default {
   },
   methods: {
     ...mapMutations([
+      'setDefaultDashboardLayout',
       'setCurrentDashboardLayout'
     ]),
     setLayout () {
-      this.layout = this.dashboardData.currentDashboardLayout
+      if (this.dashboardData.currentDashboardLayout.length > 0) {
+        this.layout = this.dashboardData.currentDashboardLayout
+      } else {
+        this.retrieveLayout()
+      }
     },
     layoutUpdatedEvent: function (newLayout) {
       this.updatedLayout = newLayout
+      console.log('layout updated')
+    },
+    retrieveLayout: async function () {
+      const graphqlQuery = {
+        query: `{
+            user {
+              settings {
+                dashboardLayout {
+                  x
+                  y
+                  w
+                  h
+                  i
+                  displayed
+                }
+              }
+            }
+        }
+        `
+      }
+      try {
+        const response = await axios.post('/', graphqlQuery)
+        const resData = response.data.data.user
+        this.layout = resData.settings.dashboardLayout
+        this.setDefaultDashboardLayout(resData.settings.dashboardLayout)
+        this.setCurrentDashboardLayout(resData.settings.dashboardLayout)
+      } catch (err) {
+        console.log(err.response)
+      }
     }
   },
   components: {

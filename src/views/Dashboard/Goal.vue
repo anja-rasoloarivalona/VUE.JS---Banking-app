@@ -19,25 +19,20 @@
 </template>
 
 <script>
-import theme from '@/assets/theme'
+import themes from '@/assets/theme'
 import { mapGetters } from 'vuex'
 import Progress from 'easy-circular-progress'
 export default {
-  data () {
-    return {
-      theme: theme
-    }
-  },
   computed: {
     ...mapGetters([
-      'currentTheme',
+      'theme',
       'user'
     ]),
     goalPercentage () {
       return (this.user.balance / this.user.goal.amount) * 100
     },
     strokeColor () {
-      return theme[this.currentTheme]['--mainColor']
+      return themes[this.theme.currentTheme]['--mainColor']
     }
   },
   components: {

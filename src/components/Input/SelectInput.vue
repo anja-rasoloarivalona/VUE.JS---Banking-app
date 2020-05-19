@@ -4,8 +4,8 @@
       <div
         class="select"
         :class="{
-          'bg-white': currentTheme.includes('light'),
-          'bg-on-surfaceColor': currentTheme.includes('dark') ,
+          'bg-white': theme.isLight,
+          'bg-on-surfaceColor': theme.isDark,
           'all-radius': !showList,
           'top-radius': showList}"
         v-click-outside="closeList">
@@ -45,7 +45,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'currentTheme'
+      'theme'
     ])
   },
   props: {

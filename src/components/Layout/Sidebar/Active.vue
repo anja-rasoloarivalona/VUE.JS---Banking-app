@@ -4,7 +4,7 @@
                 <li class="active__sidenav__list__item"
                     v-for="(item, key) in items"
                     :key="key"
-                    :class="{'bg-surfaceColor ': currentTheme && currentTheme.includes('light'), 'bg-on-surfaceColor': currentTheme && currentTheme.includes('dark') }"
+                    :class="{'bg-surfaceColor ':  theme.isLight, 'bg-on-surfaceColor': theme.isDark}"
                 >
                     <div class="active__sidenav__list__item__title">
                         <h2>{{key}}</h2>
@@ -21,7 +21,7 @@
           <div
             class="active__sidenav__add"
             @click="openBackdrop('transactions')"
-            :class="{'bg-surfaceColor ': currentTheme && currentTheme.includes('light'), 'bg-mainColor': currentTheme && currentTheme.includes('dark') }"
+            :class="{'bg-surfaceColor ':  theme.isLight, 'bg-mainColor': theme.isDark}"
           >
               <app-icon name="add" size="xxl" :color="addButtonBackground"></app-icon>
           </div>
@@ -78,16 +78,14 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'isUserAuthed',
-      'currentAppStatus',
+      'theme',
 
       'userBalance',
       'upcoming',
-      'creditBalance',
-      'currentTheme'
+      'creditBalance'
     ]),
     addButtonBackground () {
-      if (this.currentTheme && this.currentTheme.includes('dark')) {
+      if (this.theme.isDark) {
         return 'surface'
       } else {
         return 'primary'

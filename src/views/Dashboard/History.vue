@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import theme from '@/assets/theme'
+import themes from '@/assets/theme'
 import Months from '@/utilities/months'
 import { mapGetters } from 'vuex'
 import LineChart from '@/components/Charts/Line'
@@ -23,8 +23,7 @@ export default {
         height: '170px',
         width: '100%',
         position: 'relative'
-      },
-      theme: theme
+      }
     }
   },
   created () {
@@ -94,10 +93,10 @@ export default {
     ...mapGetters([
       'userTransactions',
       'userBalance',
-      'currentTheme'
+      'theme'
     ]),
     chartColor () {
-      return theme[this.currentTheme]['--mainColor']
+      return themes[this.theme.currentTheme]['--mainColor']
     }
   },
   components: {

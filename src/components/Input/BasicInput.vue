@@ -7,7 +7,7 @@
               :id="id"
               @input="updateSelf($event.target.value)"
               :value="value"
-              :class="{'bg-white': currentTheme.includes('light'), 'bg-on-surfaceColor': currentTheme.includes('dark') }"
+              :class="{'bg-white': theme.isLight, 'bg-on-surfaceColor': theme.isDark}"
             />
         </label>
     </div>
@@ -27,6 +27,7 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'theme',
       'currentTheme'
     ])
   },

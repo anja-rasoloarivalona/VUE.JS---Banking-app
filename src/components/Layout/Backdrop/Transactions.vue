@@ -1,5 +1,5 @@
 <template>
-    <div class="transactions" :class="{'bg-surfaceColor': currentTheme.includes('light'), 'bg-surfaceColor': currentTheme.includes('dark') }">
+    <div class="transactions" :class="{'bg-surfaceColor': theme.isLight, 'bg-surfaceColor': theme.isDark}">
         <transactions-form isCancelBtnDisplayed>
             <div class="transactions__header">
                 <h1 v-text="isEditingTransaction ? 'Edit Transaction' : 'Add Transaction'">Add transaction</h1>
@@ -17,7 +17,7 @@ import { mapGetters, mapMutations } from 'vuex'
 export default {
   computed: {
     ...mapGetters([
-      'currentTheme',
+      'theme',
       'isEditingTransaction'
     ])
   },

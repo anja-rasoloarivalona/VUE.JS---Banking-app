@@ -4,14 +4,14 @@
             <transition name="fade" mode="out-in" appear>
                 <verify-code v-if="currentAppStatus === 'setup-verify-code'" @displayWelcome="loadWelcome"/>
                 <welcome v-else-if="displayWelcome" @hideWelcome="hideWelcome"/>
+                <completed v-else-if="isSetupCompleted"/>
             </transition>
-            <completed v-if="currentAppStatus === 'setup-completed'"/>
         </backdrop>
         <div class="setup__view"  v-else-if="!loading">
             <wallets />
             <incomes />
             <expenses />
-            <goal @setup-completed="displayBackdrop = true"/>
+            <goal @setup-completed="loadCompleted"/>
         </div>
     </div>
 </template>
@@ -31,7 +31,9 @@ export default {
     return {
       loading: true,
       displayBackdrop: false,
-      displayWelcome: false
+      displayWelcome: false,
+      displayVerificationCode: false,
+      isSetupCompleted: false
     }
   },
   computed: {
@@ -41,16 +43,30 @@ export default {
     ])
   },
   mounted () {
-    this.displayBackdrop = true
-    // this.loadWelcome()
+    if (this.currentAppStatus === 'setup-verify-code') {
+      this.displayBackdrop = true
+    } else {
+      this.loadWelcome()
+    }
   },
   methods: {
+    loadVerificationCode () {
+      setTimeout(() => {
+        this.displayVerificationCode = true
+        this.displayBackdrop = true
+      }, 1000)
+    },
     loadWelcome () {
-      console.log('loading')
       setTimeout(() => {
         this.displayBackdrop = true
         this.displayWelcome = true
       }, 1000)
+    },
+    loadCompleted () {
+      setTimeout(() => {
+        this.displayBackdrop = true
+        this.isSetupCompleted = true
+      })
     },
     hideWelcome () {
       this.displayBackdrop = false

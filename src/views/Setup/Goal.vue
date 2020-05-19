@@ -15,7 +15,7 @@
                     <app-btn normal primary @click.native="goalSimulator" v-if="!result">Simulate</app-btn>
                     <template v-else>
                         <app-btn normal warning @click.native="result = null">Change</app-btn>
-                        <app-btn normal primary @click.native="launchApp">Save</app-btn>
+                        <app-btn normal primary @click.native="completeSetup">Save</app-btn>
                     </template>
                 </div>
             </form>
@@ -43,8 +43,7 @@ export default {
   methods: {
     ...mapMutations([
       'setAppStatus',
-      'addGoal',
-      'setTheme'
+      'addGoal'
     ]),
     findNextMonth (d) {
       const year = d.getFullYear()
@@ -57,6 +56,9 @@ export default {
         result = `1/1/${year + 1}`
       }
       return new Date(result)
+    },
+    clicked () {
+      console.log('clicked')
     },
     goalSimulator () {
       this.result = null
@@ -105,17 +107,20 @@ export default {
       while (sumTotal < this.goal) {
         const currentTransaction = transactionsData[0]
         sumTotal += currentTransaction.amount
-        if (sumTotal > this.goal) {
+        console.log(sumTotal)
+        if (sumTotal >= this.goal) {
           result = currentTransaction.nextPayout
+        } else {
+          currentTransaction.nextPayout = dateRangeCalculator(currentTransaction.frequency, currentTransaction.nextPayout)
+          transactionsData.sort((a, b) => {
+            return new Date(a.nextPayout) - new Date(b.nextPayout)
+          })
         }
-        currentTransaction.nextPayout = dateRangeCalculator(currentTransaction.frequency, currentTransaction.nextPayout)
-        transactionsData.sort((a, b) => {
-          return new Date(a.nextPayout) - new Date(b.nextPayout)
-        })
       }
       this.result = result
     },
     saveGoal: async function () {
+      console.log('saving goal')
       const graphqlQuery = {
         query: `mutation {
               addGoal(goalInput: {
@@ -130,27 +135,20 @@ export default {
       try {
         const response = await axios.post('/', graphqlQuery)
         const resData = response.data.data.addGoal
+        console.log('goal saved', resData)
         this.addGoal(resData)
       } catch (err) {
         console.log(err.repsonse)
       }
     },
-    launchApp: async function () {
+    completeSetup: async function () {
+      console.log('completing setup')
       try {
         await this.saveGoal()
+        console.log('end')
         this.$emit('setup-completed')
-        const localData = localStorage.getItem('bank-data')
-        const data = {
-          ...JSON.parse(localData),
-          appStatus: 'active'
-        }
-        localStorage.setItem('bank-data', JSON.stringify(data))
-        const htmlElement = document.documentElement
-        htmlElement.setAttribute('theme', 'light-green')
-        this.setAppStatus('active')
-        this.setTheme('light-green')
       } catch (err) {
-        console.log('launc', err.response)
+        console.log(err.response)
       }
     }
   }
@@ -162,12 +160,7 @@ export default {
     width: 40rem !important;
     & .form {
         width: 100%;
-        padding-bottom: 4rem;
         &__cta {
-            height: 8rem;
-            position: absolute;
-            bottom: 0;
-            left: 0;
             width: 100%;
             display: flex;
             align-items: center;

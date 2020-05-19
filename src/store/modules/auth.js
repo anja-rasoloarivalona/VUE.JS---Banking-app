@@ -3,17 +3,20 @@ import axios from 'axios'
 import router from '../../router'
 
 const state = {
+  authMode: 'login',
+  appStatus: 'auth',
+  expiryDate: '',
   isAuth: false,
-  authMode: 'login', // LOGION OR SIGNUP
   token: null,
-  userId: null,
-  userName: null,
   userEmail: null,
-  userPassword: null,
-  appStatus: 'auth'
+  userId: null,
+  userName: null
 }
 
 const getters = {
+  auth: state => {
+    return state
+  },
   currentAppStatus: state => {
     return state.appStatus
   },
@@ -29,6 +32,19 @@ const getters = {
 }
 
 const mutations = {
+  initAuthData (state) {
+    const authData = JSON.parse(localStorage.getItem('bank-data'))
+    if (authData && new Date(authData.expiryDate) >= new Date()) {
+      state.isAuth = true
+      state.expiryDate = authData.expiryDate
+      state.token = authData.token
+      state.userId = authData.userId
+      state.userName = authData.userName
+      state.userEmail = authData.userEmail
+      state.appStatus = authData.appStatus
+      console.log('state', state)
+    }
+  },
   setAuthMode (state, mode) {
     state.authMode = mode
   },
@@ -38,8 +54,8 @@ const mutations = {
     state.userId = authData.userId
     state.userName = authData.userName
     state.userEmail = authData.userEmail
-    state.userPassword = authData.userPassword
     state.appStatus = authData.appStatus
+    axios.defaults.headers.common.Authorization = 'Bearer ' + authData.token
     localStorage.setItem('bank-data', JSON.stringify(authData))
   },
   setIsAuthToFalse (state) {
@@ -48,11 +64,15 @@ const mutations = {
     state.userId = null
     state.userName = null
     state.appStatus = 'auth'
+    axios.defaults.headers.common.Authorization = 'Bearer '
     localStorage.removeItem('bank-data')
     router.push('/')
   },
   setAppStatus (state, newStatus) {
     state.appStatus = newStatus
+    const authData = JSON.parse(localStorage.getItem('bank-data'))
+    authData.appStatus = newStatus
+    localStorage.setItem('bank-data', JSON.stringify(authData))
   }
 }
 
@@ -69,12 +89,13 @@ const actions = {
         userId: resData.user._id,
         userName: resData.user.name,
         userEmail: resData.user.email,
-        userPassword: resData.user.password,
         appStatus: resData.user.status,
         expiryDate: expiryDate
       }
-      // commit('setIsAuthToTrue', data)
-      // commit('initAppData', resData.user)
+      commit('setIsAuthToTrue', data)
+      commit('setUserData', resData.user)
+      commit('setTheme', resData.user.settings.theme)
+      commit('initDashboardLayout', resData.user.settings.dashboardLayout)
       return {
         success: true,
         authData: data,

@@ -1,5 +1,5 @@
 <template>
-    <div class="income" :class="{'bg-default': theme.isLight, 'bg-surfaceColor': theme.isDark}">
+    <div class="income" :class="{'bg-white': theme.isLight, 'bg-surfaceColor': theme.isDark}">
         <income-form isCancelBtnDisplayed>
             <div class="income__header">
                 <h1 v-text="editedIncome ? 'Edit income' : 'Add income'"></h1>

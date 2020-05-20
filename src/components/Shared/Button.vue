@@ -54,6 +54,9 @@ export default {
     cursor: not-allowed;
     }
 }
+.secondary {
+    background: var(--secondaryColor)
+}
 .warning {
     background: var(--warningColor);
 }

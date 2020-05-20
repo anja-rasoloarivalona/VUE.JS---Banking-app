@@ -11,7 +11,7 @@
           <app-frequency-input v-model="income.frequency" id="frequency"/>
       </form>
       <div class="income-form__cta">
-            <app-btn normal warning v-if="isCancelBtnDisplayed" @click.native="close">
+            <app-btn normal secondary v-if="isCancelBtnDisplayed" @click.native="close">
                 Cancel
             </app-btn>
             <app-btn normal primary @click.native="submit" >

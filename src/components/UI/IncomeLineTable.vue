@@ -13,7 +13,12 @@
       <span></span>
       <span></span>
     </div>
-    <ul class="income__cta__list" v-if="showList" :class="{isLast: isLast }">
+    <ul
+      class="income__cta__list"
+      v-if="showList"
+      :class="{isLast: isLast }"
+      :style="{boxShadow: theme.isDark ? 'box-shadow: 1px 5px 12px -1px rgba(15,15,15,1)' : '1px 5px 12px -1px rgb(165, 165, 165)'}"
+    >
       <li class="income__cta__list__item" @click="editIncome(income)">
         Edit
       </li>
@@ -25,7 +30,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations, mapGetters } from 'vuex'
 export default {
   data () {
     return {
@@ -47,6 +52,11 @@ export default {
     if (this.index + 1 === this.lastIndex) {
       this.isLast = true
     }
+  },
+  computed: {
+    ...mapGetters([
+      'theme'
+    ])
   },
   props: {
     income: {
@@ -101,7 +111,6 @@ export default {
     }
     &__list {
         background: $color-white;
-        box-shadow: 1px 5px 12px -1px rgba(15,15,15,1);
         border-radius: .5rem;
         padding: 1rem 0;
         position: absolute;

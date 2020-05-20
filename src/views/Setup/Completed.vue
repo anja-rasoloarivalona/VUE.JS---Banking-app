@@ -5,14 +5,23 @@
           Your account is ready.
         </div>
         <div class="completed__cta">
-            <app-btn normal primary @click.native="setAppStatus('active')">Get started</app-btn>
+            <app-btn normal primary @click.native="retrieveDashboardLayout">
+              <span v-if="!loading">Get started</span>
+              <app-spinner v-else></app-spinner>
+            </app-btn>
         </div>
     </div>
 </template>
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
+import axios from 'axios'
 export default {
+  data () {
+    return {
+      loading: false
+    }
+  },
   computed: {
     ...mapGetters([
       'user',
@@ -21,8 +30,37 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'setAppStatus'
-    ])
+      'setAppStatus',
+      'initDashboardLayout'
+    ]),
+    retrieveDashboardLayout: async function () {
+      this.loading = true
+      const graphQlQuery = {
+        query: `{
+          user {
+            settings {
+              dashboardLayout {
+                x
+                y
+                w
+                h
+                i
+                displayed
+              }
+            }
+          }
+        }`
+      }
+      try {
+        const response = await axios.post('/', graphQlQuery)
+        const resData = response.data.data.user
+        this.loading = false
+        this.initDashboardLayout(resData.settings.dashboardLayout)
+        this.setAppStatus('active')
+      } catch (err) {
+        console.log(err.response)
+      }
+    }
   }
 
 }

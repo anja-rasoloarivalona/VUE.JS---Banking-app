@@ -11,7 +11,7 @@
             <app-basic-input  :id="'counter party'" v-model="input.counterparty" v-if="showCounterparty"/>
         </form>
         <div class="transactions-form__cta">
-            <app-btn normal warning v-if="isCancelBtnDisplayed" @click.native="close">Cancel</app-btn>
+            <app-btn normal secondary v-if="isCancelBtnDisplayed" @click.native="close">Cancel</app-btn>
             <app-btn normal primary @click.native="submitForm">
                     <span v-if="!loading" v-text="isEditingTransaction ? 'Edit': 'Add'"></span>
                     <app-spinner v-else></app-spinner>

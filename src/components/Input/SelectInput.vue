@@ -4,7 +4,7 @@
       <div
         class="select"
         :class="{
-          'bg-white': theme.isLight,
+          'bg-default': theme.isLight,
           'bg-on-surfaceColor': theme.isDark,
           'all-radius': !showList,
           'top-radius': showList}"

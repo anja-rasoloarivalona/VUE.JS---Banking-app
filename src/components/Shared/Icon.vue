@@ -68,8 +68,13 @@ export default {
 }
 
 .secondary {
+  fill: var(--secondaryColor);
+}
+
+.dark {
   fill: var(--textColor--dark);
 }
+
 .surface {
   fill: var(--surfaceColor)
 }

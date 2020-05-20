@@ -1,5 +1,5 @@
 <template>
-    <div class="transactions" :class="{'bg-default': theme.isLight, 'bg-surfaceColor': theme.isDark}">
+    <div class="transactions" :class="{'bg-white': theme.isLight, 'bg-surfaceColor': theme.isDark}">
         <transactions-form isCancelBtnDisplayed>
             <div class="transactions__header">
                 <h1 v-text="isEditingTransaction ? 'Edit Transaction' : 'Add Transaction'">Add transaction</h1>

@@ -7,7 +7,7 @@
               :id="id"
               @input="updateSelf($event.target.value)"
               :value="value"
-              :class="{'bg-white': theme.isLight, 'bg-on-surfaceColor': theme.isDark}"
+              :class="{'bg-default': theme.isLight, 'bg-on-surfaceColor': theme.isDark, 'bg-white': bgWhite}"
             />
         </label>
     </div>
@@ -23,7 +23,7 @@ export default {
   props: {
     value: [String, Number],
     id: String,
-    bgGrey: Boolean
+    bgWhite: Boolean
   },
   computed: {
     ...mapGetters([

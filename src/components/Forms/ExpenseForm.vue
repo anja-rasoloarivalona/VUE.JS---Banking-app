@@ -11,7 +11,7 @@
         <app-date-input v-model="expense.lastPayout" id="last payout" v-if="expense.expenseType === 'fixed'"/>
       </form>
       <div class="expense-form__cta">
-            <app-btn normal warning v-if="isCancelBtnDisplayed" @click.native="$emit('hideForm')">
+            <app-btn normal secondary v-if="isCancelBtnDisplayed" @click.native="$emit('hideForm')">
                 Cancel
             </app-btn>
             <app-btn normal primary @click.native="submit" >

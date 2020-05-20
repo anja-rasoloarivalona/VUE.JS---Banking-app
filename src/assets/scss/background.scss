@@ -4,6 +4,12 @@
 .bg-mainColor {
     background: var(--mainColor);
 }
+.bg-mainColor--light {
+    background: var(--mainColor--light)
+}
+.bg-secondaryColor {
+    background: var(--secondaryColor);
+}
 .bg-surfaceColor {
     background: var(--surfaceColor) !important;
 }

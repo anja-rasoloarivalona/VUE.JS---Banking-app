@@ -20,8 +20,8 @@
                     :short="true"
                     v-for="(transaction, index) in userTransactions"
                     :key="transaction._id"
+                    :index="index"
                     :transaction="transaction"
-                    :class="{'bg-white': index % 2 === 0, 'bg-blue': index % 2 !== 0 }"
                   ></app-transaction>
                 </tbody>
               </table>
@@ -88,7 +88,20 @@ table {
     text-align: start;
     padding-left: 2rem;
     font-size: $font-s;
-    // background: var(--on-surfaceColor);
+    background: var(--mainColor);
+    // background: $color-grey--main;
+    color: $color-white;
+  }
+  th:first-child {
+    border-radius: 6px 0 0 0;
+  }
+
+  th:last-child {
+    border-radius: 0 6px 0 0;
+  }
+
+  th:only-child{
+    border-radius: 6px 6px 0 0;
   }
 }
 

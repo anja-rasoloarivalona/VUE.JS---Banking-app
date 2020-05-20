@@ -41,17 +41,41 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'dashboard'
+      'dashboard',
+      'user'
     ]),
     currentLayout () {
       return this.dashboard.currentLayout.filter(i => i.displayed === true)
     }
   },
+  watch: {
+    user: {
+      handler: 'init',
+      immediate: true
+    }
+  },
   methods: {
     ...mapMutations([
-      'setDefaultDashboardLayout',
-      'setCurrentDashboardLayout'
+      'initDashboardLayout'
     ]),
+    init () {
+      const layout = this.dashboard.currentLayout
+      layout.find((item, index) => {
+        if (item.i === 'budget') {
+          let budgetHeight = 3
+          this.user.expenses.forEach(expense => {
+            if (expense.expenseType === 'variable') {
+              budgetHeight = budgetHeight + 3
+            }
+          })
+          layout[index].h = budgetHeight
+        }
+        if (item.i === 'wallet') {
+          layout[index].h = 4 + (this.user.wallets.length * 7)
+        }
+      })
+      this.initDashboardLayout(layout)
+    },
     layoutUpdatedEvent: function (newLayout) {
       this.updatedLayout = newLayout
       console.log('layout updated')

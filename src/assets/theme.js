@@ -1,6 +1,7 @@
 const theme = {
   default: {
     '--mainColor': '#027a66',
+    '--secondaryColor': '#BA895D',
     '--textColor': 'black',
     '--textColor-dark': '#797979',
     '--backgroundColor': '#f5f5f5',
@@ -10,6 +11,7 @@ const theme = {
 
   'light-green': {
     '--mainColor': '#027a66',
+    '--secondaryColor': '#BA895D',
     '--textColor': 'black',
     '--textColor-dark': '#797979',
     '--backgroundColor': '#f5f5f5',

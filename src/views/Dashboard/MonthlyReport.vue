@@ -3,16 +3,16 @@
         <h2 class="dashboard__section__title">Monthly report</h2>
         <div class="monthly__details">
             <div class="monthly__details__item monthly__details__item--income">
-                <h3>Income</h3>
+                <h3 :class="{primary: theme.isLight}">Income</h3>
                 <div class="monthly__details__item__amount">
                     <app-icon name="arrow" color="primary" />
                     <div>${{report.income | amount}}</div>
                 </div>
             </div>
             <div class="monthly__details__item monthly__details__item--expense">
-                <h3>Expense</h3>
+                <h3 :class="{secondary: theme.isLight}">Expense</h3>
                 <div class="monthly__details__item__amount">
-                    <app-icon name="arrow" color="grey" />
+                    <app-icon name="arrow" color="secondary" />
                     <div>${{report.expense | amount}}</div>
                 </div>
             </div>
@@ -25,7 +25,8 @@ import { mapGetters } from 'vuex'
 export default {
   computed: {
     ...mapGetters([
-      'user'
+      'user',
+      'theme'
     ]),
     report () {
       const currentReport = {}
@@ -67,7 +68,12 @@ export default {
             width: 100%;
             & h3 {
                 margin-bottom: 1rem;
-                color: var(--app-title-color-secondary)
+                &.primary {
+                  color: var(--mainColor)
+                }
+                &.secondary {
+                  color: var(--secondaryColor)
+                }
             }
             &--expense{
                & svg {

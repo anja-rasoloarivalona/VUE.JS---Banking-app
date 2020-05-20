@@ -2,7 +2,7 @@
     <div class="chart dashboard__section">
         <h2 class="dashboard__section__title">History</h2>
         <div class="chart__container">
-            <line-chart :data="datacollection" :styles="myStyles" :gradient1="chartColor" :gradient2="'transparent'" ></line-chart>
+            <line-chart :data="datacollection" :styles="myStyles" :gradient1="chartColor" :gradient2="gradient2" ></line-chart>
         </div>
     </div>
 </template>
@@ -97,6 +97,14 @@ export default {
     ]),
     chartColor () {
       return themes[this.theme.currentTheme]['--mainColor']
+      // return themes[this.theme.currentTheme]['--secondaryColor']
+    },
+    gradient2 () {
+      if (this.theme.isDark) {
+        return 'transparent'
+      } else {
+        return 'transparent'
+      }
     }
   },
   components: {

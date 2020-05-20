@@ -2,7 +2,7 @@
   <!-- <div class="wallet" :class="{xl:large}" :style="{background: wallet.color}" v-bind="$attrs"> -->
   <div
       class="wallet"
-      :class="{xl:large}"
+      :class="{xl:large, 'bg-on-surfaceColor': theme.isDark, light: theme.isLight }"
       v-bind="$attrs"
       :style="{boxShadow: boxShadow}"
   >
@@ -79,8 +79,10 @@ export default {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
     color: $color-white;
-    background: var(--on-surfaceColor);
     cursor: pointer;
+    .light {
+      background: whitesmoke;
+    }
     &__chip  {
       &__content {
         border-radius: .5rem;
@@ -114,19 +116,21 @@ export default {
       justify-content: flex-end;
       // color: var(--textColor);
       font-size: $font-s;
+      color: var(--mainColor);
     }
     &__type {
       display: flex;
       align-items: flex-end;
       justify-content: flex-end;
-      // color: var(--textColor--dark);
       font-size: $font-s;
+      color: var(--textColor--dark);
     }
     &__amount {
       // background: orangered;
       display: flex;
       align-items: flex-end;
       font-size: $font-m;
+      color: var(--secondaryColor);
     }
     &.xl {
       min-width: 40rem;

@@ -2,9 +2,9 @@
   <div>
       <div class="title">Signup</div>
       <slot name="errors"></slot>
-      <app-basic-input v-model="userInput.name" :id="'name'" />
-      <app-basic-input v-model="userInput.email" :id="'email'" />
-      <app-basic-input v-model="userInput.password" :id="'password'" />
+      <app-basic-input v-model="userInput.name" id="name" bg-white/>
+      <app-basic-input v-model="userInput.email" id="email" bg-white/>
+      <app-basic-input v-model="userInput.password" id="password" bg-white/>
       <app-btn @click="submit">
           <span v-if="!loading">Sign up</span>
           <app-spinner v-else></app-spinner>

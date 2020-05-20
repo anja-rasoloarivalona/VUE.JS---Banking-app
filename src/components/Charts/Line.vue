@@ -17,12 +17,12 @@ export default {
               stepSize: 2000
             },
             gridLines: {
-              color: this.colorLine
+              color: ''
             }
           }],
           xAxes: [{
             gridLines: {
-              color: this.colorLine
+              color: ''
             }
           }]
         },
@@ -51,11 +51,16 @@ export default {
     'theme.currentTheme': {
       handler: 'setColorLine',
       immediate: true
+    },
+    options: {
+      handler: 'displayChart',
+      immediate: false
     }
   },
   methods: {
     displayChart () {
-      this.gradient = this.$refs.canvas.getContext('2d').createLinearGradient(0, 0, 0, 310)
+      // this.gradient = this.$refs.canvas.getContext('2d').createLinearGradient(0, 0, 0, 310)
+      this.gradient = this.$refs.canvas.getContext('2d').createLinearGradient(0, 0, 0, 710)
       this.gradient.addColorStop(0, this.gradient1)
       this.gradient.addColorStop(0.4, this.gradient2)
 
@@ -69,8 +74,8 @@ export default {
       })
       this.renderChart(d, this.options)
     },
-    setColorLine (theme) {
-      if (theme.includes('dark')) {
+    setColorLine () {
+      if (this.theme.isDark) {
         this.options = {
           ...this.options,
           scales: {

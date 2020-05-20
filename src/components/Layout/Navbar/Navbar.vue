@@ -89,7 +89,7 @@ export default {
     & .nav {
         grid-column: 3 / 4;
         grid-row: 1 / 2;
-        width: 100%;
+        width: calc(100% - 2rem);
         max-width: 118rem;
         display: flex;
         align-items: center;

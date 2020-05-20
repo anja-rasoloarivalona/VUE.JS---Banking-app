@@ -1,5 +1,5 @@
 <template>
-  <tr class="transaction" @mouseleave="showCtaList = false">
+  <tr class="transaction" @mouseleave="showCtaList = false" :class="{'bg-mainColor--light': index % 2 !== 0}">
     <td class="transaction__date">
         <div>{{transaction.date | short-date}}</div>
     </td>
@@ -27,7 +27,12 @@
           <span></span>
           <span></span>
         </div>
-        <ul class="transaction__cta__list" v-if="showCtaList" :class="{isLast: isLast }">
+        <ul
+          class="transaction__cta__list"
+          v-if="showCtaList"
+          :class="{isLast: isLast }"
+          :style="{boxShadow: theme.isDark ? '1px 5px 12px -1px rgba(15,15,15,1)' : '1px 5px 12px -1px rgb(165, 165, 165)'}"
+        >
           <li class="transaction__cta__list__item" @click="edit">
               Edit
           </li>
@@ -89,7 +94,8 @@ export default {
   computed: {
     ...mapGetters([
       'walletsNameAndId',
-      'usersIncomesAndExpenses'
+      'usersIncomesAndExpenses',
+      'theme'
     ]),
     transactionName () {
       let res = ''
@@ -112,22 +118,12 @@ export default {
 
 <style lang="scss" scoped>
 .transaction {
-  &.bg-white {
-    // background: var(--app-bg-secondary);
-  }
-  &.bg-blue {
-    background: var(--on-surfaceColor);
-  }
-  &__id {
-    // background: turquoise;
-    width: 6%;
-  }
   &__date {
     width: 9%;
     // background: red;
   }
   &__name {
-    width: 10%;
+    width: 9%;
     // background: green;
   }
   &__counterparty {
@@ -148,7 +144,7 @@ export default {
       font-weight: bold;
     }
     &.income {
-      color: green
+      color: var(--mainColor)
     }
   }
   &__status {
@@ -188,7 +184,7 @@ export default {
     }
     &__list {
       background: $color-white;
-      box-shadow: 1px 5px 12px -1px rgba(15,15,15,1);
+      // box-shadow: 1px 5px 12px -1px rgba(15,15,15,1);
       border-radius: .5rem;
       padding: 1rem 0;
       position: absolute;

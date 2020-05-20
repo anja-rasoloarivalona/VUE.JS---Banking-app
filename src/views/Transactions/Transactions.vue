@@ -7,10 +7,14 @@
         </div>
         <div class="transactions" v-else>
             <div class="transactions__header">
+                <div class="transactions__header__icon">
+                    <app-icon name="filter" color="secondary" size="extra-large"/>
+                </div>
                <app-select-input v-model="period" :options="periodList" id="period" row/>
+               <app-select-input v-model="name" :options="namesList" id="name" row/>
+               <!-- <app-select-input v-model="category" :options="categorysList" id="category" row/> -->
             </div>
-            <!-- <app-btn normal primary @click.native="showForm = true">New transaction</app-btn> -->
-            <transactions-table @editTransaction="edit" :period="period"></transactions-table>
+            <transactions-table @editTransaction="edit" :period="period" :name="name"></transactions-table>
         </div>
     </div>
   </keep-alive>
@@ -24,16 +28,33 @@ export default {
     return {
       editedTransaction: false,
       period: '',
-      periodList: []
+      name: 'All',
+      category: 'All',
+      periodList: [],
+      namesList: [],
+      categorysList: []
     }
   },
   computed: {
     ...mapGetters([
       'user',
+      'usersIncomesAndExpenses',
       'userTransactions'
     ])
   },
   mounted () {
+    const namesList = ['All']
+    const categorysList = ['All']
+    for (const name in this.usersIncomesAndExpenses) {
+      if (!this.namesList.includes(this.usersIncomesAndExpenses[name].name) && this.usersIncomesAndExpenses[name].name) {
+        namesList.push(this.usersIncomesAndExpenses[name].name)
+      }
+      if (!this.categorysList.includes(this.usersIncomesAndExpenses[name].category) && this.usersIncomesAndExpenses[name].category) {
+        categorysList.push(this.usersIncomesAndExpenses[name].category)
+      }
+    }
+    this.namesList = namesList
+    this.categorysList = categorysList
     this.load()
   },
   watch: {
@@ -43,6 +64,7 @@ export default {
   },
   methods: {
     load () {
+      // SET PERIOD LIST
       const list = []
       this.user.monthlyReports.forEach(report => {
         if (report.transactions.length > 0) {
@@ -50,7 +72,7 @@ export default {
         }
       })
       this.periodList = list
-
+      // SET CURRENT PERIOD
       const d = new Date()
       const period = `${d.getMonth() + 1}-${d.getFullYear()}`
       this.period = period
@@ -89,10 +111,15 @@ export default {
     &__header {
       display: flex;
       align-items: center;
-      margin-bottom: 2rem;
+      margin-bottom: 6rem;
       padding-left: 2rem;
+      &__icon {
+        margin-right: 5rem;
+      }
       & label {
         width: 20rem;
+        margin-bottom: 0;
+        margin-right: 5rem;
       }
     }
 }

@@ -21,7 +21,7 @@
           <div
             class="active__sidenav__add"
             @click="openBackdrop('transactions')"
-            :class="{'bg-surfaceColor ':  theme.isLight, 'bg-mainColor': theme.isDark}"
+            :class="{'bg-secondaryColor':  theme.isLight, 'bg-mainColor': theme.isDark}"
           >
               <app-icon name="add" size="xxl" :color="addButtonBackground"></app-icon>
           </div>
@@ -88,7 +88,7 @@ export default {
       if (this.theme.isDark) {
         return 'surface'
       } else {
-        return 'primary'
+        return 'white'
       }
     }
   }

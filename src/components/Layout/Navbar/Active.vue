@@ -8,11 +8,15 @@
         <router-link to="/calendar" tag="div"><a>Calendar</a></router-link>
       </ul>
       <div class="active__cta" v-click-outside="hideCtaList">
-        <app-icon name="eye" size="large" color="secondary" v-if="!isGhostModeActivated" @click="activateGhostMode"/>
-        <app-icon name="eye-blocked" size="large" color="secondary" v-else @click="deactivateGhostMode"/>
+        <app-icon name="eye" size="large" color="dark" v-if="!isGhostModeActivated" @click="activateGhostMode"/>
+        <app-icon name="eye-blocked" size="large" color="dark" v-else @click="deactivateGhostMode"/>
         <app-icon name="settings" size="large" :color="isSettingsPannelShowed" @click="showList = !showList" />
-        <app-icon name="logout" size="large" color="secondary" @click="setIsAuthToFalse"/>
-        <div class="active__cta__list" v-if="showList">
+        <app-icon name="logout" size="large" color="dark" @click="setIsAuthToFalse"/>
+        <div
+          class="active__cta__list"
+          :style="{boxShadow: theme.isDark ? '1px 5px 12px -1px rgba(15,15,15,1)' : '1px 5px 12px -1px rgb(165, 165, 165)'}"
+          v-if="showList"
+        >
             <div class="active__cta__list__item">Account</div>
             <div class="active__cta__list__item" @click="openBackdrop('settings')">Settings</div>
             <div class="active__cta__list__item">Logout</div>
@@ -33,13 +37,13 @@ export default {
   computed: {
     ...mapGetters([
       'settingsModal',
-      'currentTheme',
+      'theme',
       'isGhostModeActivated'
     ]),
     isSettingsPannelShowed () {
       if (this.settingsModal.isDisplayed) {
-        return 'primary'
-      } else return 'secondary'
+        return 'secondary'
+      } else return 'dark'
     }
   },
   watch: {
@@ -52,8 +56,13 @@ export default {
       'openBackdrop',
       'activateGhostMode',
       'deactivateGhostMode',
-      'setIsAuthToFalse'
+      'setIsAuthToFalse',
+      'clearUserData'
     ]),
+    logout () {
+      this.setIsAuthToFalse()
+      this.clearUserData()
+    },
     hideCtaList () {
       if (this.showList) {
         this.showList = false
@@ -70,6 +79,7 @@ export default {
 .active {
   grid-column: 3 / 4;
   grid-row: 1 / 2;
+  // padding: 0 1rem;
   width: 100%;
   max-width: 120rem;
   display: flex;
@@ -102,8 +112,9 @@ export default {
           top: 4rem;
           right: -1rem;
           width: 15rem;
-          background: var(--on-surfaceColor);
-          box-shadow: 1px 5px 12px -1px rgba(15,15,15,1);
+          background: $color-white;
+          // box-shadow: 1px 5px 12px -1px rgb(165, 165, 165);
+          color: var(--textColor--dark);
           border-radius: .5rem;
           padding: 1rem 0;
           // overflow: hidden;
@@ -135,7 +146,7 @@ export default {
             // margin-left: -5px;
             border-width: 10px;
             border-style: solid;
-            border-color:  transparent transparent var(--on-surfaceColor) transparent ;
+            border-color:  transparent transparent $color-white transparent ;
           }
         }
     }

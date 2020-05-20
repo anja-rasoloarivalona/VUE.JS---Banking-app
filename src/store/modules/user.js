@@ -6,7 +6,7 @@ import Vue from 'vue'
 
 const state = {
   goal: null,
-  balance: 0,
+  // balance: 0,
   wallets: [],
   incomes: [],
   expenses: [],
@@ -16,6 +16,18 @@ const state = {
 const getters = {
   user: state => {
     return state
+  },
+  userBalance: state => {
+    let balance = 0
+    const creditCard = ['Visa', 'MasterCard']
+    state.wallets.forEach(wallet => {
+      if (!creditCard.includes(wallet.walletType)) {
+        balance += wallet.amount
+      } else {
+        balance -= wallet.amount
+      }
+    })
+    return balance
   },
   usersIncomesAndExpenses: state => {
     const usersIncomesAndExpenses = {}
@@ -54,6 +66,7 @@ const getters = {
     return wallets
   },
   userTransactions: state => {
+    // console.log('user vuex tra', getters.usersIncomesAndExpenses())
     const transactions = []
     state.monthlyReports.forEach(report => {
       report.transactions.forEach(transaction => {
@@ -64,9 +77,6 @@ const getters = {
       return new Date(a.date) - new Date(b.date)
     })
     return sortedTransactions
-  },
-  userBalance: state => {
-    return state.balance
   },
   upcoming: state => {
     const datedTransactions = [...state.incomes]
@@ -111,11 +121,14 @@ const mutations = {
     state.goal = data.goal
     state.monthlyReports = data.monthlyReports
   },
-
-  initBalance (state, balance) {
-    state.balance = balance
+  clearUserData (state) {
+    state.goal = null
+    state.balance = 0
+    state.wallets = []
+    state.incomes = []
+    state.expenses = []
+    state.monthlyReports = []
   },
-
   addUserItem (state, data) {
     const userItemType = data.type
     const userItem = { ...data }

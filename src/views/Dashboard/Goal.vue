@@ -26,10 +26,11 @@ export default {
   computed: {
     ...mapGetters([
       'theme',
-      'user'
+      'user',
+      'userBalance'
     ]),
     goalPercentage () {
-      return (this.user.balance / this.user.goal.amount) * 100
+      return (this.userBalance / this.user.goal.amount) * 100
     },
     strokeColor () {
       return themes[this.theme.currentTheme]['--mainColor']

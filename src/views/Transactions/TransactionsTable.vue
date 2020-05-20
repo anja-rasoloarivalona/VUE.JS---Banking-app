@@ -1,6 +1,6 @@
 <template>
     <div class="transactions">
-        <table class="transactions__table" :class="{'light': theme.isLight}">
+        <table class="transactions__table" :class="{'light': theme.isLight, 'dark': theme.isDark}">
             <thead>
                 <tr>
                     <th class="transactions__table--date">Date</th>

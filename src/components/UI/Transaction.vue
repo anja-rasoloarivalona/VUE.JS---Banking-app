@@ -1,5 +1,9 @@
 <template>
-  <tr class="transaction" @mouseleave="showCtaList = false" :class="{'bg-mainColor--light': index % 2 !== 0}">
+  <tr class="transaction"
+  @mouseleave="showCtaList = false"
+  :class="{'bg-mainColor--light': index % 2 !== 0 && theme.isLight,
+          'bg-on-surfaceColor': index % 2 === 0 && theme.isDark}"
+>
     <td class="transaction__date">
         <div>{{transaction.date | short-date}}</div>
     </td>

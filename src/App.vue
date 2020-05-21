@@ -58,10 +58,6 @@ export default {
     ])
   },
   watch: {
-    // 'user.wallets': {
-    //   handler: 'setBalanceAmount',
-    //   immediate: true
-    // },
     '$route' (to, from) {
       const paths = ['/', '/transactions', '/budget', '/wallet', '/calendar']
       const toIndex = paths.indexOf(to.path)
@@ -76,26 +72,8 @@ export default {
   methods: {
     ...mapMutations([
       'initAuthData',
-      'initTheme',
-      //  ****
-      'setSettings',
-      'initBalance'
-    ]),
-    initializeApp ({ app }) {
-      this.setSettings(app.settings)
-    }
-    // setBalanceAmount () {
-    //   let balance = 0
-    //   const creditCard = ['Visa', 'MasterCard']
-    //   this.user.wallets.forEach(wallet => {
-    //     if (!creditCard.includes(wallet.walletType)) {
-    //       balance += wallet.amount
-    //     } else {
-    //       balance -= wallet.amount
-    //     }
-    //   })
-    //   this.initBalance(balance)
-    // }
+      'initTheme'
+    ])
   },
   components: {
     Sidebar,

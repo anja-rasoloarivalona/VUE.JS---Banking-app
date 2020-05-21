@@ -1,19 +1,19 @@
 <template>
-    <div class="plan">
-        <plan-header></plan-header>
+    <div class="plan" :class="{isLight: theme.isLight, isDark: theme.isDark}">
+        <plan-header :userBudgetPlan="userBudgetPlan"></plan-header>
         <div class="plan__item">
             <div class="plan__item__title">
-                <h2>Incomes</h2>
+                <h1>Incomes</h1>
                 <div class="plan__item__title__add" @click="openBackdrop('income')">
-                    <app-icon name="add" size="large" color="secondary"></app-icon>
+                    <app-icon name="add" size="large" :color="theme.isDark ? 'grey' : 'white'"></app-icon>
                 </div>
             </div>
             <div class="plan__item__details">
                 <div class="plan__item__details__header">
                     <div>Name</div>
-                    <div>Amount</div>
-                    <div>Last Payout</div>
-                    <div>Next Payout</div>
+                    <div>Frequency</div>
+                    <div>Amount / transaction</div>
+                    <div>Monthly average</div>
                 </div>
                 <ul class="plan__item__details__list">
                     <income-line-table
@@ -21,37 +21,80 @@
                        :key="income._id"
                        :income="income"
                        :index="index"
-                       :lastIndex="user.expenses.length"
+                       :lastIndex="user.incomes.length"
                     >
                     </income-line-table>
                 </ul>
+                <div class="plan__item__details__total">
+                  <div></div>
+                  <div></div>
+                  <div class="plan__item__details__total__item"><h3>Total</h3></div>
+                  <div class="plan__item__details__total__item"><h3>${{userBudgetPlan.monthlyIncomes | amount}}</h3></div>
+                </div>
             </div>
         </div>
-
         <div class="plan__item">
             <div class="plan__item__title">
-                <h2>Expenses</h2>
+                <h1>Fixed Expenses</h1>
                 <div class="plan__item__title__add" @click="openBackdrop('expense')">
-                    <app-icon name="add" size="large" color="secondary"></app-icon>
+                    <app-icon name="add" size="large" color="grey"></app-icon>
                 </div>
             </div>
             <div class="plan__item__details">
                 <div class="plan__item__details__header">
                     <div>Name</div>
-                    <div>Type</div>
-                    <div>Amount</div>
-                    <div>Next Payout</div>
+                    <div>Frequency</div>
+                    <div>Amount / transaction</div>
+                    <div>Monthly average</div>
                 </div>
                 <ul class="plan__item__details__list">
                     <expense-line-table
-                        v-for="(expense, index) in user.expenses"
+                        v-for="(expense, index) in userFixedExpenses"
                         :key="index"
                         :expense="expense"
                         :index="index"
-                        :lastIndex="user.expenses.length"
+                        :lastIndex="userFixedExpenses.length"
                     >
                     </expense-line-table>
                 </ul>
+                <div class="plan__item__details__total">
+                  <div></div>
+                  <div></div>
+                  <div class="plan__item__details__total__item"><h3>Total</h3></div>
+                  <div class="plan__item__details__total__item"><h3>${{userBudgetPlan.monthlyFixedExpenses | amount}}</h3></div>
+                </div>
+            </div>
+        </div>
+        <div class="plan__item">
+            <div class="plan__item__title">
+                <h1>Variable Expenses</h1>
+                <div class="plan__item__title__add" @click="openBackdrop('expense')">
+                    <app-icon name="add" size="large" color="grey"></app-icon>
+                </div>
+            </div>
+            <div class="plan__item__details">
+                <div class="plan__item__details__header">
+                    <div>Name</div>
+                    <div>Category</div>
+                    <div>Frequency</div>
+                    <div>Monthly average</div>
+                </div>
+                <ul class="plan__item__details__list">
+                    <expense-line-table
+                        v-for="(expense, index) in userVariableExpenses"
+                        :key="index"
+                        :expense="expense"
+                        :index="index"
+                        :lastIndex="userVariableExpenses.length"
+                    >
+                    </expense-line-table>
+                </ul>
+                <div class="plan__item__details__total">
+                  <div></div>
+                  <div></div>
+                  <div class="plan__item__details__total__item"><h3>Total</h3></div>
+                  <div class="plan__item__details__total__item"><h3>${{userBudgetPlan.monthlyVariableExpenses | amount}}</h3></div>
+                </div>
             </div>
         </div>
     </div>
@@ -65,40 +108,51 @@ import PlanHeader from './PlanHeader'
 export default {
   data () {
     return {
-      data: null,
-      chartStyles: {
-        height: '130px',
-        width: '100%',
-        position: 'relative'
-      }
+      data: null
     }
+  },
+  mounted () {
+    window.scroll(0, 0)
   },
   computed: {
     ...mapGetters([
-      'user'
-    ])
+      'user',
+      'frequencyOptions',
+      'theme'
+    ]),
+    userFixedExpenses () {
+      return this.user.expenses.filter(expense => expense.expenseType === 'fixed')
+    },
+    userVariableExpenses () {
+      return this.user.expenses.filter(expense => expense.expenseType === 'variable')
+    },
+    userBudgetPlan () {
+      let monthlyIncomes = 0
+      let monthlyVariableExpenses = 0
+      let monthlyFixedExpenses = 0
+      this.user.incomes.forEach(income => {
+        monthlyIncomes += income.amount * this.frequencyOptions.period[income.frequency.period] * this.frequencyOptions.counter[income.frequency.counter]
+      })
+      this.user.expenses.forEach(expense => {
+        if (expense.expenseType === 'variable') {
+          monthlyVariableExpenses += expense.amount * this.frequencyOptions.period[expense.frequency.period] * this.frequencyOptions.counter[expense.frequency.counter]
+        }
+        if (expense.expenseType === 'fixed') {
+          monthlyFixedExpenses += expense.amount * this.frequencyOptions.period[expense.frequency.period] * this.frequencyOptions.counter[expense.frequency.counter]
+        }
+      })
+      return {
+        monthlyIncomes: monthlyIncomes,
+        monthlyVariableExpenses: monthlyVariableExpenses,
+        monthlyFixedExpenses: monthlyFixedExpenses,
+        monthlySavings: monthlyIncomes - monthlyVariableExpenses - monthlyFixedExpenses
+      }
+    }
   },
   methods: {
     ...mapMutations([
       'openBackdrop'
     ])
-  },
-  created () {
-    const labels = []
-    const data = []
-    const bg = []
-    this.user.expenses.forEach(expense => {
-      labels.push(expense.name)
-      data.push(expense.amount)
-      bg.push(expense.color)
-    })
-    this.data = {
-      labels: labels,
-      datasets: [
-        { data: data, backgroundColor: bg }
-      ]
-
-    }
   },
   components: {
     PlanHeader,
@@ -112,21 +166,22 @@ export default {
 .plan {
     &__item {
         padding: 2rem;
-        border: 1px solid var(--lineColor);
-        // box-shadow: -3px -3px 6px #1a1919, 2px 2px 5px #222222;
-        margin-bottom: 4rem;
+        margin-bottom: 2rem;
         border-radius: .5rem;
+        :not(:last-child){
+
+        }
+        // background: var(--on-surfaceColor);
         &__title {
-            text-transform: uppercase;
+            // text-transform: uppercase;
             margin-bottom: 2rem;
             display: flex;
             align-items: center;
-            & h2 {
-                // background: red;
-                width: 13rem
+            justify-content: space-between;
+            & h1 {
+              color: var(--textColor--dark)
             }
             &__add {
-                // background: red;
                 border-radius: 50%;
                 border: 1px solid var(--textColor--dark);
                 display: flex;
@@ -136,7 +191,6 @@ export default {
         }
         &__details {
             &__header {
-                // background: var(--backgroundColor);
                 padding: 2rem 0;
                 display: flex;
                 font-size: $font-m;
@@ -151,7 +205,47 @@ export default {
             &__list {
                 list-style: none
             }
+            &__total {
+              padding: 2rem 0;
+              padding-left: 2rem;
+              font-size: $font-m;
+              display: flex;
+              border-bottom-left-radius: .5rem;
+              border-bottom-right-radius: .5rem;
+              &__item {
+                font-size: $font-m;
+              }
+              & div {
+                width: calc(100% / 4);
+              }
+            }
         }
+    }
+    &.isDark {
+      & .plan__item {
+          border: 1px solid var(--lineColor);
+      }
+    }
+    &.isLight {
+      & .plan__item {
+        &__details {
+          &__header {
+            background: var(--mainColor);
+            & div {
+              color: $color-white
+            }
+          }
+          &__total {
+            border-top: 1px solid var(--lineColor);
+          }
+        }
+        &__title {
+          &__add {
+            border: 1px solid var(--secondaryColor);
+            background: var(--secondaryColor)
+          }
+        }
+      }
     }
 }
 </style>

@@ -62,11 +62,11 @@ export default {
 }
 
 input.vc-bg-white  {
-  background:  var(--backgroundColor) !important;
+  background:  var(--calendarBackground) !important;
 }
 
 .vc-bg-white  {
-    background: var(--backgroundColor) !important;
+    background: var(--calendarBackground) !important;
 }
 
 .vc-text-base {

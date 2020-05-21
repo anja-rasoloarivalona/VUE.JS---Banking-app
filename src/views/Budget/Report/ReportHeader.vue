@@ -75,6 +75,9 @@ export default {
             justify-content: space-between;
             margin-bottom: 3rem;
             width: 30rem;
+            & h1 {
+              color: var(--textColor--dark)
+            }
             & label {
                 margin-bottom: 0rem !important;
                 width: 15rem;

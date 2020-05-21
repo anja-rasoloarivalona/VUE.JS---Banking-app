@@ -1,29 +1,34 @@
 const state = {
-  editingDashboard: false,
   editingTransaction: false,
   ghostMode: false,
-  currentDashboardLayout: [],
-  defaultDashboardLayout: [],
-  previousDashboardLayout: [],
-  secondaryColors: ['#059782', '#99a1d7', '#2bac49', '#3144af', '#59bcd8']
+  secondaryColors: ['#059782', '#99a1d7', '#2bac49', '#3144af', '#59bcd8'],
+  frequencyOptions: {
+    counter: {
+      once: 1,
+      twice: 2,
+      'three times': 3,
+      'four times': 4,
+      'five times': 5
+    },
+    period: {
+      'a day': 30,
+      'a week': 4,
+      'every two weeks': 2,
+      'a month': 1,
+      'a year': 1 / 12
+    }
+  }
 }
 
 const getters = {
   secondaryColors: state => {
     return state.secondaryColors
   },
+  frequencyOptions: state => {
+    return state.frequencyOptions
+  },
   isGhostModeActivated: state => {
     return state.ghostMode
-  },
-  isEditingDashboard: state => {
-    return state.editingDashboard
-  },
-  dashboardData: state => {
-    return {
-      currentDashboardLayout: state.currentDashboardLayout,
-      defaultDashboardLayout: state.defaultDashboardLayout,
-      previousDashboardLayout: state.defaultDashboardLayout
-    }
   },
   isEditingTransaction: state => {
     return state.editingTransaction
@@ -31,36 +36,6 @@ const getters = {
 }
 
 const mutations = {
-  // GENERAL
-  setSettings (state, data) {
-    state.defaultDashboardLayout = data.dashboardLayout
-    state.currentDashboardLayout = data.dashboardLayout
-  },
-  // THEME
-  // setTheme (state, theme) {
-  //   state.theme = theme
-  //   localStorage.setItem('bank-theme', theme)
-  //   const htmlElement = document.documentElement
-  //   htmlElement.setAttribute('theme', theme)
-  // },
-  // setPreviousTheme (state, theme) {
-  //   console.log('setting previous theme', theme)
-  //   state.previousTheme = theme
-  // },
-  // DASHBOARD
-  setDefaultDashboardLayout (state, layout) {
-    state.defaultDashboardLayout = layout
-  },
-  setCurrentDashboardLayout (state, layout) {
-    state.currentDashboardLayout = layout
-  },
-  setEditDashboardToTrue (state) {
-    state.editingDashboard = true
-  },
-  setEditDashboardToFalse (state) {
-    state.editingDashboard = false
-  },
-
   // TRANSACTION
   editTransaction (state, transaction) {
     state.editingTransaction = transaction

@@ -7,15 +7,23 @@
           Incomes
         </div>
         <div class="header__details__item__value">
-          $ {{monthlyIncomes | amount}}
+          $ {{userBudgetPlan.monthlyIncomes | amount}}
         </div>
       </div>
       <div class="header__details__item">
         <div class="header__details__item__key">
-          Expenses
+          Fixed Expenses
         </div>
         <div class="header__details__item__value">
-          $ {{monthlyExpenses | amount }}
+          $ {{userBudgetPlan.monthlyFixedExpenses | amount }}
+        </div>
+      </div>
+      <div class="header__details__item">
+        <div class="header__details__item__key">
+          Variable Expenses
+        </div>
+        <div class="header__details__item__value">
+          $ {{userBudgetPlan.monthlyVariableExpenses | amount }}
         </div>
       </div>
       <div class="header__details__item">
@@ -23,7 +31,7 @@
           Savings
         </div>
         <div class="header__details__item__value">
-          $ {{ savings | amount }}
+          $ {{ userBudgetPlan.monthlySavings | amount }}
         </div>
       </div>
     </div>
@@ -40,36 +48,17 @@ export default {
   data () {
     return {
       data: null,
-      monthlyIncomes: 0,
-      monthlyExpenses: 0,
       chartStyles: {
         height: '130px',
         width: '100%',
         position: 'relative'
-      },
-      counter: {
-        once: 1,
-        twice: 2,
-        'three times': 3,
-        'four times': 4,
-        'five times': 5
-      },
-      period: {
-        'a day': 30,
-        'a week': 4,
-        'every two weeks': 2,
-        'a month': 1,
-        'a year': 1 / 12
       }
     }
   },
   computed: {
     ...mapGetters([
       'user'
-    ]),
-    savings () {
-      return this.monthlyIncomes - this.monthlyExpenses
-    }
+    ])
   },
   created () {
     const labels = []
@@ -85,16 +74,11 @@ export default {
       datasets: [{ data: data, backgroundColor: bg }]
     }
   },
-  mounted () {
-    this.user.incomes.forEach(income => {
-      this.monthlyIncomes += income.amount * this.period[income.frequency.period] * this.counter[income.frequency.counter]
-    })
-    this.user.expenses.forEach(expense => {
-      this.monthlyExpenses += expense.amount * this.period[expense.frequency.period] * this.counter[expense.frequency.counter]
-    })
-  },
   components: {
     DoughnutChart
+  },
+  props: {
+    userBudgetPlan: Object
   }
 }
 </script>
@@ -110,6 +94,7 @@ export default {
     width: 65%;
     & h1 {
       margin-bottom: 2rem;
+      color: var(--textColor--dark)
     }
     &__item {
       display: flex;

@@ -1,13 +1,20 @@
 <template>
   <div
     class="income"
-    :class="{'bg-on-surfaceColor': parseInt(index) % 2 === 0, 'bg-surfaceColor': parseInt(index) % 2 !== 0 }"
+    :class="{
+      'bg-on-surfaceColor': theme.isDark && parseInt(index) % 2 === 0,
+      'bg-surfaceColor': theme.isDark && parseInt(index) % 2 !== 0,
+      'bg-mainColor--light': theme.isLight && parseInt(index) % 2 === 0
+    }"
     @mouseleave="showList = false"
 >
-    <h3>{{ income.name }}</h3>
+    <div class="income__name">
+      <div class="income__name__color"></div>
+      <div>{{ income.name }}</div>
+    </div>
+    <div>{{ income.frequency.counter}} {{income.frequency.period}}</div>
     <div>${{ income.amount | amount }}</div>
-    <div>{{ income.lastPayout | short-date }}</div>
-    <div>{{ income.nextPayout | short-date }}</div>
+    <div>${{ monthlyAverage | amount }}</div>
     <div class="income__cta" @click="showList = !showList" @mouseenter="showList = true">
       <span></span>
       <span></span>
@@ -49,14 +56,18 @@ export default {
     }
   },
   mounted () {
-    if (this.index + 1 === this.lastIndex) {
+    if (this.index + 1 === this.lastIndex && this.lastIndex > 1) {
       this.isLast = true
     }
   },
   computed: {
     ...mapGetters([
-      'theme'
-    ])
+      'theme',
+      'frequencyOptions'
+    ]),
+    monthlyAverage () {
+      return this.income.amount * this.frequencyOptions.period[this.income.frequency.period] * this.frequencyOptions.counter[this.income.frequency.counter]
+    }
   },
   props: {
     income: {
@@ -78,6 +89,17 @@ export default {
   & > * {
     width: calc(100% / 4);
     font-size: $font-m;
+  }
+  &__name {
+    display: flex;
+    align-items: center;
+    &__color {
+      width: 1rem;
+      height: 1rem;
+      margin-right: 2rem;
+      border-radius: 0.5rem;
+      background: var(--mainColor)
+    }
   }
   &__cta {
     position: absolute;

@@ -1,23 +1,42 @@
 <template>
     <div
         class="expense"
-        :class="{'bg-on-surfaceColor': index % 2 === 0, 'bg-surfaceColor': index % 2 !== 0 }"
+        :class="{
+          'bg-on-surfaceColor': theme.isDark && index % 2 === 0,
+          'bg-surfaceColor': theme.isDark && index % 2 !== 0,
+          'bg-mainColor--light': theme.isLight && parseInt(index) % 2 === 0
+        }"
         @mouseleave="showList = false"
     >
+      <template v-if="expense.expenseType === 'fixed'">
         <div class="expense__name">
             <div class="expense__name__color" :style="{backgroundColor: expense.color}"></div>
             <div>{{ expense.name}}</div>
         </div>
-        <div>{{ expense.expenseType}}</div>
+        <div>{{ expense.frequency.counter}} {{expense.frequency.period}}</div>
         <div>${{ expense.amount | amount}}</div>
-        <div v-if="expense.nextPayout">{{ expense.nextPayout | short-date}}</div>
-        <div v-else>-</div>
+        <div>${{ fixedExpenseMonthlyAverage | amount}}</div>
+      </template>
+      <template v-if="expense.expenseType === 'variable'">
+        <div class="expense__name">
+            <div class="expense__name__color" :style="{backgroundColor: expense.color}"></div>
+            <div>{{ expense.name}}</div>
+        </div>
+        <div>{{ expense.category}}</div>
+        <div>{{ expense.frequency.counter}} {{expense.frequency.period}}</div>
+        <div>${{ expense.amount | amount}}</div>
+      </template>
         <div class="expense__cta" @click="showList = !showList" @mouseenter="showList = true">
             <span></span>
             <span></span>
             <span></span>
         </div>
-        <ul class="expense__cta__list" v-if="showList" :class="{isLast: isLast }">
+        <ul
+            class="expense__cta__list"
+            v-if="showList"
+            :class="{isLast: isLast }"
+            :style="{boxShadow: theme.isDark ? 'box-shadow: 1px 5px 12px -1px rgba(15,15,15,1)' : '1px 5px 12px -1px rgb(165, 165, 165)'}"
+        >
             <li class="expense__cta__list__item" @click="editExpense(expense)">
                 Edit
             </li>
@@ -29,12 +48,21 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations, mapGetters } from 'vuex'
 export default {
   data () {
     return {
       showList: false,
       isLast: false
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'frequencyOptions',
+      'theme'
+    ]),
+    fixedExpenseMonthlyAverage () {
+      return this.expense.amount * this.frequencyOptions.period[this.expense.frequency.period] * this.frequencyOptions.period[this.expense.frequency.period]
     }
   },
   methods: {
@@ -115,7 +143,6 @@ export default {
     }
     &__list {
         background: $color-white;
-        box-shadow: 1px 5px 12px -1px rgba(15,15,15,1);
         border-radius: .5rem;
         padding: 1rem 0;
         position: absolute;

@@ -1,6 +1,9 @@
 <template>
-    <div class="calendar">
-        <app-calendar is-expanded :attributes="attrs" locale="en"/>
+    <div class="calendar dashboard__section">
+       <h2 class="dashboard__section__title">Calendar</h2>
+        <div class="calendar__content">
+            <app-calendar is-expanded  :attributes="attrs" locale="en"/>
+        </div>
     </div>
 </template>
 
@@ -9,7 +12,6 @@ import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-    //   attrs: null
       attrs: [
         {
           // key: 'today',
@@ -75,68 +77,20 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .calendar {
-    // position: absolute;
-    // top: 0;
-    // left: 0;
-    // width: 100%;
-    // max-width: 120rem;
-    // // height: 90%;
-    // padding-top: 3rem;
-}
-.vc-min-w-full {
-    height: 100%;
-}
-.vc-relative {
-    height: 100%;
-}
-.vc-grid-container.grid {
-    height: 100%;
-}
-.vc-grid-cell {
-    height: 100%;
-}
-.vc-pane {
-    height: 100%;
-    padding-top: 2rem;
-}
-.vc-header {
-    margin-bottom: 2rem;
-}
-.vc-arrows-container {
-    top: 2rem
-}
-.vc-h-full {
-    display: flex;
-    align-items: center;
-}
-.vc-text-gray-900 {
-    color: var(--textColor) !important
-}
-.vc-text-gray-800 {
-    color: var(--mainColor);
-}
-
-// EXPENSES COLOOOOOR
-
-.bg-mainColor {
-    background: var(--mainColor) !important;
-}
-
-.bg-059782 {
-  background: #059782 !important;
-}
-.bg-99a1d7 {
-  background: #99a1d7 !important;
-}
-.bg-2bac49 {
-  background: #2bac49 !important;
-}
-.bg-3144af {
-  background: #3144af !important;
-}
-.bg-59bcd8 {
-  background: #59bcd8 !important;
+    padding: 1rem 3rem;
+    margin: 0;
+    // background: blue;
+    & h2 {
+        // padding-left: 3rem;
+        margin-bottom: 2rem;
+    }
+    &__content {
+        display: flex;
+        justify-content: center;
+        // background: red;
+        width: 100%;
+    }
 }
 </style>

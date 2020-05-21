@@ -46,7 +46,7 @@ export default {
 
 <style lang="scss" scoped>
 .scroll {
-  max-height: 12rem;
+  max-height: 18.1rem;
   overflow-y: scroll;
   &::-webkit-scrollbar{
     display: none;
@@ -55,7 +55,7 @@ export default {
 .transactions {
     padding: 1rem;
     padding-left: 3rem;
-    height: 23.1rem;
+    height: 31.1rem;
     & h2 {
         margin-bottom: 1rem;
     }

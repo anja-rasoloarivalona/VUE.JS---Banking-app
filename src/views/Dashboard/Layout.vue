@@ -30,6 +30,19 @@
 // two line : 20 + 10 = 30
 // three line : 30 + 20 = 50
 // four lines : 40 + 30 = 70
+// 5 : 50 + 40 = 90
+// 6: 60 + 50= 110
+// 7: 70 + 60 = 130
+// 8: 150
+// 9: 170
+// 10: 190
+// 11: 210
+// 12: 230
+// 13: 250
+// 14: 270
+// 15: 290
+// 17: 310
+// 18: 330
 
 import VueGridLayout from 'vue-grid-layout'
 import { mapGetters, mapMutations } from 'vuex'
@@ -77,8 +90,8 @@ export default {
       this.initDashboardLayout(layout)
     },
     layoutUpdatedEvent: function (newLayout) {
+      console.log('new la', newLayout)
       this.updatedLayout = newLayout
-      console.log('layout updated')
     }
   },
   components: {

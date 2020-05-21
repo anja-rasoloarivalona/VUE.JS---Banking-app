@@ -28,6 +28,9 @@
       <template #expenses>
         <expenses></expenses>
       </template>
+      <template #calendar>
+        <calendar></calendar>
+      </template>
     </dashboard-layout>
   </div>
 </template>
@@ -36,6 +39,7 @@
 import DashboardLayout from './Layout'
 import Budget from './Budget'
 import Balance from './Balance'
+import Calendar from './Calendar'
 import Wallet from './Wallet'
 import Transactions from './Transactions'
 import Goal from './Goal'
@@ -49,6 +53,7 @@ export default {
     Transactions,
     DashboardLayout,
     Balance,
+    Calendar,
     Budget,
     Wallet,
     Goal,

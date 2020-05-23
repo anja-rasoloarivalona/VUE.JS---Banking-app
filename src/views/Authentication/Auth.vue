@@ -7,12 +7,7 @@
                     :userInput="userInput"
                     :submit="submitForm"
                     :loading="loading"
-                    :errors="errors">
-                    <template #errors>
-                        <div class="form__error" v-if="errors && errors.length > 0">
-                            <div class="form__error__item" v-for="(error, index) in errors" :key="index">{{error.message}}</div>
-                        </div>
-                    </template>
+                >
                 </component>
             </transition>
         </form>
@@ -32,24 +27,17 @@ export default {
         email: '',
         password: ''
       },
-      loading: false,
-      errors: false
+      loading: false
     }
   },
   computed: {
     ...mapGetters([
-      'authMode',
-      'localTheme',
-      'currentTheme'
+      'authMode'
     ])
   },
   methods: {
     ...mapMutations([
-      'setIsAuthToTrue',
-      'setUserData',
-      'setDefaultDashboardLayout',
-      'setTheme',
-      'setPreviousTheme'
+      'addError'
     ]),
     submitForm () {
       const data = this.userInput
@@ -58,15 +46,18 @@ export default {
         delete data.name
         errors = validator(data)
         if (errors.length > 0) {
-          this.errors = errors
+          errors.forEach((err, index) => {
+            setTimeout(() => this.addError(err), (index + 1) * 1000)
+          })
         } else {
           this.login()
         }
       } else {
         errors = validator(data)
         if (errors.length > 0) {
-          console.log(errors)
-          this.errors = errors
+          errors.forEach((err, index) => {
+            setTimeout(() => this.addError(err), (index + 1) * 1000)
+          })
         } else {
           this.signup()
         }
@@ -78,13 +69,11 @@ export default {
       const result = await this.$store.dispatch('login', this.userInput)
       if (result.success) {
         this.loading = false
-        this.$emit('successLogin', {
-          auth: result.authData,
-          app: result.appData
-        })
       } else {
         this.loading = false
-        this.errors = result.errors
+        result.errors.forEach((err, index) => {
+          setTimeout(() => this.addError(err), (index + 1) * 1000)
+        })
       }
     },
     signup: async function () {
@@ -95,7 +84,9 @@ export default {
         this.loading = false
       } else {
         this.loading = false
-        this.errors = result.errors
+        result.errors.forEach((err, index) => {
+          setTimeout(() => this.addError(err), (index + 1) * 1000)
+        })
       }
     }
   },

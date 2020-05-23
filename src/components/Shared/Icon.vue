@@ -79,6 +79,10 @@ export default {
   fill: var(--surfaceColor)
 }
 
+.warning {
+  fill: var(--warningColor)
+}
+
 .white {
   fill: $color-white
 }

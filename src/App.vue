@@ -1,11 +1,12 @@
 <template>
   <div id="app" class="app bg-default">
+    <errors v-if="errors.isNotEmpty" />
     <loader v-if="loading"/>
     <template v-else>
       <sidebar />
       <navbar />
       <transition name="fade" mode="out-in" appear v-if="!auth.isAuth">
-          <auth @successLogin="initializeApp($event)"/>
+          <auth />
       </transition>
       <div class="app__view bg-default" v-else>
           <router-view name="setup" v-if="auth.appStatus.includes('setup')"/>
@@ -27,6 +28,7 @@ import Navbar from './components/Layout/Navbar/Navbar'
 import Auth from './views/Authentication/Auth'
 import Loader from './components/Layout/Loader/Loader'
 import Backdrop from './components/Layout/Backdrop/Backdrop'
+import Errors from './components/Layout/Errors/Errors'
 export default {
   data () {
     return {
@@ -54,7 +56,8 @@ export default {
       'backdrop',
       'user',
       'theme',
-      'auth'
+      'auth',
+      'errors'
     ])
   },
   watch: {
@@ -80,7 +83,8 @@ export default {
     Auth,
     Navbar,
     Loader,
-    Backdrop
+    Backdrop,
+    Errors
   }
 }
 </script>

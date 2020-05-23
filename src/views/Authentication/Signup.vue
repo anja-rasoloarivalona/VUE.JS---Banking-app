@@ -1,7 +1,6 @@
 <template>
   <div>
       <div class="title">Signup</div>
-      <slot name="errors"></slot>
       <app-basic-input v-model="userInput.name" id="name" :bgWhite="theme.isLight"/>
       <app-basic-input v-model="userInput.email" id="email" :bgWhite="theme.isLight"/>
       <app-basic-input v-model="userInput.password" id="password" :bgWhite="theme.isLight"/>

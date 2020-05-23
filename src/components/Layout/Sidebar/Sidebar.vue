@@ -1,26 +1,23 @@
 <template>
-    <div
-      class="sidebar"
-      :class="{
-        'not-authed': !auth.isAuth,
-        'authed': auth.isAuth,
-        'bg-surfaceColor': theme.isDark,
-        'bg-mainColor': theme.isLight
-      }">
-      <div
-       class="sidebar__toprounded bg-default"
-       :class="{'bg-mainColor': theme.isLight, 'bg-surfaceColor': theme.isDark }">
-        <div class="sidebar__toprounded__in"></div>
-      </div>
+    <div class="sidebar" :class="{'not-authed': !auth.isAuth, 'authed': auth.isAuth, 'bg-mainColor': theme.isLight, 'bg-surfaceColor': theme.isDark}">
+
       <template v-if="!auth.isAuth">
-          <transition name="fade" mode="out-in" appear>
-              <div class="sidebar__authImg">
-                  <h1>Take control of your</h1>
-                  <h1>Personnal finance</h1>
+              <div class="sidebar__authImg full-absolute">
+                  <div class="sidebar__authImg__bg full-absolute"></div>
+                  <!-- <transition name="fade" mode="out-in" appear> -->
+                    <div class="sidebar__authImg__content full-absolute">
+                      <h1>Take control of your</h1>
+                      <h1>Personnal finance</h1>
+                    </div>
+                  <!-- </transition> -->
+                  <div
+                    class="sidebar__authImg__layer full-absolute"
+                    :style="{backgroundImage: `linear-gradient(to bottom left, rgb(29, 29, 29) 10%, #1b1b1b6b )`}"
+                  >
+                  </div>
               </div>
-          </transition>
       </template>
-      <template v-else>
+      <template v-else-if="notDelayed">
         <div class="sidebar__content">
           <div class="sidebar__content__header">
             <div class="sidebar__content__header__logo"></div>
@@ -34,11 +31,17 @@
 </template>
 
 <script>
+// import themes from '@/assets/theme'
 import { mapGetters } from 'vuex'
 import Setup from './Setup'
 import Active from './Active'
 import EditingDashboard from './EditingDashboard'
 export default {
+  data () {
+    return {
+      notDelayed: true
+    }
+  },
   computed: {
     ...mapGetters([
       'theme',
@@ -57,6 +60,26 @@ export default {
       }
     }
   },
+  mounted () {
+    if (!this.auth.isAuth) {
+      console.log('setting to false')
+      this.notDelayed = false
+    }
+  },
+  watch: {
+    'auth.isAuth': function (auth) {
+      if (auth) {
+        setTimeout(() => this.setNotDelayedToTrue(), 1200)
+      } else {
+        this.notDelayed = false
+      }
+    }
+  },
+  methods: {
+    setNotDelayedToTrue () {
+      this.notDelayed = true
+    }
+  },
   components: {
     Active,
     Setup,
@@ -73,45 +96,36 @@ export default {
   height: 100vh;
   transition: all .5s ease-in;
   z-index: 9;
-  &__toprounded {
-    position: absolute;
-    top: 0;
-    right: -3rem;
-    width: 3rem;
-    height: 3rem;
-    &__in {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border-top-left-radius: 4.5rem;
-      background: var(--backgroundColor);
-      z-index: 1;
-    }
-  }
+  // &__authImg__content {
+  //   transition: all .5s ease-in;
+  // }
+
   &.not-authed {
-      transition: all .5s ease-in;
       width: 55vw;
-      background-image: linear-gradient(to right,
-              #027a66ea 10%,
-              #027a66b4 ),
-              url("../../../assets/landing.png") !important;
-      background-repeat: no-repeat;
-      background-size: cover;
       & .sidebar {
         &__authImg {
-          position: absolute;
           z-index: 1;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          display: flex;
-          justify-content: center;
-          flex-direction: column;
-          padding-left: 5rem;
-          color: $color-white;
+          &__bg {
+            z-index: 2;
+            background: var(--mainColor);
+          }
+          &__content {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            background-image: url("../../../assets/landing.png");
+            background-repeat: no-repeat;
+            background-size: cover;
+            z-index: 3;
+            padding-left: 5rem;
+            color: $color-white;
+          }
+          &__layer {
+            background-image: linear-gradient(to bottom left,
+              var(--surfaceColor) 10%,
+            #1b1b1b6b );
+            z-index: 4;
+          }
           & h1 {
             font-size: 4rem;
             line-height: 1.4;
@@ -120,11 +134,14 @@ export default {
       }
   }
   &.authed {
-    transition: all .5s ease-in;
     width: 25rem;
     padding: 0 2rem;
-    // background: var(--surfaceColor);
+    background: var(--surfaceColor);
     & .sidebar__authImg h1 {
+      // opacity: 0;
+    }
+    & .sidebar__authImg__content {
+      display: none;
       opacity: 0;
     }
   }

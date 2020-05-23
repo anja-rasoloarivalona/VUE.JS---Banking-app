@@ -69,6 +69,7 @@ export default {
 .dashboard {
   width: 100%;
   max-width: 120rem;
+  margin-bottom: 3rem;
   // grid-column: 2 / 3;
   &__section {
       background: var(--surfaceColor);

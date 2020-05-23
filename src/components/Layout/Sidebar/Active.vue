@@ -17,7 +17,7 @@
                         <div class="active__sidenav__list__item__details__amount">${{ item.value | amount}}</div>
                     </div>
                 </li>
-              </ul>
+            </ul>
           <div
             class="active__sidenav__add"
             @click="openBackdrop('transactions')"
@@ -103,6 +103,7 @@ export default {
         display: flex;
         flex-direction: column;
         align-items: center;
+        // justify-content: space-between;
         &__list {
         list-style: none;
         width: 90%;
@@ -159,11 +160,12 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
-        position: absolute;
-        bottom: 5rem;
-        left: 0;
-        right: 0;
-        margin: auto;
+        transform: translateY(8rem);
+        // position: absolute;
+        // bottom: 5rem;
+        // left: 0;
+        // right: 0;
+        // margin: auto;
         cursor: pointer;
         }
     }

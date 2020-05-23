@@ -72,7 +72,7 @@ export default {
       } else {
         this.loading = false
         result.errors.forEach((err, index) => {
-          setTimeout(() => this.addError(err), (index + 1) * 1000)
+          setTimeout(() => this.addError(err.message), (index + 1) * 1000)
         })
       }
     },
@@ -85,7 +85,7 @@ export default {
       } else {
         this.loading = false
         result.errors.forEach((err, index) => {
-          setTimeout(() => this.addError(err), (index + 1) * 1000)
+          setTimeout(() => this.addError(err.message), (index + 1) * 1000)
         })
       }
     }

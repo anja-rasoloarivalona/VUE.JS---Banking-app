@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="app bg-default">
-    <errors v-if="errors.isNotEmpty" />
+    <errors />
     <loader v-if="loading"/>
     <template v-else>
       <sidebar />
@@ -56,8 +56,7 @@ export default {
       'backdrop',
       'user',
       'theme',
-      'auth',
-      'errors'
+      'auth'
     ])
   },
   watch: {

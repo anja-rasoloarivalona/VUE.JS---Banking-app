@@ -1,13 +1,11 @@
 const state = {
-  errors: [],
-  isNotEmpty: false
+  errors: []
 }
 
 const getters = {
   errors: state => {
     return {
-      data: state.errors,
-      isNotEmpty: state.isNotEmpty
+      data: state.errors
     }
   }
 }
@@ -15,7 +13,6 @@ const getters = {
 const mutations = {
   addError (state, error) {
     state.errors.push(error)
-    state.isNotEmpty = true
   },
   removeError (state, errorIndex) {
     if (state.errors.length > 1) {

@@ -2,19 +2,8 @@
     <div class="sidebar" :class="{'not-authed': !auth.isAuth, 'authed': auth.isAuth, 'bg-mainColor': theme.isLight, 'bg-surfaceColor': theme.isDark}">
 
       <template v-if="!auth.isAuth">
-              <div class="sidebar__authImg full-absolute">
-                  <div class="sidebar__authImg__bg full-absolute"></div>
-                  <!-- <transition name="fade" mode="out-in" appear> -->
-                    <div class="sidebar__authImg__content full-absolute">
-                      <h1>Take control of your</h1>
-                      <h1>Personnal finance</h1>
-                    </div>
-                  <!-- </transition> -->
-                  <div
-                    class="sidebar__authImg__layer full-absolute"
-                    :style="{backgroundImage: `linear-gradient(to bottom left, rgb(29, 29, 29) 10%, #1b1b1b6b )`}"
-                  >
-                  </div>
+              <div class="sidebar__quotes">
+                  <quotes />
               </div>
       </template>
       <template v-else-if="notDelayed">
@@ -31,7 +20,7 @@
 </template>
 
 <script>
-// import themes from '@/assets/theme'
+import Quotes from './Quotes'
 import { mapGetters } from 'vuex'
 import Setup from './Setup'
 import Active from './Active'
@@ -83,6 +72,7 @@ export default {
   components: {
     Active,
     Setup,
+    Quotes,
     EditingDashboard
   }
 }
@@ -103,33 +93,14 @@ export default {
   &.not-authed {
       width: 55vw;
       & .sidebar {
-        &__authImg {
+        position: relative;
+        &__quotes {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
           z-index: 1;
-          &__bg {
-            z-index: 2;
-            background: var(--mainColor);
-          }
-          &__content {
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-            background-image: url("../../../assets/landing.png");
-            background-repeat: no-repeat;
-            background-size: cover;
-            z-index: 3;
-            padding-left: 5rem;
-            color: $color-white;
-          }
-          &__layer {
-            background-image: linear-gradient(to bottom left,
-              var(--surfaceColor) 10%,
-            #1b1b1b6b );
-            z-index: 4;
-          }
-          & h1 {
-            font-size: 4rem;
-            line-height: 1.4;
-          }
         }
       }
   }
@@ -137,13 +108,6 @@ export default {
     width: 25rem;
     padding: 0 2rem;
     background: var(--surfaceColor);
-    & .sidebar__authImg h1 {
-      // opacity: 0;
-    }
-    & .sidebar__authImg__content {
-      display: none;
-      opacity: 0;
-    }
   }
   &__content {
     height: 100%;

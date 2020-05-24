@@ -47,7 +47,7 @@ export default {
         errors = validator(data)
         if (errors.length > 0) {
           errors.forEach((err, index) => {
-            setTimeout(() => this.addError(err), (index + 1) * 1000)
+            setTimeout(() => this.addError(err), (index + 1) * 500)
           })
         } else {
           this.login()
@@ -56,7 +56,7 @@ export default {
         errors = validator(data)
         if (errors.length > 0) {
           errors.forEach((err, index) => {
-            setTimeout(() => this.addError(err), (index + 1) * 1000)
+            setTimeout(() => this.addError(err), (index + 1) * 500)
           })
         } else {
           this.signup()
@@ -72,7 +72,7 @@ export default {
       } else {
         this.loading = false
         result.errors.forEach((err, index) => {
-          setTimeout(() => this.addError(err.message), (index + 1) * 1000)
+          setTimeout(() => this.addError(err.message), (index + 1) * 500)
         })
       }
     },
@@ -85,7 +85,7 @@ export default {
       } else {
         this.loading = false
         result.errors.forEach((err, index) => {
-          setTimeout(() => this.addError(err.message), (index + 1) * 1000)
+          setTimeout(() => this.addError(err.message), (index + 1) * 500)
         })
       }
     }

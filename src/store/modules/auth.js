@@ -10,7 +10,8 @@ const state = {
   token: null,
   userEmail: null,
   userId: null,
-  userName: null
+  userName: null,
+  isAppReady: false
 }
 
 const getters = {
@@ -64,6 +65,7 @@ const mutations = {
     state.userId = null
     state.userName = null
     state.appStatus = 'auth'
+    state.isAppReady = false
     axios.defaults.headers.common.Authorization = 'Bearer '
     localStorage.removeItem('bank-data')
     router.push('/')
@@ -73,6 +75,9 @@ const mutations = {
     const authData = JSON.parse(localStorage.getItem('bank-data'))
     authData.appStatus = newStatus
     localStorage.setItem('bank-data', JSON.stringify(authData))
+  },
+  setIsAppReadyToTrue () {
+    state.isAppReady = true
   }
 }
 
@@ -96,14 +101,9 @@ const actions = {
       commit('setUserData', resData.user)
       commit('setTheme', resData.user.settings.theme)
       commit('initDashboardLayout', resData.user.settings.dashboardLayout)
-      return {
-        success: true,
-        authData: data,
-        appData: resData.user
-      }
+      setTimeout(() => commit('setIsAppReadyToTrue'), 1000)
     } catch (err) {
       return {
-        success: false,
         errors: err.response.data.errors
       }
     }
@@ -125,10 +125,8 @@ const actions = {
       }
       axios.defaults.headers.common.Authorization = 'Bearer ' + resData.token
       commit('setIsAuthToTrue', data)
-      return { succes: true }
     } catch (err) {
       return {
-        succes: false,
         errors: err.response.data.errors
       }
     }

@@ -34,6 +34,7 @@ export default new Vuex.Store({
         const userData = response.data.data.user
         commit('setUserData', userData)
         commit('initDashboardLayout', userData.settings.dashboardLayout)
+        commit('setIsAppReadyToTrue')
       } catch (err) {
         console.log(err.response)
       }

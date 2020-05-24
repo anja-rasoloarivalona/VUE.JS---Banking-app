@@ -10,7 +10,7 @@
       </transition>
       <div class="app__view bg-default" v-else>
           <router-view name="setup" v-if="auth.appStatus.includes('setup')"/>
-          <transition v-else :name="routerTransition" mode="out-in" appear>
+          <transition v-else-if="auth.isAppReady" :name="routerTransition" mode="out-in" appear>
               <router-view />
           </transition>
           <backdrop v-if="backdrop.isDisplayed">

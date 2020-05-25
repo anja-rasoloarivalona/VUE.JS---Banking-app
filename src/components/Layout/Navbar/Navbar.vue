@@ -1,5 +1,5 @@
 <template>
-  <div class="navContainer" :class="{'not-authed': !auth.isAuth, 'authed': auth.isAuth}">
+  <div class="navContainer" :class="{'not-authed': !auth.isAuth, 'authed': auth.isAuth, 'reset-password': auth.isResettingPassword}">
     <div class="navContainer__toprounded"
          :class="{
         'bg-mainColor': theme.isLight && auth.isAuth,
@@ -104,6 +104,9 @@ export default {
     & .nav {
       height: 100%;
       width: 100%;
+    }
+    &.reset-password {
+      width: 105vw
     }
   }
   &.authed {

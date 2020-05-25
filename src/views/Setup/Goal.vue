@@ -57,9 +57,6 @@ export default {
       }
       return new Date(result)
     },
-    clicked () {
-      console.log('clicked')
-    },
     goalSimulator () {
       this.result = null
       const transactionsData = []
@@ -120,7 +117,6 @@ export default {
       this.result = result
     },
     saveGoal: async function () {
-      console.log('saving goal')
       const graphqlQuery = {
         query: `mutation {
               addGoal(goalInput: {
@@ -135,17 +131,14 @@ export default {
       try {
         const response = await axios.post('/', graphqlQuery)
         const resData = response.data.data.addGoal
-        console.log('goal saved', resData)
         this.addGoal(resData)
       } catch (err) {
         console.log(err.repsonse)
       }
     },
     completeSetup: async function () {
-      console.log('completing setup')
       try {
         await this.saveGoal()
-        console.log('end')
         this.$emit('setup-completed')
       } catch (err) {
         console.log(err.response)

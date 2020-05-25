@@ -3,7 +3,7 @@
     :class="{
       'not-authed': !auth.isAuth,
       'authed': auth.isAuth,
-      'bg-mainColor': theme.isLight,
+      'bg-mainColor': theme.isLight && auth.isAuth,
       'bg-surfaceColor': theme.isDark,
       'reset-password': auth.isResettingPassword
     }">
@@ -98,6 +98,7 @@ export default {
 
   &.not-authed {
       width: 55vw;
+      background: rgb(29, 29, 29);
       & .sidebar {
         position: relative;
         &__quotes {

@@ -31,7 +31,8 @@ export default {
   methods: {
     ...mapMutations([
       'setAppStatus',
-      'initDashboardLayout'
+      'initDashboardLayout',
+      'setIsAppReadyToTrue'
     ]),
     retrieveDashboardLayout: async function () {
       this.loading = true
@@ -57,6 +58,7 @@ export default {
         this.loading = false
         this.initDashboardLayout(resData.settings.dashboardLayout)
         this.setAppStatus('active')
+        this.setIsAppReadyToTrue()
       } catch (err) {
         console.log(err.response)
       }

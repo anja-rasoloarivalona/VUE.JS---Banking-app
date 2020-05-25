@@ -81,12 +81,13 @@ export default {
               budgetHeight = budgetHeight + 3
             }
           })
-          layout[index].h = budgetHeight
+          layout[index].h = budgetHeight > 9 ? budgetHeight : 9
         }
         if (item.i === 'wallet') {
-          layout[index].h = 4 + (this.user.wallets.length * 7)
+          layout[index].h = this.user.wallets.length > 1 ? 4 + (this.user.wallets.length * 7) : 18
         }
       })
+      console.log(layout)
       this.initDashboardLayout(layout)
     },
     layoutUpdatedEvent: function (newLayout) {

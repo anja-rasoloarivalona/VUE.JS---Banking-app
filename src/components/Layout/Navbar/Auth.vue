@@ -3,8 +3,11 @@
         <div class="auth__cta" v-if="authMode === 'signup'" @click="setAuthMode('login')">
             Login
         </div>
+        <div class="auth__cta" v-else-if="auth.isResettingPassword" @click="setResettingPasswordToFalse">
+            Back
+        </div>
         <div class="auth__cta" v-else @click="setAuthMode('signup')">
-            Signup
+            I'm new
         </div>
     </div>
 </template>
@@ -14,12 +17,14 @@ import { mapGetters, mapMutations } from 'vuex'
 export default {
   computed: {
     ...mapGetters([
-      'authMode'
+      'authMode',
+      'auth'
     ])
   },
   methods: {
     ...mapMutations([
-      'setAuthMode'
+      'setAuthMode',
+      'setResettingPasswordToFalse'
     ])
   }
 }

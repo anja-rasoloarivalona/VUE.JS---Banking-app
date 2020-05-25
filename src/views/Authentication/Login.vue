@@ -3,6 +3,9 @@
     <div class="title">Login</div>
     <app-basic-input v-model="userInput.email" :id="'email'" :bgWhite="theme.isLight"/>
     <app-basic-input v-model="userInput.password" :id="'password'"  :bgWhite="theme.isLight"/>
+    <div class="login__cta">
+      <div @click="setResettingPasswordToTrue">Forget password</div>
+    </div>
     <app-btn @click="submit">
         <span v-if="!loading">Login</span>
         <app-spinner v-else></app-spinner>
@@ -11,7 +14,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 export default {
   computed: {
     ...mapGetters([
@@ -22,6 +25,11 @@ export default {
     userInput: Object,
     loading: Boolean,
     submit: Function
+  },
+  methods: {
+    ...mapMutations([
+      'setResettingPasswordToTrue'
+    ])
   }
 }
 </script>
@@ -48,5 +56,20 @@ button {
         color: $color-white;
         margin-bottom: 0;
     }
+}
+
+.login__cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: $font-s;
+  color: var(--textColor--dark);
+  cursor: pointer;
+  & div {
+    &:hover {
+      text-decoration: underline;
+      color: var(--mainColor);
+    }
+  }
 }
 </style>

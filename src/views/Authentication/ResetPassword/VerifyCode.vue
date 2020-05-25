@@ -1,6 +1,5 @@
 <template>
     <div class="verify">
-        <h1>Verification code</h1>
         <div class="verify__text">
             There may be a delay before receiving your code
         </div>
@@ -14,75 +13,76 @@
             </div>
         </div>
         <form class="verify__form">
-            <app-basic-input v-model="code" id="Enter the code" bgWhite/>
-            <div>Back to signup</div>
-            <app-btn @click.native="submit">
-                <span v-if="!loading">Confirm</span>
-                <app-spinner v-else></app-spinner>
-            </app-btn>
+                <app-basic-input v-model="code" id="Enter the code"/>
+                <div class="verify__form__cta" @click="$emit('setCurrentView', 'SendCode')">Send code again</div>
+                <app-btn @click.native="verifyCode">
+                    <span v-if="!loading">Confirm</span>
+                    <app-spinner v-else></app-spinner>
+                </app-btn>
         </form>
     </div>
 </template>
 
 <script>
-import { verifyCodeQuery } from '@/graphQL/authQuery'
 import { mapGetters, mapMutations } from 'vuex'
 import axios from 'axios'
 export default {
   data () {
     return {
-      code: '',
-      loading: false
+      loading: false,
+      code: ''
+    }
+  },
+  methods: {
+    ...mapMutations([
+      'addError'
+    ]),
+    verifyCode: async function () {
+      if (this.code.length < 1) {
+        return this.addError('Code is required')
+      }
+      this.loading = true
+      const graphqlQuery = {
+        query: `{verifyResetPasswordCode(
+          code:"${this.code}",
+          email: "${this.user.email}"
+          )}`
+      }
+      try {
+        const response = await axios.post('/', graphqlQuery)
+        const resData = response.data.data.verifyResetPasswordCode
+        if (resData) {
+          this.$emit('code-correct', resData)
+        }
+        this.loading = false
+      } catch (err) {
+        err.response.data.errors.forEach((err, index) => {
+          setTimeout(() => this.addError(err.message), (index + 1) * 500)
+        })
+        this.loading = false
+      }
     }
   },
   computed: {
     ...mapGetters([
-      'user'
+      'theme'
     ]),
     userEmail () {
-      const email = this.$store.state.auth.userEmail
+      const email = this.user.email
       const emailName = email.split('@')[0]
       const emailDomaine = email.split('@')[1]
       const res = `${emailName.charAt(0)}...${emailName.slice(-1)}@${emailDomaine}`
       return res
     }
   },
-  methods: {
-    ...mapMutations([
-      'setAppStatus'
-    ]),
-    submit: async function () {
-      this.loading = true
-      const graphQLQuery = verifyCodeQuery(this.code)
-      try {
-        const response = await axios.post('/', graphQLQuery)
-        const resData = response.data.data.verifyUserCode
-        if (resData === 'succeeded') {
-          this.loading = false
-          this.setAppStatus('setup')
-          this.$emit('displayWelcome')
-        }
-      } catch (err) {
-        this.loading = false
-        console.log(err.response)
-      }
-    }
+  props: {
+    user: Object
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .verify {
-    width: 50rem;
-    height: 50vh;
-    padding: 3rem 5rem;
-    background: var(--backgroundColor);
-    border-radius: .5rem;
-    & h1 {
-        color: var(--mainColor);
-        margin-bottom: 2rem;
-        font-size: 3rem;
-    }
     &__text {
         font-size: $font-m;
         color: var(--textColor--dark);
@@ -90,7 +90,8 @@ export default {
     }
     &__info {
         margin-bottom: 2rem;
-        background: #dfeaee;
+        // background: var(--on-surfaceColor);
+        background: var(--backgroundColor);
         border-radius: .5rem;
         padding: 2rem;
         display: flex;
@@ -122,6 +123,15 @@ export default {
                 color: $color-white;
                 margin-bottom: 0;
             }
+    }
+    &__form__cta {
+        font-size: $font-s;
+        color: var(--textColor--dark);
+        cursor: pointer;
+        &:hover {
+            text-decoration: underline;
+            color: var(--mainColor)
+        }
     }
 }
 </style>

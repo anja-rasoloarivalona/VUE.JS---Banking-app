@@ -1,6 +1,6 @@
 <template>
-    <div class="auth" >
-        <form @submit="submitForm" class="form">
+    <div class="auth" :class="{'reset-password': auth.isResettingPassword}">
+        <form @submit="submitForm" class="form" v-if="!auth.isResettingPassword">
             <transition name="flip" mode="out-in">
                 <component
                     :is="authMode"
@@ -11,6 +11,7 @@
                 </component>
             </transition>
         </form>
+          <reset v-else/>
     </div>
 </template>
 
@@ -18,6 +19,7 @@
 import { validator } from '@/utilities/input-validator.js'
 import Login from './Login'
 import Signup from './Signup'
+import Reset from './ResetPassword/ResetPassword'
 import { mapGetters, mapMutations } from 'vuex'
 export default {
   data () {
@@ -32,7 +34,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'authMode'
+      'authMode',
+      'auth'
     ])
   },
   methods: {
@@ -92,7 +95,8 @@ export default {
   },
   components: {
     Login,
-    Signup
+    Signup,
+    Reset
   }
 }
 </script>
@@ -105,12 +109,16 @@ export default {
     right: 0;
     top: 0;
     background: var(--backgroundColor);
+    transition: all .5s ease-in;
     // background: red;
+    &.reset-password {
+      width: 100vw
+    }
 }
 .form {
     // background: blue;
     height: 50rem;
-    width: 60%;
+    width: 43rem;
     position: absolute;
     top: 29vh;
     left: 0;

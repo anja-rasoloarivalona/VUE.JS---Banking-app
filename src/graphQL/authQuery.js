@@ -7,7 +7,6 @@ const loginQuery = input => {
                     _id
                     name
                     email
-                    password
                     status
                     goal {
                       amount

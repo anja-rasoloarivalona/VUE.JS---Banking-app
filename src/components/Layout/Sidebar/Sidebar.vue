@@ -1,6 +1,12 @@
 <template>
-    <div class="sidebar" :class="{'not-authed': !auth.isAuth, 'authed': auth.isAuth, 'bg-mainColor': theme.isLight, 'bg-surfaceColor': theme.isDark}">
-
+    <div class="sidebar"
+    :class="{
+      'not-authed': !auth.isAuth,
+      'authed': auth.isAuth,
+      'bg-mainColor': theme.isLight,
+      'bg-surfaceColor': theme.isDark,
+      'reset-password': auth.isResettingPassword
+    }">
       <template v-if="!auth.isAuth">
               <div class="sidebar__quotes">
                   <quotes />
@@ -102,6 +108,9 @@ export default {
           height: 100%;
           z-index: 1;
         }
+      }
+      &.reset-password {
+        width: 0vw;
       }
   }
   &.authed {

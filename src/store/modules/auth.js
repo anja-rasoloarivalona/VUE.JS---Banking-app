@@ -11,7 +11,8 @@ const state = {
   userEmail: null,
   userId: null,
   userName: null,
-  isAppReady: false
+  isAppReady: false,
+  isResettingPassword: false
 }
 
 const getters = {
@@ -78,6 +79,12 @@ const mutations = {
   },
   setIsAppReadyToTrue () {
     state.isAppReady = true
+  },
+  setResettingPasswordToTrue (state) {
+    state.isResettingPassword = true
+  },
+  setResettingPasswordToFalse (state) {
+    state.isResettingPassword = false
   }
 }
 
@@ -102,7 +109,11 @@ const actions = {
       commit('setTheme', resData.user.settings.theme)
       commit('initDashboardLayout', resData.user.settings.dashboardLayout)
       setTimeout(() => commit('setIsAppReadyToTrue'), 1000)
+      return {
+        success: true
+      }
     } catch (err) {
+      console.log(err.response)
       return {
         errors: err.response.data.errors
       }

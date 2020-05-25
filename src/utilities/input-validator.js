@@ -19,6 +19,9 @@ const validator = (data) => {
   if (data.password && data.password.trim().length < 5) {
     errors.push('Password should be at least 5 characters long')
   }
+  if (data.password && data.confirmPassword && data.password !== data.confirmPassword) {
+    errors.push('Please enter the same password')
+  }
   return errors
 }
 

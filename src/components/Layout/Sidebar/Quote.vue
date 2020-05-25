@@ -4,7 +4,7 @@
                 <div class="quote__layer"></div>
                 <img :src="getImgUrl(quote.name)" :alt="quote.alt"/>
                 <transition name="fade" mode="out-in" appear v-if="quoteIsDisplayed">
-                    <div class="quote__content">
+                    <div class="quote__content" :class="{hide: auth.isResettingPassword}">
                         <div class="quote__content__mark">
                             <app-icon name="quote" color="dark" size="extra-large" />
                         </div>
@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
@@ -31,6 +32,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters([
+      'auth'
+    ]),
     currentQuoteIsMounted () {
       if (this.currentQuoteIndex === this.index) {
         return true
@@ -89,6 +93,9 @@ export default {
         padding-left: 8rem;
         right: 10rem;
         color: $color-white;
+        &.hide {
+          display: none;
+        }
         &__mark {
             position: absolute;
             transform: translate(-2.4rem, -1.7rem);

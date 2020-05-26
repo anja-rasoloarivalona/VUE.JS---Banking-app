@@ -1,6 +1,12 @@
 <template>
     <div class="wallet" :class="{'bg-white': theme.isLight, 'bg-surfaceColor': theme.isDark}">
-        <wallet-form isCancelBtnDisplayed :amountIsDisabled="editedWallet" :typeIsDisabled="editedWallet" :editedWallet="editedWallet">
+        <wallet-form
+            isCancelBtnDisplayed
+            :amountIsDisabled="editedWallet"
+            :typeIsDisabled="editedWallet"
+            :editedWallet="editedWallet"
+            @hideForm="closeBackdrop"
+        >
             <div class="wallet__header">
                 <h1 v-text="editedWallet ? 'Edit wallet' : 'Add wallet'">Add wallet</h1>
                 <div class="wallet__header__close" @click="closeBackdrop">

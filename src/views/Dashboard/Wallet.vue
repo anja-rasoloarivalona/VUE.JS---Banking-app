@@ -3,7 +3,7 @@
         <h2 class="dashboard__section__title">Wallet</h2>
         <ul class="wallet__list">
             <app-wallet v-for="wallet in wallets" :key="wallet._id" :wallet="wallet"></app-wallet>
-            <li class="wallet__list__item" @mouseenter="addIconColor = 'primary'" @mouseleave="addIconColor = 'grey--dark'" @click="openBackdrop('wallet')">
+            <li class="wallet__list__item" @mouseenter="addIconColor = 'primary'" @mouseleave="addIconColor = 'grey--dark'" @click="openBackdrop('wallet')" v-if="isAddDisplayed">
                 <div class="wallet__list__item--add" @click="showForm = true">
                     <app-icon name="add" size="extra-large" :color="addIconColor"/>
                 </div>
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations, mapGetters } from 'vuex'
 import Wallet from '@/components/UI/Wallet'
 export default {
   data () {
@@ -23,7 +23,7 @@ export default {
     }
   },
   watch: {
-    '$store.state.user.wallets': {
+    'user.wallets': {
       handler: 'setWallets',
       immediate: true
     }
@@ -33,7 +33,17 @@ export default {
       'openBackdrop'
     ]),
     setWallets () {
-      this.wallets = this.$store.state.user.wallets
+      this.wallets = this.user.wallets
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'user'
+    ]),
+    isAddDisplayed () {
+      if (this.user.wallets.length > 1) {
+        return false
+      } else return true
     }
   },
   components: {

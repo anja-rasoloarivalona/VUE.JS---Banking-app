@@ -70,17 +70,18 @@ export default {
   width: 100%;
   max-width: 120rem;
   margin-bottom: 3rem;
-  // grid-column: 2 / 3;
   &__section {
       background: var(--surfaceColor);
       border-radius: .5rem;
       width: 100%;
       height: 100%;
+      padding: 1rem 3rem;
     &__title {
       height: 3rem;
       display: flex;
       align-items: center;
-      color: var(--textColor--dark)
+      color: var(--textColor--dark);
+      margin-bottom: 1rem;
     }
   }
 }

@@ -60,8 +60,6 @@ export default {
 
 <style lang="scss" scoped>
 .chart {
-    padding: 1rem;
-    padding-left: 3rem;
     display: flex;
     flex-direction: column;
     &__expenses {

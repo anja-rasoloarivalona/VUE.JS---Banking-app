@@ -88,11 +88,9 @@ export default {
 
 <style lang="scss" scoped>
 .budget {
-    padding: 1rem;
-    padding-left: 3rem;
-    margin: 0;
     display: flex;
     flex-direction: column;
+    position: relative;
     // overflow: hidden;
     &__item {
     display: flex;
@@ -135,7 +133,11 @@ export default {
     }
     &__empty {
       // background: red;
+      position: absolute;
+      width: 100%;
       height: 100%;
+      left: 0;
+      top: 0;
       display: flex;
       align-items: center;
       justify-content: center;

@@ -61,12 +61,11 @@ export default {
   }
 }
 .transactions {
-    padding: 1rem 3rem;
     height: 31.1rem;
     display: flex;
     flex-direction: column;
     & h2 {
-        margin-bottom: 2rem;
+      margin-bottom: 2rem;
     }
     &__table {
       &__date {

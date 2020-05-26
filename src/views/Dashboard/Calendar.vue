@@ -79,17 +79,12 @@ export default {
 
 <style lang="scss" scoped>
 .calendar {
-    padding: 1rem 3rem;
-    margin: 0;
-    // background: blue;
-    & h2 {
-        // padding-left: 3rem;
-        margin-bottom: 2rem;
-    }
+  & h2 {
+    margin-bottom: 2rem;
+  }
     &__content {
         display: flex;
         justify-content: center;
-        // background: red;
         width: 100%;
     }
 }

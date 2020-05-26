@@ -50,9 +50,6 @@ export default {
     flex-direction: column;
     padding: 1rem;
     padding-left: 3rem;
-    & h2 {
-        margin-bottom: 1rem;
-    }
     &__value {
       height: 5rem;
       font-size: 2.4rem;

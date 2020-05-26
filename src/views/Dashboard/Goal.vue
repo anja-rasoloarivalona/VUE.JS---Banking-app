@@ -3,7 +3,7 @@
         <div class="goal__detail">
             <h2 class="dashboard__section__title">Goal</h2>
             <div class="goal__detail__date">
-                <h3 class="goal__detail__date__key">Expected date:</h3>
+                <h3 class="goal__detail__date__key">Date:</h3>
                 <h3 class="goal__detail__date__value">{{user.goal.date | short-date}}</h3>
             </div>
         </div>
@@ -45,11 +45,6 @@ export default {
 <style lang="scss">
 .goal {
     display: flex;
-    padding: 1rem;
-    padding-left: 3rem;
-    & h2 {
-        margin-bottom: 1rem;
-    }
     &__detail, &__circle {
         width: 50%;
         height: 100%;

@@ -46,10 +46,6 @@ export default {
 <style lang="scss" scoped>
 .wallet {
     width: 100%;
-    & h2 {
-        margin-bottom: 1rem;
-        padding-left: 1.5rem;
-    }
     &__list {
         display: flex;
         flex-direction: column;

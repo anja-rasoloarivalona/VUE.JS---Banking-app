@@ -1,6 +1,6 @@
 <template>
     <div class="monthly dashboard__section">
-        <h2 class="dashboard__section__title">Monthly report</h2>
+    <h2 class="dashboard__section__title">Monthly report</h2>
         <div class="monthly__details">
             <div class="monthly__details__item monthly__details__item--income">
                 <h3 :class="{primary: theme.isLight}">Income</h3>
@@ -56,39 +56,33 @@ export default {
 
 <style lang="scss">
 .monthly {
-    padding: 1rem;
-    padding-left: 3rem;
-    & h2 {
-        margin-bottom: 1rem;
-    }
-
-    &__details {
-        display: flex;
-        &__item {
-            width: 100%;
-            & h3 {
-                margin-bottom: 1rem;
-                &.primary {
-                  color: var(--mainColor)
-                }
-                &.secondary {
-                  color: var(--secondaryColor)
-                }
-            }
-            &--expense{
-               & svg {
-                    transform: rotate(180deg);
-                }
-            }
-            &__amount {
-                display: flex;
-                align-items: center;
-                font-size: $font-m;
-                & svg {
-                    margin-right: 1rem;
-                }
+  &__details {
+    display: flex;
+    &__item {
+        width: 100%;
+        & h3 {
+          margin-bottom: 1rem;
+          &.primary {
+            color: var(--mainColor)
+          }
+          &.secondary {
+            color: var(--secondaryColor)
+          }
+        }
+        &--expense{
+          & svg {
+              transform: rotate(180deg);
+          }
+        }
+        &__amount {
+            display: flex;
+            align-items: center;
+            font-size: $font-m;
+            & svg {
+                margin-right: 1rem;
             }
         }
     }
+  }
 }
 </style>

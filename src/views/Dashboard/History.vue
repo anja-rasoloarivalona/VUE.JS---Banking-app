@@ -117,9 +117,6 @@ export default {
 .chart {
     width: 100%;
     height: 100%;
-    padding: 1rem;
-    padding-left: 3rem;
-
     &__container {
         position: relative;
         width: 100%;

@@ -7,9 +7,10 @@
           'bg-default': theme.isLight,
           'bg-on-surfaceColor': theme.isDark,
           'all-radius': !showList,
-          'top-radius': showList}"
+          'top-radius': showList,
+        }"
         v-click-outside="closeList">
-          <div class="select__value" :class="{active: showList}" @click.stop="showList = !showList">{{ value }}</div>
+          <div class="select__value" :class="{active: showList, 'disabled': isDisabled}" @click.stop="toggleList">{{ value }}</div>
           <ul class="select__list" v-show="showList">
               <li v-for="(option, index) in options"
                   :key="index" class="select__list__item"
@@ -41,6 +42,11 @@ export default {
     },
     closeList: function () {
       this.showList = false
+    },
+    toggleList () {
+      if (!this.isDisabled) {
+        this.showList = !this.showList
+      }
     }
   },
   computed: {
@@ -56,7 +62,8 @@ export default {
     },
     id: String,
     bgGrey: Boolean,
-    row: Boolean
+    row: Boolean,
+    isDisabled: Boolean
   }
 }
 </script>
@@ -124,6 +131,13 @@ export default {
             background: var(--textColor--dark);
             right: 1rem;
             clip-path: polygon(50% 100%, 0 0, 100% 0);
+        }
+        &.disabled {
+          color: var(--textColor--dark);
+          cursor: not-allowed;
+          &::after {
+            display: none;
+          }
         }
     }
     &__list {

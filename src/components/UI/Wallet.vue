@@ -1,5 +1,4 @@
 <template>
-  <!-- <div class="wallet" :class="{xl:large}" :style="{background: wallet.color}" v-bind="$attrs"> -->
   <div
       class="wallet"
       :class="{xl:large, 'bg-on-surfaceColor': theme.isDark, light: theme.isLight }"

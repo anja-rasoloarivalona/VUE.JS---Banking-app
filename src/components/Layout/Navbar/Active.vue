@@ -11,7 +11,7 @@
         <app-icon name="eye" size="large" color="dark" v-if="!isGhostModeActivated" @click="activateGhostMode"/>
         <app-icon name="eye-blocked" size="large" color="dark" v-else @click="deactivateGhostMode"/>
         <app-icon name="settings" size="large" :color="isSettingsPannelShowed" @click="showList = !showList" />
-        <app-icon name="logout" size="large" color="dark" @click="setIsAuthToFalse"/>
+        <app-icon name="logout" size="large" color="dark" @click="logout"/>
         <div
           class="active__cta__list"
           :style="{boxShadow: theme.isDark ? '1px 5px 12px -1px rgba(15,15,15,1)' : '1px 5px 12px -1px rgb(165, 165, 165)'}"

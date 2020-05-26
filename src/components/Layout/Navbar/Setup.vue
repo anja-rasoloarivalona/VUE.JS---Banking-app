@@ -6,7 +6,7 @@
             <div class="setup__list__item" v-if="user.incomes.length > 0" @click="setCurrentSetupStep('expenses')">Expenses</div>
         </ul>
         <div class="setup__cta">
-          <div class="setup__cta__logout" @mouseenter="logoutHovered = true" @mouseleave="logoutHovered = false" @click="setIsAuthToFalse">
+          <div class="setup__cta__logout" @mouseenter="logoutHovered = true" @mouseleave="logoutHovered = false" @click="logout">
               <div>Logout</div>
               <app-icon name="logout" size="large" :color="logoutColor" />
           </div>
@@ -37,8 +37,13 @@ export default {
   methods: {
     ...mapMutations([
       'setCurrentSetupStep',
-      'setIsAuthToFalse'
-    ])
+      'setIsAuthToFalse',
+      'clearUserData'
+    ]),
+    logout () {
+      this.setIsAuthToFalse()
+      this.clearUserData()
+    }
   }
 }
 </script>

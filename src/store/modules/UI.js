@@ -4,7 +4,8 @@ const state = {
   activeSettingsModal: 'general',
   activeBackdrop: null,
   editedIncome: null,
-  editedExpense: null
+  editedExpense: null,
+  editedWallet: null
 }
 
 const getters = {
@@ -25,6 +26,9 @@ const getters = {
   },
   editedExpense: state => {
     return state.editedExpense
+  },
+  editedWallet: state => {
+    return state.editedWallet
   }
 }
 
@@ -38,6 +42,9 @@ const mutations = {
   setEditedExpense (state, editedExpense) {
     state.editedExpense = editedExpense
   },
+  setEditedWallet (state, editedWallet) {
+    state.editedWallet = editedWallet
+  },
   closeBackdrop (state) {
     state.displayBackdrop = false
     state.displaySettingsModal = false
@@ -45,6 +52,7 @@ const mutations = {
     state.activeBackdrop = null
     state.editedIncome = null
     state.editedExpense = null
+    state.editedWallet = null
   },
   openBackdrop (state, activeBackdrop) {
     state.displayBackdrop = true

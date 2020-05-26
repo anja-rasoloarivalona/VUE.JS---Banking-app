@@ -87,14 +87,6 @@ export default {
   fill: $color-white
 }
 
-.red {
-  fill: $color-red
-}
-
-.green {
-  fill: $color-green
-}
-
 .grey {
  fill:$color-grey--light
 }

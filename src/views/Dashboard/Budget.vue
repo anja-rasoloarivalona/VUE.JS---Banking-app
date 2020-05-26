@@ -1,7 +1,10 @@
 <template>
   <div class="budget dashboard__section">
     <h2 class="dashboard__section__title">Budget</h2>
-    <div v-for="item in budget" :key="item._id" class="budget__item">
+    <div class="budget__empty" v-if="variableBudgetCounter === 0">
+      You do not have variable expenses.<div @click="openBackdrop('expense')">Click here</div>to add a new one.
+    </div>
+    <div v-else v-for="item in budget" :key="item._id" class="budget__item">
         <h3 class="budget__item__key">{{ item.name }}</h3>
         <div class="budget__item__barContainer">
           <div class="budget__item__bar" :style="{ width:  item.amount / max * 100 + '%' }">
@@ -16,7 +19,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -31,9 +34,13 @@ export default {
     }
   },
   methods: {
+    ...mapMutations([
+      'openBackdrop'
+    ]),
     setBudget () {
       this.user.expenses.forEach(expense => {
         if (expense.expenseType === 'variable') {
+          this.variableBudgetCounter++
           this.budget.push({
             _id: expense._id,
             name: expense.name,
@@ -84,6 +91,9 @@ export default {
     padding: 1rem;
     padding-left: 3rem;
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    // overflow: hidden;
     &__item {
     display: flex;
     align-items: center;
@@ -122,6 +132,22 @@ export default {
             margin-left: 2rem;
             color: var(--textColor)
         }
+    }
+    &__empty {
+      // background: red;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: $font-s;
+      & div {
+        margin: 0 .35rem;
+        cursor: pointer;
+        color: var(--mainColor);
+        &:hover {
+          text-decoration: underline;
+        }
+      }
     }
 }
 </style>

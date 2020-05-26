@@ -45,7 +45,6 @@ const initQuery = {
           amount
           creditLimit
           supplier
-          shortId
           color
         }
         expenses {

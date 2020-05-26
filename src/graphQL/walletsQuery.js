@@ -20,7 +20,6 @@ const query = (action, input) => {
         walletType: "${input.walletType}",
         amount: "${input.amount}",
         supplier: "${input.supplier}",
-        shortId: "${input.shortId}",
         color: "${input.color}",
         creditLimit: "${input.creditLimit}"
     }) {
@@ -29,7 +28,6 @@ const query = (action, input) => {
         amount
         creditLimit
         supplier
-        shortId
         color
     }`
 }

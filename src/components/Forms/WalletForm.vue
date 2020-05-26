@@ -1,19 +1,20 @@
 <template>
-        <form class="form">
-                <app-select-input v-model="walletInput.walletType" :id="'type'"  :options="walletTypes" />
-                <app-basic-input v-model="walletInput.supplier" :id="'supplier'" />
-                <app-basic-input v-model="walletInput.amount" :id="'amount'" />
-                <app-basic-input v-model="walletInput.creditLimit" :id="'limit'" v-if="['Visa', 'MasterCard'].includes(walletInput.walletType)"/>
-                <!-- <app-basic-input v-model="walletInput.shortId" :id="'Last  4 numbers'" /> -->
-                <!-- <app-color-input v-model="walletInput.color" @click="chooseColor($event)"></app-color-input> -->
-                <div class="form__cta">
-                  <app-btn normal warning v-if="isCancelBtnDisplayed" @click.native="$emit('hideForm')">Cancel</app-btn>
-                  <app-btn normal @click.native="walletAction" primary>
-                    <span v-if="!loading" v-text="editedWallet ? 'Edit': 'Add'">Add</span>
-                    <app-spinner v-else></app-spinner>
-                  </app-btn>
-                </div>
-        </form>
+  <div class="wallet-form">
+    <slot />
+   <form>
+        <app-select-input v-model="walletInput.walletType" :id="'type'"  :options="walletTypes" :isDisabled="typeIsDisabled"/>
+        <app-basic-input v-model="walletInput.supplier" :id="'supplier'" />
+        <app-basic-input v-model="walletInput.amount" :id="'amount'" :isDisabled="amountIsDisabled"/>
+        <app-basic-input v-model="walletInput.creditLimit" :id="'limit'" v-if="['Visa', 'MasterCard'].includes(walletInput.walletType)"/>
+    </form>
+    <div class="wallet-form__cta">
+          <app-btn normal secondary v-if="isCancelBtnDisplayed" @click.native="$emit('hideForm')">Cancel</app-btn>
+          <app-btn normal @click.native="walletAction" primary>
+            <span v-if="!loading" v-text="editedWallet ? 'Edit': 'Add'">Add</span>
+            <app-spinner v-else></app-spinner>
+          </app-btn>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -26,7 +27,6 @@ export default {
         walletType: 'Visa',
         amount: 0,
         supplier: 'Bank',
-        shortId: 1234,
         color: 'Brown',
         creditLimit: 0
       },
@@ -38,7 +38,9 @@ export default {
   },
   props: {
     editedWallet: Object,
-    isCancelBtnDisplayed: Boolean
+    isCancelBtnDisplayed: Boolean,
+    amountIsDisabled: Boolean,
+    typeIsDisabled: Boolean
   },
   mounted () {
     if (this.editedWallet) {
@@ -94,67 +96,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.form {
-    width: 100%;
-    padding-bottom: 4rem;
+.wallet-form {
+  & form {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: max-content;
     grid-auto-rows: max-content;
     column-gap: 2rem;
     row-gap: 1rem;
-      &__color {
-        display: flex;
-        align-items: center;
-        margin-bottom: 6rem;
-        & span {
-          width: 6rem;
-          margin-bottom: 0.5rem;
-          font-size: $font-m;
-          color: $color-grey--dark;
-        }
-        &__select {
-          position: relative;
-          &__value {
-            width: 2em;
-            height: 2rem;
-            border: 1px solid $color-grey--main;
-            border-radius: .3rem;
-            cursor: pointer;
-          }
-          &__list {
-            position: absolute;
-            top: 0rem;
-            left: 6rem;
-            list-style: none;
-            width: 6rem;
-            display: grid;
-            border-radius: .5rem;
-            overflow: hidden;
-            grid-template-columns: repeat(auto-fit, 2rem);
-            grid-auto-rows: 2rem;
-            &__item {
-              width: 2rem;
-              height: 2rem;
-              cursor: pointer;
-            }
-          }
-        }
-      }
-      &__cta {
-        height: 8rem;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        // background: red;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        // & button {
-        //   height: 3.5rem;
-        // }
-      }
+  }
+   &__cta {
+      display: flex;
+      justify-content: center;
+      // position: relative;
+      // z-index: 10;
+  }
+
 }
 
 </style>

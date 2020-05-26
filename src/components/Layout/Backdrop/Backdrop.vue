@@ -13,6 +13,7 @@ import Transactions from './Transactions'
 import Settings from './Settings/Settings'
 import Income from './Income'
 import Expense from './Expense'
+import Wallet from './Wallet'
 export default {
   methods: {
     ...mapMutations([
@@ -33,7 +34,8 @@ export default {
     Transactions,
     Settings,
     Income,
-    Expense
+    Expense,
+    Wallet
   }
 }
 </script>

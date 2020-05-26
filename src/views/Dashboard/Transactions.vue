@@ -13,7 +13,10 @@
                   </tr>
                 </thead>
             </table>
-            <div class="scroll">
+            <div class="transactions__table--empty" v-if="userTransactions.length === 0">
+                You do not have transactions yet. <div @click="openBackdrop('transactions')">Click here</div> to add one
+            </div>
+            <div class="scroll" v-else>
               <table class="transactions__table">
                 <tbody>
                   <app-transaction
@@ -31,11 +34,16 @@
 
 <script>
 import Transaction from '@/components/UI/Transaction'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 export default {
   computed: {
     ...mapGetters([
       'userTransactions'
+    ])
+  },
+  methods: {
+    ...mapMutations([
+      'openBackdrop'
     ])
   },
   components: {
@@ -53,11 +61,12 @@ export default {
   }
 }
 .transactions {
-    padding: 1rem;
-    padding-left: 3rem;
+    padding: 1rem 3rem;
     height: 31.1rem;
+    display: flex;
+    flex-direction: column;
     & h2 {
-        margin-bottom: 1rem;
+        margin-bottom: 2rem;
     }
     &__table {
       &__date {
@@ -74,6 +83,23 @@ export default {
       }
       &__status {
         width: 10%;
+      }
+    }
+    &__table--empty {
+      width: 100%;
+      height: 100%;
+      // background: red;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: $font-s;
+      & div {
+        margin: 0 .35rem;
+        cursor: pointer;
+        color: var(--mainColor);
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
 }

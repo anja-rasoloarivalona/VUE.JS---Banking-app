@@ -64,7 +64,6 @@ const queryResult = `
                   amount
                   creditLimit
                   supplier
-                  shortId
                   color
               }
               incomes {

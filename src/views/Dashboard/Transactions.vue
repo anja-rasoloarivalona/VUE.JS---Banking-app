@@ -65,6 +65,7 @@ export default {
     display: flex;
     flex-direction: column;
     & h2 {
+      margin-top: 1rem;
       margin-bottom: 2rem;
     }
     &__table {

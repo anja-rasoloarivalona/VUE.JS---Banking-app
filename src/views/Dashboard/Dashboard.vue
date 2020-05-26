@@ -77,7 +77,8 @@ export default {
       height: 100%;
       padding: 1rem 3rem;
     &__title {
-      height: 3rem;
+      height: 3rem !important;
+      // background: red;
       display: flex;
       align-items: center;
       color: var(--textColor--dark);

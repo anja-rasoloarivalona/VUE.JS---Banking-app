@@ -1,7 +1,8 @@
 <template>
-    <label :for="id" class="label" :class="{row: row}">
+    <label :for="id" class="label" :class="{row: row}" v-click-outside="closeList">
       <span v-if="id">{{ id }}</span>
       <div
+        :id="id"
         class="select"
         :class="{
           'bg-default': theme.isLight,
@@ -9,7 +10,7 @@
           'all-radius': !showList,
           'top-radius': showList,
         }"
-        v-click-outside="closeList">
+        >
           <div class="select__value" :class="{active: showList, 'disabled': isDisabled}" @click.stop="toggleList">{{ value }}</div>
           <ul class="select__list" v-show="showList">
               <li v-for="(option, index) in options"

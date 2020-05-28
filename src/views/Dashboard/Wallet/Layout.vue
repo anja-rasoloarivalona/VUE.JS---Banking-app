@@ -2,7 +2,7 @@
     <div class="wallet dashboard__section">
         <h2 class="dashboard__section__title">Wallet</h2>
         <ul class="wallet__list">
-            <app-wallet v-for="wallet in wallets" :key="wallet._id" :wallet="wallet"></app-wallet>
+            <app-wallet v-for="wallet in wallets" :key="wallet._id" :wallet="wallet" :ghost="ghost"></app-wallet>
             <li class="wallet__list__item" @mouseenter="addIconColor = 'primary'" @mouseleave="addIconColor = 'grey--dark'" @click="openBackdrop('wallet')" v-if="isAddDisplayed">
                 <div class="wallet__list__item--add" @click="showForm = true">
                     <app-icon name="add" size="extra-large" :color="addIconColor"/>
@@ -48,6 +48,9 @@ export default {
   },
   components: {
     'app-wallet': Wallet
+  },
+  props: {
+    ghost: Boolean
   }
 }
 // title 30 + padding 30 + margin 10 = 70

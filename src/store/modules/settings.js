@@ -27,7 +27,7 @@ const getters = {
   frequencyOptions: state => {
     return state.frequencyOptions
   },
-  isGhostModeActivated: state => {
+  ghostModeIsEnabled: state => {
     return state.ghostMode
   },
   isEditingTransaction: state => {

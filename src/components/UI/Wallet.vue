@@ -17,7 +17,8 @@
       </div>
     </div>
     <div class="wallet__supplier">{{wallet.supplier}}</div>
-    <div class="wallet__amount" :class="{'txt-mainColor': theme.isDark}">${{wallet.amount | amount }}</div>
+    <div class="wallet__amount" :class="{'txt-mainColor': theme.isDark}" v-if="!ghost">${{wallet.amount | amount }}</div>
+    <div class="wallet__amount" :class="{'txt-mainColor': theme.isDark}" v-else>$***</div>
     <div class="wallet__type" :class="{'txt-darkColor': theme.isDark}">{{wallet.walletType}}</div>
   </div>
 </template>
@@ -61,7 +62,8 @@ export default {
   },
   props: {
     wallet: Object,
-    large: Boolean
+    large: Boolean,
+    ghost: Boolean
   }
 }
 </script>

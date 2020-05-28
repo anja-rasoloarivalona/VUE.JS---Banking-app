@@ -31,6 +31,7 @@ const editDashboardQuery = (layout) => {
             w
             i
             displayed
+            ghostMode
           }
         }
     `

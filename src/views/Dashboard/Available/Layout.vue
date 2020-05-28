@@ -2,7 +2,8 @@
     <div class="available dashboard__section">
         <h2 class="dashboard__section__title">Available now</h2>
         <div class="available__value">
-            <strong>${{available | amount}}</strong>
+            <strong v-if="!ghost">${{available | amount}}</strong>
+            <strong v-else>$***</strong>
         </div>
     </div>
 </template>
@@ -40,6 +41,9 @@ export default {
       })
       this.available = available
     }
+  },
+  props: {
+    ghost: Boolean
   }
 }
 </script>

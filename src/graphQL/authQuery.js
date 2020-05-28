@@ -21,6 +21,7 @@ const loginQuery = input => {
                         h
                         i
                         displayed
+                        ghostMode
                       }
                     }
                     wallets {

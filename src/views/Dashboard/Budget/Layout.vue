@@ -9,11 +9,13 @@
         <div class="budget__item__barContainer">
           <div class="budget__item__bar" :style="{ width:  item.amount / max * 100 + '%' }">
               <div class="budget__item__usedbar" :style="{width: item.used * oneDollarWidth + 'vw', background: item.color}">
-                  ${{ item.used | amount }}
+                  <span v-if="!ghost">${{ item.used | amount }}</span>
+                  <span v-else>$***</span>
               </div>
           </div>
         </div>
-        <div class="budget__item__max">${{ item.amount | amount }}</div>
+        <div class="budget__item__max" v-if="!ghost">${{ item.amount | amount }}</div>
+        <div class="budget__item__max" v-else>$***</div>
     </div>
   </div>
 </template>
@@ -75,6 +77,9 @@ export default {
       const oneDollarWidth = 34 / max
       return oneDollarWidth
     }
+  },
+  props: {
+    ghost: Boolean
   }
 }
 // Total height = 50 + (nb item * 60)

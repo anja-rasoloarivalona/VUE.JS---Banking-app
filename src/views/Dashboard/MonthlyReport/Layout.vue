@@ -6,14 +6,16 @@
                 <h3 :class="{primary: theme.isLight}">Income</h3>
                 <div class="monthly__details__item__amount">
                     <app-icon name="arrow" color="primary" />
-                    <div>${{report.income | amount}}</div>
+                    <div v-if="!ghost">${{report.income | amount}}</div>
+                    <div v-else>$***</div>
                 </div>
             </div>
             <div class="monthly__details__item monthly__details__item--expense">
                 <h3 :class="{secondary: theme.isLight}">Expense</h3>
                 <div class="monthly__details__item__amount">
                     <app-icon name="arrow" color="secondary" />
-                    <div>${{report.expense | amount}}</div>
+                    <div v-if="!ghost">${{report.expense | amount}}</div>
+                    <div v-else>$***</div>
                 </div>
             </div>
         </div>
@@ -26,7 +28,8 @@ export default {
   computed: {
     ...mapGetters([
       'user',
-      'theme'
+      'theme',
+      ''
     ]),
     report () {
       const currentReport = {}
@@ -50,6 +53,9 @@ export default {
       }
       return currentReport
     }
+  },
+  props: {
+    ghost: Boolean
   }
 }
 </script>

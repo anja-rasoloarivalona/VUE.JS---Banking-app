@@ -47,6 +47,7 @@ export default {
                 h
                 i
                 displayed
+                ghostMode
               }
             }
           }

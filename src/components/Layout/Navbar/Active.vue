@@ -8,7 +8,7 @@
         <router-link to="/calendar" tag="div"><a>Calendar</a></router-link>
       </ul>
       <div class="active__cta" v-click-outside="hideCtaList">
-        <app-icon name="eye" size="large" color="dark" v-if="!isGhostModeActivated" @click="activateGhostMode"/>
+        <app-icon name="eye" size="large" color="dark" v-if="!ghostModeIsEnabled" @click="activateGhostMode"/>
         <app-icon name="eye-blocked" size="large" color="dark" v-else @click="deactivateGhostMode"/>
         <app-icon name="settings" size="large" :color="isSettingsPannelShowed" @click="showList = !showList" />
         <app-icon name="logout" size="large" color="dark" @click="logout"/>
@@ -38,7 +38,7 @@ export default {
     ...mapGetters([
       'settingsModal',
       'theme',
-      'isGhostModeActivated'
+      'ghostModeIsEnabled'
     ]),
     isSettingsPannelShowed () {
       if (this.settingsModal.isDisplayed) {

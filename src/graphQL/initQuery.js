@@ -11,6 +11,7 @@ const initQuery = {
             h
             i
             displayed
+            ghostMode
           }
         }
         status

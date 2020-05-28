@@ -1,65 +1,74 @@
 <template>
   <div class="dashboard">
     <dashboard-layout>
-      <template #balance>
-        <balance></balance>
-      </template>
-      <template #wallet>
-        <wallet></wallet>
-      </template>
-      <template #budget>
-        <budget></budget>
-      </template>
-      <template #transactions>
-        <transactions></transactions>
-      </template>
-      <template #goal>
-        <goal></goal>
-      </template>
-      <template #monthly>
-        <monthly></monthly>
-      </template>
-      <template #history>
-        <history></history>
-      </template>
-      <template #available>
-        <available></available>
-      </template>
-      <template #expenses>
-        <expenses></expenses>
-      </template>
-      <template #calendar>
-        <calendar></calendar>
+      <template v-for="item in dashboard.currentLayout" v-slot:[item.i]>
+        <transition :key="item.i" name="flip" mode="out-in">
+            <component :is="item.ghostMode === 'hide' && ghostModeIsEnabled ? `ghost-${item.i}` : item.i" :key="item.i"></component>
+        </transition>
       </template>
     </dashboard-layout>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import DashboardLayout from './Layout'
-import Budget from './Budget'
-import Balance from './Balance'
+
+import Budget from './Budget/Budget'
+import GhostBudget from './Budget/GhostBudget'
+
+import Balance from './Balance/Balance'
+import GhostBalance from './Balance/GhostBalance'
+
 import Calendar from './Calendar'
-import Wallet from './Wallet'
+
+import Wallet from './Wallet/Wallet'
+import GhostWallet from './Wallet/GhostWallet'
+
 import Transactions from './Transactions'
 import Goal from './Goal'
-import Monthly from './MonthlyReport'
+
+import Monthly from './MonthlyReport/MonthlyReport'
+import GhostMonthly from './MonthlyReport/GhostMonthlyReport'
+
 import History from './History'
-import Available from './AvailableInstantly'
+
+import Available from './Available/Available'
+import GhostAvailable from './Available/GhostAvailable'
+
 import Expenses from './ExpensesChart'
 
 export default {
+  mounted () {
+    console.log('few', this.dashboard)
+  },
+  computed: {
+    ...mapGetters([
+      'ghostModeIsEnabled',
+      'dashboard'
+    ]),
+    balance () {
+      if (this.ghostModeIsEnabled) {
+        return 'ghost-balance'
+      } else return 'balance'
+    }
+  },
   components: {
     Transactions,
     DashboardLayout,
     Balance,
+    GhostBalance,
     Calendar,
     Budget,
+    GhostBudget,
     Wallet,
+    GhostWallet,
     Goal,
     Monthly,
+    GhostMonthly,
     History,
     Available,
+    GhostAvailable,
     Expenses
   }
 }

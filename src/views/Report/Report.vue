@@ -139,7 +139,12 @@ export default {
 
 <style lang="scss" scoped>
 .report {
-  margin-bottom: 3rem;
+  width: calc(100% - 2rem);
+  max-width: 120rem;
+  background: var(--surfaceColor);
+  border-radius: .5rem;
+  margin-bottom: 5rem;
+  padding: 3rem;
   &__item {
     padding: 2rem;
     margin-bottom: 2rem;

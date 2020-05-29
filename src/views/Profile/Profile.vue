@@ -1,21 +1,21 @@
 <template>
-    <div class="plan" :class="{isLight: theme.isLight, isDark: theme.isDark}">
-        <plan-header :userBudgetPlan="userBudgetPlan"></plan-header>
-        <div class="plan__item">
-            <div class="plan__item__title">
+    <div class="profile" :class="{isLight: theme.isLight, isDark: theme.isDark}">
+        <profile-header :userBudgetPlan="userBudgetPlan"></profile-header>
+        <div class="profile__item">
+            <div class="profile__item__title">
                 <h1>Incomes</h1>
-                <div class="plan__item__title__add" @click="openBackdrop('income')">
+                <div class="profile__item__title__add" @click="openBackdrop('income')">
                     <app-icon name="add" size="large" :color="theme.isDark ? 'grey' : 'white'"></app-icon>
                 </div>
             </div>
-            <div class="plan__item__details">
-                <div class="plan__item__details__header">
+            <div class="profile__item__details">
+                <div class="profile__item__details__header">
                     <div>Name</div>
                     <div>Frequency</div>
                     <div>Amount / transaction</div>
                     <div>Monthly average</div>
                 </div>
-                <ul class="plan__item__details__list">
+                <ul class="profile__item__details__list">
                     <income-line-table
                        v-for="(income, index) in user.incomes"
                        :key="income._id"
@@ -25,29 +25,29 @@
                     >
                     </income-line-table>
                 </ul>
-                <div class="plan__item__details__total">
+                <div class="profile__item__details__total">
                   <div></div>
                   <div></div>
-                  <div class="plan__item__details__total__item"><h3>Total</h3></div>
-                  <div class="plan__item__details__total__item"><h3>${{userBudgetPlan.monthlyIncomes | amount}}</h3></div>
+                  <div class="profile__item__details__total__item"><h3>Total</h3></div>
+                  <div class="profile__item__details__total__item"><h3>${{userBudgetPlan.monthlyIncomes | amount}}</h3></div>
                 </div>
             </div>
         </div>
-        <div class="plan__item">
-            <div class="plan__item__title">
+        <div class="profile__item">
+            <div class="profile__item__title">
                 <h1>Fixed Expenses</h1>
-                <div class="plan__item__title__add" @click="openBackdrop('expense')">
+                <div class="profile__item__title__add" @click="openBackdrop('expense')">
                     <app-icon name="add" size="large" color="grey"></app-icon>
                 </div>
             </div>
-            <div class="plan__item__details">
-                <div class="plan__item__details__header">
+            <div class="profile__item__details">
+                <div class="profile__item__details__header">
                     <div>Name</div>
                     <div>Frequency</div>
                     <div>Amount / transaction</div>
                     <div>Monthly average</div>
                 </div>
-                <ul class="plan__item__details__list">
+                <ul class="profile__item__details__list">
                     <expense-line-table
                         v-for="(expense, index) in userFixedExpenses"
                         :key="index"
@@ -57,29 +57,29 @@
                     >
                     </expense-line-table>
                 </ul>
-                <div class="plan__item__details__total">
+                <div class="profile__item__details__total">
                   <div></div>
                   <div></div>
-                  <div class="plan__item__details__total__item"><h3>Total</h3></div>
-                  <div class="plan__item__details__total__item"><h3>${{userBudgetPlan.monthlyFixedExpenses | amount}}</h3></div>
+                  <div class="profile__item__details__total__item"><h3>Total</h3></div>
+                  <div class="profile__item__details__total__item"><h3>${{userBudgetPlan.monthlyFixedExpenses | amount}}</h3></div>
                 </div>
             </div>
         </div>
-        <div class="plan__item">
-            <div class="plan__item__title">
+        <div class="profile__item">
+            <div class="profile__item__title">
                 <h1>Variable Expenses</h1>
-                <div class="plan__item__title__add" @click="openBackdrop('expense')">
+                <div class="profile__item__title__add" @click="openBackdrop('expense')">
                     <app-icon name="add" size="large" color="grey"></app-icon>
                 </div>
             </div>
-            <div class="plan__item__details">
-                <div class="plan__item__details__header">
+            <div class="profile__item__details">
+                <div class="profile__item__details__header">
                     <div>Name</div>
                     <div>Category</div>
                     <div>Frequency</div>
                     <div>Monthly average</div>
                 </div>
-                <ul class="plan__item__details__list">
+                <ul class="profile__item__details__list">
                     <expense-line-table
                         v-for="(expense, index) in userVariableExpenses"
                         :key="index"
@@ -89,11 +89,11 @@
                     >
                     </expense-line-table>
                 </ul>
-                <div class="plan__item__details__total">
+                <div class="profile__item__details__total">
                   <div></div>
                   <div></div>
-                  <div class="plan__item__details__total__item"><h3>Total</h3></div>
-                  <div class="plan__item__details__total__item"><h3>${{userBudgetPlan.monthlyVariableExpenses | amount}}</h3></div>
+                  <div class="profile__item__details__total__item"><h3>Total</h3></div>
+                  <div class="profile__item__details__total__item"><h3>${{userBudgetPlan.monthlyVariableExpenses | amount}}</h3></div>
                 </div>
             </div>
         </div>
@@ -104,7 +104,7 @@
 import { mapGetters, mapMutations } from 'vuex'
 import IncomeLineTable from '@/components/UI/IncomeLineTable'
 import ExpenseLineTable from '@/components/UI/ExpenseLineTable'
-import PlanHeader from './PlanHeader'
+import ProfileHeader from './ProfileHeader'
 export default {
   data () {
     return {
@@ -155,7 +155,7 @@ export default {
     ])
   },
   components: {
-    PlanHeader,
+    ProfileHeader,
     IncomeLineTable,
     ExpenseLineTable
   }
@@ -163,11 +163,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.plan {
+.profile {
+  width: calc(100% - 2rem);
+  max-width: 120rem;
+  background: var(--surfaceColor);
+  border-radius: .5rem;
+  margin-bottom: 5rem;
+  padding: 3rem;
     &__item {
         padding: 2rem;
         margin-bottom: 2rem;
         border-radius: .5rem;
+        background: var(--on-surfaceColor);
         :not(:last-child){
 
         }

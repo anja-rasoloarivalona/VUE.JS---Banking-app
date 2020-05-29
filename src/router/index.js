@@ -3,10 +3,9 @@ import VueRouter from 'vue-router'
 import Setup from '../views/Setup/Setup'
 // import Starter from '../views/Starter/Starter'
 import Dashboard from '../views/Dashboard/Dashboard'
+import Profile from '../views/Profile/Profile'
+import Report from '../views/Report/Report'
 import Transactions from '../views/Transactions/Transactions'
-import Wallets from '../views/Wallets/Wallets'
-import Budget from '../views/Budget/Budget'
-import Calendar from '../views/Calendar/Calendar'
 import store from '../store'
 
 Vue.use(VueRouter)
@@ -24,16 +23,12 @@ const routes = [
     component: Transactions
   },
   {
-    path: '/wallet',
-    component: Wallets
+    path: '/profile',
+    component: Profile
   },
   {
-    path: '/budget',
-    component: Budget
-  },
-  {
-    path: '/calendar',
-    component: Calendar
+    path: '/report',
+    component: Report
   },
   {
     path: '*',

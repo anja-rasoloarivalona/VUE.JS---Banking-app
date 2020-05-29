@@ -2,8 +2,7 @@
   <div
     class="income"
     :class="{
-      'bg-on-surfaceColor': theme.isDark && parseInt(index) % 2 === 0,
-      'bg-surfaceColor': theme.isDark && parseInt(index) % 2 !== 0,
+      'bg-surfaceColor': theme.isDark && parseInt(index) % 2 === 0,
       'bg-mainColor--light': theme.isLight && parseInt(index) % 2 === 0
     }"
     @mouseleave="showList = false"

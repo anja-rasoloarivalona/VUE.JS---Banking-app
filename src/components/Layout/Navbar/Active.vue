@@ -3,9 +3,8 @@
       <ul class="active__list">
         <router-link to="/" tag="div"><a>Dashboard</a></router-link>
         <router-link to="/transactions" tag="div"><a>Transactions</a></router-link>
-        <router-link to="/budget" tag="div"><a>Budget</a></router-link>
-        <router-link to="/wallet" tag="div"><a>Wallet</a></router-link>
-        <router-link to="/calendar" tag="div"><a>Calendar</a></router-link>
+        <router-link to="/profile" tag="div"><a>Profile</a></router-link>
+        <router-link to="/report" tag="div"><a>report</a></router-link>
       </ul>
       <div class="active__cta" v-click-outside="hideCtaList">
         <app-icon name="eye" size="large" color="dark" v-if="!ghostModeIsEnabled" @click="activateGhostMode"/>

@@ -117,7 +117,7 @@ export default {
   &.authed {
     width: 25rem;
     padding: 0 2rem;
-    background: var(--surfaceColor);
+    // background: var(--surfaceColor);
   }
   &__content {
     height: 100%;

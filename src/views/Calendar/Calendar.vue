@@ -85,58 +85,5 @@ export default {
     // // height: 90%;
     // padding-top: 3rem;
 }
-.vc-min-w-full {
-    height: 100%;
-}
-.vc-relative {
-    height: 100%;
-}
-.vc-grid-container.grid {
-    height: 100%;
-}
-.vc-grid-cell {
-    height: 100%;
-}
-.vc-pane {
-    height: 100%;
-    padding-top: 2rem;
-}
-.vc-header {
-    margin-bottom: 2rem;
-}
-.vc-arrows-container {
-    top: 2rem
-}
-.vc-h-full {
-    display: flex;
-    align-items: center;
-}
-.vc-text-gray-900 {
-    color: var(--textColor) !important
-}
-.vc-text-gray-800 {
-    color: var(--mainColor);
-}
 
-// EXPENSES COLOOOOOR
-
-.bg-mainColor {
-    background: var(--mainColor) !important;
-}
-
-.bg-059782 {
-  background: #059782 !important;
-}
-.bg-99a1d7 {
-  background: #99a1d7 !important;
-}
-.bg-2bac49 {
-  background: #2bac49 !important;
-}
-.bg-3144af {
-  background: #3144af !important;
-}
-.bg-59bcd8 {
-  background: #59bcd8 !important;
-}
 </style>

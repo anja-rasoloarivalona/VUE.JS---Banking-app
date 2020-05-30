@@ -5,7 +5,7 @@
             <div class="profile__item__title">
                 <h1>Incomes</h1>
                 <div class="profile__item__title__add" @click="openBackdrop('income')">
-                    <app-icon name="add" size="large" :color="theme.isDark ? 'grey' : 'white'"></app-icon>
+                    <app-icon name="add" size="large" :color="theme.isDark ? 'dark' : 'white'"></app-icon>
                 </div>
             </div>
             <div class="profile__item__details">
@@ -28,48 +28,16 @@
                 <div class="profile__item__details__total">
                   <div></div>
                   <div></div>
-                  <div class="profile__item__details__total__item"><h3>Total</h3></div>
+                  <div class="profile__item__details__total__item profile__item__details__total__item--key"><h3>Total</h3></div>
                   <div class="profile__item__details__total__item"><h3>${{userBudgetPlan.monthlyIncomes | amount}}</h3></div>
                 </div>
             </div>
         </div>
         <div class="profile__item">
             <div class="profile__item__title">
-                <h1>Fixed Expenses</h1>
+                <h1>Expenses</h1>
                 <div class="profile__item__title__add" @click="openBackdrop('expense')">
-                    <app-icon name="add" size="large" color="grey"></app-icon>
-                </div>
-            </div>
-            <div class="profile__item__details">
-                <div class="profile__item__details__header">
-                    <div>Name</div>
-                    <div>Frequency</div>
-                    <div>Amount / transaction</div>
-                    <div>Monthly average</div>
-                </div>
-                <ul class="profile__item__details__list">
-                    <expense-line-table
-                        v-for="(expense, index) in userFixedExpenses"
-                        :key="index"
-                        :expense="expense"
-                        :index="index"
-                        :lastIndex="userFixedExpenses.length"
-                    >
-                    </expense-line-table>
-                </ul>
-                <div class="profile__item__details__total">
-                  <div></div>
-                  <div></div>
-                  <div class="profile__item__details__total__item"><h3>Total</h3></div>
-                  <div class="profile__item__details__total__item"><h3>${{userBudgetPlan.monthlyFixedExpenses | amount}}</h3></div>
-                </div>
-            </div>
-        </div>
-        <div class="profile__item">
-            <div class="profile__item__title">
-                <h1>Variable Expenses</h1>
-                <div class="profile__item__title__add" @click="openBackdrop('expense')">
-                    <app-icon name="add" size="large" color="grey"></app-icon>
+                    <app-icon name="add" size="large" color="dark"></app-icon>
                 </div>
             </div>
             <div class="profile__item__details">
@@ -81,11 +49,11 @@
                 </div>
                 <ul class="profile__item__details__list">
                     <expense-line-table
-                        v-for="(expense, index) in userVariableExpenses"
+                        v-for="(expense, index) in user.expenses"
                         :key="index"
                         :expense="expense"
                         :index="index"
-                        :lastIndex="userVariableExpenses.length"
+                        :lastIndex="user.expenses.length"
                     >
                     </expense-line-table>
                 </ul>
@@ -93,7 +61,20 @@
                   <div></div>
                   <div></div>
                   <div class="profile__item__details__total__item"><h3>Total</h3></div>
-                  <div class="profile__item__details__total__item"><h3>${{userBudgetPlan.monthlyVariableExpenses | amount}}</h3></div>
+                  <div class="profile__item__details__total__item"><h3>${{userBudgetPlan.monthlyExpenses | amount}}</h3></div>
+                </div>
+            </div>
+        </div>
+        <div class="profile__item">
+            <div class="profile__item__title">
+                <h1>Wallets</h1>
+                <div class="profile__item__title__add" @click="openBackdrop('wallet')">
+                    <app-icon name="add" size="large" color="dark"></app-icon>
+                </div>
+            </div>
+            <div class="profile__item__details">
+                <div class="profile__item__details__list profile__item__details__list--wallets">
+                  <wallet v-for="wallet in user.wallets" :wallet="wallet" :key="wallet._id" @click.native="clickWallet(wallet)"/>
                 </div>
             </div>
         </div>
@@ -102,6 +83,7 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
+import Wallet from '@/components/UI/Wallet'
 import IncomeLineTable from '@/components/UI/IncomeLineTable'
 import ExpenseLineTable from '@/components/UI/ExpenseLineTable'
 import ProfileHeader from './ProfileHeader'
@@ -120,44 +102,40 @@ export default {
       'frequencyOptions',
       'theme'
     ]),
-    userFixedExpenses () {
-      return this.user.expenses.filter(expense => expense.expenseType === 'fixed')
-    },
-    userVariableExpenses () {
-      return this.user.expenses.filter(expense => expense.expenseType === 'variable')
-    },
     userBudgetPlan () {
       let monthlyIncomes = 0
-      let monthlyVariableExpenses = 0
-      let monthlyFixedExpenses = 0
+      let monthlyExpenses = 0
+
+      // let monthlyVariableExpenses = 0
+      // let monthlyFixedExpenses = 0
       this.user.incomes.forEach(income => {
         monthlyIncomes += income.amount * this.frequencyOptions.period[income.frequency.period] * this.frequencyOptions.counter[income.frequency.counter]
       })
       this.user.expenses.forEach(expense => {
-        if (expense.expenseType === 'variable') {
-          monthlyVariableExpenses += expense.amount * this.frequencyOptions.period[expense.frequency.period] * this.frequencyOptions.counter[expense.frequency.counter]
-        }
-        if (expense.expenseType === 'fixed') {
-          monthlyFixedExpenses += expense.amount * this.frequencyOptions.period[expense.frequency.period] * this.frequencyOptions.counter[expense.frequency.counter]
-        }
+        monthlyExpenses += expense.amount * this.frequencyOptions.period[expense.frequency.period] * this.frequencyOptions.counter[expense.frequency.counter]
       })
       return {
         monthlyIncomes: monthlyIncomes,
-        monthlyVariableExpenses: monthlyVariableExpenses,
-        monthlyFixedExpenses: monthlyFixedExpenses,
-        monthlySavings: monthlyIncomes - monthlyVariableExpenses - monthlyFixedExpenses
+        monthlyExpenses: monthlyExpenses,
+        monthlySavings: monthlyIncomes - monthlyExpenses
       }
     }
   },
   methods: {
     ...mapMutations([
-      'openBackdrop'
-    ])
+      'openBackdrop',
+      'setEditedWallet'
+    ]),
+    clickWallet (wallet) {
+      this.setEditedWallet(wallet)
+      this.openBackdrop('wallet')
+    }
   },
   components: {
     ProfileHeader,
     IncomeLineTable,
-    ExpenseLineTable
+    ExpenseLineTable,
+    Wallet
   }
 }
 </script>
@@ -172,15 +150,13 @@ export default {
   padding: 3rem;
     &__item {
         padding: 2rem;
-        margin-bottom: 2rem;
+        margin-bottom: 6rem;
         border-radius: .5rem;
-        background: var(--on-surfaceColor);
+        background: var(--backgroundColor);
         :not(:last-child){
 
         }
-        // background: var(--on-surfaceColor);
         &__title {
-            // text-transform: uppercase;
             margin-bottom: 2rem;
             display: flex;
             align-items: center;
@@ -210,7 +186,19 @@ export default {
                 }
             }
             &__list {
-                list-style: none
+                list-style: none;
+                // background: red;
+                &--wallets {
+                  display: grid;
+                  grid-template-columns: repeat(auto-fit, 27rem);
+                  grid-template-rows: 14rem;
+                  grid-auto-rows: 14rem;
+                  column-gap: 2rem;
+                  row-gap: 2rem;
+                  padding: 0 2rem;
+                  padding-bottom: 2rem;
+
+                }
             }
             &__total {
               padding: 2rem 0;
@@ -221,6 +209,9 @@ export default {
               border-bottom-right-radius: .5rem;
               &__item {
                 font-size: $font-m;
+                &--key {
+                    color: var(--textColor--dark)
+                }
               }
               & div {
                 width: calc(100% / 4);
@@ -229,12 +220,20 @@ export default {
         }
     }
     &.isDark {
-      & .plan__item {
-          border: 1px solid var(--lineColor);
+      & .profile__item {
+          // border: 1px solid var(--lineColor);
+          &__title {
+          &__add {
+            border: 1px solid var(--textColor--dark);
+            &:hover {
+              border: 1px solid $color-white;
+            }
+          }
+        }
       }
     }
     &.isLight {
-      & .plan__item {
+      & .profile__item {
         &__details {
           &__header {
             background: var(--mainColor);
@@ -248,8 +247,7 @@ export default {
         }
         &__title {
           &__add {
-            border: 1px solid var(--secondaryColor);
-            background: var(--secondaryColor)
+            border: 1px solid var(--textColor--dark);
           }
         }
       }

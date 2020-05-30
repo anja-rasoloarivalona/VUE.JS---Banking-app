@@ -8,24 +8,13 @@
         }"
         @mouseleave="showList = false"
     >
-      <template v-if="expense.expenseType === 'fixed'">
-        <div class="expense__name">
-            <div class="expense__name__color" :style="{backgroundColor: expense.color}"></div>
-            <div>{{ expense.name}}</div>
-        </div>
-        <div>{{ expense.frequency.counter}} {{expense.frequency.period}}</div>
-        <div>${{ expense.amount | amount}}</div>
-        <div>${{ fixedExpenseMonthlyAverage | amount}}</div>
-      </template>
-      <template v-if="expense.expenseType === 'variable'">
         <div class="expense__name">
             <div class="expense__name__color" :style="{backgroundColor: expense.color}"></div>
             <div>{{ expense.name}}</div>
         </div>
         <div>{{ expense.category}}</div>
         <div>{{ expense.frequency.counter}} {{expense.frequency.period}}</div>
-        <div>${{ expense.amount | amount}}</div>
-      </template>
+        <div>${{ fixedExpenseMonthlyAverage | amount}}</div>
         <div class="expense__cta" @click="showList = !showList" @mouseenter="showList = true">
             <span></span>
             <span></span>
@@ -62,7 +51,7 @@ export default {
       'theme'
     ]),
     fixedExpenseMonthlyAverage () {
-      return this.expense.amount * this.frequencyOptions.period[this.expense.frequency.period] * this.frequencyOptions.period[this.expense.frequency.period]
+      return this.expense.amount * this.frequencyOptions.counter[this.expense.frequency.counter] * this.frequencyOptions.period[this.expense.frequency.period]
     }
   },
   methods: {

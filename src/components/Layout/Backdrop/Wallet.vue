@@ -2,8 +2,8 @@
     <div class="wallet" :class="{'bg-white': theme.isLight, 'bg-surfaceColor': theme.isDark}">
         <wallet-form
             isCancelBtnDisplayed
-            :amountIsDisabled="editedWallet"
-            :typeIsDisabled="editedWallet"
+            :amountIsDisabled="editedWallet ? true : false"
+            :typeIsDisabled="editedWallet ? true : false"
             :editedWallet="editedWallet"
             @hideForm="closeBackdrop"
         >

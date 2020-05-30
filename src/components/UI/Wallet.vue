@@ -1,7 +1,7 @@
 <template>
   <div
       class="wallet"
-      :class="{xl:large, 'bg-on-surfaceColor': theme.isDark, light: theme.isLight }"
+      :class="{'bg-on-surfaceColor': theme.isDark, light: theme.isLight }"
       v-bind="$attrs"
       :style="{boxShadow: boxShadow}"
   >
@@ -62,7 +62,6 @@ export default {
   },
   props: {
     wallet: Object,
-    large: Boolean,
     ghost: Boolean
   }
 }
@@ -132,12 +131,6 @@ export default {
       align-items: flex-end;
       font-size: $font-m;
       color: var(--secondaryColor);
-    }
-    &.xl {
-      min-width: 40rem;
-      max-width: 40rem;
-      height: 20rem;
-      // padding: 3rem;
     }
 }
 </style>

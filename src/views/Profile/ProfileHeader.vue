@@ -12,18 +12,10 @@
       </div>
       <div class="header__details__item">
         <div class="header__details__item__key">
-          Fixed Expenses
+          Expenses
         </div>
         <div class="header__details__item__value">
-          $ {{userBudgetPlan.monthlyFixedExpenses | amount }}
-        </div>
-      </div>
-      <div class="header__details__item">
-        <div class="header__details__item__key">
-          Variable Expenses
-        </div>
-        <div class="header__details__item__value">
-          $ {{userBudgetPlan.monthlyVariableExpenses | amount }}
+          $ {{userBudgetPlan.monthlyExpenses | amount }}
         </div>
       </div>
       <div class="header__details__item">

@@ -123,6 +123,8 @@ export default {
       })
       this.currentReport = currentReport
 
+      console.log('current report', this.currentReport)
+
       const list = []
       userReports.forEach(report => {
         list.push(report.period)

@@ -14,7 +14,6 @@
     <ul
       class="income__cta__list"
       v-if="showList"
-      :class="{isLast: isLast }"
       :style="{boxShadow: theme.isDark ? 'box-shadow: 1px 5px 12px -1px rgba(15,15,15,1)' : '1px 5px 12px -1px rgb(165, 165, 165)'}"
     >
       <li class="income__cta__list__item" @click="editIncome(income)">
@@ -133,6 +132,7 @@ export default {
         list-style: none;
         width: 15rem;
         color: var(--textColor--dark);
+        z-index: 10;
         &::after {
             content: "";
             position: absolute;
@@ -142,14 +142,14 @@ export default {
             border-style: solid;
             border-color:  transparent transparent $color-white transparent ;
         }
-        &.isLast {
-          top: -165%;
-          &::after {
-            bottom: -1.2rem;
-            top: unset;
-            border-color: $color-white transparent transparent transparent  ;
-          }
-        }
+        // &.isLast {
+        //   top: -165%;
+        //   &::after {
+        //     bottom: -1.2rem;
+        //     top: unset;
+        //     border-color: $color-white transparent transparent transparent  ;
+        //   }
+        // }
         &__item {
             padding: 1rem 0;
             padding-left: 1rem;

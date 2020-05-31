@@ -1,11 +1,12 @@
 <template>
     <div class="profile" :class="{isLight: theme.isLight, isDark: theme.isDark}">
+        <profile-goal></profile-goal>
         <profile-header :userBudgetPlan="userBudgetPlan"></profile-header>
         <div class="profile__item">
             <div class="profile__item__title">
                 <h1>Incomes</h1>
                 <div class="profile__item__title__add" @click="openBackdrop('income')">
-                    <app-icon name="add" size="large" :color="theme.isDark ? 'dark' : 'white'"></app-icon>
+                    <app-icon name="add" size="large" :color="theme.isDark ? 'surface' : 'white'"></app-icon>
                 </div>
             </div>
             <div class="profile__item__details">
@@ -37,14 +38,14 @@
             <div class="profile__item__title">
                 <h1>Expenses</h1>
                 <div class="profile__item__title__add" @click="openBackdrop('expense')">
-                    <app-icon name="add" size="large" color="dark"></app-icon>
+                    <app-icon name="add" size="large" :color="theme.isDark ? 'surface' : 'white'"></app-icon>
                 </div>
             </div>
             <div class="profile__item__details">
                 <div class="profile__item__details__header">
                     <div>Name</div>
+                    <div>Type</div>
                     <div>Category</div>
-                    <div>Frequency</div>
                     <div>Monthly average</div>
                 </div>
                 <ul class="profile__item__details__list">
@@ -60,7 +61,7 @@
                 <div class="profile__item__details__total">
                   <div></div>
                   <div></div>
-                  <div class="profile__item__details__total__item"><h3>Total</h3></div>
+                  <div class="profile__item__details__total__item profile__item__details__total__item--key"><h3>Total</h3></div>
                   <div class="profile__item__details__total__item"><h3>${{userBudgetPlan.monthlyExpenses | amount}}</h3></div>
                 </div>
             </div>
@@ -69,7 +70,7 @@
             <div class="profile__item__title">
                 <h1>Wallets</h1>
                 <div class="profile__item__title__add" @click="openBackdrop('wallet')">
-                    <app-icon name="add" size="large" color="dark"></app-icon>
+                    <app-icon name="add" size="large" :color="theme.isDark ? 'surface' : 'white'"></app-icon>
                 </div>
             </div>
             <div class="profile__item__details">
@@ -87,6 +88,7 @@ import Wallet from '@/components/UI/Wallet'
 import IncomeLineTable from '@/components/UI/IncomeLineTable'
 import ExpenseLineTable from '@/components/UI/ExpenseLineTable'
 import ProfileHeader from './ProfileHeader'
+import ProfileGoal from './ProfileGoal'
 export default {
   data () {
     return {
@@ -133,6 +135,7 @@ export default {
   },
   components: {
     ProfileHeader,
+    ProfileGoal,
     IncomeLineTable,
     ExpenseLineTable,
     Wallet
@@ -163,7 +166,7 @@ export default {
             }
             &__add {
                 border-radius: 50%;
-                border: 1px solid var(--textColor--dark);
+                background: var(--mainColor);
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -193,7 +196,7 @@ export default {
                   grid-auto-rows: 14rem;
                   column-gap: 2rem;
                   row-gap: 2rem;
-                  padding: 0 2rem;
+                  // padding: 0 2rem;
                   padding-bottom: 2rem;
 
                 }
@@ -219,15 +222,7 @@ export default {
     }
     &.isDark {
       & .profile__item {
-          // border: 1px solid var(--lineColor);
-          &__title {
-          &__add {
-            border: 1px solid var(--textColor--dark);
-            &:hover {
-              border: 1px solid $color-white;
-            }
-          }
-        }
+
       }
     }
     &.isLight {
@@ -241,11 +236,6 @@ export default {
           }
           &__total {
             border-top: 1px solid var(--lineColor);
-          }
-        }
-        &__title {
-          &__add {
-            border: 1px solid var(--textColor--dark);
           }
         }
       }

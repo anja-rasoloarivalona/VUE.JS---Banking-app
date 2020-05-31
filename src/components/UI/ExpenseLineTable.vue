@@ -4,8 +4,9 @@
             <div class="expense__name__color" :style="{backgroundColor: expense.color}"></div>
             <div>{{ expense.name}}</div>
         </div>
+        <div>{{ expense.expenseType}}</div>
         <div>{{ expense.category}}</div>
-        <div v-html="expense.expenseType === 'variable' ? 'per month' : `${expense.frequency.counter} ${expense.frequency.period}`"></div>
+        <!-- <div v-html="expense.expenseType === 'variable' ? 'per month' : `${expense.frequency.counter} ${expense.frequency.period}`"></div> -->
         <div>${{ fixedExpenseMonthlyAverage | amount}}</div>
         <div class="expense__cta" @click="showList = !showList" @mouseenter="showList = true">
             <span></span>
@@ -15,7 +16,6 @@
         <ul
             class="expense__cta__list"
             v-if="showList"
-            :class="{isLast: isLast }"
             :style="{boxShadow: theme.isDark ? 'box-shadow: 1px 5px 12px -1px rgba(15,15,15,1)' : '1px 5px 12px -1px rgb(165, 165, 165)'}"
         >
             <li class="expense__cta__list__item" @click="editExpense(expense)">
@@ -83,10 +83,12 @@ export default {
   & > * {
     width: calc(100% / 4);
     font-size: $font-m;
+    text-transform: capitalize;
   }
   &__name {
     display: flex;
     align-items: center;
+    position: relative;
     &__color {
       width: 1rem;
       height: 1rem;
@@ -145,14 +147,14 @@ export default {
             border-style: solid;
             border-color:  transparent transparent $color-white transparent ;
         }
-        &.isLast {
-          top: -165%;
-          &::after {
-            bottom: -1.2rem;
-            top: unset;
-            border-color: $color-white transparent transparent transparent  ;
-          }
-        }
+        // &.isLast {
+        //   top: -165%;
+        //   &::after {
+        //     bottom: -1.2rem;
+        //     top: unset;
+        //     border-color: $color-white transparent transparent transparent  ;
+        //   }
+        // }
         &__item {
             padding: 1rem 0;
             padding-left: 1rem;

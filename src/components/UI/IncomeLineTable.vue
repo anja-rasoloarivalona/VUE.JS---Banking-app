@@ -1,15 +1,7 @@
 <template>
-  <div
-    class="income"
-    :class="{
-      'bg-on-surfaceColor': theme.isDark && parseInt(index) % 2 === 0,
-      'bg-mainColor--light': theme.isLight && parseInt(index) % 2 === 0
-    }"
-    @mouseleave="showList = false"
->
+ <div class="income" @mouseleave="showList = false">
     <div class="income__name">
-      <div class="income__name__color"></div>
-      <div>{{ income.name }}</div>
+      {{ income.name }}
     </div>
     <div>{{ income.frequency.counter}} {{income.frequency.period}}</div>
     <div>${{ income.amount | amount }}</div>
@@ -85,21 +77,22 @@ export default {
   padding: 2rem 0;
   padding-left: 2rem;
   position: relative;
+  border-bottom: 1px solid var(--lineColor);
   & > * {
     width: calc(100% / 4);
     font-size: $font-m;
   }
-  &__name {
-    display: flex;
-    align-items: center;
-    &__color {
-      width: 1rem;
-      height: 1rem;
-      margin-right: 2rem;
-      border-radius: 0.5rem;
-      background: var(--mainColor)
-    }
-  }
+  // &__name {
+  //   display: flex;
+  //   align-items: center;
+  //   &__color {
+  //     width: 1rem;
+  //     height: 1rem;
+  //     margin-right: 2rem;
+  //     border-radius: 0.5rem;
+  //     background: var(--mainColor)
+  //   }
+  // }
   &__cta {
     position: absolute;
     right: 1rem;

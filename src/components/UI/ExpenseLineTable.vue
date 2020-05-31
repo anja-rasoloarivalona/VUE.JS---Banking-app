@@ -1,19 +1,11 @@
 <template>
-    <div
-        class="expense"
-        :class="{
-          'bg-on-surfaceColor': theme.isDark && index % 2 === 0,
-          'bg-surfaceColor': theme.isDark && index % 2 !== 0,
-          'bg-mainColor--light': theme.isLight && parseInt(index) % 2 === 0
-        }"
-        @mouseleave="showList = false"
-    >
+    <div class="expense" @mouseleave="showList = false">
         <div class="expense__name">
             <div class="expense__name__color" :style="{backgroundColor: expense.color}"></div>
             <div>{{ expense.name}}</div>
         </div>
         <div>{{ expense.category}}</div>
-        <div>{{ expense.frequency.counter}} {{expense.frequency.period}}</div>
+        <div v-html="expense.expenseType === 'variable' ? 'per month' : `${expense.frequency.counter} ${expense.frequency.period}`"></div>
         <div>${{ fixedExpenseMonthlyAverage | amount}}</div>
         <div class="expense__cta" @click="showList = !showList" @mouseenter="showList = true">
             <span></span>
@@ -68,6 +60,7 @@ export default {
     if (this.index + 1 === this.lastIndex) {
       this.isLast = true
     }
+    console.log('expense', this.expense)
   },
   props: {
     expense: {
@@ -86,6 +79,7 @@ export default {
   padding: 2rem 0;
   padding-left: 2rem;
   position: relative;
+  border-bottom: 1px solid var(--lineColor);
   & > * {
     width: calc(100% / 4);
     font-size: $font-m;

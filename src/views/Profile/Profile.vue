@@ -150,12 +150,9 @@ export default {
   padding: 3rem;
     &__item {
         padding: 2rem;
-        margin-bottom: 6rem;
+        // margin-bottom: 1rem;
         border-radius: .5rem;
-        background: var(--backgroundColor);
-        :not(:last-child){
-
-        }
+        // background: var(--backgroundColor);
         &__title {
             margin-bottom: 2rem;
             display: flex;
@@ -180,6 +177,7 @@ export default {
                 padding-left: 2rem;
                 border-top-left-radius: .5rem;
                 border-top-right-radius: .5rem;
+                background: var(--on-surfaceColor);
                 & div {
                     width: calc(100% / 4);
                     color: var(--textColor--dark)

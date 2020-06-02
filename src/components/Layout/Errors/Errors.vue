@@ -24,7 +24,7 @@ export default {
   position: fixed;
   top: 10rem;
   right: 8rem;
-  z-index: 10;
+  z-index: 20;
   display: flex;
   flex-direction: column;
 }

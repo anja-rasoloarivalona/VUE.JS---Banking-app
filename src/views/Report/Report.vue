@@ -120,8 +120,9 @@ export default {
   },
   watch: {
     currentReport: function (report) {
-      this.userIncomes = report.budget.filter(i => i.type === 'income')
-      this.userExpenses = report.budget.filter(i => i.type === 'expense')
+      console.log('report', report)
+      this.userIncomes = report.details.filter(i => i.type === 'income')
+      this.userExpenses = report.details.filter(i => i.type === 'expense')
       console.log('expense', this.userExpenses)
     },
     currentPeriod: function (period) {
@@ -134,15 +135,18 @@ export default {
   methods: {
     setData (period, reports) {
       const userReports = reports || this.user.monthlyReports
+      console.log('reports', userReports)
       const currentPeriod = period || this.currentPeriod
+      console.log('current period', currentPeriod)
       const currentReport = userReports.filter(report => report.period === currentPeriod)[0]
-      currentReport.budget.forEach((budget, index) => {
+      console.log('current report', currentReport)
+      currentReport.details.forEach((budget, index) => {
         for (const name in this.usersIncomesAndExpenses) {
           if (this.usersIncomesAndExpenses[name]._id === budget._id) {
-            currentReport.budget[index].name = name
-            currentReport.budget[index].transactions = []
-            currentReport.budget[index].type = this.usersIncomesAndExpenses[name].transactionType
-            currentReport.budget[index].color = this.usersIncomesAndExpenses[name].color
+            currentReport.details[index].name = name
+            currentReport.details[index].transactions = []
+            currentReport.details[index].type = this.usersIncomesAndExpenses[name].transactionType
+            currentReport.details[index].color = this.usersIncomesAndExpenses[name].color
           }
         }
         currentReport.transactions.forEach(transaction => {
@@ -190,7 +194,7 @@ export default {
     border-radius: .5rem;
     display: flex;
     flex-direction: column;
-    background: var(--backgroundColor);
+    // background: var(--backgroundColor);
     &__title {
         margin-bottom: 2rem;
         display: flex;
@@ -208,6 +212,7 @@ export default {
       // }
       & tr {
         padding-left: 2rem;
+         border-bottom: 1px solid var(--lineColor);
       }
       & td, & th {
         width: 20%;
@@ -215,18 +220,20 @@ export default {
         padding: 2rem 0;
       }
       & th {
-        // background: red;
-        color: var(--textColor--dark)
+        background: var(--on-surfaceColor);
+        color: var(--textColor--dark);
+        padding-left: 2rem;
       }
       & td {
         // background: blue;
+        padding-left: 2rem;
       }
     }
   }
 }
 
 table, th, td {
-  border: 1px solid red;
+  // border: 1px solid red;
   border-collapse: collapse;
 }
 </style>

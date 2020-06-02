@@ -41,7 +41,7 @@ const queryResult = `
                 period
                 income
                 expense
-                budget {
+                details {
                   _id
                   amount
                   used

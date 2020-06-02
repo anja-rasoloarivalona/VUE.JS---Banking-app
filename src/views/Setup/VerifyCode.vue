@@ -49,7 +49,8 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'setAppStatus'
+      'setAppStatus',
+      'addError'
     ]),
     submit: async function () {
       this.loading = true
@@ -64,7 +65,9 @@ export default {
         }
       } catch (err) {
         this.loading = false
-        console.log(err.response)
+        err.response.data.errors.forEach((err, index) => {
+          setTimeout(() => this.addError(err.message), (index + 1) * 500)
+        })
       }
     }
   }

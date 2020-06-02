@@ -38,8 +38,8 @@ export default {
   },
   mounted: async function () {
     console.log('tricks', this.xpty)
-    // localStorage.removeItem('bank-data')
-    // localStorage.removeItem('bank-theme')
+    localStorage.removeItem('bank-data')
+    localStorage.removeItem('bank-theme')
     this.initTheme()
     this.initAuthData()
     if (!this.auth.isAuth) {

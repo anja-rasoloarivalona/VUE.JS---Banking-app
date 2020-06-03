@@ -171,14 +171,14 @@ const actions = {
   addIncome: async function ({ commit }, income) {
     const graphqlQuery = addIncomeQuery(income)
     try {
-      const response = await axios.post('', graphqlQuery)
+      const response = await axios.post('/', graphqlQuery)
       const resData = response.data.data.addIncome
       resData.type = 'incomes'
       resData.nextPayout = new Date(resData.nextPayout)
       commit('addUserItem', resData)
       return true
     } catch (err) {
-      console.log(err)
+      console.log(err.response)
       return false
     }
   },

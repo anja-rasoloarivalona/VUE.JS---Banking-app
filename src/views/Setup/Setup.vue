@@ -123,14 +123,31 @@ export default {
                 width: 100%;
                 background: var(--surfaceColor);
                 border-radius: .5rem;
-                padding: 2rem;
+                padding: 2rem 4rem;
                 position: relative;
+                display: flex;
+                flex-direction: column;
                 &.expand {
                     height: 90%;
                 }
                 &__title {
                     color: var(--mainColor);
+                    // background: red;
+                    height: 5rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    // padding-left: 2rem;
                     margin-bottom: 2rem;
+                    &__add {
+                        background: var(--secondaryColor);
+                        height: 2.5rem;
+                        width: 2.5rem;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 50%;
+                    }
                 }
                 &__details {
                     font-size: $font-m;
@@ -170,6 +187,10 @@ export default {
                     justify-content: center;
                     padding: 2rem 0;
                 }
+            }
+            &__nav {
+              display: flex;
+              justify-content: center;
             }
             &__form {
                 width: 80rem;

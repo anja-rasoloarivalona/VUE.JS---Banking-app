@@ -8,15 +8,24 @@
           <span v-if="!loading">Sign up</span>
           <app-spinner v-else></app-spinner>
       </app-btn>
+      <div class="signup__login">
+        <div>Already have an account?</div>
+        <div @click="setAuthMode('login')">Login</div>
+    </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 export default {
   computed: {
     ...mapGetters([
       'theme'
+    ])
+  },
+  methods: {
+    ...mapMutations([
+      'setAuthMode'
     ])
   },
   props: {
@@ -51,5 +60,21 @@ button {
   color: $color-white;
   margin-bottom: 0;
   }
+}
+
+.signup__login {
+    display: flex;
+    justify-content: center;
+    font-size: $font-m;
+    margin-top: 3rem;
+    & div:first-child {
+      margin-right: .5rem;
+      color: var(--textColor--dark)
+    }
+    & div:last-child {
+      color: var(--mainColor);
+      text-decoration: underline;
+      cursor: pointer;
+    }
 }
 </style>

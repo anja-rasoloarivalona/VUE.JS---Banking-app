@@ -3,13 +3,17 @@
     <div class="title">Login</div>
     <app-basic-input v-model="userInput.email" :id="'email'" :bgWhite="theme.isLight"/>
     <app-basic-input v-model="userInput.password" :id="'password'"  :bgWhite="theme.isLight"/>
-    <div class="login__cta">
+    <div class="login__forgetPassword">
       <div @click="setResettingPasswordToTrue">Forget password</div>
     </div>
     <app-btn @click="submit">
         <span v-if="!loading">Login</span>
         <app-spinner v-else></app-spinner>
     </app-btn>
+    <div class="login__signup">
+        <div>Don't have an account?</div>
+        <div @click="setAuthMode('signup')">Sign Up</div>
+    </div>
   </div>
 </template>
 
@@ -28,6 +32,7 @@ export default {
   },
   methods: {
     ...mapMutations([
+      'setAuthMode',
       'setResettingPasswordToTrue'
     ])
   }
@@ -58,17 +63,34 @@ button {
     }
 }
 
-.login__cta {
+.login {
+  &__forgetPassword{
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: $font-s;
   color: var(--textColor--dark);
   cursor: pointer;
-  & div {
-    &:hover {
-      text-decoration: underline;
+    & div {
+      &:hover {
+        text-decoration: underline;
+        color: var(--mainColor);
+      }
+    }
+  }
+  &__signup {
+    display: flex;
+    justify-content: center;
+    font-size: $font-m;
+    margin-top: 3rem;
+    & div:first-child {
+      margin-right: .5rem;
+      color: var(--textColor--dark)
+    }
+    & div:last-child {
       color: var(--mainColor);
+      text-decoration: underline;
+      cursor: pointer;
     }
   }
 }

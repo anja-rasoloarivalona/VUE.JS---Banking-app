@@ -7,7 +7,7 @@
             Back
         </div>
         <div class="auth__cta" v-else @click="setAuthMode('signup')">
-            I'm new
+            EN
         </div>
     </div>
 </template>

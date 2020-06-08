@@ -120,7 +120,7 @@ export default {
     height: 50rem;
     width: 43rem;
     position: absolute;
-    top: 29vh;
+    top: 25vh;
     left: 0;
     right: 0;
     margin: auto;

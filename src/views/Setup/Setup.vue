@@ -194,7 +194,7 @@ export default {
             }
             &__form {
                 width: 80rem;
-                background: #d1d1d1;
+                background: #e9e7e7;
                 padding: 3rem;
                 position: relative;
                 border-radius: .5rem;

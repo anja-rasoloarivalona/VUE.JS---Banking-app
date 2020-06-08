@@ -1,0 +1,10 @@
+{   
+    "alreadyHaveAnAccount": "Vous avez déjà un compte",
+    "dontHaveAnAccount": "Vous n'avez pas de compte",
+    "email": "Email",
+    "forgetPassword": "Mot de passe oublié",
+    "login": "Se connecter",
+    "name": "Prénom",
+    "password": "Mot de passe",
+    "signup": "S'inscrire"
+  }

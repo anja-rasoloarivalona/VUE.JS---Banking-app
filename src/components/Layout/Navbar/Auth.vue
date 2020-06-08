@@ -1,31 +1,33 @@
 <template>
     <div class="auth">
-        <div class="auth__cta" v-if="authMode === 'signup'" @click="setAuthMode('login')">
-            Login
-        </div>
-        <div class="auth__cta" v-else-if="auth.isResettingPassword" @click="setResettingPasswordToFalse">
+        <div class="auth__cta" v-if="auth.isResettingPassword" @click="setResettingPasswordToFalse">
             Back
         </div>
-        <div class="auth__cta" v-else @click="setAuthMode('signup')">
-            EN
-        </div>
+        <lang-switcher v-else/>
     </div>
 </template>
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
+import LangSwitcher from '@/components/Layout/LangSwitcher/LangSwitcher'
 export default {
+  data () {
+    return {
+      lang: 'English'
+    }
+  },
   computed: {
     ...mapGetters([
-      'authMode',
       'auth'
     ])
   },
   methods: {
     ...mapMutations([
-      'setAuthMode',
       'setResettingPasswordToFalse'
     ])
+  },
+  components: {
+    LangSwitcher
   }
 }
 </script>

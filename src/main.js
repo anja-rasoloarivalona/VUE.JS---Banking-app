@@ -2,10 +2,15 @@ import Vue from 'vue'
 // import VueResource from 'vue-resource'
 import axios from 'axios'
 import App from './App'
+
+import VueI18n from 'vue-i18n'
+import messages from './lang'
+
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
 import './assets/scss/main.scss'
+import ToggleList from './components/Layout/ToggleList/ToggleList'
 // components - Shared
 import Button from './components/Shared/Button'
 import Spinner from './components/Shared/Spinner'
@@ -20,16 +25,24 @@ import Calendar from 'v-calendar/lib/components/calendar.umd'
 // import DatePicker from 'v-calendar/lib/components/date-picker.umd'
 Vue.config.productionTip = false
 
+Vue.use(VueI18n)
+export const i18n = new VueI18n({
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages
+})
+
 // Vue.use(VueResource)
 // Vue.http.options.root = 'http://localhost:8000/graphql'
 // Vue.http.headers.common.Authorization = 'Bearer ' + token
 
 axios.defaults.baseURL = 'http://localhost:8000/graphql'
-const data = localStorage.getItem('bank-data')
-if (data) {
-  const token = JSON.parse(data).token
-  axios.defaults.headers.common.Authorization = 'Bearer ' + token
-}
+
+// const data = localStorage.getItem('bank-data')
+// if (data) {
+//   const token = JSON.parse(data).token
+//   axios.defaults.headers.common.Authorization = 'Bearer ' + token
+// }
 
 Vue.filter('amount', function (value) {
   let res = value
@@ -55,6 +68,7 @@ Vue.component('app-frequency-input', FrequencyInput)
 Vue.component('app-color-input', ColorInput)
 Vue.component('app-calendar', Calendar)
 Vue.component('app-date-input', DateInput)
+Vue.component('app-toggle-list', ToggleList)
 Vue.directive('click-outside', {
   bind: function (el, binding, vnode) {
     el.clickOutsideEvent = function (event) {
@@ -74,5 +88,6 @@ Vue.directive('click-outside', {
 new Vue({
   router,
   store,
+  i18n,
   render: h => h(App)
 }).$mount('#app')

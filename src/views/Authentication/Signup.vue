@@ -1,16 +1,16 @@
 <template>
   <div>
-      <div class="title">Signup</div>
-      <app-basic-input v-model="userInput.name" id="name" :bgWhite="theme.isLight"/>
-      <app-basic-input v-model="userInput.email" id="email" :bgWhite="theme.isLight"/>
-      <app-basic-input v-model="userInput.password" id="password" :bgWhite="theme.isLight"/>
+      <div class="title">{{ $t('signup')}}</div>
+      <app-basic-input v-model="userInput.name" :id="$t('name')" :bgWhite="theme.isLight"/>
+      <app-basic-input v-model="userInput.email" :id="$t('email')"  :bgWhite="theme.isLight"/>
+      <app-basic-input v-model="userInput.password" :id="$t('password')"  :bgWhite="theme.isLight"/>
       <app-btn @click="submit">
-          <span v-if="!loading">Sign up</span>
+          <span v-if="!loading">{{ $t('signup')}}</span>
           <app-spinner v-else></app-spinner>
       </app-btn>
       <div class="signup__login">
-        <div>Already have an account?</div>
-        <div @click="setAuthMode('login')">Login</div>
+        <div>{{ $t('alreadyHaveAnAccount')}}</div>
+        <div @click="setAuthMode('login')">{{ $t('login')}}</div>
     </div>
   </div>
 </template>

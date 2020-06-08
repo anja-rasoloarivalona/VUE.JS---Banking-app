@@ -1,10 +1,19 @@
 {   
     "alreadyHaveAnAccount": "Already have an account",
+    "backtoSignUp": "Back to Sign Up",
+    "confirm": "Confirm",
     "dontHaveAnAccount": "Don't have an account",
     "email": "Email",
+    "enterTheCode": "Enter the code",
     "forgetPassword": "Forget password",
+    "letsSetupYourAccount":"Let's setup your account",
     "login": "Log In",
     "name": "Name",
+    "next": "Next",
     "password": "Password",
-    "signup": "Sign Up"
+    "signup": "Sign Up",
+    "theClientCenterSentYourCodeTo": "The client center sent your code to",
+    "thereMayBeADelay": "There may be a delay before receiving your code",
+    "verificationCode": "Verification code",
+    "welcome": "Welcome"
   }

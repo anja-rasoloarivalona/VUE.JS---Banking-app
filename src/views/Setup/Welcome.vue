@@ -1,8 +1,8 @@
 <template>
     <div class="welcome">
-        <h1>Welcome {{this.$store.state.auth.userName}}!</h1>
-        <div class="welcome__text">Let's setup your account.</div>
-        <app-btn normal primary @click.native="$emit('hideWelcome')">Setup</app-btn>
+        <h1>{{$t('welcome')}} {{this.$store.state.auth.userName}}!</h1>
+        <div class="welcome__text">{{$t('letsSetupYourAccount')}} &#x1F600;</div>
+        <app-btn normal primary @click.native="$emit('hideWelcome')">{{$t('next')}}</app-btn>
     </div>
 </template>
 
@@ -25,7 +25,7 @@ padding: 2rem 0;
     }
     &__text {
         margin: 2rem 0;
-        font-size: $font-m;
+        font-size: $font-l;
         color: $color-grey--dark;
     }
 }

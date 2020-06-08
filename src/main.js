@@ -10,7 +10,7 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 import './assets/scss/main.scss'
-import ToggleList from './components/Layout/ToggleList/ToggleList'
+import ToggleList from './components/Shared/ToggleList'
 // components - Shared
 import Button from './components/Shared/Button'
 import Spinner from './components/Shared/Spinner'

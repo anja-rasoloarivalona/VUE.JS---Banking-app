@@ -21,11 +21,10 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 export default {
   data () {
     return {
-      currentLang: 'en',
       langlist: [
         {
           name: 'Deutsh',
@@ -53,19 +52,24 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'theme'
+      'theme',
+      'currentLanguage'
     ]),
     displayedLangList () {
-      return this.langlist.filter(lang => lang.value !== this.currentLang)
+      return this.langlist.filter(lang => lang.value !== this.currentLanguage)
     },
     currentLangName () {
-      return this.langlist.filter(lang => lang.value === this.currentLang)[0].name
+      return this.langlist.filter(lang => lang.value === this.currentLanguage)[0].name
     }
   },
   methods: {
+    ...mapMutations([
+      'setLanguage'
+    ]),
     selectLanguage (lang) {
       this.$i18n.locale = lang
       this.currentLang = lang
+      this.setLanguage(lang)
     }
   }
 }
@@ -75,8 +79,8 @@ export default {
 .lang {
   // background: salmon;
   font-size: $font-s;
-  width: 6rem;
   position: relative;
+  margin-left: 4rem;
   &__list {
     list-style: none;
     background: $color-white;
@@ -92,15 +96,6 @@ export default {
       &:hover {
         color: var(--mainColor)
       }
-    }
-    &__icon {
-      transform: rotate(180deg);
-      // background: green;
-      position: absolute;
-      bottom: -2rem;
-      right: -.9rem;
-      margin: auto;
-      z-index: 3;
     }
   }
 }

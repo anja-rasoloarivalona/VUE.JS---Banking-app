@@ -1,10 +1,19 @@
 {   
     "alreadyHaveAnAccount": "Vous avez déjà un compte",
+    "backtoSignUp": "Retour à l'inscription",
+    "confirm": "Confirmer",
     "dontHaveAnAccount": "Vous n'avez pas de compte",
     "email": "Email",
+    "enterTheCode": "Entrer le code",
     "forgetPassword": "Mot de passe oublié",
+    "letsSetupYourAccount":"Prenons quelques instants pour configurer votre compte",
     "login": "Se connecter",
     "name": "Prénom",
+    "next": "Suivant",
     "password": "Mot de passe",
-    "signup": "S'inscrire"
+    "signup": "S'inscrire",
+    "theClientCenterSentYourCodeTo": "Votre code de vérification a été envoyé au",
+    "thereMayBeADelay": "Il se peut qu'il y ait un délai avant de recevoir votre code",
+    "verificationCode": "Code de vérification",
+    "welcome": "Bienvenue"
   }

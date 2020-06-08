@@ -2,9 +2,7 @@
     <div class="toggle-list" @mouseenter="showList = true" @mouseleave="showList= false">
         <div class="toggle-list__value">
             <slot name="value"/>
-            <div class="toggle-list__value__icon">
-                <app-icon name="arrow-drop" size="large" color="dark" />
-            </div>
+            <app-icon name="arrow-drop" size="large" color="dark" />
         </div>
         <div class="toggle-list__bridge">
                 <app-icon name="arrow-drop" size="extra-large" color="white" v-if="showList"/>
@@ -30,11 +28,12 @@ export default {
     position: relative;
     display: flex;
     flex-direction: column;
+    // margin: 0 1.5rem;
     &__value {
         display: flex;
         align-items: center;
-        &__icon {
-            margin-left: 1rem;
+        & span {
+            margin-right: 1rem;
         }
     }
     &__bridge {
@@ -49,7 +48,7 @@ export default {
         z-index: 2;
         & svg {
             // background: blue;
-            transform: translateX(.7rem) translateY(-1rem) rotate(180deg);
+            transform: translateX(.5rem) translateY(-.7rem) rotate(180deg);
         }
     }
     &__list {

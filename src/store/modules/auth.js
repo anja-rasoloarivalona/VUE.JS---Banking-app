@@ -141,6 +141,10 @@ const actions = {
         errors: err.response.data.errors
       }
     }
+  },
+  logout: function ({ commit }) {
+    commit('setIsAuthToFalse')
+    commit('clearUserData')
   }
 }
 

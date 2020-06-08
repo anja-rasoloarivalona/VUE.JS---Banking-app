@@ -1,4 +1,6 @@
 const state = {
+  currentLanguage: 'en',
+  currentCurrency: 'CAD',
   editingTransaction: false,
   ghostMode: false,
   secondaryColors: ['#059782', '#99a1d7', '#2bac49', '#3144af', '#59bcd8'],
@@ -32,6 +34,12 @@ const getters = {
   },
   isEditingTransaction: state => {
     return state.editingTransaction
+  },
+  currentLanguage: state => {
+    return state.currentLanguage
+  },
+  currentCurrency: state => {
+    return state.currentCurrency
   }
 }
 
@@ -49,6 +57,12 @@ const mutations = {
   },
   deactivateGhostMode (state) {
     state.ghostMode = false
+  },
+  setLanguage (state, lang) {
+    state.currentLanguage = lang
+  },
+  setCurrency (state, currency) {
+    state.currentCurrency = currency
   }
 
 }

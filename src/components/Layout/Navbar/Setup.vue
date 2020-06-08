@@ -6,16 +6,16 @@
             <div class="setup__list__item" v-if="user.incomes.length > 0" @click="setCurrentSetupStep('expenses')">Expenses</div>
         </ul>
         <div class="setup__cta">
-          <div class="setup__cta__logout" @mouseenter="logoutHovered = true" @mouseleave="logoutHovered = false" @click="logout">
-              <div>Logout</div>
-              <app-icon name="logout" size="large" :color="logoutColor" />
-          </div>
+          <profile-toggler />
+          <lang-switcher />
         </div>
     </div>
 </template>
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
+import LangSwitcher from './components/LangSwitcher/LangSwitcher'
+import ProfileToggler from './components/ProfileToggler/ProfileToggler'
 export default {
   data () {
     return {
@@ -36,14 +36,12 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'setCurrentSetupStep',
-      'setIsAuthToFalse',
-      'clearUserData'
-    ]),
-    logout () {
-      this.setIsAuthToFalse()
-      this.clearUserData()
-    }
+      'setCurrentSetupStep'
+    ])
+  },
+  components: {
+    LangSwitcher,
+    ProfileToggler
   }
 }
 </script>
@@ -69,21 +67,9 @@ export default {
     &__cta {
         font-size: $font-m;
         color: var(--mainColor);
-        &__logout {
-          cursor: pointer;
-          transition: all .3s ease-in;
-          border-radius: .5rem;
-          display: flex;
-          align-items: center;
-          padding: 1rem 2rem;
-          & div {
-            margin-right: 1rem;
-          }
-          &:hover {
-            background: var(--mainColor);
-            color: var(--surfaceColor);
-          }
-        }
+        // background: red;
+        display: flex;
+        align-items: center;
     }
 }
 </style>

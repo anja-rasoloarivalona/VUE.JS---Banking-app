@@ -85,8 +85,8 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 import Wallet from '@/components/UI/Wallet'
-import IncomeLineTable from '@/components/UI/IncomeLineTable'
-import ExpenseLineTable from '@/components/UI/ExpenseLineTable'
+import IncomeLineTable from '@/components/UI/Income/IncomeLineTable'
+import ExpenseLineTable from '@/components/UI/Expense/ExpenseLineTable'
 import ProfileHeader from './ProfileHeader'
 import ProfileGoal from './ProfileGoal'
 export default {

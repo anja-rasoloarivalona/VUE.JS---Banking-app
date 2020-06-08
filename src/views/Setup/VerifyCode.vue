@@ -1,23 +1,23 @@
 <template>
     <div class="verify">
-        <h1>Verification code</h1>
+        <h1>{{$t('verificationCode')}}</h1>
         <div class="verify__text">
-            There may be a delay before receiving your code
+            {{$t('thereMayBeADelay')}}
         </div>
         <div class="verify__info">
             <div class="verify__info__img">
                 <app-icon name="email" color="primary" size="extra-large"/>
             </div>
             <div class="verify__info__text">
-                <div>The client center sent your code to</div>
+                <div>{{$t('theClientCenterSentYourCodeTo')}}</div>
                 <div><b>{{userEmail}}</b></div>
             </div>
         </div>
         <form class="verify__form">
-            <app-basic-input v-model="code" id="Enter the code" bgWhite/>
-            <div>Back to signup</div>
+            <app-basic-input v-model="code" :id="$t('enterTheCode')" bgWhite/>
+            <div class="verify__form__cta" @click="$store.dispatch('logout')">{{$t('backtoSignUp')}}</div>
             <app-btn @click.native="submit">
-                <span v-if="!loading">Confirm</span>
+                <span v-if="!loading">{{$t('confirm')}}</span>
                 <app-spinner v-else></app-spinner>
             </app-btn>
         </form>
@@ -81,6 +81,15 @@ export default {
     padding: 3rem 5rem;
     background: var(--backgroundColor);
     border-radius: .5rem;
+    &__form__cta {
+      font-size: $font-s;
+      color: var(--textColor--dark);
+      cursor: pointer;
+      &:hover {
+        color: var(--mainColor);
+        text-decoration: underline;
+      }
+    }
     & h1 {
         color: var(--mainColor);
         margin-bottom: 2rem;

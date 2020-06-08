@@ -9,13 +9,8 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
-import LangSwitcher from '@/components/Layout/LangSwitcher/LangSwitcher'
+import LangSwitcher from './components/LangSwitcher/LangSwitcher'
 export default {
-  data () {
-    return {
-      lang: 'English'
-    }
-  },
   computed: {
     ...mapGetters([
       'auth'

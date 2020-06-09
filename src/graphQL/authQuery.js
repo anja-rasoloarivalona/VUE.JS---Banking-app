@@ -14,6 +14,7 @@ const loginQuery = input => {
                     }
                     settings {
                       theme
+                      currency
                       dashboardLayout {
                         x
                         y

@@ -77,4 +77,7 @@ button {
       cursor: pointer;
     }
 }
+.input {
+  margin-bottom: 2rem;
+}
 </style>

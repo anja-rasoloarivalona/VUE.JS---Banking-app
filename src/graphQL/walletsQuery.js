@@ -17,18 +17,18 @@ const editWallet = input => {
 const query = (action, input) => {
   return `${action}(walletInput: {
         _id: "${input._id}",
-        walletType: "${input.walletType}",
+        walletType: "${input.type}",
         amount: "${input.amount}",
-        supplier: "${input.supplier}",
+        name: "${input.name}",
         color: "${input.color}",
         creditLimit: "${input.creditLimit}"
     }) {
         _id
         walletType
         amount
-        creditLimit
-        supplier
+        name
         color
+        creditLimit
     }`
 }
 

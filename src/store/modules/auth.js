@@ -108,6 +108,7 @@ const actions = {
       commit('setUserData', resData.user)
       commit('setTheme', resData.user.settings.theme)
       commit('initDashboardLayout', resData.user.settings.dashboardLayout)
+      commit('initCurrency', resData.user.settings.currency)
       setTimeout(() => commit('setIsAppReadyToTrue'), 1000)
       return {
         success: true

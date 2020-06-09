@@ -1,17 +1,16 @@
 <template>
-    <div class="input" :class="{disabled: isDisabled}">
-        <label :for="id">
-            <span>{{ id }}</span>
+        <label :for="id" class="input" :class="{disabled: isDisabled}">
+            <span v-if="id">{{ id }}</span>
             <input
               v-bind="$attrs"
               :id="id"
+              :placeholder="placeholder"
               :disabled="isDisabled"
               @input="updateSelf($event.target.value)"
               :value="value"
               :class="{'bg-default': theme.isLight, 'bg-on-surfaceColor': theme.isDark, 'bg-white': bgWhite}"
             />
         </label>
-    </div>
 </template>
 
 <script>
@@ -25,7 +24,8 @@ export default {
     value: [String, Number],
     id: String,
     bgWhite: Boolean,
-    isDisabled: Boolean
+    isDisabled: Boolean,
+    placeholder: String
   },
   computed: {
     ...mapGetters([
@@ -56,7 +56,6 @@ export default {
     & label {
         display: flex;
         flex-direction: column;
-        margin-bottom: 2rem;
     }
     & span {
         // width: 10rem;

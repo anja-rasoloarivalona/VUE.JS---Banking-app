@@ -16,7 +16,7 @@
         </div>
       </div>
     </div>
-    <div class="wallet__supplier">{{wallet.supplier}}</div>
+    <div class="wallet__name">{{wallet.name}}</div>
     <div class="wallet__amount" :class="{'txt-mainColor': theme.isDark}" v-if="!ghost">${{wallet.amount | amount }}</div>
     <div class="wallet__amount" :class="{'txt-mainColor': theme.isDark}" v-else>$***</div>
     <div class="wallet__type" :class="{'txt-darkColor': theme.isDark}">{{wallet.walletType}}</div>
@@ -111,7 +111,7 @@ export default {
         }
       }
     }
-    &__supplier {
+    &__name {
       display: flex;
       justify-content: flex-end;
       // color: var(--textColor);

@@ -44,6 +44,9 @@ export default {
     prop: 'value',
     event: 'click'
   },
+  mounted () {
+    console.log('id', this.id === undefined)
+  },
   methods: {
     selectOption (value) {
       this.showList = false
@@ -88,7 +91,7 @@ export default {
 .label {
   display: flex;
   flex-direction: column;
-  margin-bottom: 2rem;
+  // margin-bottom: 2rem;
   ::-webkit-scrollbar {
     width: 0em;
   }

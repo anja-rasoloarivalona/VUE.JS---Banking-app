@@ -94,4 +94,7 @@ button {
     }
   }
 }
+.input {
+  margin-bottom: 2rem;
+}
 </style>

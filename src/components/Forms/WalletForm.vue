@@ -2,10 +2,10 @@
   <div class="wallet-form">
     <slot />
    <form>
-        <app-select-input v-model="walletInput.walletType" :id="'type'"  :options="walletTypes" :isDisabled="typeIsDisabled"/>
-        <app-basic-input v-model="walletInput.supplier" :id="'supplier'" />
-        <app-basic-input v-model="walletInput.amount" :id="'amount'" :isDisabled="amountIsDisabled"/>
-        <app-basic-input v-model="walletInput.creditLimit" :id="'limit'" v-if="['Visa', 'MasterCard'].includes(walletInput.walletType)"/>
+        <app-select-input v-model="walletInput.type" id="Type"  :options="walletTypes" :isDisabled="typeIsDisabled"/>
+        <app-basic-input v-model="walletInput.name" id="Name" />
+        <app-basic-input v-model="walletInput.amount" id="Amount" :isDisabled="amountIsDisabled"/>
+        <app-basic-input v-model="walletInput.creditLimit" id="Limit" v-if="walletInput.type === 'Credit card'"/>
     </form>
     <div class="wallet-form__cta">
           <app-btn normal secondary v-if="isCancelBtnDisplayed" @click.native="$emit('hideForm')">Cancel</app-btn>
@@ -24,13 +24,13 @@ export default {
   data () {
     return {
       walletInput: {
-        walletType: 'Visa',
+        type: '',
         amount: 0,
-        supplier: 'Bank',
+        name: 'Bank',
         color: 'Brown',
         creditLimit: 0
       },
-      walletTypes: ['Visa', 'MasterCard', 'Debit', 'Cash'],
+      walletTypes: ['Debit card', 'Credit card', 'Cash'],
       showColorList: false,
       colorList: ['Brown', 'Chocolate', 'Coral', 'Crimson', 'DarkCyan', 'DarkBlue', 'FireBrick', 'OrangeRed', 'Teal'],
       loading: false
@@ -104,10 +104,12 @@ export default {
     grid-auto-rows: max-content;
     column-gap: 2rem;
     row-gap: 1rem;
+    margin-bottom: 3rem;
   }
    &__cta {
       display: flex;
       justify-content: center;
+      // background: red;
       // position: relative;
       // z-index: 10;
   }

@@ -8,7 +8,7 @@
 
 <script>
 import Currency from './Currency/Currency'
-import Wallets from './Wallets'
+import Wallets from './Walleta'
 import Budget from './Budget'
 export default {
   components: {

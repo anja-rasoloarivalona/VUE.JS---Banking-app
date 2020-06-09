@@ -4,6 +4,7 @@ const initQuery = {
         email
         settings {
           theme
+          currency
           dashboardLayout {
             x
             y
@@ -45,7 +46,7 @@ const initQuery = {
           walletType
           amount
           creditLimit
-          supplier
+          name
           color
         }
         expenses {

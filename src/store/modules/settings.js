@@ -1,6 +1,9 @@
+import { setCurrency } from '@/graphQL/settingsQuery'
+import axios from 'axios'
+
 const state = {
   currentLanguage: 'en',
-  currentCurrency: 'CAD',
+  currentCurrency: '',
   editingTransaction: false,
   ghostMode: false,
   secondaryColors: ['#059782', '#99a1d7', '#2bac49', '#3144af', '#59bcd8'],
@@ -61,14 +64,30 @@ const mutations = {
   setLanguage (state, lang) {
     state.currentLanguage = lang
   },
-  setCurrency (state, currency) {
+  initCurrency (state, currency) {
     state.currentCurrency = currency
   }
 
 }
 
+const actions = {
+  setCurrency: async function ({ commit }, currency) {
+    const graphqlQuery = setCurrency(currency)
+    try {
+      const response = await axios.post('/', graphqlQuery)
+      const resData = response.data.data.setCurrency
+      if (resData === 'success') {
+        return true
+      }
+    } catch (err) {
+      console.log('set currency error ', err.response)
+    }
+  }
+}
+
 export default {
   state,
   getters,
-  mutations
+  mutations,
+  actions
 }

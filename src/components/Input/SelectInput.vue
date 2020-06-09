@@ -1,5 +1,5 @@
 <template>
-    <label :for="id" class="label" :class="{row: row}" v-click-outside="closeList">
+    <label :for="id" class="label" :class="{row: row, showScrollBar: showScrollBar}" v-click-outside="closeList">
       <span v-if="id">{{ id }}</span>
       <div
         :id="id"
@@ -11,11 +11,19 @@
           'top-radius': showList,
         }"
         >
-          <div class="select__value" :class="{active: showList, 'disabled': isDisabled}" @click.stop="toggleList">{{ value }}</div>
-          <ul class="select__list" v-show="showList">
-              <li v-for="(option, index) in options"
+          <div
+            class="select__value"
+            :class="{active: showList, 'disabled': isDisabled,  'bg-white': bgWhite}"
+            @click.stop="toggleList">
+              <div v-if="value !== ''">{{ value }}</div>
+              <div v-else class="select__value__placeholder">{{ placeholder }}</div>
+          </div>
+          <ul
+            class="select__list"
+            v-show="showList"
+            :style="{maxHeight: `${listMaxHeight}vh`, boxShadow: theme.isDark ? 'box-shadow: 1px 5px 12px -1px rgba(15,15,15,1)' : '1px 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)'}">
+              <li v-for="(option, index) in displayedOptions"
                   :key="index" class="select__list__item"
-                  :class="{active: option === value}"
                   @click="selectOption(option)">
                   {{ option }}
               </li>
@@ -53,7 +61,10 @@ export default {
   computed: {
     ...mapGetters([
       'theme'
-    ])
+    ]),
+    displayedOptions () {
+      return this.options.filter(option => option !== this.value)
+    }
   },
   props: {
     value: [String, Number],
@@ -62,9 +73,13 @@ export default {
       required: true
     },
     id: String,
+    bgWhite: Boolean,
     bgGrey: Boolean,
     row: Boolean,
-    isDisabled: Boolean
+    isDisabled: Boolean,
+    listMaxHeight: Number,
+    showScrollBar: Boolean,
+    placeholder: String
   }
 }
 </script>
@@ -74,6 +89,21 @@ export default {
   display: flex;
   flex-direction: column;
   margin-bottom: 2rem;
+  ::-webkit-scrollbar {
+    width: 0em;
+  }
+  &.showScrollBar {
+    ::-webkit-scrollbar {
+        width: 1em;
+    }
+    ::-webkit-scrollbar-track {
+        background-color: rgb(218, 218, 218);
+    }
+    ::-webkit-scrollbar-thumb {
+        background-color: var(--textColor--dark);
+        border-radius: 2px;
+    }
+  }
   &.row {
     flex-direction: row;
     align-items: center;
@@ -97,17 +127,6 @@ export default {
       border-top-left-radius: .5rem;
       border-top-right-radius: .5rem;
     }
-    &.bg-white {
-      & .select {
-        &__list {
-          &__item {
-            &:hover {
-              background: whitesmoke;
-            }
-          }
-        }
-      }
-    }
     &__value {
         height: 4rem;
         display: flex;
@@ -116,6 +135,12 @@ export default {
         position: relative;
         font-size: $font-m;
         cursor: pointer;
+        &__placeholder {
+          color: var(--textColor--dark)
+        }
+        &.bg-white {
+          background: $color-white;
+        }
         &.active {
           // border-top-left-radius: .5rem;
           // border-top-right-radius: .5rem;
@@ -145,14 +170,13 @@ export default {
         position: absolute;
         top: 4.1rem;
         left: 0;
-        border: 1px solid var(--mainColor);
-        // border-top: none;
         background: var(--surfaceColor);
         color: var(--textColor);
         width: 100%;
-        border-bottom-left-radius: .5rem;
-        border-bottom-right-radius: .5rem;
-        overflow: hidden;
+        border-bottom-left-radius: .2rem;
+        border-bottom-right-radius: .2rem;
+        overflow-y: scroll;
+        overflow-x: hidden;
         z-index: 5;
         &__item {
             height: 4rem;
@@ -162,16 +186,10 @@ export default {
             font-size: $font-m;
             cursor: pointer;
             &:hover {
-                // background: var(--on-surfaceColor);
-            }
-            &.active {
-                background: var(--mainColor);
-                color: $color-white;
-                 &:hover {
-                  background: var(--mainColor) !important;
-                }
+              background: var(--mainColor--light);
             }
         }
     }
 }
+
 </style>

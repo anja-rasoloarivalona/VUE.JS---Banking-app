@@ -7,25 +7,25 @@
                 <completed v-else-if="isSetupCompleted"/>
             </transition>
         </backdrop>
-        <div class="setup__view"  v-else-if="!loading">
-            <wallets />
-            <incomes />
-            <expenses />
-            <goal @setup-completed="loadCompleted"/>
+
+        <div class="setup__view">
+          <general v-if="setup.setupType === 'general'"/>
+          <budget v-else/>
         </div>
     </div>
 </template>
 
 <script>
-import Welcome from './Welcome'
-import Wallets from './Wallets'
-import Incomes from './Incomes'
-import Expenses from './Expenses'
-import Goal from './Goal'
+import Backdrop from '@/components/Layout/Backdrop/Backdrop'
 import Completed from './Completed'
 import VerifyCode from './VerifyCode'
+import Welcome from './Welcome'
+
+import General from './General/General'
+import Budget from './Budget/Budget'
+
 import { mapGetters } from 'vuex'
-import Backdrop from '@/components/Layout/Backdrop/Backdrop'
+
 export default {
   data () {
     return {
@@ -39,6 +39,7 @@ export default {
   computed: {
     ...mapGetters([
       'user',
+      'setup',
       'currentAppStatus'
     ])
   },
@@ -75,14 +76,12 @@ export default {
     }
   },
   components: {
-    Welcome,
     Backdrop,
-    Wallets,
-    Incomes,
-    Expenses,
-    Goal,
+    Budget,
     Completed,
-    VerifyCode
+    General,
+    VerifyCode,
+    Welcome
   }
 }
 </script>
@@ -99,6 +98,7 @@ export default {
         height: 100%;
         position: relative;
         overflow: hidden;
+        // background: green;
         &__content {
             position: absolute;
             top: 0;

@@ -2,9 +2,9 @@
     <div class="setup__sidenav">
         <ul class="setup__sidenav__list">
           <li
-            v-for="(step, index) in setupSteps"
+            v-for="(step, index) in setup.generalSetupSteps"
             class="setup__sidenav__list__item"
-            :class="{active: currentSetupStep === step}"
+            :class="{active: setup.currentSetupStep === step}"
             :key="step">
             <div class="setup__sidenav__list__item__details">
               <div class="setup__sidenav__list__item__details__title"><h2>Step {{ index + 1}}</h2></div>
@@ -20,8 +20,7 @@ import { mapGetters } from 'vuex'
 export default {
   computed: {
     ...mapGetters([
-      'currentSetupStep',
-      'setupSteps'
+      'setup'
     ]),
     checkWallets () {
       if (this.$store.state.user.wallets.length > 0) {

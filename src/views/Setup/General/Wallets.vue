@@ -1,5 +1,5 @@
 <template>
-    <div class="setup__view__content" :class="{left: currentSetupStep !== 'wallets'}">
+    <div class="setup__view__content" :class="{left: setup.currentSetupStep !== 'wallets'}">
         <div class="setup__view__content__main" :class="{expand: user.wallets.length > 0}">
             <h1 class="setup__view__content__main__title">Wallets</h1>
             <div class="setup__view__content__main__details" v-if="user.wallets.length < 1">To begin, let's setup your wallets.</div>
@@ -46,7 +46,7 @@ export default {
   computed: {
     ...mapGetters([
       'user',
-      'currentSetupStep'
+      'setup'
     ])
   },
   methods: {

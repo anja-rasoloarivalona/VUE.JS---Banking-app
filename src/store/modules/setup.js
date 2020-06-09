@@ -1,15 +1,14 @@
 const state = {
-  currentSetupStep: 'wallets',
-  steps: ['wallets', 'incomes', 'expenses', 'goal'],
+  setupType: 'general', // GENERAL OR BUDGET - BUDGET IS OPTIONNAL
+  currentSetupStep: 'currency',
+  generalSetupSteps: ['currency', 'wallets', 'budget'],
+  budgetSetupSteps: ['wallets', 'incomes', 'expenses', 'goal'],
   displayWelcome: true
 }
 
 const getters = {
-  currentSetupStep: state => {
-    return state.currentSetupStep
-  },
-  setupSteps: state => {
-    return state.steps
+  setup: state => {
+    return state
   },
   isWelcomeDisplayed: state => {
     return state.displayWelcome

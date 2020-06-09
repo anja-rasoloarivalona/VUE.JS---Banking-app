@@ -9,8 +9,8 @@
         </backdrop>
 
         <div class="setup__view">
-          <general v-if="setup.setupType === 'general'"/>
-          <budget v-else/>
+          <general />
+          <budget v-if="setup.setupType === 'budget'"/>
         </div>
     </div>
 </template>

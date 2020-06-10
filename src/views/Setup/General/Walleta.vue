@@ -2,7 +2,7 @@
     <div class="setup__view__content wallets"
         :class="{
             right: setup.currentSetupStep === 'currency',
-            left: setup.currentSetupStep === 'budget',
+            left: ['budget', 'incomes', 'expenses', 'goal'].includes(setup.currentSetupStep),
             expand: user.wallets.length > 0
         }">
         <div class="setup__view__content__imgContainer">
@@ -39,7 +39,6 @@
         </template>
 
         <div class="setup__view__content__cta">
-            <app-btn normal secondary @click.native="setCurrentSetupStep('currency')">Previous</app-btn>
             <app-btn normal primary @click.native="setupWalletAction">
                 {{ user.wallets.length > 0 ? 'Next' : 'Add'}}
             </app-btn>
@@ -85,10 +84,14 @@ export default {
       }
     },
     setupWalletAction () {
-      if (this.user.wallets.length < 0) {
+      if (this.user.wallets.length < 1) {
         this.addWalletHandler()
       } else {
-        this.setCurrentSetupStep('budget')
+        if (this.setup.setupType === 'general') {
+          this.setCurrentSetupStep('budget')
+        } else {
+          this.setCurrentSetupStep('incomes')
+        }
       }
     }
   },

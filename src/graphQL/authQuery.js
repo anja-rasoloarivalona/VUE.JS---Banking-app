@@ -29,7 +29,7 @@ const loginQuery = input => {
                       _id
                       walletType
                       amount
-                      supplier
+                      name
                       creditLimit
                       color
                     }

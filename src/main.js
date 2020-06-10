@@ -15,6 +15,7 @@ import ToggleList from './components/Shared/ToggleList'
 import Button from './components/Shared/Button'
 import Spinner from './components/Shared/Spinner'
 import Icon from './components/Shared/Icon'
+
 // components - Input
 import BasicInput from './components/Input/BasicInput'
 import SelectInput from './components/Input/SelectInput'
@@ -23,6 +24,13 @@ import DateInput from './components/Input/DateInput'
 import ColorInput from './components/Input/ColorInput'
 import Calendar from 'v-calendar/lib/components/calendar.umd'
 // import DatePicker from 'v-calendar/lib/components/date-picker.umd'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+import { faUtensils, faShoppingBag, faHome, faBusAlt, faUsers, faTv, faChartLine, faFirstAid } from '@fortawesome/free-solid-svg-icons'
+library.add(faUtensils, faShoppingBag, faHome, faBusAlt, faUsers, faTv, faChartLine, faFirstAid)
+Vue.component('fa-icon', FontAwesomeIcon)
+
 Vue.config.productionTip = false
 
 Vue.use(VueI18n)
@@ -59,6 +67,7 @@ Vue.filter('short-date', function (value) {
   const date = `${month}/${day}/${year}`
   return date
 })
+
 Vue.component('app-btn', Button)
 Vue.component('app-spinner', Spinner)
 Vue.component('app-icon', Icon)

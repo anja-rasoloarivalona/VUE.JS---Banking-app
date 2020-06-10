@@ -1,6 +1,5 @@
 <template>
-    <div class="input frequency">
-        <label :for="id">
+        <label :for="id" class="frequency">
             <span>{{ id }}</span>
             <div class="input__container">
                 <app-select-input
@@ -13,7 +12,6 @@
                 />
             </div>
         </label>
-    </div>
 </template>
 
 <script>
@@ -32,23 +30,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.input {
-    & label {
-        display: flex;
-        flex-direction: column;
-    }
-    & span {
-        width: 10rem;
-        margin-bottom: 0.5rem;
-        font-size: $font-m;
-        color: var(--textColor--dark)
-    }
-    &__container {
-        display: flex;
-        justify-content: space-between;
-        & label {
-            width: 49%;
-        }
+label {
+    display: flex;
+    flex-direction: column;
+}
+span {
+    width: 10rem;
+    margin-bottom: 0.5rem;
+    font-size: $font-m;
+    color: var(--textColor--dark)
+}
+.input__container {
+    display: flex;
+    justify-content: space-between;
+    & label:first-child {
+      margin-right: 1rem;
     }
 }
+
 </style>

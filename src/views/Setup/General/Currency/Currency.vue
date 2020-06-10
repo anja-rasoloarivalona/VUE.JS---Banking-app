@@ -31,6 +31,7 @@
 import { mapGetters, mapMutations } from 'vuex'
 import CurrencyImg from './CurrencyImg'
 import currencies from '@/assets/currencies'
+
 export default {
   data () {
     return {

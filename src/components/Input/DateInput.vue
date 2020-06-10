@@ -1,10 +1,8 @@
 <template>
-    <div class="input-date">
-        <label :for="id">
+        <label :for="id" class="label">
             <span>{{ id }}</span>
             <date-picker :id="id" :value="value" @input="updateSelf" />
         </label>
-    </div>
 </template>
 
 <script>
@@ -36,27 +34,22 @@ export default {
 </script>
 
 <style lang="scss">
-.input-date {
+label {
   display: flex;
   flex-direction: column;
-  width: 100%;
-    & label {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 2rem;
-    }
-    & span {
-        width: 100%;
-        margin-bottom: 0.5rem;
-        font-size: 13px;
-        &:first-child {
-            color: $color-grey--dark;
-        }
-        & input {
-            height: 4rem;
-        }
-    }
 }
+span {
+  width: 100%;
+  margin-bottom: 0.5rem;
+  font-size: 13px;
+  &:first-child {
+    color: $color-grey--dark;
+  }
+  & input {
+    height: 4rem;
+  }
+}
+
 .vc-border {
     border-width: 0px !important;
 }

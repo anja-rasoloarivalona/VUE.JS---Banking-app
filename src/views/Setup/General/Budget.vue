@@ -1,7 +1,8 @@
 <template>
     <div class="setup__view__content"
         :class="{
-            right: setup.currentSetupStep === 'wallets' || setup.currentSetupStep === 'currency'
+            right: ['wallets', 'currency'].includes(setup.currentSetupStep),
+            left: ['incomes', 'expenses', 'goal'].includes(setup.currentSetupStep)
         }">
         <div class="setup__view__content__imgContainer">
              <app-icon name="budget" size="xxl" />
@@ -13,10 +14,9 @@
             <div>Your reference currency should be the one you use on a daily basis.</div>
             <div>Your balance and statistics will be displayed in that currency.</div>
         </div>
-        <div class="budget__cta">Let's do it now</div>
         <div class="setup__view__content__cta">
-            <app-btn normal secondary @click.native="setCurrentSetupStep('wallets')">Previous</app-btn>
-            <app-btn normal primary>Get started</app-btn>
+            <app-btn normal secondary>Later</app-btn>
+            <app-btn normal primary @click.native="startSetBudget">Set budget</app-btn>
         </div>
     </div>
 </template>
@@ -31,8 +31,13 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'setCurrentSetupStep'
-    ])
+      'setCurrentSetupStep',
+      'setSetupType'
+    ]),
+    startSetBudget () {
+      this.setSetupType('budget')
+      this.setCurrentSetupStep('incomes')
+    }
   }
 }
 </script>

@@ -1,5 +1,10 @@
 <template>
-    <div class="setup__view__content" :class="{right: currentSetupStep !== 'goal'}">
+    <div
+        class="setup__view__content"
+        :class="{
+          right: setup.currentSetupStep !== 'goal'
+      }"
+    >
         <div class="setup__view__content__main">
             <h1 class="setup__view__content__main__title">Goal</h1>
             <div class="setup__view__content__main__details">To finish, let's setup your goal. We'll determine the earliest date you can achieve it according to your incomes and expenses data</div>
@@ -36,7 +41,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'currentSetupStep',
+      'setup',
       'user'
     ])
   },

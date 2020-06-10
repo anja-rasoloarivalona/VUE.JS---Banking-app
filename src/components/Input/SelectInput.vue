@@ -7,6 +7,7 @@
         :class="{
           'bg-default': theme.isLight,
           'bg-on-surfaceColor': theme.isDark,
+          'box-shadow': showList,
           'all-radius': !showList,
           'top-radius': showList,
         }"
@@ -19,9 +20,9 @@
               <div v-else class="select__value__placeholder">{{ placeholder }}</div>
           </div>
           <ul
-            class="select__list"
+            class="select__list box-shadow"
             v-show="showList"
-            :style="{maxHeight: `${listMaxHeight}vh`, boxShadow: theme.isDark ? 'box-shadow: 1px 5px 12px -1px rgba(15,15,15,1)' : '1px 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)'}">
+            :style="{maxHeight: `${listMaxHeight}vh`}">
               <li v-for="(option, index) in displayedOptions"
                   :key="index" class="select__list__item"
                   @click="selectOption(option)">
@@ -171,9 +172,10 @@ export default {
     }
     &__list {
         position: absolute;
-        top: 4.1rem;
+        top: 4rem;
         left: 0;
         background: var(--surfaceColor);
+        // border: 1px solid var(--lineColor);
         color: var(--textColor);
         width: 100%;
         border-bottom-left-radius: .2rem;

@@ -2,7 +2,7 @@
     <div class="setup__sidenav">
         <ul class="setup__sidenav__list">
           <li
-            v-for="(step, index) in setup.generalSetupSteps"
+            v-for="(step, index) in setpsList"
             class="setup__sidenav__list__item"
             :class="{active: setup.currentSetupStep === step}"
             :key="step">
@@ -22,33 +22,10 @@ export default {
     ...mapGetters([
       'setup'
     ]),
-    checkWallets () {
-      if (this.$store.state.user.wallets.length > 0) {
-        return 'white'
-      } else {
-        return 'primary'
-      }
-    },
-    checkIncome () {
-      if (this.currentSetup === 'setup-income') {
-        return 'primary'
-      } else {
-        return 'grey'
-      }
-    },
-    checkExpense () {
-      if (this.currentSetup === 'setup-expense') {
-        return 'primary'
-      } else {
-        return 'grey'
-      }
-    },
-    checkSavings () {
-      if (this.currentSetup === 'setup-savings-plan') {
-        return 'primary'
-      } else {
-        return 'grey'
-      }
+    setpsList () {
+      if (this.setup.setupType === 'general') {
+        return this.setup.generalSetupSteps
+      } else return this.setup.budgetSetupSteps
     }
   }
 }

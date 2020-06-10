@@ -1,8 +1,10 @@
 const state = {
-  setupType: 'general', // GENERAL OR BUDGET - BUDGET IS OPTIONNAL
-  currentSetupStep: 'currency',
+  // setupType: 'general', // GENERAL OR BUDGET - BUDGET IS OPTIONNAL
+  setupType: 'budget',
+  // currentSetupStep: 'currency',
+  currentSetupStep: 'expenses',
   generalSetupSteps: ['currency', 'wallets', 'budget'],
-  budgetSetupSteps: ['wallets', 'incomes', 'expenses', 'goal'],
+  budgetSetupSteps: ['currency', 'wallets', 'incomes', 'expenses', 'goal'],
   displayWelcome: true
 }
 
@@ -18,6 +20,9 @@ const getters = {
 const mutations = {
   setCurrentSetupStep (state, step) {
     state.currentSetupStep = step
+  },
+  setSetupType (state, type) {
+    state.setupType = type
   }
 }
 

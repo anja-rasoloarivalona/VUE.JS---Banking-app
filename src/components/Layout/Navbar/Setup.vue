@@ -1,9 +1,7 @@
 <template>
     <div class="setup">
         <ul class="setup__list">
-            <div class="setup__list__item" @click="setCurrentSetupStep('wallets')">Wallets</div>
-            <div class="setup__list__item" v-if="user.wallets.length > 0" @click="setCurrentSetupStep('incomes')">Incomes</div>
-            <div class="setup__list__item" v-if="user.incomes.length > 0" @click="setCurrentSetupStep('expenses')">Expenses</div>
+            <div class="setup__list__item" v-if="setup.currentSetupStep !== 'currency'" @click="clickBack">Back</div>
         </ul>
         <div class="setup__cta">
           <profile-toggler />
@@ -13,9 +11,11 @@
 </template>
 
 <script>
+
 import { mapGetters, mapMutations } from 'vuex'
 import LangSwitcher from './components/LangSwitcher/LangSwitcher'
 import ProfileToggler from './components/ProfileToggler/ProfileToggler'
+
 export default {
   data () {
     return {
@@ -24,7 +24,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'user'
+      'setup'
     ]),
     logoutColor () {
       if (this.logoutHovered) {
@@ -37,7 +37,16 @@ export default {
   methods: {
     ...mapMutations([
       'setCurrentSetupStep'
-    ])
+    ]),
+    clickBack () {
+      const stepsData = this.setup.setupType === 'general' ? this.setup.generalSetupSteps : this.setup.budgetSetupSteps
+      stepsData.find((step, index) => {
+        if (step === this.setup.currentSetupStep) {
+          const previousStep = stepsData[index - 1]
+          this.setCurrentSetupStep(previousStep)
+        }
+      })
+    }
   },
   components: {
     LangSwitcher,

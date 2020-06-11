@@ -9,11 +9,24 @@
             'box-shadow': showList
             }"
         >
-            <div class="category-input__select__value"  :class="{'bg-default': theme.isLight, 'bg-on-surfaceColor': theme.isDark, 'bg-white': bgWhite}" @click.stop="toggleList">{{ value }}</div>
-            <ul class="category-input__select__list" v-show="showList" :style="{boxShadow: theme.isDark ? 'box-shadow: 1px 5px 12px -1px rgba(15,15,15,1)' : '1px 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)'}">
-                <li class="category-input__select__list__item" v-for="item in expensesList" :key="item.name">
+            <div
+              class="category-input__select__value"
+              :class="{'bg-default': theme.isLight, 'bg-on-surfaceColor': theme.isDark}"
+              @click.stop="toggleList"
+            >
+                <div class="category-input__select__value__icon" :style="{backgroundColor: value.color}" v-if="value.iconName">
+                  <fa-icon :icon="value.iconName" size="sm" :style="{ color: 'white' }"/>
+                </div>
+                <div>{{ value.name }}</div>
+            </div>
+            <ul class="category-input__select__list box-shadow" v-if="showList">
+                <li
+                    class="category-input__select__list__item"
+                    v-for="item in displayedExpensesList" :key="item.name"
+                     @click="selectCategory(item)"
+                >
                     <div class="category-input__select__list__item__icon" :style="{backgroundColor: item.color}">
-                         <fa-icon :icon="item.iconName" size="lg" :style="{ color: 'white' }"/>
+                         <fa-icon :icon="item.iconName" size="sm" :style="{ color: 'white' }"/>
                     </div>
                     <div class="category-input__select__list__item__name">
                         {{ item.name}}
@@ -31,49 +44,7 @@ import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      showList: false,
-      expensesList: [
-        {
-          name: 'Food and Drinks',
-          iconName: 'utensils',
-          color: '#E62E3D'
-        },
-        {
-          name: 'Shopping',
-          iconName: 'shopping-bag',
-          color: '#64B5F6'
-        },
-        {
-          name: 'Housing',
-          iconName: 'home',
-          color: '#EE9E1E'
-        },
-        {
-          name: 'Transport',
-          iconName: 'bus-alt',
-          color: '#B0BFC6'
-        },
-        {
-          name: 'Leisure',
-          iconName: 'users',
-          color: '#AB46BC'
-        },
-        {
-          name: 'Multimedia',
-          iconName: 'tv',
-          color: '#2346A2'
-        },
-        {
-          name: 'Investment',
-          iconName: 'chart-line',
-          color: '#E73F7A'
-        },
-        {
-          name: 'Health',
-          iconName: 'first-aid',
-          color: '#6BDD16'
-        }
-      ]
+      showList: false
     }
   },
   model: {
@@ -83,16 +54,23 @@ export default {
   computed: {
     ...mapGetters([
       'theme'
-    ])
+    ]),
+    displayedExpensesList () {
+      return this.expensesList.filter(expense => expense.name !== this.value.name)
+    }
   },
   methods: {
     toggleList () {
       this.showList = !this.showList
-      console.log('toggling list', this.showList)
+    },
+    selectCategory (value) {
+      this.showList = false
+      this.$emit('click', value)
     }
   },
   props: {
-    value: [String, Number]
+    value: Object,
+    expensesList: Array
   }
 }
 </script>
@@ -112,7 +90,7 @@ export default {
         color: var(--textColor);
         position: relative;
          &.all-radius {
-      border-radius: .5rem;
+          border-radius: .5rem;
         }
         &.top-radius {
           border-radius: 0;
@@ -128,6 +106,15 @@ export default {
             position: relative;
             font-size: $font-m;
             cursor: pointer;
+            &__icon {
+              border-radius: 50%;
+              width: 2rem;
+              height: 2rem;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin-right: 1rem;
+            }
             &::after {
                 content: '';
                 position: absolute;
@@ -153,12 +140,16 @@ export default {
             // background: salmon;
             color: var(--textColor);
             width: 100%;
+            // max-height: 26rem;
+            // overflow-y: scroll;
+            // overflow-x: hidden;
             border-bottom-left-radius: .2rem;
             border-bottom-right-radius: .2rem;
             overflow-y: scroll;
             overflow-x: hidden;
             z-index: 5;
             &__item {
+                // height: 5rem;
                 height: 4rem;
                 display: flex;
                 align-items: center;
@@ -169,8 +160,10 @@ export default {
                 background: var(--mainColor--light);
                 }
                 &__icon {
-                    width: 3rem;
-                    height: 3rem;
+                    // width: 3rem;
+                    // height: 3rem;
+                    width: 2rem;
+                    height: 2rem;
                     border-radius: 50%;
                     display: flex;
                     align-items: center;

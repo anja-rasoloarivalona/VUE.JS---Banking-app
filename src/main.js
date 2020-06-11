@@ -27,8 +27,8 @@ import Calendar from 'v-calendar/lib/components/calendar.umd'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-import { faUtensils, faShoppingBag, faHome, faBusAlt, faUsers, faTv, faChartLine, faFirstAid } from '@fortawesome/free-solid-svg-icons'
-library.add(faUtensils, faShoppingBag, faHome, faBusAlt, faUsers, faTv, faChartLine, faFirstAid)
+import { faUtensils, faShoppingBag, faHome, faBusAlt, faUsers, faTv, faChartLine, faFirstAid, faShoppingCart, faGlassMartiniAlt, faStore, faHamburger, faBabyCarriage, faTshirt, faLaptop, faSeedling, faGift, faDove, faHouseDamage, faHammer, faKey, faMoneyCheckAlt, faLightbulb, faHotel, faCouch, faSubway, faTaxi, faPlane, faTrain, faCar, faCarAlt, faFileInvoiceDollar, faGasPump, faWrench, faCoins, faCocktail, faBook, faRunning, faMicrophone, faHandHoldingUsd, faDumbbell, faWifi, faMobileAlt, faMusic, faUserGraduate, faBuilding, faTruckPickup, faChartBar, faFileMedical, faPrescriptionBottle, faUserMd } from '@fortawesome/free-solid-svg-icons'
+library.add(faUtensils, faShoppingBag, faHome, faBusAlt, faUsers, faTv, faChartLine, faFirstAid, faShoppingCart, faGlassMartiniAlt, faStore, faHamburger, faBabyCarriage, faTshirt, faLaptop, faSeedling, faGift, faDove, faHouseDamage, faHammer, faKey, faMoneyCheckAlt, faLightbulb, faHotel, faCouch, faSubway, faTaxi, faPlane, faTrain, faCar, faCarAlt, faFileInvoiceDollar, faGasPump, faWrench, faCoins, faCocktail, faBook, faRunning, faMicrophone, faHandHoldingUsd, faDumbbell, faWifi, faMobileAlt, faMusic, faUserGraduate, faBuilding, faTruckPickup, faChartBar, faFileMedical, faPrescriptionBottle, faUserMd)
 Vue.component('fa-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false

@@ -2,8 +2,8 @@
  <tr class="income" @mouseleave="showList = false">
     <td class="income__name"> {{ income.name }} </td>
     <td>{{ income.frequency.counter}} {{income.frequency.period}}</td>
-    <td class="income__amount"><b>${{ income.amount | amount }}</b></td>
-    <td class="income__average">
+    <td class="income__amount">${{ income.amount | amount }}</td>
+    <td>
         <span>${{ monthlyAverage | amount }}</span>
         <div class="income__cta" @click="showList = !showList" @mouseenter="showList = true">
             <span></span>
@@ -60,9 +60,7 @@ export default {
 .income {
   border-bottom: 1px solid var(--lineColor);
   border-collapse: collapse;
-  &__average {
-      position: relative;
-  }
+
   &__amount {
       color: var(--mainColor)
   }
@@ -72,6 +70,7 @@ export default {
     font-size: $font-m;
     text-align: start;
     padding-left: 2rem;
+    position: relative;
   }
 
   &__cta {

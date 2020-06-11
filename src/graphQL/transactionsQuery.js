@@ -83,9 +83,9 @@ const queryResult = `
               }
               expenses {
                   _id
-                  name
-                  amount
                   category
+                  subcategory
+                  amount
                   expenseType
                   lastPayout
                   nextPayout

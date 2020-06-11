@@ -118,7 +118,7 @@ export default {
             flex-direction: column;
             align-items: center;
             padding-top: 7rem;
-            padding-bottom: 4rem;
+            padding-bottom: 2rem;
             transition: all .5s ease-in;
             &.left {
                 transform: translateX(-100vw);

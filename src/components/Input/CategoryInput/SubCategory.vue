@@ -1,12 +1,29 @@
 <template>
     <label class="category-input">
         <span>Subcategory</span>
-        <div class="category-input__select">
-            <div class="category-input__select__value" :class="{'bg-default': theme.isLight, 'bg-on-surfaceColor': theme.isDark, 'bg-white': bgWhite}">{{ value }}</div>
-            <ul class="category-input__select__list" v-if="showList">
-                <li class="category-input__select__list__item" v-for="item in expensesList" :key="item.name">
-                    <div class="category-input__select__list__item__icon">
-                         <fa-icon :icon="item.iconName" size="lg" :style="{ color: 'white' }"/>
+        <div class="category-input__select" :class="{
+            'all-radius': !showList,
+            'top-radius': showList,
+            'box-shadow': showList
+            }">
+            <div
+              class="category-input__select__value"
+              :class="{'bg-default': theme.isLight, 'bg-on-surfaceColor': theme.isDark}"
+              @click.stop="toggleList"
+            >
+                <div class="category-input__select__value__icon" :style="{backgroundColor: color}" v-if="value.iconName">
+                  <fa-icon :icon="value.iconName" size="sm" :style="{ color: 'white' }"/>
+                </div>
+               <div>{{ value.name }}</div>
+            </div>
+            <ul class="category-input__select__list  box-shadow" v-if="showList">
+                <li
+                    class="category-input__select__list__item"
+                    v-for="item in displayedSubcategoryList" :key="item.name"
+                    @click="selectSubcategory(item)"
+                >
+                    <div class="category-input__select__list__item__icon" :style="{backgroundColor: color}">
+                         <fa-icon :icon="item.iconName" size="sm" :style="{ color: 'white' }"/>
                     </div>
                     <div class="category-input__select__list__item__name">
                         {{ item.name}}
@@ -41,10 +58,24 @@ export default {
   computed: {
     ...mapGetters([
       'theme'
-    ])
+    ]),
+    displayedSubcategoryList () {
+      return this.subcategoryList.filter(expense => expense.name !== this.value.name)
+    }
+  },
+  methods: {
+    toggleList () {
+      this.showList = !this.showList
+    },
+    selectSubcategory (value) {
+      this.showList = false
+      this.$emit('click', value)
+    }
   },
   props: {
-    value: [String, Number]
+    value: Object,
+    subcategoryList: Array,
+    color: String
   }
 }
 </script>
@@ -72,6 +103,15 @@ export default {
             position: relative;
             font-size: $font-m;
             cursor: pointer;
+            &__icon {
+              border-radius: 50%;
+              width: 2rem;
+              height: 2rem;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin-right: 1rem;
+            }
             &::after {
                 content: '';
                 position: absolute;
@@ -91,10 +131,9 @@ export default {
         }
         &__list {
             position: absolute;
-            top: 4.1rem;
+            top: 4rem;
             left: 0;
             background: var(--surfaceColor);
-            background: salmon;
             color: var(--textColor);
             width: 100%;
             border-bottom-left-radius: .2rem;
@@ -113,9 +152,8 @@ export default {
                 background: var(--mainColor--light);
                 }
                 &__icon {
-                    background: blue;
-                    width: 3rem;
-                    height: 3rem;
+                    width: 2rem;
+                    height: 2rem;
                     border-radius: 50%;
                     display: flex;
                     align-items: center;

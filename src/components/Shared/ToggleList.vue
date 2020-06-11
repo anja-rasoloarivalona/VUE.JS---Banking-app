@@ -2,7 +2,7 @@
     <div class="toggle-list" @mouseenter="showList = true" @mouseleave="showList= false">
         <div class="toggle-list__value">
             <slot name="value"/>
-            <app-icon name="arrow-drop" size="large" color="dark" />
+            <app-icon name="arrow-drop" size="large" color="dark" v-if="!noArrow"/>
         </div>
         <div class="toggle-list__bridge">
                 <app-icon name="arrow-drop" size="extra-large" color="white" v-if="showList"/>
@@ -17,6 +17,9 @@ export default {
     return {
       showList: false
     }
+  },
+  props: {
+    noArrow: Boolean
   }
 }
 </script>

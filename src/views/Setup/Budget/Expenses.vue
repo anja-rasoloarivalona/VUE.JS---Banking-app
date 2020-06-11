@@ -16,19 +16,18 @@
           </div>
           <form class="setup__view__content__form expenses__form">
             <app-category-input v-model="expense.genre"/>
-            <!-- <app-basic-input v-model="expense.name" id="Name" /> -->
-            <app-basic-input v-model="expense.amount" id="Amount"  />
-            <!-- <app-basic-input v-model="expense.category" id="Category" /> -->
-            <app-select-input v-model="expense.expenseType" id="Expense Type"  :options="['variable', 'fixed']"/>
-            <app-basic-input v-model="expense.used" id="Used"  v-if="expense.expenseType === 'variable'"/>
-            <app-frequency-input v-model="expense.frequency" id="Frequency" v-if="expense.expenseType === 'fixed'"/>
-            <app-date-input v-model="expense.lastPayout" id="Last payout" v-if="expense.expenseType === 'fixed'"/>
+            <app-select-input v-model="expense.expenseType" id="Expense Type"  :options="['Variable', 'Fixed']"/>
+            <app-basic-input v-model="expense.amount" :id="expense.expenseType === 'Variable' ? 'Amount per month' : 'Amount per transaction'"  v-if="expense.expenseType !== ''"/>
+            <app-basic-input v-model="expense.used" id="Amount spent this month"  v-if="expense.expenseType === 'Variable'"/>
+            <app-frequency-input v-model="expense.frequency" id="Frequency" v-if="expense.expenseType === 'Fixed'"/>
+            <app-date-input v-model="expense.lastPayout" id="Last payout" v-if="expense.expenseType === 'Fixed'"/>
           </form>
         </template>
 
         <template v-else>
             <div class="expenses__content">
               <h1 class="expenses__content__title">Your expenses</h1>
+              <expense-table :expenses="user.expenses"/>
             </div>
         </template>
 
@@ -42,6 +41,7 @@
 
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
+import ExpenseTable from '@/components/UI/Expense/ExpenseTable'
 import AppCategoryInput from '@/components/Input/CategoryInput/CategoryInput'
 export default {
   data () {
@@ -49,8 +49,12 @@ export default {
       loading: false,
       expense: {
         genre: {
-          category: 'Food and Drinks',
-          subcategory: 'Alimentation'
+          category: {
+
+          },
+          subcategory: {
+
+          }
         },
         name: '',
         amount: 0,
@@ -92,7 +96,8 @@ export default {
     }
   },
   components: {
-    AppCategoryInput
+    AppCategoryInput,
+    ExpenseTable
   }
 }
 </script>
@@ -119,7 +124,7 @@ export default {
   }
   &__content {
         width: 100%;
-        height: 100%;
+        flex: 1;
         display: flex;
         flex-direction: column;
         padding:  0 3rem;

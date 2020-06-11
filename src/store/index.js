@@ -7,6 +7,7 @@ import settings from './modules/settings'
 import dashboard from './modules/dashboard'
 import errors from './modules/errors'
 import UI from './modules/UI'
+import expenses from './modules/expenses'
 import { initQuery } from '@/graphQL/initQuery'
 import axios from 'axios'
 
@@ -49,6 +50,7 @@ export default new Vuex.Store({
     setup,
     theme,
     dashboard,
-    errors
+    errors,
+    expenses
   }
 })

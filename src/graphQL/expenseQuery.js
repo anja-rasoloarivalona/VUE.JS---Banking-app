@@ -17,10 +17,10 @@ const editExpenseQuery = input => {
 const query = (action, input) => {
   return `${action}(expenseInput: {
                   _id: "${input._id}",
-                  name: "${input.name}",
+                  category: "${input.genre.category.name}",
+                  subcategory: "${input.genre.subcategory.name}"
                   amount: "${parseInt(input.amount)}",
                   used: "${input.used}",
-                  category: "${input.category}",
                   expenseType: "${input.expenseType}",
                   frequency: {
                       counter: "${input.frequency.counter}",
@@ -30,9 +30,9 @@ const query = (action, input) => {
                   color: "${input.color}"
               }) {
                 _id
-                name
-                amount
                 category
+                subcategory
+                amount
                 expenseType
                 currentPeriod
                 frequency {

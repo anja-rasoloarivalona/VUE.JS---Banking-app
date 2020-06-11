@@ -1,22 +1,18 @@
 <template>
-    <div class="expense" @mouseleave="showList = false">
-        <div class="expense__name">
-            <div class="expense__name__color" :style="{backgroundColor: expense.color}"></div>
-            <div>{{ expense.name}}</div>
-        </div>
-        <div>{{ expense.expenseType}}</div>
-        <div>{{ expense.category}}</div>
-        <!-- <div v-html="expense.expenseType === 'variable' ? 'per month' : `${expense.frequency.counter} ${expense.frequency.period}`"></div> -->
-        <div>${{ fixedExpenseMonthlyAverage | amount}}</div>
-        <div class="expense__cta" @click="showList = !showList" @mouseenter="showList = true">
+    <tr class="expense" @mouseleave="showList = false">
+        <expense type="category" :categoryName="expense.category"/>
+        <expense type="subcategory" :categoryName="expense.category" :subcategoryName="expense.subcategory"/>
+        <td>{{ expense.expenseType}}</td>
+        <td class="expense__amount">
+          <span>${{ fixedExpenseMonthlyAverage | amount}}</span>
+          <div class="expense__cta" @click="showList = !showList" @mouseenter="showList = true">
             <span></span>
             <span></span>
             <span></span>
         </div>
         <ul
-            class="expense__cta__list"
+            class="expense__cta__list box-shadow"
             v-if="showList"
-            :style="{boxShadow: theme.isDark ? 'box-shadow: 1px 5px 12px -1px rgba(15,15,15,1)' : '1px 5px 12px -1px rgb(165, 165, 165)'}"
         >
             <li class="expense__cta__list__item" @click="editExpense(expense)">
                 Edit
@@ -25,11 +21,13 @@
                 Delete
             </li>
         </ul>
-    </div>
+        </td>
+    </tr>
 </template>
 
 <script>
 import { mapMutations, mapGetters } from 'vuex'
+import Expense from './Expense'
 export default {
   data () {
     return {
@@ -39,8 +37,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'frequencyOptions',
-      'theme'
+      'frequencyOptions'
     ]),
     fixedExpenseMonthlyAverage () {
       return this.expense.amount * this.frequencyOptions.counter[this.expense.frequency.counter] * this.frequencyOptions.period[this.expense.frequency.period]
@@ -69,36 +66,32 @@ export default {
     },
     index: Number,
     lastIndex: Number
+  },
+  components: {
+    Expense
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .expense {
-  display: flex;
-  padding: 2rem 0;
-  padding-left: 2rem;
-  position: relative;
   border-bottom: 1px solid var(--lineColor);
-  & > * {
+  border-collapse: collapse;
+
+  & td {
     width: calc(100% / 4);
+    height: 5rem;
     font-size: $font-m;
-    text-transform: capitalize;
+    text-align: start;
+    padding-left: 2rem;
   }
-  &__name {
-    display: flex;
-    align-items: center;
-    position: relative;
-    &__color {
-      width: 1rem;
-      height: 1rem;
-      margin-right: 2rem;
-      border-radius: 0.5rem;
-    }
+  &__amount {
+     position: relative;
   }
+
   &__cta {
     position: absolute;
-    right: 1rem;
+    right: 2rem;
     top: 0;
     bottom: 0;
     margin: auto;
@@ -131,7 +124,7 @@ export default {
         border-radius: .5rem;
         padding: 1rem 0;
         position: absolute;
-        right: 0;
+        right: 1rem;
         top: 100%;
         list-style: none;
         width: 15rem;

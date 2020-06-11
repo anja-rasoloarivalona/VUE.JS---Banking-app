@@ -137,11 +137,11 @@ export default {
               top: 0;
               & .setup__view__content__imgContainer {
                 left: unset;
-                top: 1.5rem;
-                right: 2rem;
+                top: 2.5rem;
+                left: 3rem;
                 margin: unset;
-                width: 7rem;
-                height: 7rem;
+                width: 5rem;
+                height: 5rem;
               }
             }
             &__title {
@@ -155,7 +155,17 @@ export default {
                 margin-top: 3rem;
             }
             &__form {
-              // background: red;
+                width: 100%;
+                display: grid;
+                grid-template-columns: repeat(2, 25rem);
+                grid-template-rows: max-content;
+                grid-auto-rows: max-content;
+                column-gap: 1rem;
+                row-gap: 1rem;
+                align-items: center;
+                justify-content: center;
+                justify-items: center;
+                padding: 1rem 0;
             }
             &__imgContainer {
                 width: 10rem;
@@ -178,6 +188,34 @@ export default {
               // background: green;
               position: absolute;
               bottom: -8rem;
+            }
+            &--main {
+              width: 100%;
+              display: flex;
+              flex-direction: column;
+              padding:  0 3rem;
+              &__title {
+                  display: flex;
+                  align-items: center;
+                  height: 10rem;
+                  margin-bottom: 3rem;
+                  margin-left: 8rem;
+                  color: var(--textColor--dark)
+              }
+              &__add {
+                  position: absolute;
+                  top: 3rem;
+                  right: 3rem;
+                  width: 3rem;
+                  height: 3rem;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  border-radius: 50%;
+                  &:hover {
+                    background: var(--secondaryColor);
+                  }
+              }
             }
         }
     }

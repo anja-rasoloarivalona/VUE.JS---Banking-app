@@ -6,7 +6,7 @@
         <div class="setup__view__content__title">
            <b>Select your reference currency</b>
         </div>
-        <form class="setup__view__content__form">
+        <form>
             <app-select-input
               v-model="currency"
               :options="currenciesList"

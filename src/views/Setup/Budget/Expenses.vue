@@ -7,7 +7,7 @@
         }"
     >
         <div class="setup__view__content__imgContainer">
-            <app-icon name="expense" :size="'xxl'" />
+            <app-icon name="expense" :size="user.expenses.length > 0 ? 'extra-large' : 'xxl'" />
         </div>
 
         <template v-if="user.expenses.length === 0">
@@ -25,8 +25,11 @@
         </template>
 
         <template v-else>
-            <div class="expenses__content">
-              <h1 class="expenses__content__title">Your expenses</h1>
+            <div class="setup__view__content--main">
+              <h1 class="setup__view__content--main__title">Your expenses</h1>
+              <div class="setup__view__content--main__add" @mouseenter="addHovered = true" @mouseleave="addHovered = false">
+                  <app-icon name="add" :color="addHovered ? 'white' : 'secondary'" size="extra-large"/>
+              </div>
               <expense-table :expenses="user.expenses"/>
             </div>
         </template>
@@ -46,6 +49,7 @@ import AppCategoryInput from '@/components/Input/CategoryInput/CategoryInput'
 export default {
   data () {
     return {
+      addHovered: false,
       loading: false,
       expense: {
         genre: {
@@ -106,35 +110,8 @@ export default {
 .expenses {
     width: 60%;
     max-width: 60rem;
-  &__form {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(2, 25rem);
-    grid-template-rows: max-content;
-    grid-auto-rows: max-content;
-    column-gap: 1rem;
-    row-gap: 1rem;
-    align-items: center;
-    justify-content: center;
-    justify-items: center;
-    padding: 1rem 0;
-    & label.frequency, & label.category-input-container {
+  & label.frequency, & label.category-input-container {
       grid-column: 1 / -1;
-    }
   }
-  &__content {
-        width: 100%;
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        padding:  0 3rem;
-        &__title {
-            display: flex;
-            align-items: center;
-            height: 10rem;
-            color: var(--textColor--dark);
-            margin-bottom: 3rem;
-        }
-    }
 }
 </style>

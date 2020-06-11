@@ -7,13 +7,13 @@
         }"
     >
         <div class="setup__view__content__imgContainer">
-            <app-icon name="income" :size="'xxl'" />
+            <app-icon name="income" :size="user.incomes.length > 0 ? 'extra-large' : 'xxl'" />
         </div>
         <template v-if="user.incomes.length === 0">
           <div class="setup__view__content__title">
                   <b>Add income</b>
           </div>
-          <form class="setup__view__content__form incomes__form">
+          <form class="setup__view__content__form">
             <app-basic-input v-model="income.name" id="Name"/>
             <app-basic-input v-model="income.amount" id="Amount" />
             <app-date-input v-model="income.lastPayout" id="Last payout" />
@@ -24,8 +24,11 @@
           </form>
         </template>
         <template v-else>
-            <div class="incomes__content">
-              <h1 class="incomes__content__title">Your incomes</h1>
+            <div class="setup__view__content--main">
+              <h1 class="setup__view__content--main__title">Your incomes</h1>
+              <div class="setup__view__content--main__add" @mouseenter="addHovered = true" @mouseleave="addHovered = false">
+                  <app-icon name="add" :color="addHovered ? 'white' : 'secondary'" size="extra-large"/>
+              </div>
               <income-table :incomes="user.incomes"/>
             </div>
         </template>
@@ -44,6 +47,7 @@ import IncomeTable from '@/components/UI/Income/IncomeTable'
 export default {
   data () {
     return {
+      addHovered: false,
       loading: false,
       income: {
         name: '',
@@ -96,35 +100,8 @@ export default {
 .incomes {
     width: 60%;
     max-width: 60rem;
-  &__form {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(2, 25rem);
-    grid-template-rows: max-content;
-    grid-auto-rows: max-content;
-    column-gap: 1rem;
-    row-gap: 1rem;
-    align-items: center;
-    justify-content: center;
-    justify-items: center;
-    padding: 1rem 0;
-    & label.frequency {
+  & label.frequency {
       grid-column: 1 / -1;
-    }
   }
-  &__content {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        padding:  0 3rem;
-        &__title {
-            display: flex;
-            align-items: center;
-            height: 10rem;
-            color: var(--textColor--dark);
-            margin-bottom: 3rem;
-        }
-    }
 }
 </style>

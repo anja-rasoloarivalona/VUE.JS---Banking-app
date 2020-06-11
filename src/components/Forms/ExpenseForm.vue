@@ -2,20 +2,19 @@
     <div class="expense-form">
       <slot />
       <form>
-        <app-basic-input v-model="expense.name" id="name" />
-        <app-basic-input v-model="expense.amount" id="amount"  />
-        <app-basic-input v-model="expense.category" id="category" />
-        <app-select-input v-model="expense.expenseType" id="Expense Type"  :options="['variable', 'fixed']"/>
-        <app-basic-input v-model="expense.used" id="used"  v-if="expense.expenseType === 'variable'"/>
-        <app-frequency-input v-model="expense.frequency" id="frequency" v-if="expense.expenseType === 'fixed'"/>
-        <app-date-input v-model="expense.lastPayout" id="last payout" v-if="expense.expenseType === 'fixed'"/>
+        <app-category-input v-model="expense.genre"/>
+        <app-basic-input v-model="expense.amount" :id="expense.expenseType === 'Variable' ? 'Amount per month' : 'Amount per transaction'" />
+        <app-select-input v-model="expense.expenseType" id="Expense Type"  :options="['Variable', 'Fixed']"/>
+        <app-basic-input v-model="expense.used" id="Amount spent this month"  v-if="expense.expenseType === 'Variable'"/>
+        <app-frequency-input v-model="expense.frequency" id="Frequency" v-if="expense.expenseType === 'Fixed'"/>
+        <app-date-input v-model="expense.lastPayout" id="Last payout" v-if="expense.expenseType === 'Fixed'"/>
       </form>
       <div class="expense-form__cta">
             <app-btn normal secondary v-if="isCancelBtnDisplayed" @click.native="$emit('hideForm')">
                 Cancel
             </app-btn>
             <app-btn normal primary @click.native="submit" >
-                <span v-if="!loading" v-text="editedExpense ? 'Edit' : 'Add'"></span>
+                <div v-if="!loading" v-text="editedExpense ? 'Edit' : 'Add'"></div>
                 <app-spinner v-else></app-spinner>
             </app-btn>
       </div>
@@ -24,16 +23,23 @@
 
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex'
+import AppCategoryInput from '@/components/Input/CategoryInput/CategoryInput'
 export default {
   data () {
     return {
       loading: false,
       expense: {
-        name: '',
+        genre: {
+          category: {
+
+          },
+          subcategory: {
+
+          }
+        },
         amount: 0,
-        category: '',
         used: 0,
-        expenseType: 'variable',
+        expenseType: 'Variable',
         lastPayout: new Date(),
         frequency: {
           counter: 'once',
@@ -46,8 +52,7 @@ export default {
   computed: {
     ...mapGetters([
       'user',
-      'editedExpense',
-      'secondaryColors'
+      'editedExpense'
     ])
   },
   mounted () {
@@ -58,8 +63,6 @@ export default {
         autoWriting: this.editedExpense.autoWriting ? 'yes' : 'no',
         notification: this.editedExpense.notification ? 'yes' : 'no'
       }
-    } else {
-      this.expense.color = this.secondaryColors[this.user.expenses.length]
     }
   },
   methods: {
@@ -93,6 +96,9 @@ export default {
   props: {
     edited: Object,
     isCancelBtnDisplayed: Boolean
+  },
+  components: {
+    AppCategoryInput
   }
 }
 </script>
@@ -100,14 +106,22 @@ export default {
 <style lang="scss" scoped>
 .expense-form {
   & form {
+      width: 100%;
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, 25rem);
       grid-template-rows: max-content;
       grid-auto-rows: max-content;
-      column-gap: 2rem;
+      column-gap: 1rem;
       row-gap: 1rem;
-      & .input.frequency {
-        grid-column: 1 / 3;
+      align-items: center;
+      justify-content: center;
+      justify-items: center;
+      padding: 1rem 0;
+      & label {
+        width: 100%
+      }
+      & label.frequency, & label.category-input-container {
+      grid-column: 1 / -1;
       }
   }
   &__cta {

@@ -2,20 +2,20 @@
   <div class="income-form">
       <slot />
       <form>
-          <app-basic-input v-model="income.name" id="name"/>
-          <app-basic-input v-model="income.amount" id="amount" />
-          <app-date-input v-model="income.lastPayout" id="last payout" />
-          <app-basic-input v-model="income.from" id="from" />
-          <app-select-input v-model="income.autoWriting" id="auto writing" :options="['yes', 'no']" />
-          <app-select-input v-model="income.notification" id="notification" :options="['yes', 'no']" />
-          <app-frequency-input v-model="income.frequency" id="frequency"/>
+          <app-basic-input v-model="income.name" id="Name"/>
+          <app-basic-input v-model="income.amount" id="Amount" />
+          <app-date-input v-model="income.lastPayout" id="Last payout" />
+          <app-basic-input v-model="income.from" id="From" />
+          <app-select-input v-model="income.autoWriting" id="Auto writing" :options="['yes', 'no']" />
+          <app-select-input v-model="income.notification" id="Notification" :options="['yes', 'no']" />
+          <app-frequency-input v-model="income.frequency" id="Frequency"/>
       </form>
       <div class="income-form__cta">
             <app-btn normal secondary v-if="isCancelBtnDisplayed" @click.native="close">
                 Cancel
             </app-btn>
             <app-btn normal primary @click.native="submit" >
-                    <span v-if="!loading" v-text="editedIncome ? 'Edit' : 'Add'"></span>
+                    <div v-if="!loading" v-text="editedIncome ? 'Edit' : 'Add'"></div>
                     <app-spinner v-else></app-spinner>
             </app-btn>
         </div>

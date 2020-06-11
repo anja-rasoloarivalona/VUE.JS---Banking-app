@@ -57,7 +57,7 @@ Vue.filter('amount', function (value) {
   if (res < 0) {
     res = value * -1
   }
-  return res.toLocaleString()
+  return `${res.toLocaleString()} ${store.state.settings.currentCurrency.split('-')[0].trim()}`
 })
 Vue.filter('short-date', function (value) {
   const d = new Date(value)

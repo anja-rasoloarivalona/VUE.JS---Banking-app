@@ -1,5 +1,5 @@
 <template>
-    <div class="setup__view__content" :class="{left: setup.currentSetupStep !== 'currency'}">
+    <div class="setup__view__content setup-currency" :class="{left: setup.currentSetupStep !== 'currency'}">
         <div class="setup__view__content__imgContainer">
             <currency-img />
         </div>
@@ -73,54 +73,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.currency {
-    // width: 50%;
-    // height: 40%;
-    // max-width: 50rem;
-    // background: $color-white;
-    // border-radius: .5rem;
-    // position: absolute;
-    // top: 10rem;
-    // left: 0;
-    // right: 0;
-    // margin: auto;
-    // display: flex;
-    // flex-direction: column;
-    // align-items: center;
-    // padding: 0 6rem;
-    // padding-top: 7rem;
-    // transition: all .3s ease-in;
-
-    // & button {
-    //     position: absolute;
-    //     bottom: -8rem;
-    // }
-    // &__title {
-    //     font-size: 2rem;
-    //     color: var(--textColor--dark);
-    //     margin-bottom: 3rem;
-    // }
-    // &__text {
-    //     font-size: $font-s;
-    //     text-align: center;
-    //     margin-top: 3rem;
-    // }
-    // &__imgContainer {
-    //     width: 10rem;
-    //     height: 10rem;
-    //     border-radius: 50%;
-    //     background: var(--on-surfaceColor);
-    //     position: absolute;
-    //     display: flex;
-    //     align-items: center;
-    //     justify-content: center;
-    //     left: 0;
-    //     right: 0;
-    //     margin: auto;
-    //     top: -5rem;
-    // }
-    // & .label {
-    //     width: 25rem;
-    // }
+.setup-currency {
+  padding-bottom: 4rem;
 }
 </style>

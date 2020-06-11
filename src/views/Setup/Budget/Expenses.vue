@@ -27,7 +27,7 @@
         <template v-else>
             <div class="setup__view__content--main">
               <h1 class="setup__view__content--main__title">Your expenses</h1>
-              <div class="setup__view__content--main__add" @mouseenter="addHovered = true" @mouseleave="addHovered = false">
+              <div class="setup__view__content--main__add" @mouseenter="addHovered = true" @mouseleave="addHovered = false" @click="openBackdrop('expense')">
                   <app-icon name="add" :color="addHovered ? 'white' : 'secondary'" size="extra-large"/>
               </div>
               <expense-table :expenses="user.expenses"/>
@@ -81,7 +81,8 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'setCurrentSetupStep'
+      'setCurrentSetupStep',
+      'openBackdrop'
     ]),
     ...mapActions([
       'addExpense'

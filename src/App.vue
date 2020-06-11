@@ -90,7 +90,7 @@ export default {
 
 <style lang="scss">
 ::-webkit-scrollbar {
-    // display: none !important;
+    display: none !important;
 }
 .app {
   display: grid;

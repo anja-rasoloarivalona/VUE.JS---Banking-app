@@ -1,30 +1,38 @@
 <template>
     <div
-        class="setup__view__content"
+        class="setup__view__content setup-goal"
         :class="{
           right: setup.currentSetupStep !== 'goal'
       }"
     >
-        <div class="setup__view__content__main">
-            <h1 class="setup__view__content__main__title">Goal</h1>
-            <div class="setup__view__content__main__details">To finish, let's setup your goal. We'll determine the earliest date you can achieve it according to your incomes and expenses data</div>
-        </div>
-        <div class="setup__goal setup__view__content__form">
-            <form class="form">
-                <app-basic-input v-model="goal" :id="'How much are you willing to save?'" :disabled="result"/>
-                <div class="setup__goal__result" v-if="result">
-                    <div class="setup__goal__result__key">Earliest date</div>
-                    <div class="setup__goal__result__value">{{ result | short-date }}</div>
-                </div>
-                <div class="form__cta">
-                    <app-btn normal primary @click.native="goalSimulator" v-if="!result">Simulate</app-btn>
-                    <template v-else>
-                        <app-btn normal warning @click.native="result = null">Change</app-btn>
-                        <app-btn normal primary @click.native="completeSetup">Save</app-btn>
-                    </template>
-                </div>
-            </form>
-        </div>
+      <div class="setup__view__content__imgContainer">
+          <app-icon name="goal" size="xxl" />
+      </div>
+      <div class="setup__view__content__title">
+              <b>Set goal</b>
+      </div>
+      <div class="setup__view__content__text" :style="{marginTop: 0, marginBottom: '2rem'}">
+            <div>Based on your income and expenses, you can save an average of<span class="setup-goal__amount"> {{ userBudgetPlan.monthlySavings | amount }}</span> per month</div>
+            <div>How much do you need to achieve your next goal?</div>
+      </div>
+      <form>
+          <app-basic-input v-model="goal"  id="Amount"/>
+      </form>
+      <div class="setup__view__content__cta">
+          <template v-if="isMonthlySavingsPositive">
+               <app-btn normal secondary>Later</app-btn>
+              <app-btn normal primary @click.native="goalSimulator">
+                  Simulate
+              </app-btn>
+          </template>
+          <template v-else>
+              <app-btn normal primary>
+                  Got it
+              </app-btn>
+          </template>
+
+      </div>
+
     </div>
 </template>
 
@@ -35,6 +43,8 @@ import { mapGetters, mapMutations } from 'vuex'
 export default {
   data () {
     return {
+      isSettingGoal: false,
+      isMonthlySavingsPositive: false,
       goal: 0,
       result: null
     }
@@ -42,8 +52,31 @@ export default {
   computed: {
     ...mapGetters([
       'setup',
-      'user'
-    ])
+      'user',
+      'frequencyOptions'
+    ]),
+    userBudgetPlan () {
+      let monthlyIncomes = 0
+      let monthlyExpenses = 0
+
+      this.user.incomes.forEach(income => {
+        monthlyIncomes += income.amount * this.frequencyOptions.period[income.frequency.period] * this.frequencyOptions.counter[income.frequency.counter]
+      })
+      this.user.expenses.forEach(expense => {
+        monthlyExpenses += expense.amount * this.frequencyOptions.period[expense.frequency.period] * this.frequencyOptions.counter[expense.frequency.counter]
+      })
+      return {
+        monthlyIncomes: monthlyIncomes,
+        monthlyExpenses: monthlyExpenses,
+        monthlySavings: monthlyIncomes - monthlyExpenses
+      }
+    }
+  },
+  mounted () {
+    if (this.userBudgetPlan.monthlySavings > 0) {
+      this.isMonthlySavingsPositive = true
+    }
+    console.log('user income', this.user.incomes)
   },
   methods: {
     ...mapMutations([
@@ -80,7 +113,7 @@ export default {
       })
       // Prepare expenses data for the simulation
       this.user.expenses.forEach(expense => {
-        if (expense.expenseType === 'variable') {
+        if (expense.expenseType === 'Variable') {
           const budget = expense.amount
           const used = expense.used
           if (budget > used) {
@@ -106,10 +139,10 @@ export default {
       // Once the simulation is finished, the result will be stored in this variable
       let result
       // Launch simulation
+
       while (sumTotal < this.goal) {
         const currentTransaction = transactionsData[0]
         sumTotal += currentTransaction.amount
-        console.log(sumTotal)
         if (sumTotal >= this.goal) {
           result = currentTransaction.nextPayout
         } else {
@@ -120,6 +153,7 @@ export default {
         }
       }
       this.result = result
+      console.log('goal date', this.result)
     },
     saveGoal: async function () {
       const graphqlQuery = {
@@ -153,35 +187,16 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.setup__view__content__form.setup__goal  {
-    width: 40rem !important;
-    & .form {
-        width: 100%;
-        &__cta {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-    }
+<style lang="scss" scoped>
+.setup-goal {
+  width: 60%;
+  max-width: 60rem;
+  padding-bottom: 4rem;
+  &__amount {
+  color: var(--mainColor);
+  margin: 0 .3rem;
 }
-.setup__goal__result {
-    font-size: $font-m;
-    &__key {
-        margin-bottom: .5rem;
-        color: var(--mainColor);
-    }
-    &__value {
-        height: 4rem;
-        color: var(--textColor--dark);
-        border: none;
-        padding-left: 1rem;
-        border-radius: 0.5rem;
-        background: var(--backgroundColor);
-        border: 1px solid var(--mainColor);
-        display: flex;
-        align-items: center;
-    }
+
 }
+
 </style>

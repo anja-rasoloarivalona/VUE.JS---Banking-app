@@ -1,8 +1,8 @@
 const state = {
-  setupType: 'general', // GENERAL OR BUDGET - BUDGET IS OPTIONNAL
-  // setupType: 'budget',
-  currentSetupStep: 'currency',
-  // currentSetupStep: 'expenses',
+  // setupType: 'general', // GENERAL OR BUDGET - BUDGET IS OPTIONNAL
+  setupType: 'budget',
+  // currentSetupStep: 'currency',
+  currentSetupStep: 'goal',
   generalSetupSteps: ['currency', 'wallets', 'budget'],
   budgetSetupSteps: ['currency', 'wallets', 'incomes', 'expenses', 'goal'],
   displayWelcome: true

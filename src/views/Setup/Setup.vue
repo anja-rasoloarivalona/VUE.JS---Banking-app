@@ -153,6 +153,7 @@ export default {
                 font-size: $font-s;
                 text-align: center;
                 margin-top: 3rem;
+                line-height: 1.4;
             }
             &__form {
                 width: 100%;

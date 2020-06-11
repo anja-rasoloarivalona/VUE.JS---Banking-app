@@ -26,7 +26,7 @@
         <template v-else>
             <div class="setup__view__content--main">
               <h1 class="setup__view__content--main__title">Your incomes</h1>
-              <div class="setup__view__content--main__add" @mouseenter="addHovered = true" @mouseleave="addHovered = false">
+              <div class="setup__view__content--main__add" @mouseenter="addHovered = true" @mouseleave="addHovered = false" @click="openBackdrop('income')">
                   <app-icon name="add" :color="addHovered ? 'white' : 'secondary'" size="extra-large"/>
               </div>
               <income-table :incomes="user.incomes"/>

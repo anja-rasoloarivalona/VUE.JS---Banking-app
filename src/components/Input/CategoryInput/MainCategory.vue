@@ -1,5 +1,5 @@
 <template>
-    <label class="category-input">
+    <label class="category-input" v-click-outside="closeList">
         <span>Category</span>
         <div
           class="category-input__select"
@@ -17,9 +17,9 @@
                 <div class="category-input__select__value__icon" :style="{backgroundColor: value.color}" v-if="value.iconName">
                   <fa-icon :icon="value.iconName" size="sm" :style="{ color: 'white' }"/>
                 </div>
-                <div>{{ value.name }}</div>
+                <div>{{ $t( value.i18 ) }}</div>
             </div>
-            <ul class="category-input__select__list box-shadow" v-if="showList">
+            <ul class="category-input__select__list box-shadow" v-show="showList">
                 <li
                     class="category-input__select__list__item"
                     v-for="item in displayedExpensesList" :key="item.name"
@@ -29,7 +29,7 @@
                          <fa-icon :icon="item.iconName" size="sm" :style="{ color: 'white' }"/>
                     </div>
                     <div class="category-input__select__list__item__name">
-                        {{ item.name}}
+                        {{ $t( item.i18 )}}
                     </div>
                 </li>
             </ul>
@@ -62,6 +62,11 @@ export default {
   methods: {
     toggleList () {
       this.showList = !this.showList
+    },
+    closeList: function () {
+      if (this.showList) {
+        this.showList = false
+      }
     },
     selectCategory (value) {
       this.showList = false

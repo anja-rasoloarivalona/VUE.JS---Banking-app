@@ -1,7 +1,7 @@
 <template>
     <label class="category-input-container">
         <main-category v-model="value.category" :expensesList="expensesList" />
-        <sub-category v-model="value.subcategory" :subcategoryList="subcategoryList" :color="value.category.color" />
+        <sub-category v-model="value.subcategory" :subcategoryList="subcategoryList" :category="value.category" />
     </label>
 </template>
 
@@ -10,11 +10,6 @@ import { mapGetters } from 'vuex'
 import MainCategory from './MainCategory'
 import SubCategory from './SubCategory'
 export default {
-  data () {
-    return {
-
-    }
-  },
   computed: {
     ...mapGetters([
       'expensesList'

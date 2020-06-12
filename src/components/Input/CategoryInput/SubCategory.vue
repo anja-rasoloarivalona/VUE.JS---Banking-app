@@ -8,13 +8,13 @@
             }">
             <div
               class="category-input__select__value"
-              :class="{'bg-default': theme.isLight, 'bg-on-surfaceColor': theme.isDark}"
+              :class="{'bg-default': theme.isLight, 'bg-on-surfaceColor': theme.isDark, disabled: !category.name }"
               @click.stop="toggleList"
             >
-                <div class="category-input__select__value__icon" :style="{backgroundColor: color}" v-if="value.iconName">
+                <div class="category-input__select__value__icon" :style="{backgroundColor: category.color}" v-if="value.iconName">
                   <fa-icon :icon="value.iconName" size="sm" :style="{ color: 'white' }"/>
                 </div>
-               <div>{{ value.name }}</div>
+               <div>{{ $t(value.i18) }}</div>
             </div>
             <ul class="category-input__select__list  box-shadow" v-if="showList">
                 <li
@@ -22,11 +22,11 @@
                     v-for="item in displayedSubcategoryList" :key="item.name"
                     @click="selectSubcategory(item)"
                 >
-                    <div class="category-input__select__list__item__icon" :style="{backgroundColor: color}">
+                    <div class="category-input__select__list__item__icon" :style="{backgroundColor: category.color}">
                          <fa-icon :icon="item.iconName" size="sm" :style="{ color: 'white' }"/>
                     </div>
                     <div class="category-input__select__list__item__name">
-                        {{ item.name}}
+                        {{ $t(item.i18)}}
                     </div>
                 </li>
             </ul>
@@ -63,6 +63,13 @@ export default {
       return this.subcategoryList.filter(expense => expense.name !== this.value.name)
     }
   },
+  watch: {
+    'category.name': function (value) {
+      if (value !== '') {
+        this.showList = true
+      }
+    }
+  },
   methods: {
     toggleList () {
       this.showList = !this.showList
@@ -75,7 +82,7 @@ export default {
   props: {
     value: Object,
     subcategoryList: Array,
-    color: String
+    category: Object
   }
 }
 </script>
@@ -103,6 +110,9 @@ export default {
             position: relative;
             font-size: $font-m;
             cursor: pointer;
+            &.disabled {
+              cursor: not-allowed;
+            }
             &__icon {
               border-radius: 50%;
               width: 2rem;

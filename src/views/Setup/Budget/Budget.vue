@@ -4,7 +4,7 @@
     }">
         <incomes />
         <expenses />
-        <goal />
+        <goal @setup-completed="$emit('setup-completed')"/>
     </div>
 </template>
 

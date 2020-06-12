@@ -6,7 +6,7 @@
         </div>
         <div class="completed__cta">
             <app-btn normal primary @click.native="retrieveDashboardLayout">
-              <span v-if="!loading">Get started</span>
+              <div v-if="!loading">Get started</div>
               <app-spinner v-else></app-spinner>
             </app-btn>
         </div>

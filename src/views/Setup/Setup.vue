@@ -10,7 +10,7 @@
 
         <div class="setup__view">
           <general />
-          <budget v-if="setup.setupType === 'budget'"/>
+          <budget v-if="setup.setupType === 'budget'" @setup-completed="loadCompleted"/>
         </div>
     </div>
 </template>

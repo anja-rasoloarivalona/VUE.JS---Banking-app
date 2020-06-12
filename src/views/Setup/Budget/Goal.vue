@@ -11,25 +11,30 @@
       <div class="setup__view__content__title">
               <b>Set goal</b>
       </div>
-      <div class="setup__view__content__text" :style="{marginTop: 0, marginBottom: '2rem'}">
+      <div class="setup__view__content__text" :style="{marginTop: 0, marginBottom: '2rem'}" v-if="isMonthlySavingsPositive">
             <div>Based on your income and expenses, you can save an average of<span class="setup-goal__amount"> {{ userBudgetPlan.monthlySavings | amount }}</span> per month</div>
             <div>How much do you need to achieve your next goal?</div>
       </div>
       <form>
           <app-basic-input v-model="goal"  id="Amount"/>
       </form>
+      <div class="setup-goal__result" v-if="result">
+          <div>You will reach your goal on</div>
+          <div class="setup-goal__result__value">{{ displayedResult }}</div>
+      </div>
       <div class="setup__view__content__cta">
-          <template v-if="isMonthlySavingsPositive">
+          <template v-if="isMonthlySavingsPositive && !result">
                <app-btn normal secondary>Later</app-btn>
               <app-btn normal primary @click.native="goalSimulator">
                   Simulate
               </app-btn>
           </template>
-          <template v-else>
-              <app-btn normal primary>
-                  Got it
-              </app-btn>
-          </template>
+          <app-btn normal primary v-else-if="isMonthlySavingsPositive" @click.native="completeSetup">
+              Save
+          </app-btn>
+          <app-btn normal primary v-else>
+              Got it
+          </app-btn>
 
       </div>
 
@@ -43,7 +48,6 @@ import { mapGetters, mapMutations } from 'vuex'
 export default {
   data () {
     return {
-      isSettingGoal: false,
       isMonthlySavingsPositive: false,
       goal: 0,
       result: null
@@ -55,6 +59,9 @@ export default {
       'user',
       'frequencyOptions'
     ]),
+    displayedResult () {
+      return this.result.toString().split(' ').splice(0, 4).join(' ')
+    },
     userBudgetPlan () {
       let monthlyIncomes = 0
       let monthlyExpenses = 0
@@ -72,11 +79,17 @@ export default {
       }
     }
   },
+  watch: {
+    goal: function (next, prev) {
+      if (next !== prev && this.result) {
+        this.result = null
+      }
+    }
+  },
   mounted () {
     if (this.userBudgetPlan.monthlySavings > 0) {
       this.isMonthlySavingsPositive = true
     }
-    console.log('user income', this.user.incomes)
   },
   methods: {
     ...mapMutations([
@@ -153,7 +166,6 @@ export default {
         }
       }
       this.result = result
-      console.log('goal date', this.result)
     },
     saveGoal: async function () {
       const graphqlQuery = {
@@ -195,7 +207,25 @@ export default {
   &__amount {
   color: var(--mainColor);
   margin: 0 .3rem;
-}
+  }
+  &__result {
+    margin-top: 3rem;
+    font-size: $font-s;
+    background: var(--mainColor--light);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+    padding: 2rem 0;
+    border-radius: 1rem;
+    color: var(--textColor--dark);
+    &__value {
+      color: var(--mainColor);
+      font-size: $font-m;
+      font-weight: bold;
+      margin-top: .5rem;
+    }
+  }
 
 }
 

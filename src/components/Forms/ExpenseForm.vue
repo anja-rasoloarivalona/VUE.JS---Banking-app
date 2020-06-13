@@ -3,18 +3,18 @@
       <slot />
       <form>
         <app-category-input v-model="expense.genre"/>
-        <app-basic-input v-model="expense.amount" :id="expense.expenseType === 'Variable' ? 'Amount per month' : 'Amount per transaction'" />
-        <app-select-input v-model="expense.expenseType" id="Expense Type"  :options="['Variable', 'Fixed']"/>
-        <app-basic-input v-model="expense.used" id="Amount spent this month"  v-if="expense.expenseType === 'Variable'"/>
-        <app-frequency-input v-model="expense.frequency" id="Frequency" v-if="expense.expenseType === 'Fixed'"/>
-        <app-date-input v-model="expense.lastPayout" id="Last payout" v-if="expense.expenseType === 'Fixed'"/>
+        <app-select-input v-model="expense.expenseType" :id="$t('expenseType')"  :options="[{value: 'Variable', i18: 'variable'}, {value: 'Fixed', i18: 'fixed'}]" i18/>
+        <app-basic-input v-model="expense.amount" :id="expense.expenseType.value === 'Variable' ? $t('amountPerMonth') : $t('amountPerTransaction')" v-if="expense.expenseType !== ''"/>
+        <app-basic-input v-model="expense.used" :id="$t('amountSpentThisMonth')"  v-if="expense.expenseType.value === 'Variable'"/>
+        <app-frequency-input v-model="expense.frequency" :id="$t('frequency')" v-if="expense.expenseType.value === 'Fixed'"/>
+        <app-date-input v-model="expense.lastPayout" :id="$t('lastPaymentDate')" v-if="expense.expenseType.value === 'Fixed'"/>
       </form>
       <div class="expense-form__cta">
             <app-btn normal secondary v-if="isCancelBtnDisplayed" @click.native="$emit('hideForm')">
                 Cancel
             </app-btn>
             <app-btn normal primary @click.native="submit" >
-                <div v-if="!loading" v-text="editedExpense ? 'Edit' : 'Add'"></div>
+                <div v-if="!loading" v-text="editedExpense ? $t('edit') : $t('add')"></div>
                 <app-spinner v-else></app-spinner>
             </app-btn>
       </div>
@@ -39,11 +39,11 @@ export default {
         },
         amount: 0,
         used: 0,
-        expenseType: 'Variable',
+        expenseType: '',
         lastPayout: new Date(),
         frequency: {
-          counter: 'once',
-          period: 'a day'
+          counter: '',
+          period: ''
         },
         color: ''
       }

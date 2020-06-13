@@ -16,7 +16,7 @@
             class="select__value"
             :class="{active: showList, 'disabled': isDisabled,  'bg-white': bgWhite}"
             @click.stop="toggleList">
-              <div v-if="value !== ''">{{ value }}</div>
+              <div v-if="value !== ''">{{ i18 ? $t(value.i18) : value }}</div>
               <div v-else class="select__value__placeholder">{{ placeholder }}</div>
           </div>
           <ul
@@ -26,7 +26,7 @@
               <li v-for="(option, index) in displayedOptions"
                   :key="index" class="select__list__item"
                   @click="selectOption(option)">
-                  {{ option }}
+                  {{ i18 ? $t(option.i18) : option }}
               </li>
           </ul>
       </div>
@@ -67,15 +67,16 @@ export default {
       'theme'
     ]),
     displayedOptions () {
-      return this.options.filter(option => option !== this.value)
+      return this.options.filter(option => option.value !== this.value)
     }
   },
   props: {
-    value: [String, Number],
+    value: [String, Number, Object],
     options: {
       type: Array,
       required: true
     },
+    i18: Boolean,
     id: String,
     bgWhite: Boolean,
     bgGrey: Boolean,
@@ -113,7 +114,6 @@ export default {
     align-items: center;
   }
   & span {
-        width: 10rem;
         margin-bottom: 0.5rem;
         font-size: $font-m;
         color: var(--textColor--dark);

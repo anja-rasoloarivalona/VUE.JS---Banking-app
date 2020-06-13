@@ -1,5 +1,5 @@
 <template>
-    <div class="setup__view__content"
+    <div class="setup__view__content setup-budget"
         :class="{
             right: ['wallets', 'currency'].includes(setup.currentSetupStep),
             left: ['incomes', 'expenses', 'goal'].includes(setup.currentSetupStep)
@@ -8,15 +8,14 @@
              <app-icon name="budget" size="xxl" />
         </div>
         <div class="setup__view__content__title">
-            <b>Set your budget</b>
+            <b>{{$t('setYourBudget')}}</b>
         </div>
         <div class="setup__view__content__text">
-            <div>Your reference currency should be the one you use on a daily basis.</div>
-            <div>Your balance and statistics will be displayed in that currency.</div>
+            <div>{{$t('byPlanningYourBudgetYouWillhaveMoreControl')}}</div>
         </div>
         <div class="setup__view__content__cta">
-            <app-btn normal secondary>Later</app-btn>
-            <app-btn normal primary @click.native="startSetBudget">Set budget</app-btn>
+            <app-btn normal secondary>{{$t('later')}}</app-btn>
+            <app-btn normal primary @click.native="startSetBudget">{{$t('setBudget')}}</app-btn>
         </div>
     </div>
 </template>
@@ -43,17 +42,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.budget__cta {
-    margin-top: 3rem;
-    font-size: $font-m;
-    color: var(--mainColor);
-    background: transparent;
-    padding: 1rem 2rem;
-    border-radius: .5rem;
-    justify-self: center;
-    cursor: pointer;
-    &:hover {
-        text-decoration: underline;
-    }
+.setup-budget {
+  & .setup__view__content__text {
+    margin-top: 0;
+    margin-bottom: 3rem;
+  }
 }
 </style>

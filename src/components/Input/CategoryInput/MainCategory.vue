@@ -1,6 +1,6 @@
 <template>
     <label class="category-input" v-click-outside="closeList">
-        <span>Category</span>
+        <span>{{$t('category')}}</span>
         <div
           class="category-input__select"
           :class="{
@@ -56,7 +56,13 @@ export default {
       'theme'
     ]),
     displayedExpensesList () {
-      return this.expensesList
+      if (this.value.name) {
+        const list = { ...this.expensesList }
+        delete list[this.value.name]
+        return list
+      } else {
+        return this.expensesList
+      }
       // return this.expensesList.filter(expense => expense.name !== this.value.name)
     }
   },

@@ -11,22 +11,22 @@
 
         <template v-if="user.wallets.length === 0">
             <div class="setup__view__content__title">
-                <b>Add a wallet</b>
+                <b>{{$t('addAWallet')}}</b>
             </div>
             <form class="setup__view__content__form wallets__form">
-                <app-select-input v-model="walletData.type" :options="walletTypeList" id="Type"/>
-                <app-basic-input v-model="walletData.name" id="Name" />
-                <app-basic-input v-model="walletData.amount"  id="Amount"/>
-                <app-basic-input v-model="walletData.limit" id="Limit" v-if="walletData.type === 'Credit card'" />
+                <app-select-input v-model="walletData.type" :options="user.walletTypeList" :id="$t('type')" i18/>
+                <app-basic-input v-model="walletData.name" :id="$t('name')" />
+                <app-basic-input v-model="walletData.amount"  :id="$t('amount')"/>
+                <app-basic-input v-model="walletData.limit" :id="$t('limit')" v-if="walletData.type === 'Credit card'" />
             </form>
             <div class="setup__view__content__text">
-                <div>Your reference currency should be the one you use on a daily basis.</div>
-                <div>Your balance and statistics will be displayed in that currency.</div>
+                <div>{{ $t('aWalletIsTheAssetYouUse')}}</div>
+                <div>{{$t('thereAre3TypesOfWallets')}}.</div>
             </div>
         </template>
         <template v-else>
             <div class="setup__view__content--main">
-                <h1 class="setup__view__content--main__title">Your wallets</h1>
+                <h1 class="setup__view__content--main__title">{{$t('yourWallets')}}</h1>
 
                 <ul class="wallets__list">
                     <li class="wallets__list__item" @click="openBackdrop('wallet')">
@@ -41,7 +41,7 @@
 
         <div class="setup__view__content__cta">
             <app-btn normal primary @click.native="setupWalletAction">
-                {{ user.wallets.length > 0 ? 'Next' : 'Add'}}
+                {{ user.wallets.length > 0 ? $t('next') : $t('add') }}
             </app-btn>
         </div>
     </div>
@@ -57,12 +57,14 @@ export default {
     return {
       loading: false,
       walletData: {
-        type: '',
+        type: {
+          value: '',
+          i18: ''
+        },
         name: '',
         amount: '',
         limit: ''
-      },
-      walletTypeList: ['Debit card', 'Credit card', 'Cash']
+      }
     }
   },
   methods: {

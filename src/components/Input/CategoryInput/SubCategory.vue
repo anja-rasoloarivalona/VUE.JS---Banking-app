@@ -1,6 +1,6 @@
 <template>
     <label class="category-input">
-        <span>Subcategory</span>
+        <span>{{$t('subcategory')}}</span>
         <div class="category-input__select" :class="{
             'all-radius': !showList,
             'top-radius': showList,
@@ -52,6 +52,13 @@ export default {
   model: {
     prop: 'value',
     event: 'click'
+  },
+  watch: {
+    category: function (next, prev) {
+      if (!prev || next.i18 !== prev.i18) {
+        this.showList = true
+      }
+    }
   },
   computed: {
     ...mapGetters([

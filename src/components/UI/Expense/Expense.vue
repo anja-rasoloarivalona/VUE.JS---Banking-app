@@ -5,7 +5,7 @@
             <fa-icon :icon="icon" size="sm" :style="{ color: 'white' }"/>
             </div>
             <div class="expense-name__content__text">
-                {{ type === 'category' ? this.categoryName : this.subcategoryName}}
+                {{ type === 'category' ? $t(this.expensesList[this.categoryName].i18) : $t(this.expensesList[this.categoryName].subcategory[this.subcategoryName].i18) }}
             </div>
         </div>
     </td>

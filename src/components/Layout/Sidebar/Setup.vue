@@ -7,8 +7,8 @@
             :class="{active: setup.currentSetupStep === step}"
             :key="step">
             <div class="setup__sidenav__list__item__details">
-              <div class="setup__sidenav__list__item__details__title"><h2>Step {{ index + 1}}</h2></div>
-              <div class="setup__sidenav__list__item__details__subtitle">{{ step }}</div>
+              <div class="setup__sidenav__list__item__details__title"><h2>{{ $t('step') }} {{ index + 1}}</h2></div>
+              <div class="setup__sidenav__list__item__details__subtitle">{{ $t( step )}}</div>
             </div>
           </li>
         </ul>

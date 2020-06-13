@@ -5,10 +5,12 @@
                 <app-select-input
                     :options="counter"
                     v-model="value.counter"
+                    i18
                 />
                 <app-select-input
                     :options="period"
                     v-model="value.period"
+                    i18
                 />
             </div>
         </label>
@@ -22,8 +24,21 @@ export default {
   },
   data () {
     return {
-      counter: ['once', 'twice', 'three times', 'four times', 'five times', 'six times'],
-      period: ['a day', 'a week', 'every two weeks', 'a month', 'a year']
+      counter: [
+        { value: 'once', i18: 'once' },
+        { value: 'twice', i18: 'twice' },
+        { value: 'three times', i18: 'threeTimes' },
+        { value: 'four times', i18: 'fourTimes' },
+        { value: 'five times', i18: 'fiveTimes' },
+        { value: 'six times', i18: 'sixTimes' }
+      ],
+      period: [
+        { value: 'a day', i18: 'perDay' },
+        { value: 'a week', i18: 'perWeek' },
+        { value: 'every two weeks', i18: 'everyTwoWeeks' },
+        { value: 'a month', i18: 'perMonth' },
+        { value: 'a year', i18: 'perYear' }
+      ]
     }
   }
 }
@@ -43,6 +58,9 @@ span {
 .input__container {
     display: flex;
     justify-content: space-between;
+    & label {
+      width: 100%;
+    }
     & label:first-child {
       margin-right: 1rem;
     }

@@ -12,21 +12,21 @@
 
         <template v-if="user.expenses.length === 0">
           <div class="setup__view__content__title">
-                  <b>Add expense</b>
+                  <b>{{$t('addExpense')}}</b>
           </div>
           <form class="setup__view__content__form expenses__form">
             <app-category-input v-model="expense.genre"/>
-            <app-select-input v-model="expense.expenseType" id="Expense Type"  :options="['Variable', 'Fixed']"/>
-            <app-basic-input v-model="expense.amount" :id="expense.expenseType === 'Variable' ? 'Amount per month' : 'Amount per transaction'"  v-if="expense.expenseType !== ''"/>
-            <app-basic-input v-model="expense.used" id="Amount spent this month"  v-if="expense.expenseType === 'Variable'"/>
-            <app-frequency-input v-model="expense.frequency" id="Frequency" v-if="expense.expenseType === 'Fixed'"/>
-            <app-date-input v-model="expense.lastPayout" id="Last payout" v-if="expense.expenseType === 'Fixed'"/>
+            <app-select-input v-model="expense.expenseType" :id="$t('expenseType')"  :options="[{value: 'Variable', i18: 'variable'}, {value: 'Fixed', i18: 'fixed'}]" i18/>
+            <app-basic-input v-model="expense.amount" :id="expense.expenseType === 'Variable' ? $t('amountPerMonth') : $t('amountPerTransaction')"  v-if="expense.expenseType !== ''"/>
+            <app-basic-input v-model="expense.used" :id="$t('amountSpentThisMonth')"  v-if="expense.expenseType.value === 'Variable'"/>
+            <app-frequency-input v-model="expense.frequency" :id="$t('frequency')" v-if="expense.expenseType.value === 'Fixed'"/>
+            <app-date-input v-model="expense.lastPayout" :id="$t('lastPaymentDate')" v-if="expense.expenseType.value === 'Fixed'"/>
           </form>
         </template>
 
         <template v-else>
             <div class="setup__view__content--main">
-              <h1 class="setup__view__content--main__title">Your expenses</h1>
+              <h1 class="setup__view__content--main__title">{{$t('yourExpenses')}}</h1>
               <div class="setup__view__content--main__add" @mouseenter="addHovered = true" @mouseleave="addHovered = false" @click="openBackdrop('expense')">
                   <app-icon name="add" :color="addHovered ? 'white' : 'secondary'" size="extra-large"/>
               </div>
@@ -36,7 +36,7 @@
 
         <div class="setup__view__content__cta">
             <app-btn normal primary @click.native="setupExpenseAction">
-                {{ user.expenses.length > 0 ? 'Next' : 'Add'}}
+                {{ user.expenses.length > 0 ? $t('next') : $t('add')}}
             </app-btn>
         </div>
     </div>
@@ -66,10 +66,17 @@ export default {
         expenseType: '',
         lastPayout: new Date(),
         frequency: {
-          counter: 'once',
-          period: 'a day'
+          counter: '',
+          period: ''
         },
         color: ''
+      }
+    }
+  },
+  watch: {
+    'expense.genre.category': function (next, prev) {
+      if (next !== prev) {
+        this.expense.genre.subcategory = {}
       }
     }
   },

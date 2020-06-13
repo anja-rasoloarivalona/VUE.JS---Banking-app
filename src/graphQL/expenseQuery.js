@@ -21,10 +21,10 @@ const query = (action, input) => {
                   subcategory: "${input.genre.subcategory.name}"
                   amount: "${parseInt(input.amount)}",
                   used: "${input.used}",
-                  expenseType: "${input.expenseType}",
+                  expenseType: "${input.expenseType.value}",
                   frequency: {
-                      counter: "${input.frequency.counter}",
-                      period: "${input.frequency.period}"
+                      counter: "${input.frequency.counter.value}",
+                      period: "${input.frequency.period.value}"
                   }
                   lastPayout: "${input.lastPayout.toString()}",
                   color: "${input.color}"

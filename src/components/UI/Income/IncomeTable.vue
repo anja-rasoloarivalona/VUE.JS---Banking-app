@@ -3,10 +3,10 @@
         <table>
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Frequency</th>
-                    <th>Amount / transaction</th>
-                    <th>Monthly average</th>
+                    <th>{{$t('name')}}</th>
+                    <th>{{$t('frequency')}}</th>
+                    <th>{{$t('amountPerTransaction')}}</th>
+                    <th>{{$t('monthlyAverage')}}</th>
                 </tr>
             </thead>
         </table>

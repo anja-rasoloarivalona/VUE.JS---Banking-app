@@ -1,12 +1,12 @@
 <template>
-    <div class="expense-table">
+    <div class="setup-table expense-table">
         <table>
             <thead>
                 <tr>
-                    <th>Category</th>
-                    <th>Subcategory</th>
-                    <th>Type</th>
-                    <th>Monthly average</th>
+                    <th>{{$t('category')}}</th>
+                    <th>{{$t('subcategory')}}</th>
+                    <th>{{$t('type')}}</th>
+                    <th>{{$t('monthlyAverage')}}</th>
                 </tr>
             </thead>
         </table>
@@ -40,6 +40,7 @@ export default {
     flex: 1;
     display: flex;
     flex-direction: column;
+    // background: salmon;
     &__scroll {
         max-height: 100%;
         flex: 1;

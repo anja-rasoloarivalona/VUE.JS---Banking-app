@@ -9,28 +9,28 @@
           <app-icon name="goal" size="xxl" />
       </div>
       <div class="setup__view__content__title">
-              <b>Set goal</b>
+              <b>{{$t('setGoal')}}</b>
       </div>
       <div class="setup__view__content__text" :style="{marginTop: 0, marginBottom: '2rem'}" v-if="isMonthlySavingsPositive">
-            <div>Based on your income and expenses, you can save an average of<span class="setup-goal__amount"> {{ userBudgetPlan.monthlySavings | amount }}</span> per month</div>
-            <div>How much do you need to achieve your next goal?</div>
+            <div>{{$t('basedOnYourIncomeAndExpenses')}}<span class="setup-goal__amount"> {{ userBudgetPlan.monthlySavings | amount }}</span> {{$t('permonth')}}</div>
+            <div>{{$t('howMuchDoYouNeedToAchieveYourNextGoal')}}?</div>
       </div>
       <form>
-          <app-basic-input v-model="goal"  id="Amount"/>
+          <app-basic-input v-model="goal"  :id="$t('amount')"/>
       </form>
       <div class="setup-goal__result" v-if="result">
-          <div>You will reach your goal on</div>
+          <div>{{$t('youWillReachYourGoalOn')}}</div>
           <div class="setup-goal__result__value">{{ displayedResult }}</div>
       </div>
       <div class="setup__view__content__cta">
           <template v-if="isMonthlySavingsPositive && !result">
-               <app-btn normal secondary>Later</app-btn>
+               <app-btn normal secondary>{{$t('later')}}</app-btn>
               <app-btn normal primary @click.native="goalSimulator">
-                  Simulate
+                  {{$t('simulate')}}
               </app-btn>
           </template>
           <app-btn normal primary v-else-if="isMonthlySavingsPositive" @click.native="completeSetup">
-              Save
+              {{$t('save')}}
           </app-btn>
           <app-btn normal primary v-else>
               Got it

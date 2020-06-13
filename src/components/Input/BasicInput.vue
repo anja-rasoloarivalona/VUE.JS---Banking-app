@@ -58,7 +58,6 @@ export default {
         flex-direction: column;
     }
     & span {
-        // width: 10rem;
         margin-bottom: 0.5rem;
         font-size: $font-m;
         color: var(--textColor--dark);

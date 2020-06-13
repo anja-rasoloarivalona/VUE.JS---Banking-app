@@ -1,10 +1,10 @@
 <template>
  <tr class="income" @mouseleave="showList = false">
     <td class="income__name"> {{ income.name }} </td>
-    <td>{{ income.frequency.counter}} {{income.frequency.period}}</td>
-    <td class="income__amount">${{ income.amount | amount }}</td>
+    <td>{{$t(displayedCounter)}} {{$t(displayedPeriod)}}</td>
+    <td class="income__amount">{{ income.amount | amount }}</td>
     <td>
-        <span>${{ monthlyAverage | amount }}</span>
+        <span>{{ monthlyAverage | amount }}</span>
         <div class="income__cta" @click="showList = !showList" @mouseenter="showList = true">
             <span></span>
             <span></span>
@@ -13,8 +13,8 @@
         <ul class="income__cta__list"
             v-if="showList"
             :style="{boxShadow: theme.isDark ? 'box-shadow: 1px 5px 12px -1px rgba(15,15,15,1)' : '1px 5px 12px -1px rgb(165, 165, 165)'}">
-                <li class="income__cta__list__item" @click="editIncome(income)"> Edit </li>
-                <li class="income__cta__list__item"> Delete</li>
+                <li class="income__cta__list__item" @click="editIncome(income)"> {{$t('edit')}} </li>
+                <li class="income__cta__list__item"> {{$t('delete')}} </li>
         </ul>
     </td>
   </tr>
@@ -25,7 +25,22 @@ import { mapMutations, mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      showList: false
+      showList: false,
+      counter: [
+        { value: 'once', i18: 'once' },
+        { value: 'twice', i18: 'twice' },
+        { value: 'three times', i18: 'threeTimes' },
+        { value: 'four times', i18: 'fourTimes' },
+        { value: 'five times', i18: 'fiveTimes' },
+        { value: 'six times', i18: 'sixTimes' }
+      ],
+      period: [
+        { value: 'a day', i18: 'perDay' },
+        { value: 'a week', i18: 'perWeek' },
+        { value: 'every two weeks', i18: 'everyTwoWeeks' },
+        { value: 'a month', i18: 'perMonth' },
+        { value: 'a year', i18: 'perYear' }
+      ]
     }
   },
   methods: {
@@ -43,6 +58,26 @@ export default {
       'theme',
       'frequencyOptions'
     ]),
+    displayedCounter () {
+      let counter = ''
+      this.counter.find((c, index) => {
+        if (c.value === this.income.frequency.counter) {
+          counter = this.counter[index].i18
+          return true
+        }
+      })
+      return counter
+    },
+    displayedPeriod () {
+      let period = ''
+      this.period.find((c, index) => {
+        if (c.value === this.income.frequency.period) {
+          period = this.period[index].i18
+          return true
+        }
+      })
+      return period
+    },
     monthlyAverage () {
       return this.income.amount * this.frequencyOptions.period[this.income.frequency.period] * this.frequencyOptions.counter[this.income.frequency.counter]
     }

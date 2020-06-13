@@ -4,7 +4,7 @@
             <currency-img />
         </div>
         <div class="setup__view__content__title">
-           <b>Select your reference currency</b>
+           <b>{{$t('selectYourReferenceCurrency')}}</b>
         </div>
         <form>
             <app-select-input
@@ -16,12 +16,12 @@
             />
         </form>
         <div class="setup__view__content__text">
-            <div>Your reference currency should be the one you use on a daily basis.</div>
-            <div>Your balance and statistics will be displayed in that currency.</div>
+            <div>{{ $t('yourReferenceCurrencyShouldBeTheOne') }}.</div>
+            <div>{{ $t('yourBalanceAndStatisticsWillBeDisplayed')}}.</div>
         </div>
         <div class="setup__view__content__cta">
           <app-btn normal primary :disabled="currency === ''" @click.native="saveCurrency">
-              Next
+              {{ $t('next')}}
           </app-btn>
         </div>
     </div>

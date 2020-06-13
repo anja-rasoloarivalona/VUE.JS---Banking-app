@@ -21,12 +21,12 @@ const query = (action, input) => {
                 amount: "${parseInt(input.amount)}",
                 from: "${input.from}",
                 frequency: {
-                    counter: "${input.frequency.counter}",
-                    period: "${input.frequency.period}"
+                    counter: "${input.frequency.counter.value}",
+                    period: "${input.frequency.period.value}"
                 }
                 lastPayout: "${input.lastPayout.toString()}",
-                autoWriting: "${input.autoWriting}",
-                notification: "${input.notification}",
+                autoWriting: "${input.autoWriting.value}",
+                notification: "${input.notification.value}",
                 color: "${input.color}"
             }) {
                 _id

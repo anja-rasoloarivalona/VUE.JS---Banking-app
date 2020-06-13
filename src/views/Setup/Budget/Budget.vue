@@ -36,6 +36,7 @@ export default {
     top: 0;
     left: 0;
      transition: all .5s ease-in;
+    //  background: violet;
     &.right {
       transform: translateX(100vw);
     }

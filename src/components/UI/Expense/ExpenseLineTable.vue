@@ -2,9 +2,9 @@
     <tr class="expense" @mouseleave="showList = false">
         <expense type="category" :categoryName="expense.category" />
         <expense type="subcategory" :categoryName="expense.category" :subcategoryName="expense.subcategory"/>
-        <td>{{ expense.expenseType}}</td>
+        <td>{{$t(expensesList[expense.expenseType])}} </td>
         <td class="expense__amount">
-          <span>${{ fixedExpenseMonthlyAverage | amount}}</span>
+          <span>{{ fixedExpenseMonthlyAverage | amount}}</span>
           <div class="expense__cta" @click="showList = !showList" @mouseenter="showList = true">
             <span></span>
             <span></span>
@@ -15,10 +15,10 @@
             v-if="showList"
         >
             <li class="expense__cta__list__item" @click="editExpense(expense)">
-                Edit
+                {{$t('edit')}}
             </li>
             <li class="expense__cta__list__item">
-                Delete
+                {{$t('delete')}}
             </li>
         </ul>
         </td>
@@ -32,7 +32,11 @@ export default {
   data () {
     return {
       showList: false,
-      isLast: false
+      isLast: false,
+      expensesList: {
+        Variable: 'variable',
+        Fixed: 'fixed'
+      }
     }
   },
   computed: {

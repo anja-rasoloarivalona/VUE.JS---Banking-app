@@ -10,7 +10,20 @@ const state = {
   wallets: [],
   incomes: [],
   expenses: [],
-  monthlyReports: []
+  monthlyReports: [],
+  walletTypeList: [
+    {
+      value: 'Debit card',
+      i18: 'debitCard'
+    }, {
+      value: 'Credit card',
+      i18: 'creditCard'
+    },
+    {
+      value: 'Cash',
+      i18: 'cash'
+    }
+  ]
 }
 
 const getters = {

@@ -195,6 +195,13 @@ export default {
               display: flex;
               flex-direction: column;
               padding:  0 3rem;
+              padding-bottom: 2rem;
+              // background: blue;
+              flex: 1;
+              & .setup-table {
+                // flex: 1;
+                // height: 100%;
+              }
               &__title {
                   display: flex;
                   align-items: center;

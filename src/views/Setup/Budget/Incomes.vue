@@ -11,21 +11,21 @@
         </div>
         <template v-if="user.incomes.length === 0">
           <div class="setup__view__content__title">
-                  <b>Add income</b>
+                  <b>{{$t('addIncome')}}</b>
           </div>
           <form class="setup__view__content__form">
-            <app-basic-input v-model="income.name" id="Name"/>
-            <app-basic-input v-model="income.amount" id="Amount" />
-            <app-date-input v-model="income.lastPayout" id="Last payout" />
-            <app-basic-input v-model="income.from" id="From" />
-            <app-select-input v-model="income.autoWriting" id="Auto writing" :options="['yes', 'no']" />
-            <app-select-input v-model="income.notification" id="Notification" :options="['yes', 'no']" />
-            <app-frequency-input v-model="income.frequency" id="Frequency"/>
+            <app-basic-input v-model="income.name" :id="$t('name')"/>
+            <app-basic-input v-model="income.amount" :id="$t('amount')" />
+            <app-date-input v-model="income.lastPayout" :id="$t('lastPaymentDate')"/>
+            <app-basic-input v-model="income.from" :id="$t('details')"/>
+            <app-select-input v-model="income.autoWriting" :id="$t('automaticWriting')" :options="yesOrNoList" i18 />
+            <app-select-input v-model="income.notification" :id="$t('notification')" :options="yesOrNoList" i18/>
+            <app-frequency-input v-model="income.frequency" :id="$t('frequency')" />
           </form>
         </template>
         <template v-else>
             <div class="setup__view__content--main">
-              <h1 class="setup__view__content--main__title">Your incomes</h1>
+              <h1 class="setup__view__content--main__title">{{$t('yourIncomes')}}</h1>
               <div class="setup__view__content--main__add" @mouseenter="addHovered = true" @mouseleave="addHovered = false" @click="openBackdrop('income')">
                   <app-icon name="add" :color="addHovered ? 'white' : 'secondary'" size="extra-large"/>
               </div>
@@ -34,7 +34,7 @@
         </template>
         <div class="setup__view__content__cta">
             <app-btn normal primary @click.native="setupIncomeAction">
-                {{ user.incomes.length > 0 ? 'Next' : 'Add'}}
+                {{ user.incomes.length > 0 ? $t('next') : $t('add')}}
             </app-btn>
         </div>
     </div>
@@ -54,13 +54,23 @@ export default {
         amount: 0,
         lastPayout: new Date(),
         from: '',
-        autoWriting: 'yes',
-        notification: 'yes',
+        autoWriting: '',
+        notification: '',
         frequency: {
-          counter: 'once',
-          period: 'a day'
+          counter: '',
+          period: ''
         }
-      }
+      },
+      yesOrNoList: [
+        {
+          value: 'yes',
+          i18: 'yes'
+        },
+        {
+          value: 'no',
+          i18: 'no'
+        }
+      ]
     }
   },
   computed: {

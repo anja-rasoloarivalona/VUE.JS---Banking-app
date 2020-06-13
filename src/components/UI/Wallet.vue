@@ -19,7 +19,7 @@
     <div class="wallet__name">{{wallet.name}}</div>
     <div class="wallet__amount" :class="{'txt-mainColor': theme.isDark}" v-if="!ghost">{{wallet.amount | amount }}</div>
     <div class="wallet__amount" :class="{'txt-mainColor': theme.isDark}" v-else>$***</div>
-    <div class="wallet__type" :class="{'txt-darkColor': theme.isDark}">{{wallet.walletType}}</div>
+    <div class="wallet__type" :class="{'txt-darkColor': theme.isDark}">{{$t(walletType)}}</div>
   </div>
 </template>
 
@@ -39,7 +39,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'theme'
+      'theme',
+      'user'
     ]),
     boxShadow () {
       if (this.theme.isDark) {
@@ -47,6 +48,16 @@ export default {
       } else {
         return '2px 2px 3px #b8b7b7, -3px -3px 7px #ebebeb'
       }
+    },
+    walletType () {
+      let walletType = ''
+      this.user.walletTypeList.find((type, index) => {
+        if (type.value === this.wallet.walletType) {
+          walletType = this.user.walletTypeList[index].i18
+          return true
+        }
+      })
+      return walletType
     }
   },
   watch: {
@@ -114,9 +125,8 @@ export default {
     &__name {
       display: flex;
       justify-content: flex-end;
-      // color: var(--textColor);
+      color: var(--secondaryColor);
       font-size: $font-s;
-      color: var(--mainColor);
     }
     &__type {
       display: flex;
@@ -126,11 +136,10 @@ export default {
       color: var(--textColor--dark);
     }
     &__amount {
-      // background: orangered;
       display: flex;
       align-items: flex-end;
       font-size: $font-m;
-      color: var(--secondaryColor);
+      color: var(--mainColor);
     }
 }
 </style>

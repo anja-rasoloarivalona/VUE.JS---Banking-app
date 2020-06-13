@@ -1,8 +1,8 @@
 <template>
     <td class="expense-name">
         <div class="expense-name__content">
-            <div class="expense-name__content__icon" :style="{backgroundColor: data.color}">
-            <fa-icon :icon="data.icon" size="sm" :style="{ color: 'white' }"/>
+            <div class="expense-name__content__icon" :style="{backgroundColor: expensesList[categoryName].color}">
+            <fa-icon :icon="icon" size="sm" :style="{ color: 'white' }"/>
             </div>
             <div class="expense-name__content__text">
                 {{ type === 'category' ? this.categoryName : this.subcategoryName}}
@@ -18,26 +18,12 @@ export default {
     ...mapGetters([
       'expensesList'
     ]),
-    data () {
-      const data = {
-        icon: '',
-        color: ''
+    icon () {
+      if (this.type === 'category') {
+        return this.expensesList[this.categoryName].iconName
+      } else {
+        return this.expensesList[this.categoryName].subcategory[this.subcategoryName].iconName
       }
-      this.expensesList.find((category, catIndex) => {
-        if (category.name === this.categoryName) {
-          data.color = this.expensesList[catIndex].color
-          if (this.type === 'category') {
-            data.icon = this.expensesList[catIndex].iconName
-          } else {
-            this.expensesList[catIndex].subcategory.find((subcat, subcatIndex) => {
-              if (subcat.name === this.subcategoryName) {
-                data.icon = this.expensesList[catIndex].subcategory[subcatIndex].iconName
-              }
-            })
-          }
-        }
-      })
-      return data
     }
   },
   props: {

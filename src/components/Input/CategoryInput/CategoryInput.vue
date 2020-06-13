@@ -1,7 +1,7 @@
 <template>
     <label class="category-input-container">
         <main-category v-model="value.category" :expensesList="expensesList" />
-        <sub-category v-model="value.subcategory" :subcategoryList="subcategoryList" :category="value.category" />
+        <sub-category v-model="value.subcategory" :category="category" />
     </label>
 </template>
 
@@ -14,14 +14,8 @@ export default {
     ...mapGetters([
       'expensesList'
     ]),
-    subcategoryList () {
-      let res = []
-      this.expensesList.find((expense, index) => {
-        if (expense.name === this.value.category.name) {
-          res = this.expensesList[index].subcategory
-        }
-      })
-      return res
+    category () {
+      return this.expensesList[this.value.category.name]
     }
   },
   props: {

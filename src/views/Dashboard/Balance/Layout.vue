@@ -2,7 +2,7 @@
     <div class="balance dashboard__section">
         <h2 class="dashboard__section__title">Balance</h2>
         <div class="balance__value">
-            <strong v-if="!ghost">${{userBalance | amount}}</strong>
+            <strong v-if="!ghost">{{userBalance | amount}}</strong>
             <!-- <strong v-else v-html="emoji"></strong> -->
              <strong v-else>$ &#8277;&#8277;&#8277;</strong>
         </div>

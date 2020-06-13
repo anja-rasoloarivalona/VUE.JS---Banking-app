@@ -1,293 +1,242 @@
 const state = {
-  expensesList: [
-    {
-      name: 'Food & Drinks',
+  expensesList: {
+    'Food & Drinks': {
       i18: 'food&Drinks',
       iconName: 'utensils',
-      color: '#E62E3D',
-      subcategory: [
-        {
-          name: 'Bar & Coffee',
+      color: '#059782',
+      subcategory: {
+        'Bar & Coffee': {
           i18: 'bar&Coffee',
           iconName: 'glass-martini-alt'
         },
-        {
-          name: 'Fast Food',
+        'Fast Food': {
           i18: 'fastFood',
           iconName: 'hamburger'
         },
-        {
-          name: 'Groceries',
+        Groceries: {
           i18: 'groceries',
           iconName: 'shopping-bag'
         },
-        {
-          name: 'Restaurant',
+        Restaurant: {
           i18: 'restaurant',
           iconName: 'store'
         }
-      ]
+      }
     },
-    {
-      name: 'Shopping',
+    Shopping: {
       i18: 'shopping',
       iconName: 'shopping-cart',
       color: '#64B5F6',
-      subcategory: [
-        {
-          name: 'Baby & Children',
+      subcategory: {
+        'Baby & Children': {
           i18: 'baby&Children',
           iconName: 'baby-carriage'
         },
-        {
-          name: 'Clothes & Shoes',
+        'Clothes & Shoes': {
           i18: 'clothes&Shoes',
           iconName: 'tshirt'
         },
-        {
-          name: 'Electronic & accessories',
+        'Electronic & accessories': {
           i18: 'electronic&Accessories',
           iconName: 'laptop'
         },
-        {
-          name: 'Flowers & Garden',
+        'Flowers & Garden': {
           i18: 'flowers&Garden',
           iconName: 'seedling'
         },
-        {
-          name: 'Gift',
+        Gift: {
           i18: 'gift',
           iconName: 'gift'
         },
-        {
-          name: 'Health & Beauty',
+        'Health & Beauty': {
           i18: 'health&Beauty',
           iconName: 'dove'
         }
-      ]
+      }
     },
-    {
-      name: 'Housing',
+    Housing: {
       i18: 'housing',
       iconName: 'home',
-      color: '#EE9E1E',
-      subcategory: [
-        {
-          name: 'Home Insurance',
+      color: '#3144af',
+      subcategory: {
+        'Home Insurance': {
           i18: 'homeInsurance',
           iconName: 'house-damage'
         },
-        {
-          name: 'Maintenance & Repairs',
+        'Maintenance & Repairs': {
           i18: 'maintenance&Repairs',
           iconName: 'hammer'
         },
-        {
-          name: 'Rent',
+        Rent: {
           i18: 'rent',
           iconName: 'key'
         },
-        {
-          name: 'Mortgage Loan',
+        'Mortgage Loan': {
           i18: 'mortgageLoan',
           iconName: 'money-check-alt'
         },
-        {
-          name: 'Energy & Public services',
+        'Energy & Public services': {
           i18: 'energy&PublicServices',
           iconName: 'lightbulb'
         },
-        {
-          name: 'Hotel & Airbnb',
+        'Hotel & Airbnb': {
           i18: 'hotel&Airbnb',
           iconName: 'hotel'
         },
-        {
-          name: 'Furniture & Equipment',
+        'Furniture & Equipment': {
           i18: 'furniture&Equipment',
           iconName: 'couch'
         }
-      ]
+
+      }
     },
-    {
-      name: 'Transport',
+    Transport: {
       i18: 'transport',
       iconName: 'bus-alt',
       color: '#B0BFC6',
-      subcategory: [
-        {
-          name: 'Public transportation',
+      subcategory: {
+        'Public transportation': {
           i18: 'publicTransportation',
           iconName: 'subway'
         },
-        {
-          name: 'Taxi',
+        Taxi: {
           i18: 'taxi',
           iconName: 'taxi'
         },
-        {
-          name: 'Plane',
+        Plane: {
           i18: 'plane',
           iconName: 'plane'
         },
-        {
-          name: 'Train',
+        Train: {
           i18: 'train',
           iconName: 'train'
         },
-        {
-          name: 'Car rental',
+        'Car rental': {
           i18: 'carRental',
           iconName: 'house-damage'
         }
-      ]
+      }
     },
-    {
-      name: 'Vehicle',
+    Vehicle: {
       i18: 'vehicle',
       iconName: 'car-alt',
       color: '#CD9713',
-      subcategory: [
-        {
-          name: 'Vehicle insurance',
+      subcategory: {
+        'Vehicle insurance': {
           i18: 'vehicleInsurance',
           iconName: 'file-invoice-dollar'
         },
-        {
-          name: 'Fuel',
+        Fuel: {
           i18: 'fuel',
           iconName: 'gas-pump'
         },
-        {
-          name: 'Vehicle maintenance',
+        'Vehicle maintenance': {
           i18: 'vehicleMaintenance',
           iconName: 'wrench'
         },
-        {
-          name: 'Credit lease',
+        'Credit lease': {
           i18: 'crediLease',
           iconName: 'coins'
         }
-      ]
+      }
     },
-    {
-      name: 'Leisure',
+    Leisure: {
       i18: 'leisure',
       iconName: 'users',
-      color: '#AB46BC',
-      subcategory: [
-        {
-          name: 'Alcohol & Tobacco',
+      color: '#99a1d7',
+      subcategory: {
+        'Alcohol & Tobacco': {
           i18: 'alcohol&Tobacco',
           iconName: 'cocktail'
         },
-        {
-          name: 'Culture',
+        Culture: {
           i18: 'culture',
           iconName: 'book'
         },
-        {
-          name: 'Sporting events',
+        'Sporting events': {
           i18: 'sportingEvents',
           iconName: 'running'
         },
-        {
-          name: 'Shows',
+        Shows: {
           i18: 'shows',
           iconName: 'file-invoice-dollar'
         },
-        {
-          name: 'Donations',
+        Donations: {
           i18: 'donations',
           iconName: 'hand-holding-usd'
         },
-        {
-          name: 'Gymn',
+        Gymn: {
           i18: 'gymn',
           iconName: 'dumbbell'
         }
-      ]
+      }
     },
-    {
-      name: 'Multimedia',
+    Multimedia: {
       i18: 'multimedia',
       iconName: 'tv',
       color: '#2346A2',
-      subcategory: [
-        {
-          name: 'Internet',
+      subcategory: {
+        Internet: {
           i18: 'internet',
           iconName: 'wifi'
         },
-        {
-          name: 'Mobile Phone',
+        'Mobile Phone': {
           i18: 'mobilePhone',
           iconName: 'mobile-alt'
         },
-        {
-          name: 'Movie Streaming',
+        'Movie Streaming': {
           i18: 'movieStreaming',
           iconName: 'tv'
         },
-        {
-          name: 'Music Streaming',
+        'Music Streaming': {
           i18: 'musicStreaming',
           iconName: 'music'
         }
-      ]
+      }
     },
-    {
-      name: 'Investment',
+    Investment: {
       i18: 'investment',
       iconName: 'chart-line',
       color: '#E73F7A',
-      subcategory: [
-        {
-          name: 'Education',
+      subcategory: {
+        Education: {
           i18: 'education',
           iconName: 'user-graduate'
         },
-        {
-          name: 'Real Estate',
+        'Real Estate': {
           i18: 'realEstate',
           iconName: 'building'
         },
-        {
-          name: 'Vehicles & Personal belongings',
+        'Vehicles & Personal belongings': {
           i18: 'vehicles&PersonnalBelongings',
           iconName: 'truck-pickup'
         },
-        {
-          name: 'Financial investment',
+        'Financial investment': {
           i18: 'financialInvestment',
           iconName: 'chart-bar'
         }
-      ]
+      }
     },
-    {
-      name: 'Health',
+    Health: {
       i18: 'health',
       iconName: 'first-aid',
       color: '#6BDD16',
-      subcategory: [
-        {
-          name: 'Health insurance',
+      subcategory: {
+        'Health insurance': {
           i18: 'healthInsurance',
           iconName: 'file-medical'
         },
-        {
-          name: 'Medicines',
+        Medicines: {
           i18: 'medicines',
           iconName: 'prescription-bottle'
         },
-        {
-          name: 'Consulting fees',
+        'Consulting fees': {
           i18: 'consultingFees',
           iconName: 'user-md'
         }
-      ]
+      }
     }
-  ]
+  }
 }
 
 const getters = {

@@ -8,7 +8,7 @@
             }">
             <div
               class="category-input__select__value"
-              :class="{'bg-default': theme.isLight, 'bg-on-surfaceColor': theme.isDark, disabled: !category.name }"
+              :class="{'bg-default': theme.isLight, 'bg-on-surfaceColor': theme.isDark  }"
               @click.stop="toggleList"
             >
                 <div class="category-input__select__value__icon" :style="{backgroundColor: category.color}" v-if="value.iconName">
@@ -19,8 +19,8 @@
             <ul class="category-input__select__list  box-shadow" v-if="showList">
                 <li
                     class="category-input__select__list__item"
-                    v-for="item in displayedSubcategoryList" :key="item.name"
-                    @click="selectSubcategory(item)"
+                    v-for="(item, key) in displayedSubcategoryList" :key="key"
+                    @click="selectSubcategory({name: key, ...item})"
                 >
                     <div class="category-input__select__list__item__icon" :style="{backgroundColor: category.color}">
                          <fa-icon :icon="item.iconName" size="sm" :style="{ color: 'white' }"/>
@@ -33,8 +33,6 @@
         </div>
         <slot />
     </label>
-       <!-- <fa-icon icon="user-secret" size="2x" :style="{ color: 'red' }"/>
-        <fa-icon icon="utensils" size="2x"/> -->
 </template>
 
 <script>
@@ -60,13 +58,12 @@ export default {
       'theme'
     ]),
     displayedSubcategoryList () {
-      return this.subcategoryList.filter(expense => expense.name !== this.value.name)
-    }
-  },
-  watch: {
-    'category.name': function (value) {
-      if (value !== '') {
-        this.showList = true
+      if (this.value.name) {
+        const list = { ...this.category.subcategory }
+        delete list[this.value.name]
+        return list
+      } else {
+        return this.category.subcategory
       }
     }
   },
@@ -81,7 +78,6 @@ export default {
   },
   props: {
     value: Object,
-    subcategoryList: Array,
     category: Object
   }
 }

@@ -1,6 +1,6 @@
 <template>
     <tr class="expense" @mouseleave="showList = false">
-        <expense type="category" :categoryName="expense.category"/>
+        <expense type="category" :categoryName="expense.category" />
         <expense type="subcategory" :categoryName="expense.category" :subcategoryName="expense.subcategory"/>
         <td>{{ expense.expenseType}}</td>
         <td class="expense__amount">

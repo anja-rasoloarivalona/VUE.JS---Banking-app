@@ -1,6 +1,6 @@
 <template>
         <label :for="id" class="label">
-            <span>{{ id }}</span>
+            <span class="label__id">{{ id }}</span>
             <date-picker :id="id" :value="value" @input="updateSelf" />
         </label>
 </template>
@@ -34,19 +34,17 @@ export default {
 </script>
 
 <style lang="scss">
-label {
+.label {
   display: flex;
   flex-direction: column;
-}
-span {
-  width: 100%;
-  margin-bottom: 0.5rem;
-  font-size: 13px;
-  &:first-child {
+  &__id {
+    width: 100%;
+    margin-bottom: 0.5rem;
+    font-size: 13px;
     color: $color-grey--dark;
-  }
-  & input {
-    height: 4rem;
+      & input {
+        height: 4rem;
+      }
   }
 }
 

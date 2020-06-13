@@ -21,7 +21,7 @@
     </td>
     <td class="transaction__amount" :class="{expense: transaction.amount < 0, income: transaction.amount >= 0 }">
         <div>
-          ${{transaction.amount | amount}}
+          {{transaction.amount | amount}}
         </div>
     </td>
     <td class="transaction__status" v-click-outside="closeCtaList">

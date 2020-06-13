@@ -5,16 +5,21 @@
       You do not have variable expenses.<div @click="openBackdrop('expense')">Click here</div>to add a new one.
     </div>
     <div v-else v-for="item in budget" :key="item._id" class="budget__item">
-        <h3 class="budget__item__key">{{ item.name }}</h3>
+        <div class="budget__item__key">
+          <div class="budget__item__key__icon" :style="{backgroundColor: expensesList[item.category].color}">
+            <fa-icon :icon="expensesList[item.category].iconName" size="sm" :style="{ color: 'white' }"/>
+          </div>
+          <!-- {{ item.category }} -->
+        </div>
         <div class="budget__item__barContainer">
           <div class="budget__item__bar" :style="{ width:  item.amount / max * 100 + '%' }">
-              <div class="budget__item__usedbar" :style="{width: item.used * oneDollarWidth + 'vw', background: item.color}">
-                  <span v-if="!ghost">${{ item.used | amount }}</span>
-                  <span v-else>$***</span>
+              <div class="budget__item__usedbar" :style="{width: item.used * oneDollarWidth + 'vw', backgroundColor: expensesList[item.category].color}">
               </div>
+              <!-- <div class="budget__item__bar__value" v-if="!ghost">{{ item.used | amount }}</div>
+              <div class="budget__item__bar__value" v-else>$***</div> -->
           </div>
         </div>
-        <div class="budget__item__max" v-if="!ghost">${{ item.amount | amount }}</div>
+        <div class="budget__item__max" v-if="!ghost">{{ item.amount | amount }}</div>
         <div class="budget__item__max" v-else>$***</div>
     </div>
   </div>
@@ -41,11 +46,11 @@ export default {
     ]),
     setBudget () {
       this.user.expenses.forEach(expense => {
-        if (expense.expenseType === 'variable') {
+        if (expense.expenseType === 'Variable') {
           this.variableBudgetCounter++
           this.budget.push({
             _id: expense._id,
-            name: expense.name,
+            category: expense.category,
             amount: expense.amount,
             used: expense.used,
             color: expense.color
@@ -56,7 +61,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'user'
+      'user',
+      'expensesList'
     ]),
     max () {
       let max = 0
@@ -105,7 +111,20 @@ export default {
             width: 10rem;
             min-width: 10rem;
             text-transform: capitalize;
+            font-size: $font-s;
             color: var(--textColor--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            &__icon {
+              width: 2rem;
+              height: 2rem;
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin-right: .6rem;
+            }
         }
         &__barContainer {
           height: 2rem;
@@ -119,6 +138,17 @@ export default {
             position: relative;
             border-radius: .5rem;
             overflow: hidden;
+            &__value {
+              position: absolute;
+              top: 0;
+              bottom: 0;
+              margin: auto;
+              left: 2rem;
+              z-index: 2;
+              // background: yellow;
+              display: flex;
+              align-items: center;
+            }
         }
         &__usedbar {
             position: absolute;
@@ -132,8 +162,9 @@ export default {
             border-radius: .5rem;
         }
         &__max {
-            margin-left: 2rem;
-            color: var(--textColor)
+            margin-left: 1rem;
+            color: var(--textColor);
+            // background: salmon;
         }
     }
     &__empty {

@@ -14,7 +14,7 @@
                         </div>
                     </div>
                     <div class="active__sidenav__list__item__details">
-                        <div class="active__sidenav__list__item__details__amount">${{ item.value | amount}}</div>
+                        <div class="active__sidenav__list__item__details__amount">{{ item.value | amount}}</div>
                     </div>
                 </li>
             </ul>
@@ -38,7 +38,6 @@ export default {
           subtitle: 'Available',
           value: 0
         },
-        upcoming: null,
         credit: {
           subtitle: 'Used',
           value: 0
@@ -53,7 +52,6 @@ export default {
   created () {
     this.items.upcoming = {
       subtitle: this.upcoming.name,
-      date: this.upcoming.date,
       value: this.upcoming.value
     }
   },
@@ -147,7 +145,7 @@ export default {
               justify-content: flex-end;
               width: 50%;
               &__amount {
-                    font-size: $font-xl;
+                    font-size: $font-m;
                     padding-right: 1rem;
                     font-weight: 600;
               }

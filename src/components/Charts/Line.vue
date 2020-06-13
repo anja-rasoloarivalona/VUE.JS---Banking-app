@@ -14,7 +14,7 @@ export default {
           yAxes: [{
             ticks: {
               beginAtZero: true,
-              stepSize: 2000
+              stepSize: 500
             },
             gridLines: {
               color: ''
@@ -66,10 +66,10 @@ export default {
 
       const d = this.data
       d.datasets.forEach(i => {
-        i.backgroundColor = this.gradient
+        // i.backgroundColor = this.gradient
         i.borderColor = this.gradient1
         i.pointBackgroundColor = this.gradient1
-        i.borderWidth = 1
+        i.borderWidth = 2
         i.lineTension = 0
       })
       this.renderChart(d, this.options)
@@ -82,7 +82,8 @@ export default {
             yAxes: [{
               ticks: {
                 beginAtZero: true,
-                stepSize: 2000
+                stepSize: 500,
+                precision: 0
               },
               gridLines: {
                 color: '#2e2e2e'
@@ -102,7 +103,7 @@ export default {
             yAxes: [{
               ticks: {
                 beginAtZero: true,
-                stepSize: 2000
+                stepSize: 500
               },
               gridLines: {
                 color: '#e4e1e1'

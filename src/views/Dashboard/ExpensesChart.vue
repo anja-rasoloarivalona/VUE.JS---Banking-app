@@ -25,32 +25,26 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'usersIncomesAndExpenses'
+      'user',
+      'expensesList'
     ])
   },
   created () {
     const labels = []
     const data = []
     const bg = []
-    for (const key in this.usersIncomesAndExpenses) {
-      if (this.usersIncomesAndExpenses[key].transactionType === 'expense' && this.usersIncomesAndExpenses[key].walletType === undefined) {
-        labels.push(key)
-        data.push(this.usersIncomesAndExpenses[key].amount)
-        bg.push(this.usersIncomesAndExpenses[key].color)
+    this.user.expenses.forEach(expense => {
+      if (!expense.walletType) {
+        labels.push(expense.category)
+        data.push(expense.amount)
+        console.log(this.expensesList[expense.category].color)
+        bg.push(this.expensesList[expense.category].color)
       }
+    })
+    this.data = {
+      labels: labels,
+      datasets: [{ data: data, backgroundColor: bg }]
     }
-    const datasets = {
-      data: data,
-      backgroundColor: bg
-    }
-
-    const datacollection = {
-      datasets: [
-        datasets
-      ],
-      labels: labels
-    }
-    this.data = datacollection
   },
   components: {
     DoughnutChart
@@ -70,6 +64,7 @@ export default {
           position: relative;
           width: 100%;
           height: 13rem;
+          flex: 1;
         }
     }
 }

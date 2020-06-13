@@ -46,18 +46,20 @@ export default {
     }
 
     this.userTransactions.forEach(transaction => {
-      const fullDate = new Date(transaction.date)
-      let month = fullDate.getMonth() + 1
-      if (month < 10) {
-        month = `0${month}`
-      }
-      const shortDate = `${month}/${fullDate.getDate()}`
-      data.forEach(label => {
-        if (label.shortDate === shortDate) {
-          label.balanceVariation += transaction.amount
-          label.transactions.push(transaction)
+      if (transaction.details !== 'Initialization') {
+        const fullDate = new Date(transaction.date)
+        let month = fullDate.getMonth() + 1
+        if (month < 10) {
+          month = `0${month}`
         }
-      })
+        const shortDate = `${month}/${fullDate.getDate()}`
+        data.forEach(label => {
+          if (label.shortDate === shortDate) {
+            label.balanceVariation += transaction.amount
+            label.transactions.push(transaction)
+          }
+        })
+      }
     })
 
     data.reverse()
@@ -86,6 +88,7 @@ export default {
     })
     this.datacollection.datasets = [{
       label: 'Balance',
+      fill: false,
       data: balanceData
     }]
   },
@@ -96,7 +99,7 @@ export default {
       'theme'
     ]),
     chartColor () {
-      return themes[this.theme.currentTheme]['--mainColor']
+      return themes[this.theme.currentTheme]['--secondaryColor']
       // return themes[this.theme.currentTheme]['--secondaryColor']
     },
     gradient2 () {

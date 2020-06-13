@@ -49,6 +49,11 @@ export default {
       }
     }
   },
+  watch: {
+    'expense.genre.category': function (val) {
+      this.expense.genre.subcategory = {}
+    }
+  },
   computed: {
     ...mapGetters([
       'user',

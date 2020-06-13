@@ -6,7 +6,7 @@
                 <h3 :class="{primary: theme.isLight}">Income</h3>
                 <div class="monthly__details__item__amount">
                     <app-icon name="arrow" color="primary" />
-                    <div v-if="!ghost">${{report.income | amount}}</div>
+                    <div v-if="!ghost">{{report.income | amount}}</div>
                     <div v-else>$***</div>
                 </div>
             </div>
@@ -14,7 +14,7 @@
                 <h3 :class="{secondary: theme.isLight}">Expense</h3>
                 <div class="monthly__details__item__amount">
                     <app-icon name="arrow" color="secondary" />
-                    <div v-if="!ghost">${{report.expense | amount}}</div>
+                    <div v-if="!ghost">{{report.expense | amount}}</div>
                     <div v-else>$***</div>
                 </div>
             </div>

@@ -22,8 +22,8 @@
             <ul class="category-input__select__list box-shadow" v-show="showList">
                 <li
                     class="category-input__select__list__item"
-                    v-for="item in displayedExpensesList" :key="item.name"
-                     @click="selectCategory(item)"
+                    v-for="(item, key) in displayedExpensesList" :key="key"
+                     @click="selectCategory({name: key, ...item})"
                 >
                     <div class="category-input__select__list__item__icon" :style="{backgroundColor: item.color}">
                          <fa-icon :icon="item.iconName" size="sm" :style="{ color: 'white' }"/>
@@ -56,7 +56,8 @@ export default {
       'theme'
     ]),
     displayedExpensesList () {
-      return this.expensesList.filter(expense => expense.name !== this.value.name)
+      return this.expensesList
+      // return this.expensesList.filter(expense => expense.name !== this.value.name)
     }
   },
   methods: {
@@ -69,13 +70,14 @@ export default {
       }
     },
     selectCategory (value) {
+      console.log('slected', value)
       this.showList = false
       this.$emit('click', value)
     }
   },
   props: {
     value: Object,
-    expensesList: Array
+    expensesList: Object
   }
 }
 </script>

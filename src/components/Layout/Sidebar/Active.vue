@@ -49,10 +49,12 @@ export default {
       }
     }
   },
-  created () {
-    this.items.upcoming = {
-      subtitle: this.upcoming.name,
-      value: this.upcoming.value
+  mounted () {
+    if (this.upcoming) {
+      this.items.upcoming = {
+        subtitle: this.upcoming.name,
+        value: this.upcoming.value
+      }
     }
   },
   watch: {

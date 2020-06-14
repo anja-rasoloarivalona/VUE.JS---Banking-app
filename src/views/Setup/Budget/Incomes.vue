@@ -33,6 +33,7 @@
             </div>
         </template>
         <div class="setup__view__content__cta">
+            <app-btn normal secondary v-if="user.incomes.length < 1" @click.native="setCurrentSetupStep('expenses')">{{ $t('skip')}}</app-btn>
             <app-btn normal primary @click.native="setupIncomeAction">
                 {{ user.incomes.length > 0 ? $t('next') : $t('add')}}
             </app-btn>

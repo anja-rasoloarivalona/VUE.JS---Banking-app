@@ -98,6 +98,9 @@ const getters = {
         datedTransactions.push(expense)
       }
     })
+    if (datedTransactions.length < 1) {
+      return false
+    }
     let result = {
       name: datedTransactions[0].name,
       date: new Date(datedTransactions[0].nextPayout),

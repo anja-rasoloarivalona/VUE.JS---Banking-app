@@ -1,5 +1,5 @@
 <template>
-    <label :for="id" class="label" :class="{row: row, showScrollBar: showScrollBar}" v-click-outside="closeList">
+    <label :for="id" class="custom-label"  v-click-outside="closeList"  >
       <span v-if="id">{{ id }}</span>
       <div
         :id="id"
@@ -12,12 +12,17 @@
           'top-radius': showList,
         }"
         >
-          <div
-            class="select__value"
-            :class="{active: showList, 'disabled': isDisabled,  'bg-white': bgWhite}"
-            @click.stop="toggleList">
-              <div v-if="value !== ''">{{ i18 ? $t(value.i18) : value }}</div>
-              <div v-else class="select__value__placeholder">{{ placeholder }}</div>
+          <div class="select__value" :class="{active: showList, 'bg-white': bgWhite}" >
+                <input
+                    :id="id"
+                    :placeholder="placeholder"
+                    @input="textChange($event.target.value)"
+                    :value="value"
+                    class="select__value__input"
+                    @click.stop="openList"
+                />
+              <!-- <div v-if="value !== ''">{{ i18 ? $t(value.i18) : value }}</div> -->
+              <!-- <div v-else class="select__value__placeholder">{{ placeholder }}</div> -->
           </div>
           <ul
             class="select__list box-shadow"
@@ -26,7 +31,7 @@
               <li v-for="(option, index) in displayedOptions"
                   :key="index" class="select__list__item"
                   @click="selectOption(option)">
-                  {{ i18 ? $t(option.i18) : option }}
+                  {{ option }}
               </li>
           </ul>
       </div>
@@ -38,20 +43,53 @@ import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      showList: false
+      showList: false,
+      displayedOptions: []
     }
   },
   model: {
     prop: 'value',
-    event: 'click'
+    event: 'change'
+  },
+  watch: {
+    displayedOptions: function (v) {
+    //   console.log('options', v.length)
+    }
+  },
+  mounted () {
+    this.displayedOptions = this.options
+    // console.log('Mounted', this.options.length)
+    // console.log('Mounted', this.displayedOptions.length)
   },
   methods: {
     selectOption (value) {
-      this.showList = false
-      this.$emit('click', value)
+      this.closeList()
+      if (value !== '') {
+        this.displayedOptions = this.options.filter(option => option !== value)
+        this.$emit('change', value)
+      }
+    },
+    textChange (value) {
+      this.showList = true
+      if (value !== '') {
+        this.displayedOptions = this.options.filter(option => {
+          return option.toLowerCase().includes(value.toLowerCase())
+        })
+      }
+
+      this.$emit('change', value)
+    },
+    openList () {
+      if (!this.showList) {
+        // console.log('opening')
+        this.showList = true
+      }
     },
     closeList: function () {
-      this.showList = false
+      if (this.showList) {
+        // console.log('closing')
+        this.showList = false
+      }
     },
     toggleList () {
       if (!this.isDisabled) {
@@ -62,10 +100,7 @@ export default {
   computed: {
     ...mapGetters([
       'theme'
-    ]),
-    displayedOptions () {
-      return this.options.filter(option => option.value !== this.value)
-    }
+    ])
   },
   props: {
     value: [String, Number, Object],
@@ -73,42 +108,23 @@ export default {
       type: Array,
       required: true
     },
-    i18: Boolean,
     id: String,
     bgWhite: Boolean,
     bgGrey: Boolean,
-    row: Boolean,
-    isDisabled: Boolean,
     listMaxHeight: Number,
-    showScrollBar: Boolean,
     placeholder: String
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.label {
+.custom-label {
   display: flex;
   flex-direction: column;
+//   width: 100%;
   // margin-bottom: 2rem;
   ::-webkit-scrollbar {
     width: 0em;
-  }
-  &.showScrollBar {
-    ::-webkit-scrollbar {
-        width: 1em;
-    }
-    ::-webkit-scrollbar-track {
-        background-color: rgb(218, 218, 218);
-    }
-    ::-webkit-scrollbar-thumb {
-        background-color: var(--textColor--dark);
-        border-radius: 2px;
-    }
-  }
-  &.row {
-    flex-direction: row;
-    align-items: center;
   }
   & span {
         margin-bottom: 0.5rem;
@@ -151,12 +167,16 @@ export default {
             right: 1rem;
             clip-path: polygon(50% 100%, 0 0, 100% 0);
         }
-        &.disabled {
-          color: var(--textColor--dark);
-          cursor: not-allowed;
-          &::after {
-            display: none;
-          }
+        &__input {
+            height: 4rem;
+            width: 90%;
+            color: var(--textColor);
+            border: none;
+             border-radius: 0.5rem;
+            background: transparent;
+            &:focus {
+            outline: none;
+            }
         }
     }
     &__list {

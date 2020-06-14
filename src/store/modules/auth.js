@@ -12,7 +12,8 @@ const state = {
   userId: null,
   userName: null,
   isAppReady: false,
-  isResettingPassword: false
+  isResettingPassword: false,
+  activeDate: null
 }
 
 const getters = {
@@ -44,6 +45,7 @@ const mutations = {
       state.userName = authData.userName
       state.userEmail = authData.userEmail
       state.appStatus = authData.appStatus
+      state.activeDate = authData.activeDate
       console.log('state', state)
     }
   },
@@ -57,6 +59,7 @@ const mutations = {
     state.userName = authData.userName
     state.userEmail = authData.userEmail
     state.appStatus = authData.appStatus
+    state.activeDate = authData.activeDate
     axios.defaults.headers.common.Authorization = 'Bearer ' + authData.token
     localStorage.setItem('bank-data', JSON.stringify(authData))
   },
@@ -67,6 +70,7 @@ const mutations = {
     state.userName = null
     state.appStatus = 'auth'
     state.isAppReady = false
+    state.activeDate = null
     axios.defaults.headers.common.Authorization = 'Bearer '
     localStorage.removeItem('bank-data')
     router.push('/')
@@ -102,6 +106,7 @@ const actions = {
         userName: resData.user.name,
         userEmail: resData.user.email,
         appStatus: resData.user.status,
+        activeDate: resData.user.activeDate,
         expiryDate: expiryDate
       }
       commit('setIsAuthToTrue', data)

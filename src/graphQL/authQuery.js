@@ -8,6 +8,7 @@ const loginQuery = input => {
                     name
                     email
                     status
+                    activeDate
                     goal {
                       amount
                       date

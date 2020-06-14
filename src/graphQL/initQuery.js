@@ -16,6 +16,7 @@ const initQuery = {
           }
         }
         status
+        activeDate
         goal {
          amount
          date

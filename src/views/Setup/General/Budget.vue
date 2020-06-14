@@ -14,14 +14,14 @@
             <div>{{$t('byPlanningYourBudgetYouWillhaveMoreControl')}}</div>
         </div>
         <div class="setup__view__content__cta">
-            <app-btn normal secondary>{{$t('later')}}</app-btn>
+            <app-btn normal secondary @click.native="finishSetup">{{$t('later')}}</app-btn>
             <app-btn normal primary @click.native="startSetBudget">{{$t('setBudget')}}</app-btn>
         </div>
     </div>
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 export default {
   computed: {
     ...mapGetters([
@@ -32,6 +32,9 @@ export default {
     ...mapMutations([
       'setCurrentSetupStep',
       'setSetupType'
+    ]),
+    ...mapActions([
+      'finishSetup'
     ]),
     startSetBudget () {
       this.setSetupType('budget')

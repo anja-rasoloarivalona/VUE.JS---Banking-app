@@ -7,12 +7,11 @@
            <b>{{$t('selectYourReferenceCurrency')}}</b>
         </div>
         <form>
-            <app-select-input
+            <search-list-input
               v-model="currency"
               :options="currenciesList"
               :listMaxHeight="50"
-              showScrollBar
-              placeholder="Currency"
+               placeholder="Currency"
             />
         </form>
         <div class="setup__view__content__text">
@@ -31,6 +30,7 @@
 import { mapGetters, mapMutations } from 'vuex'
 import CurrencyImg from './CurrencyImg'
 import currencies from '@/assets/currencies'
+import SearchListInput from '@/components/Input/SearchListInput'
 
 export default {
   data () {
@@ -39,7 +39,7 @@ export default {
       currenciesList: []
     }
   },
-  mounted () {
+  beforeMount () {
     const currenciesList = []
     for (const currency in currencies) {
       currenciesList.push(`${currency} - ${currencies[currency]}`)
@@ -67,7 +67,8 @@ export default {
     }
   },
   components: {
-    CurrencyImg
+    CurrencyImg,
+    SearchListInput
   }
 }
 </script>
@@ -75,5 +76,8 @@ export default {
 <style lang="scss" scoped>
 .setup-currency {
   padding-bottom: 4rem;
+  & form {
+    width: 65%;
+  }
 }
 </style>

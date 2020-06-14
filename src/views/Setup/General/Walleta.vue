@@ -9,7 +9,7 @@
             <app-icon name="wallet" :size="user.wallets.length > 0 ? 'extra-large' : 'xxl'" />
         </div>
 
-        <template v-if="user.wallets.length === 0">
+        <template v-if="user.wallets.length < 1">
             <div class="setup__view__content__title">
                 <b>{{$t('addAWallet')}}</b>
             </div>
@@ -96,6 +96,11 @@ export default {
           this.setCurrentSetupStep('incomes')
         }
       }
+    }
+  },
+  watch: {
+    'user.wallets': function (v) {
+      console.log('user walles', v)
     }
   },
   computed: {

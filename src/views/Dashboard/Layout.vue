@@ -87,7 +87,7 @@ export default {
           layout[index].h = this.user.wallets.length > 1 ? 4 + (this.user.wallets.length * 7) : 18
         }
       })
-      console.log(layout)
+      // console.log(layout)
       this.initDashboardLayout(layout)
     },
     layoutUpdatedEvent: function (newLayout) {

@@ -46,7 +46,7 @@ const mutations = {
       state.userEmail = authData.userEmail
       state.appStatus = authData.appStatus
       state.activeDate = authData.activeDate
-      console.log('state', state)
+      console.log('init auth', state)
     }
   },
   setAuthMode (state, mode) {
@@ -89,6 +89,12 @@ const mutations = {
   },
   setResettingPasswordToFalse (state) {
     state.isResettingPassword = false
+  },
+  setActiveDate (state, date) {
+    state.activeDate = date
+    const authData = JSON.parse(localStorage.getItem('bank-data'))
+    authData.activeDate = date
+    localStorage.setItem('bank-data', JSON.stringify(authData))
   }
 }
 
@@ -142,6 +148,9 @@ const actions = {
       }
       axios.defaults.headers.common.Authorization = 'Bearer ' + resData.token
       commit('setIsAuthToTrue', data)
+      return {
+        success: true
+      }
     } catch (err) {
       return {
         errors: err.response.data.errors

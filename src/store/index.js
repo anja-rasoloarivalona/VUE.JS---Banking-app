@@ -38,7 +38,7 @@ export default new Vuex.Store({
         commit('initCurrency', userData.settings.currency)
         commit('setIsAppReadyToTrue')
       } catch (err) {
-        console.log(err.response)
+        console.log('error fetching user data', err.response)
       }
     }
   },

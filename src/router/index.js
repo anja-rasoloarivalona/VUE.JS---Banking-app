@@ -6,7 +6,7 @@ import Dashboard from '../views/Dashboard/Dashboard'
 import Profile from '../views/Profile/Profile'
 import Report from '../views/Report/Report'
 import Transactions from '../views/Transactions/Transactions'
-import store from '../store'
+// import store from '../store'
 
 Vue.use(VueRouter)
 
@@ -43,7 +43,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  console.log(store.state.auth.isAuth)
+  // console.log(store.state.auth.isAuth)
   next()
 })
 

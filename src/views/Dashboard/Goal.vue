@@ -1,15 +1,16 @@
 <template>
     <div class="goal dashboard__section">
-
-        <template v-if="user.goal.amount">
-            <div class="goal__detail">
+        <div class="goal__detail">
                 <h2 class="dashboard__section__title">Goal</h2>
-                <div class="goal__detail__date">
-                    <h3 class="goal__detail__date__key">Date:</h3>
-                    <h3 class="goal__detail__date__value">{{user.goal.date | short-date}}</h3>
+                <div class="goal__detail__amount" v-if="user.goal && user.goal.amount">
+                    <h3 class="goal__detail__amount__key">Amount: </h3>
+                    <h3 class="goal__detail__amount__value">{{user.goal.amount | amount}}</h3>
                 </div>
-            </div>
-            <div class="goal__circle">
+                 <div class="goal__detail__noGoal" v-else>
+                    <div>Click here</div>to set goal
+                </div>
+        </div>
+         <div class="goal__circle">
                 <Progress
                     :radius="40"
                     :strokeWidth="8"
@@ -17,16 +18,6 @@
                     :value="goalPercentage">
                 </Progress>
             </div>
-        </template>
-        <template v-else>
-            <div class="goal__detail">
-                <h2 class="dashboard__section__title">Goal</h2>
-                <div class="goal__detail__date">
-                    You don't have goal
-                </div>
-            </div>
-        </template>
-
     </div>
 </template>
 
@@ -42,11 +33,18 @@ export default {
       'userBalance'
     ]),
     goalPercentage () {
-      return (this.userBalance / this.user.goal.amount) * 100
+      let percent = 0
+      if (this.user.goal && this.user.goal.amount) {
+        percent = (this.userBalance / this.user.goal.amount) * 100
+      }
+      return percent
     },
     strokeColor () {
       return themes[this.theme.currentTheme]['--mainColor']
     }
+  },
+  mounted () {
+    // console.log('goalmount', this.user.goal)
   },
   components: {
     Progress
@@ -60,7 +58,21 @@ export default {
     &__detail, &__circle {
         width: 50%;
         height: 100%;
-        &__date {
+        &__noGoal {
+            font-size: $font-m;
+            // background: red;
+            display: flex;
+            align-items: center;
+            & div {
+                margin-right: .35rem;
+                cursor: pointer;
+                color: var(--mainColor);
+                &:hover {
+                text-decoration: underline;
+                }
+            }
+        }
+        &__amount {
             display: flex;
             align-items: center;
             &__key {

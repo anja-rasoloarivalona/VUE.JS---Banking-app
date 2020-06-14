@@ -54,6 +54,7 @@ const actions = {
       commit('initDashboardLayout', resData.settings.dashboardLayout)
       commit('setAppStatus', 'active')
       commit('setIsAppReadyToTrue')
+      commit('setActiveDate', resData.activeDate)
     } catch (err) {
       console.log(err.response)
     }

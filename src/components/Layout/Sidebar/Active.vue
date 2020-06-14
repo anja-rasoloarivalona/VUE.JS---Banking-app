@@ -43,7 +43,7 @@ export default {
           value: 0
         },
         budget: {
-          subtitle: 'Remaining',
+          subtitle: 'Remaining s',
           value: 400
         }
       }

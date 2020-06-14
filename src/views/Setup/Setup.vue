@@ -4,20 +4,20 @@
             <transition name="fade" mode="out-in" appear>
                 <verify-code v-if="currentAppStatus === 'setup-verify-code'" @displayWelcome="loadWelcome"/>
                 <welcome v-else-if="displayWelcome" @hideWelcome="hideWelcome"/>
-                <completed v-else-if="isSetupCompleted"/>
+                <!-- <completed v-else-if="isSetupCompleted"/> -->
             </transition>
         </backdrop>
 
         <div class="setup__view">
           <general />
-          <budget v-if="setup.setupType === 'budget'" @setup-completed="loadCompleted"/>
+          <budget v-if="setup.setupType === 'budget'" />
         </div>
     </div>
 </template>
 
 <script>
 import Backdrop from '@/components/Layout/Backdrop/Backdrop'
-import Completed from './Completed'
+// import Completed from './Completed'
 import VerifyCode from './VerifyCode'
 import Welcome from './Welcome'
 
@@ -63,12 +63,12 @@ export default {
         this.displayWelcome = true
       }, 1000)
     },
-    loadCompleted () {
-      setTimeout(() => {
-        this.displayBackdrop = true
-        this.isSetupCompleted = true
-      })
-    },
+    // loadCompleted () {
+    //   setTimeout(() => {
+    //     this.displayBackdrop = true
+    //     this.isSetupCompleted = true
+    //   })
+    // },
     hideWelcome () {
       this.displayBackdrop = false
       this.displayWelcome = false
@@ -78,7 +78,7 @@ export default {
   components: {
     Backdrop,
     Budget,
-    Completed,
+    // Completed,
     General,
     VerifyCode,
     Welcome

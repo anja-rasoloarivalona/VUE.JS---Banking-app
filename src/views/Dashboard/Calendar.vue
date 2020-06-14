@@ -48,7 +48,6 @@ export default {
     transactions.forEach(transaction => {
       let customClass
       if (transaction.color && transaction.color !== 'undefined') {
-        console.log(transaction.color === 'undefined')
         customClass = transaction.color.substring(1)
       } else {
         customClass = 'mainColor'
@@ -65,7 +64,7 @@ export default {
         dates: [new Date(transaction.lastPayout), new Date(transaction.nextPayout)]
       })
     })
-    console.log('attrs', attrs)
+    // console.log('attrs', attrs)
     this.attrs = attrs
   },
   computed: {

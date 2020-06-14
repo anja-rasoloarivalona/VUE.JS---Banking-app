@@ -37,7 +37,7 @@ export default {
     }
   },
   mounted: async function () {
-    console.log('tricks', this.xpty)
+    // console.log('tricks', this.xpty)
     // localStorage.removeItem('bank-data')
     // localStorage.removeItem('bank-theme')
     this.initTheme()

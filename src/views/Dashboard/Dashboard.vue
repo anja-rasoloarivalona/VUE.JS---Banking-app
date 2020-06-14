@@ -40,7 +40,7 @@ import Expenses from './ExpensesChart'
 
 export default {
   mounted () {
-    console.log('few', this.dashboard)
+    // console.log('few', this.dashboard)
   },
   computed: {
     ...mapGetters([

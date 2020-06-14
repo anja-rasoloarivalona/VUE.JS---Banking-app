@@ -37,7 +37,6 @@ export default {
       if (!expense.walletType) {
         labels.push(expense.category)
         data.push(expense.amount)
-        console.log(this.expensesList[expense.category].color)
         bg.push(this.expensesList[expense.category].color)
       }
     })

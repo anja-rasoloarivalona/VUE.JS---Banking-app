@@ -177,7 +177,7 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: $font-s;
+      font-size: $font-m;
       & div {
         margin: 0 .35rem;
         cursor: pointer;

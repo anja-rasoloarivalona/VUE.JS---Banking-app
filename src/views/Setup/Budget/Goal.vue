@@ -11,8 +11,8 @@
       <div class="setup__view__content__title">
               <b>{{$t('setGoal')}}</b>
       </div>
-      <div class="setup__view__content__text" :style="{marginTop: 0, marginBottom: '2rem'}" v-if="isMonthlySavingsPositive">
-            <div>{{$t('basedOnYourIncomeAndExpenses')}}<span class="setup-goal__amount"> {{ userBudgetPlan.monthlySavings | amount }}</span> {{$t('permonth')}}</div>
+      <div class="setup__view__content__text" :style="{marginTop: 0, marginBottom: '2rem'}">
+            <div v-if="isMonthlySavingsPositive">{{$t('basedOnYourIncomeAndExpenses')}}<span class="setup-goal__amount"> {{ userBudgetPlan.monthlySavings | amount }}</span> {{$t('permonth')}}</div>
             <div>{{$t('howMuchDoYouNeedToAchieveYourNextGoal')}}?</div>
       </div>
       <form>
@@ -32,10 +32,14 @@
           <app-btn normal primary v-else-if="isMonthlySavingsPositive" @click.native="completeSetup">
               {{$t('save')}}
           </app-btn>
-          <app-btn normal primary v-else>
-              Got it
-          </app-btn>
-
+          <template v-else>
+            <app-btn normal secondary @click.native="finishSetup">
+              {{$t('skip')}}
+            </app-btn>
+            <app-btn normal primary @click.native="completeSetup">
+              {{$t('save')}}
+            </app-btn>
+          </template>
       </div>
 
     </div>
@@ -44,7 +48,7 @@
 <script>
 import axios from 'axios'
 import { dateRangeCalculator } from '@/utilities/date-range-calculator.js'
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 export default {
   data () {
     return {
@@ -95,6 +99,9 @@ export default {
     ...mapMutations([
       'setAppStatus',
       'addGoal'
+    ]),
+    ...mapActions([
+      'finishSetup'
     ]),
     findNextMonth (d) {
       const year = d.getFullYear()
@@ -190,7 +197,8 @@ export default {
     completeSetup: async function () {
       try {
         await this.saveGoal()
-        this.$emit('setup-completed')
+        await this.finishSetup()
+        console.log('done')
       } catch (err) {
         console.log(err.response)
       }

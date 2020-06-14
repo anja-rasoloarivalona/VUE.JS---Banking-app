@@ -27,8 +27,36 @@ export default {
     }
   },
   created () {
+    const demo = []
+    const activeDate = new Date(this.$store.state.auth.activeDate)
+    const endActiveDate = new Date(new Date().setDate(activeDate.getDate() + 31))
+    if (new Date() <= endActiveDate) {
+      for (let i = -1; i < 31; i++) {
+        const fullDate = new Date(new Date().setDate(activeDate.getDate() + i))
+        let month = fullDate.getMonth() + 1
+        if (month < 10) {
+          month = `0${month}`
+        }
+        const labelData = {
+          fullDate: fullDate,
+          shortDate: `${month}/${fullDate.getDate()}`,
+          transactions: [],
+          balanceVariation: 0,
+          balance: 0
+        }
+        demo.push(labelData)
+      }
+    }
+
+    console.log('demo', demo)
+
+    // console.log('history', this.$store.state.auth.activeDate)
+    // console.log('end', endActiveDate)
+    // console.log(new Date() <= endActiveDate)
+
     const today = new Date()
     const data = []
+
     for (let i = 31; i >= 0; i--) {
       const fullDate = new Date(new Date().setDate(today.getDate() - i))
       let month = fullDate.getMonth() + 1
@@ -72,6 +100,7 @@ export default {
 
     const balanceData = []
     let currentMonth = null
+
     data.forEach(label => {
       balanceData.push(label.balance)
       if (!currentMonth) {
@@ -86,6 +115,7 @@ export default {
         }
       }
     })
+
     this.datacollection.datasets = [{
       label: 'Balance',
       fill: false,
@@ -94,6 +124,7 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'user',
       'userTransactions',
       'userBalance',
       'theme'

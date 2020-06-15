@@ -14,7 +14,13 @@
                   <b>{{$t('addIncome')}}</b>
           </div>
           <form class="setup__view__content__form">
-            <app-basic-input v-model="income.name" :id="$t('name')"/>
+
+            <!-- <app-select-input v-model="income.category" :id="$t('category')">
+              <template>
+                <income  v-for="(income, key) in incomesList.category" :key="key" :income="{...income, key: key}"/>
+              </template>
+            </app-select-input> -->
+
             <app-basic-input v-model="income.amount" :id="$t('amount')" />
             <app-date-input v-model="income.lastPayout" :id="$t('lastPaymentDate')"/>
             <app-basic-input v-model="income.from" :id="$t('details')"/>
@@ -44,17 +50,17 @@
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import IncomeTable from '@/components/UI/Income/IncomeTable'
-// import IncomeForm from '@/components/Forms/IncomeForm'
 export default {
   data () {
     return {
       addHovered: false,
       loading: false,
       income: {
-        name: '',
+        _id: '',
+        category: '',
         amount: 0,
+        details: '',
         lastPayout: new Date(),
-        from: '',
         autoWriting: '',
         notification: '',
         frequency: {
@@ -77,7 +83,8 @@ export default {
   computed: {
     ...mapGetters([
       'user',
-      'setup'
+      'setup',
+      'incomesList'
     ])
   },
   methods: {

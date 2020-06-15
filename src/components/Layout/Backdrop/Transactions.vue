@@ -43,7 +43,6 @@ export default {
 <style lang="scss" scoped>
 .transactions {
     padding: 3rem;
-    width: 50vw;
     border-radius: .5rem;
     &__header {
         display: flex;

@@ -15,7 +15,7 @@
                   <b>{{$t('addExpense')}}</b>
           </div>
           <form class="setup__view__content__form expenses__form">
-            <app-category-input v-model="expense.genre"/>
+            <app-expense-input v-model="expense.genre"/>
             <app-select-input v-model="expense.expenseType" :id="$t('expenseType')"  :options="[{value: 'Variable', i18: 'variable'}, {value: 'Fixed', i18: 'fixed'}]" i18/>
             <app-basic-input v-model="expense.amount" :id="expense.expenseType === 'Variable' ? $t('amountPerMonth') : $t('amountPerTransaction')"  v-if="expense.expenseType !== ''"/>
             <app-basic-input v-model="expense.used" :id="$t('amountSpentThisMonth')"  v-if="expense.expenseType.value === 'Variable'"/>
@@ -46,7 +46,7 @@
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import ExpenseTable from '@/components/UI/Expense/ExpenseTable'
-import AppCategoryInput from '@/components/Input/CategoryInput/CategoryInput'
+import AppExpenseInput from '@/components/Input/ExpenseInput/ExpenseInput'
 export default {
   data () {
     return {
@@ -109,7 +109,7 @@ export default {
     }
   },
   components: {
-    AppCategoryInput,
+    AppExpenseInput,
     ExpenseTable
   }
 }

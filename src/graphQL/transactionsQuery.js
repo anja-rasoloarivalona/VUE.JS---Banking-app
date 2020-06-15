@@ -68,9 +68,9 @@ const queryResult = `
               }
               incomes {
                   _id
-                  name
+                  category
                   amount
-                  from
+                  details
                   frequency {
                       counter
                       period

@@ -2,7 +2,7 @@
     <div class="expense-form">
       <slot />
       <form>
-        <app-category-input v-model="expense.genre"/>
+        <app-expense-input v-model="expense.genre"/>
         <app-select-input v-model="expense.expenseType" :id="$t('expenseType')"  :options="[{value: 'Variable', i18: 'variable'}, {value: 'Fixed', i18: 'fixed'}]" i18/>
         <app-basic-input v-model="expense.amount" :id="expense.expenseType.value === 'Variable' ? $t('amountPerMonth') : $t('amountPerTransaction')" v-if="expense.expenseType !== ''"/>
         <app-basic-input v-model="expense.used" :id="$t('amountSpentThisMonth')"  v-if="expense.expenseType.value === 'Variable'"/>
@@ -23,7 +23,7 @@
 
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex'
-import AppCategoryInput from '@/components/Input/CategoryInput/CategoryInput'
+import AppExpenseInput from '@/components/Input/ExpenseInput/ExpenseInput'
 export default {
   data () {
     return {
@@ -103,7 +103,7 @@ export default {
     isCancelBtnDisplayed: Boolean
   },
   components: {
-    AppCategoryInput
+    AppExpenseInput
   }
 }
 </script>

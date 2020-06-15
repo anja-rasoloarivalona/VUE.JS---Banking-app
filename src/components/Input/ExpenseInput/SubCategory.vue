@@ -8,7 +8,7 @@
             }">
             <div
               class="category-input__select__value"
-              :class="{'bg-default': theme.isLight, 'bg-on-surfaceColor': theme.isDark  }"
+              :class="{'bg-default': theme.isLight, 'bg-on-surfaceColor': theme.isDark, disabled: !category }"
               @click.stop="toggleList"
             >
                 <div class="category-input__select__value__icon" :style="{backgroundColor: category.color}" v-if="value.iconName">
@@ -16,7 +16,7 @@
                 </div>
                <div>{{ $t(value.i18) }}</div>
             </div>
-            <ul class="category-input__select__list  box-shadow" v-if="showList">
+            <ul class="category-input__select__list  box-shadow" v-if="showList && category">
                 <li
                     class="category-input__select__list__item"
                     v-for="(item, key) in displayedSubcategoryList" :key="key"
@@ -48,6 +48,9 @@ export default {
         }
       ]
     }
+  },
+  mounted () {
+    // console.log('subaca', this.category)
   },
   model: {
     prop: 'value',

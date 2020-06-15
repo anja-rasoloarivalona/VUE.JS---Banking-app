@@ -72,9 +72,9 @@ const loginQuery = input => {
                     }
                     incomes {
                       _id
-                      name
+                      category
                       amount
-                      from
+                      details
                       frequency {
                           counter
                           period

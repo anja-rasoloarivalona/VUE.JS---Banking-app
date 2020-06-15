@@ -67,9 +67,9 @@ const initQuery = {
         }
         incomes {
           _id
-          name
+          category
           amount
-          from
+          details
           frequency {
               counter
               period

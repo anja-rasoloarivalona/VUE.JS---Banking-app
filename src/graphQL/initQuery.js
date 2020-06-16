@@ -32,13 +32,13 @@ const initQuery = {
           }
           transactions {
             _id
-            budgetId
+            category
+            subcategory
             date
             counterparty
             amount
             details
             usedWalletId
-            status
             transactionType
           }
         }
@@ -68,6 +68,7 @@ const initQuery = {
         incomes {
           _id
           category
+          subcategory
           amount
           details
           frequency {

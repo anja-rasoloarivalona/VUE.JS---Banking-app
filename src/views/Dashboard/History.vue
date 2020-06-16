@@ -2,7 +2,12 @@
     <div class="chart dashboard__section">
         <h2 class="dashboard__section__title">History</h2>
         <div class="chart__container">
-            <line-chart :data="datacollection" :styles="myStyles" :gradient1="chartColor" :gradient2="gradient2" ></line-chart>
+            <line-chart
+              :data="datacollection"
+              :styles="myStyles"
+              :gradient1="chartColor"
+              :gradient2="gradient2"
+            />
         </div>
     </div>
 </template>
@@ -26,29 +31,16 @@ export default {
       }
     }
   },
+  displayFromNowTo30DaysBefore () {
+  },
   created () {
-    const demo = []
     const activeDate = new Date(this.$store.state.auth.activeDate)
     const endActiveDate = new Date(new Date().setDate(activeDate.getDate() + 31))
     if (new Date() <= endActiveDate) {
-      for (let i = -1; i < 31; i++) {
-        const fullDate = new Date(new Date().setDate(activeDate.getDate() + i))
-        let month = fullDate.getMonth() + 1
-        if (month < 10) {
-          month = `0${month}`
-        }
-        const labelData = {
-          fullDate: fullDate,
-          shortDate: `${month}/${fullDate.getDate()}`,
-          transactions: [],
-          balanceVariation: 0,
-          balance: 0
-        }
-        demo.push(labelData)
-      }
+      this.displayFromActiveTo30DaysAfter(activeDate)
     }
 
-    console.log('demo', demo)
+    // console.log('demo', demo)
 
     // console.log('history', this.$store.state.auth.activeDate)
     // console.log('end', endActiveDate)
@@ -117,10 +109,15 @@ export default {
     })
 
     this.datacollection.datasets = [{
+      borderColor: themes[this.theme.currentTheme]['--mainColor'],
+      pointBackgroundColor: themes[this.theme.currentTheme]['--mainColor'],
       label: 'Balance',
       fill: false,
       data: balanceData
     }]
+  },
+  mounted () {
+    // console.log('theme', this.theme.currentTheme)
   },
   computed: {
     ...mapGetters([
@@ -139,6 +136,44 @@ export default {
       } else {
         return 'transparent'
       }
+    }
+  },
+  methods: {
+    displayFromActiveTo30DaysAfter (activeDate) {
+      const data = []
+      for (let i = -1; i < 31; i++) {
+        const fullDate = new Date(new Date().setDate(activeDate.getDate() + i))
+        let month = fullDate.getMonth() + 1
+        if (month < 10) {
+          month = `0${month}`
+        }
+        const labelData = {
+          fullDate: fullDate,
+          shortDate: `${month}/${fullDate.getDate()}`,
+          transactions: [],
+          balanceVariation: 0,
+          balance: 0
+        }
+        data.push(labelData)
+      }
+
+      this.userTransactions.forEach(transaction => {
+        if (transaction.details !== 'Initialization') {
+          const fullDate = new Date(transaction.date)
+          let month = fullDate.getMonth() + 1
+          if (month < 10) {
+            month = `0${month}`
+          }
+          const shortDate = `${month}/${fullDate.getDate()}`
+          data.forEach(label => {
+            if (label.shortDate === shortDate) {
+              label.balanceVariation += transaction.amount
+              label.transactions.push(transaction)
+            }
+          })
+        }
+      })
+      console.log('data', data)
     }
   },
   components: {

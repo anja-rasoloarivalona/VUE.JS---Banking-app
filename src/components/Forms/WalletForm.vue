@@ -2,15 +2,15 @@
   <div class="wallet-form">
     <slot />
    <form>
-        <app-select-input v-model="walletInput.type" id="Type"  :options="walletTypes" :isDisabled="typeIsDisabled"/>
-        <app-basic-input v-model="walletInput.name" id="Name" />
-        <app-basic-input v-model="walletInput.amount" id="Amount" :isDisabled="amountIsDisabled"/>
-        <app-basic-input v-model="walletInput.creditLimit" id="Limit" v-if="walletInput.type === 'Credit card'"/>
+        <app-select-input v-model="walletInput.type" :id="$t('type')"  :options="user.walletTypeList" :isDisabled="typeIsDisabled" i18/>
+        <app-basic-input v-model="walletInput.name" :id="$t('name')" />
+        <app-basic-input v-model="walletInput.amount" :id="$t('amount')" :isDisabled="amountIsDisabled"/>
+        <app-basic-input v-model="walletInput.creditLimit" :id="$t('limit')" v-if="walletInput.type.value === 'Credit card'"/>
     </form>
     <div class="wallet-form__cta">
-          <app-btn normal secondary v-if="isCancelBtnDisplayed" @click.native="$emit('hideForm')">Cancel</app-btn>
+          <app-btn normal secondary v-if="isCancelBtnDisplayed" @click.native="$emit('hideForm')">{{$t('cancel')}}l</app-btn>
           <app-btn normal @click.native="walletAction" primary>
-            <span v-if="!loading" v-text="editedWallet ? 'Edit': 'Add'">Add</span>
+            <span v-if="!loading" v-text="editedWallet ? $t('edit'): $t('add')"></span>
             <app-spinner v-else></app-spinner>
           </app-btn>
     </div>
@@ -20,21 +20,28 @@
 <script>
 import axios from 'axios'
 import { addWallet, editWallet } from '@/graphQL/walletsQuery'
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
       walletInput: {
-        type: '',
+        type: {
+          value: '',
+          i18: ''
+        },
         amount: 0,
-        name: 'Bank',
-        color: 'Brown',
+        name: '',
         creditLimit: 0
       },
-      walletTypes: ['Debit card', 'Credit card', 'Cash'],
-      showColorList: false,
-      colorList: ['Brown', 'Chocolate', 'Coral', 'Crimson', 'DarkCyan', 'DarkBlue', 'FireBrick', 'OrangeRed', 'Teal'],
+      // showColorList: false,
+      // colorList: ['Brown', 'Chocolate', 'Coral', 'Crimson', 'DarkCyan', 'DarkBlue', 'FireBrick', 'OrangeRed', 'Teal'],
       loading: false
     }
+  },
+  computed: {
+    ...mapGetters([
+      'user'
+    ])
   },
   props: {
     editedWallet: Object,
@@ -50,10 +57,10 @@ export default {
     }
   },
   methods: {
-    chooseColor (value) {
-      this.walletInput.color = value
-      this.showColorList = false
-    },
+    // chooseColor (value) {
+    //   this.walletInput.color = value
+    //   this.showColorList = false
+    // },
     walletAction () {
       if (!this.editedWallet) {
         this.addWalletHandler()

@@ -17,7 +17,7 @@ const editIncomeQuery = input => {
 const query = (action, input) => {
   return `${action}(incomeInput: {
                 _id: "${input._id}",
-                category: "${input.category}",
+                category: "${input.category.value}",
                 amount: "${parseInt(input.amount)}",
                 details: "${input.details}",
                 frequency: {
@@ -31,6 +31,7 @@ const query = (action, input) => {
             }) {
                 _id
                 category
+                subcategory
                 amount
                 details
                 frequency {

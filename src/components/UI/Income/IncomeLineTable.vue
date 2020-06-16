@@ -1,6 +1,6 @@
 <template>
  <tr class="income" @mouseleave="showList = false">
-    <td class="income__name"> {{ income.name }} </td>
+   <income :income="income " type="subcategory"/>
     <td>{{$t(displayedCounter)}} {{$t(displayedPeriod)}}</td>
     <td class="income__amount">{{ income.amount | amount }}</td>
     <td>
@@ -22,6 +22,7 @@
 
 <script>
 import { mapMutations, mapGetters } from 'vuex'
+import Income from './Income'
 export default {
   data () {
     return {
@@ -82,11 +83,17 @@ export default {
       return this.income.amount * this.frequencyOptions.period[this.income.frequency.period] * this.frequencyOptions.counter[this.income.frequency.counter]
     }
   },
+  mounted () {
+    // console.log('income', this.income)
+  },
   props: {
     income: {
       required: true,
       type: Object
     }
+  },
+  components: {
+    Income
   }
 }
 </script>

@@ -1,8 +1,8 @@
 <template>
-    <label class="category-input" v-click-outside="closeList">
+    <label class="income-input" v-click-outside="closeList">
         <span>{{$t('category')}}</span>
         <div
-          class="category-input__select"
+          class="income-input__select"
           :class="{
             'all-radius': !showList,
             'top-radius': showList,
@@ -10,25 +10,25 @@
             }"
         >
             <div
-              class="category-input__select__value"
+              class="income-input__select__value"
               :class="{'bg-default': theme.isLight, 'bg-on-surfaceColor': theme.isDark}"
               @click.stop="toggleList"
             >
-                <div class="category-input__select__value__icon" :style="{backgroundColor: value.color}" v-if="value.iconName">
+                <div class="income-input__select__value__icon" :style="{backgroundColor: incomesList.color}" v-if="value.iconName">
                   <fa-icon :icon="value.iconName" size="sm" :style="{ color: 'white' }"/>
                 </div>
                 <div>{{ $t( value.i18 ) }}</div>
             </div>
-            <ul class="category-input__select__list box-shadow" v-show="showList">
+            <ul class="income-input__select__list box-shadow" v-show="showList">
                 <li
-                    class="category-input__select__list__item"
-                    v-for="(item, key) in displayedExpensesList" :key="key"
-                     @click="selectCategory({name: key, ...item})"
+                    class="income-input__select__list__item"
+                    v-for="(item, key) in displayedIncomesList" :key="key"
+                     @click="selectIncome({value: key, ...item})"
                 >
-                    <div class="category-input__select__list__item__icon" :style="{backgroundColor: item.color}">
+                    <div class="income-input__select__list__item__icon" :style="{backgroundColor: incomesList.color}">
                          <fa-icon :icon="item.iconName" size="sm" :style="{ color: 'white' }"/>
                     </div>
-                    <div class="category-input__select__list__item__name">
+                    <div class="income-input__select__list__item__name">
                         {{ $t( item.i18 )}}
                     </div>
                 </li>
@@ -51,19 +51,22 @@ export default {
     prop: 'value',
     event: 'click'
   },
+  mounted () {
+    console.log('income input', this.incomesList)
+  },
   computed: {
     ...mapGetters([
-      'theme'
+      'theme',
+      'incomesList'
     ]),
-    displayedExpensesList () {
+    displayedIncomesList () {
       if (this.value.name) {
-        const list = { ...this.expensesList }
+        const list = { ...this.incomesList.category }
         delete list[this.value.name]
         return list
       } else {
-        return this.expensesList
+        return this.incomesList.category
       }
-      // return this.expensesList.filter(expense => expense.name !== this.value.name)
     }
   },
   methods: {
@@ -75,22 +78,22 @@ export default {
         this.showList = false
       }
     },
-    selectCategory (value) {
+    selectIncome (value) {
       this.showList = false
       this.$emit('click', value)
     }
   },
   props: {
-    value: Object,
-    expensesList: Object
+    value: Object
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.category-input {
+.income-input {
     display: flex;
     flex-direction: column;
+    width: 100%;
     & span {
         width: 10rem;
         margin-bottom: 0.5rem;
@@ -160,6 +163,7 @@ export default {
             overflow-y: scroll;
             overflow-x: hidden;
             z-index: 5;
+            max-height: 24rem;
             &__item {
                 // height: 5rem;
                 height: 4rem;

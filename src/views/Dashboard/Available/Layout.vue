@@ -30,15 +30,15 @@ export default {
   methods: {
     setAvailable () {
       let available = 0
-      const creditCard = ['Visa', 'MasterCard']
       this.user.wallets.forEach(wallet => {
-        if (!creditCard.includes(wallet.walletType)) {
-          available += wallet.amount
-        } else {
+        if (wallet.walletType === 'Credit card') {
           const creditAvailable = wallet.creditLimit - wallet.amount
           available += creditAvailable
+        } else {
+          available += wallet.amount
         }
       })
+
       this.available = available
     }
   },

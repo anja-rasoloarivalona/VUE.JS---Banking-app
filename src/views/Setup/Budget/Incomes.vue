@@ -21,6 +21,7 @@
               </template>
             </app-select-input> -->
 
+            <app-income-input v-model="income.category"/>
             <app-basic-input v-model="income.amount" :id="$t('amount')" />
             <app-date-input v-model="income.lastPayout" :id="$t('lastPaymentDate')"/>
             <app-basic-input v-model="income.from" :id="$t('details')"/>
@@ -50,6 +51,7 @@
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import IncomeTable from '@/components/UI/Income/IncomeTable'
+import AppIncomeInput from '@/components/Input/IncomeInput/IncomeInput'
 export default {
   data () {
     return {
@@ -57,12 +59,12 @@ export default {
       loading: false,
       income: {
         _id: '',
-        category: '',
+        category: {},
         amount: 0,
         details: '',
         lastPayout: new Date(),
-        autoWriting: '',
-        notification: '',
+        autoWriting: { value: 'yes', i18: 'yes' },
+        notification: { value: 'yes', i18: 'yes' },
         frequency: {
           counter: '',
           period: ''
@@ -96,6 +98,7 @@ export default {
       'addIncome'
     ]),
     addIncomeHandler: async function () {
+      // console.log('income', this.income)
       this.loading = true
       const result = await this.addIncome(this.income)
       console.log('income added', result)
@@ -109,7 +112,8 @@ export default {
     }
   },
   components: {
-    IncomeTable
+    IncomeTable,
+    AppIncomeInput
   }
 }
 </script>

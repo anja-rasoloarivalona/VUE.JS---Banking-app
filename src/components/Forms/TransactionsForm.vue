@@ -2,15 +2,14 @@
     <div class="transactions-form">
         <slot />
         <form>
-            <app-select-input v-model="input.transactionType" :options="['Income', 'Expense']" :id="'Type'" />
+            <app-select-input v-model="input.transactionType" :options="[{value: 'income', i18: 'income'}, {value: 'expense', i18: 'expense'}]" :id="'Type'" i18/>
             <app-date-input   :id="'Date'"  v-model="input.date" />
-            <app-category-input v-model="input.genre" v-if="input.transactionType === 'Expense'"/>
-
-            <app-expense-input v-model="input.name" :options="[ 'New transaction']" v-if="input.transactionType === 'Income'" />
+            <app-expense-input v-model="expense" v-if="input.transactionType.value === 'expense'"/>
+            <app-income-input v-model="income" v-if="input.transactionType.value === 'income'"/>
             <app-basic-input  :id="'Amount'" v-model="input.amount" />
             <app-basic-input  :id="'Details'" v-model="input.details" />
-            <app-select-input :id="'Wallet'" v-model="input.usedWallet" :options="userWallets" v-if="input.transactionType !== ''"/>
-            <app-basic-input  :id="'Counter party'" v-model="input.counterparty" v-if="input.transactionType === 'Expense'"/>
+            <app-select-input :id="'Wallet'" v-model="input.usedWallet" :options="displayedWalletsList"  v-if="input.transactionType.value" i18/>
+            <app-basic-input  :id="'Counter party'" v-model="input.counterparty" v-if="input.transactionType.value && input.transactionType.value === 'expense'"/>
         </form>
         <div class="transactions-form__cta">
             <app-btn normal secondary v-if="isCancelBtnDisplayed" @click.native="close">Cancel</app-btn>
@@ -24,48 +23,57 @@
 
 <script>
 import AppExpenseInput from '@/components/Input/ExpenseInput/ExpenseInput'
+import AppIncomeInput from '@/components/Input/IncomeInput/IncomeInput'
 import { mapGetters, mapMutations } from 'vuex'
 export default {
   data () {
     return {
       input: {
         _id: null,
-        budgetId: null,
         date: new Date(),
-        genre: {
-          category: {
-
-          },
-          subcategory: {
-
-          }
-        },
-        name: null,
         amount: 0,
         details: '',
         usedWallet: '',
         walletId: '',
-        transactionType: '',
+        transactionType: {},
         counterparty: ''
       },
-      loading: false,
-      userFixedExpenses: [],
-      userWallets: []
+      expense: {
+        category: {
+
+        },
+        subcategory: {
+
+        }
+      },
+      income: {
+
+      },
+      loading: false
     }
   },
   computed: {
     ...mapGetters([
+      'user',
       'walletsNameAndId',
       'isEditingTransaction'
     ]),
-    isFixedExpenses () {
-      if (this.userFixedExpenses.includes(this.input.name)) {
-        return true
-      } else return false
+    displayedWalletsList () {
+      const userWallets = [...this.user.wallets]
+      const res = []
+      userWallets.forEach(wallet => {
+        this.user.walletTypeList.find(type => {
+          if (type.value === wallet.walletType) {
+            res.push({
+              i18: type.i18,
+              custom: wallet.name,
+              _id: wallet._id
+            })
+          }
+        })
+      })
+      return res
     }
-  },
-  mounted () {
-
   },
   methods: {
     ...mapMutations([
@@ -78,14 +86,26 @@ export default {
     },
     submitForm () {
       this.loading = true
-      if (this.isEditingTransaction) {
-        this.editTransaction()
+      const data = {
+        ...this.input,
+        walletId: this.input.usedWallet._id
+      }
+      if (this.input.transactionType.value === 'expense') {
+        data.category = this.expense.category.name
+        data.subcategory = this.expense.subcategory.name
       } else {
-        this.addTransaction()
+        data.category = 'Income'
+        data.subcategory = this.income.value
+      }
+
+      if (this.isEditingTransaction) {
+        this.editTransaction(data)
+      } else {
+        this.addTransaction(data)
       }
     },
-    addTransaction: async function () {
-      const res = await this.$store.dispatch('addTransaction', this.input)
+    addTransaction: async function (data) {
+      const res = await this.$store.dispatch('addTransaction', data)
       if (res) {
         this.loading = false
         this.close()
@@ -93,8 +113,8 @@ export default {
         this.loading = false
       }
     },
-    editTransaction: async function () {
-      const res = await this.$store.dispatch('editTransaction', this.input)
+    editTransaction: async function (data) {
+      const res = await this.$store.dispatch('editTransaction', data)
       if (res) {
         this.loading = false
         this.close()
@@ -107,7 +127,8 @@ export default {
     isCancelBtnDisplayed: Boolean
   },
   components: {
-    AppExpenseInput
+    AppExpenseInput,
+    AppIncomeInput
   }
 }
 </script>

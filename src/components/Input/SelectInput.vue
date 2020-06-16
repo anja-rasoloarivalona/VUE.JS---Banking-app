@@ -23,11 +23,11 @@
             class="select__list box-shadow"
             v-show="showList"
             :style="{maxHeight: `${listMaxHeight}vh`}">
-              <li v-for="(option, index) in displayedOptions"
-                  :key="index" class="select__list__item"
-                  @click="selectOption(option)">
-                  {{ i18 ? $t(option.i18) : option }}
-              </li>
+                <li v-for="(option, index) in displayedOptions"
+                    :key="index" class="select__list__item"
+                    @click="selectOption(option)">
+                    {{ i18 ? option.custom ? `${$t(option.i18)} - ${option.custom}` : `${$t(option.i18)}`  : option }}
+                </li>
           </ul>
       </div>
     </label>

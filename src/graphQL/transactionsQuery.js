@@ -25,15 +25,14 @@ const deleteTransactionQuery = (input) => {
 const query = (action, input) => {
   return `${action}(transactionInput: {
           _id: "${input._id}",
-          name: "${input.name}",
-          budgetId: "${input.budgetId}",
+          category: "${input.category}",
+          subcategory: "${input.subcategory}",
           date: "${input.date}",
           counterparty: "${input.counterparty}",
           amount: "${input.amount}",
           details: "${input.details}",
           usedWalletId: "${input.walletId}",
-          status: "${input.status}",
-          transactionType: "${input.transactionType}"
+          transactionType: "${input.transactionType.value}"
       }) { ${queryResult}}`
 }
 const queryResult = `
@@ -43,18 +42,20 @@ const queryResult = `
                 expense
                 details {
                   _id
+                  category
+                  subcategory
                   amount
                   used
                 }
                 transactions {
                   _id
-                  budgetId
+                  category
+                  subcategory
                   date
                   counterparty
                   amount
                   details
                   usedWalletId
-                  status
                   transactionType
                 }
               }
@@ -63,12 +64,13 @@ const queryResult = `
                   walletType
                   amount
                   creditLimit
-                  supplier
+                  name
                   color
               }
               incomes {
                   _id
                   category
+                  subcategory
                   amount
                   details
                   frequency {

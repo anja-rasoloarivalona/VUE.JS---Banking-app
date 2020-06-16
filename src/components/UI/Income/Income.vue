@@ -2,10 +2,10 @@
     <td class="income-name">
         <div class="income-name__content">
             <div class="income-name__content__icon" :style="{backgroundColor: incomesList.color}">
-            <fa-icon :icon="income.iconName" size="sm" :style="{ color: 'white' }"/>
+            <fa-icon :icon="icon" size="sm" :style="{ color: 'white' }"/>
             </div>
             <div class="income-name__content__text">
-                {{  $t(income.i18) }}
+                {{  type === 'category' ? $t('income') : $t(incomesList.category[this.income.subcategory].i18) }}
             </div>
         </div>
     </td>
@@ -17,14 +17,21 @@ export default {
   computed: {
     ...mapGetters([
       'incomesList'
-    ])
+    ]),
+    icon () {
+      if (this.type === 'income') {
+        return this.incomesList.iconName
+      } else {
+        return this.incomesList.category[this.income.subcategory].iconName
+      }
+    }
+  },
+  mounted () {
+    console.log('income', this.income)
   },
   props: {
-    income: {
-      key: String,
-      i18: String,
-      iconName: String
-    }
+    income: Object,
+    type: String // category or subcategory
   }
 }
 </script>

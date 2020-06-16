@@ -60,17 +60,18 @@ export default {
   methods: {
     displayChart () {
       // this.gradient = this.$refs.canvas.getContext('2d').createLinearGradient(0, 0, 0, 310)
-      this.gradient = this.$refs.canvas.getContext('2d').createLinearGradient(0, 0, 0, 710)
-      this.gradient.addColorStop(0, this.gradient1)
-      this.gradient.addColorStop(0.4, this.gradient2)
+      // this.gradient = this.$refs.canvas.getContext('2d').createLinearGradient(0, 0, 0, 710)
+      // this.gradient.addColorStop(0, this.gradient1)
+      // this.gradient.addColorStop(0.4, this.gradient2)
 
       const d = this.data
       d.datasets.forEach(i => {
         // i.backgroundColor = this.gradient
-        i.borderColor = this.gradient1
-        i.pointBackgroundColor = this.gradient1
+        // i.borderColor = this.gradient1
+        // i.pointBackgroundColor = this.gradient1
         i.borderWidth = 2
-        i.lineTension = 0
+        // i.steppedLine = 'middle'
+        i.lineTension = 0.1
       })
       this.renderChart(d, this.options)
     },

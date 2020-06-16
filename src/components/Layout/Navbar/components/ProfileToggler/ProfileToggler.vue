@@ -31,6 +31,7 @@ export default {
 
 <style lang="scss" scoped>
 .profile {
+    margin-left: 4rem;
     &__list {
         list-style: none;
         background: $color-white;

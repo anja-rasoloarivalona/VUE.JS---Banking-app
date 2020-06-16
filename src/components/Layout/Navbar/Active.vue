@@ -6,10 +6,13 @@
         <router-link to="/profile" tag="div"><a>Profile</a></router-link>
         <router-link to="/report" tag="div"><a>report</a></router-link>
       </ul>
+
       <div class="active__cta" v-click-outside="hideCtaList">
-        <app-icon name="eye" size="large" color="dark" v-if="!ghostModeIsEnabled" @click="activateGhostMode"/>
-        <app-icon name="eye-blocked" size="large" color="dark" v-else @click="deactivateGhostMode"/>
-        <app-icon name="settings" size="large" :color="isSettingsPannelShowed" @click="showList = !showList" />
+        <!-- <app-icon name="eye" size="large" color="dark" v-if="!ghostModeIsEnabled" @click="activateGhostMode"/>
+        <app-icon name="eye-blocked" size="large" color="dark" v-else @click="deactivateGhostMode"/> -->
+        <profile-toggler />
+        <lang-switcher />
+        <!-- <app-icon name="settings" size="large" :color="isSettingsPannelShowed" @click="showList = !showList" />
         <app-icon name="logout" size="large" color="dark" @click="logout"/>
         <div
           class="active__cta__list"
@@ -19,13 +22,16 @@
             <div class="active__cta__list__item">Account</div>
             <div class="active__cta__list__item" @click="openBackdrop('settings')">Settings</div>
             <div class="active__cta__list__item">Logout</div>
-        </div>
+        </div>-->
       </div>
+
     </div>
 </template>
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
+import LangSwitcher from './components/LangSwitcher/LangSwitcher'
+import ProfileToggler from './components/ProfileToggler/ProfileToggler'
 export default {
   data () {
     return {
@@ -70,6 +76,10 @@ export default {
   },
   mounted () {
     this.activePath = this.$router.currentRoute.path
+  },
+  components: {
+    LangSwitcher,
+    ProfileToggler
   }
 }
 </script>
@@ -100,54 +110,9 @@ export default {
   }
   &__cta {
         font-size: $font-m;
-        // color: var(--mainColor);
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        width: 10rem;
-        position: relative;
-        &__list {
-          position: absolute;
-          top: 4rem;
-          right: -1rem;
-          width: 15rem;
-          background: $color-white;
-          // box-shadow: 1px 5px 12px -1px rgb(165, 165, 165);
-          color: var(--textColor--dark);
-          border-radius: .5rem;
-          padding: 1rem 0;
-          // overflow: hidden;
-          &__item {
-            // background: red;
-            // margin-bottom: 1rem;
-            padding: 1rem 0;
-            padding-left: 2rem;
-            // &:first-child {
-            //   border-top-left-radius: .5rem;
-            //   border-top-right-radius: .5rem;
-            // }
-            // &:last-child {
-            //   border-bottom-left-radius: .5rem;
-            //   border-bottom-right-radius: .5rem;
-            // }
-            cursor: pointer;
-            &:hover {
-              background: var(--mainColor);
-              color: $color-white;
-            }
-          }
-          // border: 2px solid var(--mainColor);
-          &::after {
-            content: "";
-            position: absolute;
-            top: -2rem;
-            left: 53%;
-            // margin-left: -5px;
-            border-width: 10px;
-            border-style: solid;
-            border-color:  transparent transparent $color-white transparent ;
-          }
-        }
+        // justify-content: space-between;
     }
 }
 </style>

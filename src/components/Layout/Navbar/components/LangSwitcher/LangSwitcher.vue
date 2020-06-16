@@ -2,7 +2,7 @@
     <div class="lang">
       <app-toggle-list>
           <template #value>
-              <span :style="{cursor: 'pointer'}">{{ currentLangName }}</span>
+              <div :style="{cursor: 'pointer'}" class="lang__value">{{ currentLangName }}</div>
           </template>
           <template #list>
             <ul class="lang__list" :style="{boxShadow: theme.isDark ? 'box-shadow: 1px 5px 12px -1px rgba(15,15,15,1)' : '1px 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)'}">
@@ -77,11 +77,14 @@ export default {
 
 <style lang="scss" scoped>
 .lang {
-  // background: salmon;
   font-size: $font-s;
   position: relative;
   margin-left: 4rem;
+  &__value {
+      width: 6rem;
+  }
   &__list {
+    padding-top: 1rem;
     list-style: none;
     background: $color-white;
     top: 3rem;

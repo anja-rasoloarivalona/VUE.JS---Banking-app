@@ -7,6 +7,9 @@ export default {
   data () {
     return {
       options: {
+        legend: {
+          display: false
+        },
         responsive: true,
         maintainAspectRatio: false,
         height: 170,
@@ -21,42 +24,54 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'theme'
+      'theme',
+      'user'
     ]),
     optionsScales () {
       return {
         yAxes: [{
           ticks: {
+            display: false,
             beginAtZero: true,
-            stepSize: 500
+            stepSize: this.stepSize,
+            suggestedMax: this.steps[0],
+            min: 1
           },
           gridLines: {
+            display: true,
             color: this.theme.isDark ? '#2e2e2e' : '#e4e1e1'
           }
         }],
         xAxes: [{
           ticks: {
-            // display: false
+            display: true
           },
           gridLines: {
+            display: true,
             color: this.theme.isDark ? '#2e2e2e' : '#e4e1e1'
           }
         }]
       }
     }
   },
-  props: ['data', 'gradient1', 'gradient2'],
+  props: {
+    data: [Array, Object],
+    stepSize: Number,
+    steps: Array,
+    maxBalance: Number
+  },
   mounted () {
     this.displayChart()
+    // console.log('user', this.user)
   },
   watch: {
-    data: {
-      handler: 'displayChart',
-      immediate: false
+    'user.monthlyReports': function (val) {
+      console.log('monthly changed')
+      this.displayChart()
     },
     'theme.currentTheme': {
       handler: 'displayChart',
-      immediate: true
+      immediate: false
     },
     options: {
       handler: 'displayChart',
@@ -65,20 +80,14 @@ export default {
   },
   methods: {
     displayChart () {
-      // this.gradient = this.$refs.canvas.getContext('2d').createLinearGradient(0, 0, 0, 310)
-      // this.gradient = this.$refs.canvas.getContext('2d').createLinearGradient(0, 0, 0, 710)
-      // this.gradient.addColorStop(0, this.gradient1)
-      // this.gradient.addColorStop(0.4, this.gradient2)
       const d = this.data
       d.datasets.forEach(i => {
-        i.borderWidth = 2
-        i.lineTension = 0.1
-        // i.backgroundColor = this.gradient
-        // i.borderColor = this.gradient1
-        // i.pointBackgroundColor = this.gradient1
+        i.borderWidth = 1
+        i.lineTension = i.label !== 'Balance' ? 0.3 : 0.1
       })
       this.renderChart(d, { ...this.options, scales: this.optionsScales })
     }
   }
 }
+
 </script>

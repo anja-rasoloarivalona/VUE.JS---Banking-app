@@ -4,9 +4,7 @@
         <div class="chart__container">
             <line-chart
               :data="datacollection"
-              :styles="myStyles"
-              :gradient1="chartColor"
-              :gradient2="gradient2"
+              :maxBalance="userMaxBalance"
             />
         </div>
     </div>
@@ -16,7 +14,7 @@
 import themes from '@/assets/theme'
 import Months from '@/utilities/months'
 import { mapGetters } from 'vuex'
-import LineChart from '@/components/Charts/Line'
+import LineChart from '@/components/Charts/Line/Line'
 export default {
   data () {
     return {
@@ -26,98 +24,20 @@ export default {
       },
       myStyles: {
         height: '170px',
-        width: '100%',
+        width: '80vw',
         position: 'relative'
-      }
+      },
+      userMaxBalance: 0
     }
   },
-  displayFromNowTo30DaysBefore () {
-  },
+
   created () {
-    const activeDate = new Date(this.$store.state.auth.activeDate)
-    const endActiveDate = new Date(new Date().setDate(activeDate.getDate() + 31))
-    if (new Date() <= endActiveDate) {
-      this.displayFromActiveTo30DaysAfter(activeDate)
-    }
-
-    // console.log('demo', demo)
-
-    // console.log('history', this.$store.state.auth.activeDate)
-    // console.log('end', endActiveDate)
-    // console.log(new Date() <= endActiveDate)
-
-    const today = new Date()
-    const data = []
-
-    for (let i = 31; i >= 0; i--) {
-      const fullDate = new Date(new Date().setDate(today.getDate() - i))
-      let month = fullDate.getMonth() + 1
-      if (month < 10) {
-        month = `0${month}`
-      }
-      const labelData = {
-        fullDate: fullDate,
-        shortDate: `${month}/${fullDate.getDate()}`,
-        transactions: [],
-        balanceVariation: 0,
-        balance: 0
-      }
-      data.push(labelData)
-    }
-
-    this.userTransactions.forEach(transaction => {
-      if (transaction.details !== 'Initialization') {
-        const fullDate = new Date(transaction.date)
-        let month = fullDate.getMonth() + 1
-        if (month < 10) {
-          month = `0${month}`
-        }
-        const shortDate = `${month}/${fullDate.getDate()}`
-        data.forEach(label => {
-          if (label.shortDate === shortDate) {
-            label.balanceVariation += transaction.amount
-            label.transactions.push(transaction)
-          }
-        })
-      }
-    })
-
-    data.reverse()
-    let balance = this.userBalance
-    data.forEach((label, index) => {
-      label.balance = balance
-      balance -= label.balanceVariation
-    })
-    data.reverse()
-
-    const balanceData = []
-    let currentMonth = null
-
-    data.forEach(label => {
-      balanceData.push(label.balance)
-      if (!currentMonth) {
-        currentMonth = Months[parseInt(label.shortDate.split('/')[0]) - 1]
-        this.datacollection.labels.push(`${currentMonth} ${label.shortDate.split('/')[1]}`)
-      } else {
-        if (currentMonth === Months[parseInt(label.shortDate.split('/')[0]) - 1]) {
-          this.datacollection.labels.push(`${label.shortDate.split('/')[1]}`)
-        } else {
-          currentMonth = Months[parseInt(label.shortDate.split('/')[0]) - 1]
-          this.datacollection.labels.push(`${currentMonth} ${label.shortDate.split('/')[1]}`)
-        }
-      }
-    })
-
-    this.datacollection.datasets = [{
-      borderColor: themes[this.theme.currentTheme]['--mainColor'],
-      pointBackgroundColor: themes[this.theme.currentTheme]['--mainColor'],
-      label: 'Balance',
-      fill: false,
-      data: balanceData
-    }]
+    this.loadData(this.userTransactions)
   },
-  mounted () {
-    // console.log('theme', this.theme.currentTheme)
+  watch: {
+    userTransactions: function (updatedTransactions) {
+      this.loadData(updatedTransactions)
+    }
   },
   computed: {
     ...mapGetters([
@@ -128,21 +48,32 @@ export default {
     ]),
     chartColor () {
       return themes[this.theme.currentTheme]['--secondaryColor']
-      // return themes[this.theme.currentTheme]['--secondaryColor']
-    },
-    gradient2 () {
-      if (this.theme.isDark) {
-        return 'transparent'
-      } else {
-        return 'transparent'
-      }
     }
   },
   methods: {
-    displayFromActiveTo30DaysAfter (activeDate) {
+    loadData (transactions) {
+      const today = new Date()
+      const tomorrow = today.setDate(today.getDate() + 1)
       const data = []
-      for (let i = -1; i < 31; i++) {
-        const fullDate = new Date(new Date().setDate(activeDate.getDate() + i))
+      for (let i = 31; i >= 0; i--) {
+      // for (let i = 31; i >= 0; i--) {
+        const fullDate = new Date(new Date().setDate(today.getDate() - i))
+        let month = fullDate.getMonth() + 1
+        if (month < 10) {
+          month = `0${month}`
+        }
+        const labelData = {
+          fullDate: fullDate,
+          shortDate: `${month}/${fullDate.getDate()}`,
+          transactions: [],
+          balanceVariation: 0,
+          balance: 0
+        }
+        data.push(labelData)
+      }
+      for (let i = 1; i <= 31; i++) {
+      // for (let i = 1; i <= 31; i++) {
+        const fullDate = new Date(new Date().setDate(today.getDate() + i))
         let month = fullDate.getMonth() + 1
         if (month < 10) {
           month = `0${month}`
@@ -157,7 +88,7 @@ export default {
         data.push(labelData)
       }
 
-      this.userTransactions.forEach(transaction => {
+      transactions.forEach(transaction => {
         if (transaction.details !== 'Initialization') {
           const fullDate = new Date(transaction.date)
           let month = fullDate.getMonth() + 1
@@ -173,7 +104,92 @@ export default {
           })
         }
       })
-      console.log('data', data)
+
+      const before = []
+      const after = []
+      data.forEach(label => {
+        if (new Date(label.fullDate) < tomorrow) {
+          before.push(label)
+        } else {
+          after.push(label)
+        }
+      })
+
+      before.reverse()
+      let beforeBalance = this.userBalance
+      before.forEach(label => {
+        if (beforeBalance > this.userMaxBalance) {
+          this.userMaxBalance = beforeBalance
+        }
+        label.balance = beforeBalance
+        beforeBalance -= label.balanceVariation
+      })
+      before.reverse()
+
+      let afterBalance = this.userBalance
+      after.forEach(label => {
+        if (afterBalance > this.userMaxBalance) {
+          this.userMaxBalance = afterBalance
+        }
+        label.balance = afterBalance
+        afterBalance += label.balanceVariation
+      })
+
+      const fullData = [...before, ...after]
+
+      const balanceData = []
+      const expenseData = []
+      const incomeData = []
+      let currentMonth = null
+
+      fullData.forEach(label => {
+        balanceData.push(label.balance)
+        expenseData.push(label.balanceVariation < 0 ? label.balanceVariation * -1 : 0)
+        incomeData.push(label.balanceVariation > 0 ? label.balanceVariation : 0)
+        if (this.datacollection.labels.length < fullData.length) {
+          if (!currentMonth) {
+            currentMonth = Months[parseInt(label.shortDate.split('/')[0]) - 1]
+            this.datacollection.labels.push(`${label.shortDate.split('/')[1]}`)
+          } else {
+            if (currentMonth === Months[parseInt(label.shortDate.split('/')[0]) - 1]) {
+              this.datacollection.labels.push(`${label.shortDate.split('/')[1]}`)
+            } else {
+              currentMonth = Months[parseInt(label.shortDate.split('/')[0]) - 1]
+              this.datacollection.labels.push(`${currentMonth} ${label.shortDate.split('/')[1]}`)
+            }
+          }
+        }
+      })
+
+      console.log('theme', themes[this.theme.currentTheme]['--mainColor'])
+
+      this.datacollection.datasets = [
+        {
+          borderColor: themes[this.theme.currentTheme]['--textColor-dark'],
+          backgroundColor: themes[this.theme.currentTheme]['--textColor-dark--2'],
+          pointBackgroundColor: themes[this.theme.currentTheme]['--textColor-dark'],
+          label: 'Income',
+          data: incomeData,
+          fill: true
+        },
+        {
+          borderColor: themes[this.theme.currentTheme]['--secondaryColor'],
+          backgroundColor: themes[this.theme.currentTheme]['--secondaryColor--2'],
+          pointBackgroundColor: themes[this.theme.currentTheme]['--secondaryColor'],
+          label: 'Expense',
+          data: expenseData,
+          fill: true
+        },
+        {
+          borderColor: themes[this.theme.currentTheme]['--mainColor'],
+          backgroundColor: themes[this.theme.currentTheme]['--mainColor--2'],
+          pointBackgroundColor: themes[this.theme.currentTheme]['--mainColor'],
+          label: 'Balance',
+          fill: true,
+          data: balanceData
+        }
+      ]
+      // console.log('balance', balanceData)
     }
   },
   components: {
@@ -189,7 +205,10 @@ export default {
     &__container {
         position: relative;
         width: 100%;
+        // width: 10rem;
+        overflow-x: auto;
         height: 17rem;
+        // background: rgba(121, 121, 121, 0.329);
     }
 }
 </style>

@@ -75,6 +75,11 @@ export default {
       return res
     }
   },
+  watch: {
+    'input.date': function (val) {
+      // console.log('date', val)
+    }
+  },
   methods: {
     ...mapMutations([
       'closeBackdrop',

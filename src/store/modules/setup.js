@@ -1,10 +1,10 @@
 import axios from 'axios'
 
 const state = {
-  // setupType: 'general', // GENERAL OR BUDGET - BUDGET IS OPTIONNAL
-  setupType: 'budget',
-  // currentSetupStep: 'currency',
-  currentSetupStep: 'incomes',
+  setupType: 'general', // GENERAL OR BUDGET - BUDGET IS OPTIONNAL
+  // setupType: 'budget',
+  currentSetupStep: 'currency',
+  // currentSetupStep: 'incomes',
   generalSetupSteps: ['currency', 'wallets', 'budget'],
   budgetSetupSteps: ['currency', 'wallets', 'incomes', 'expenses', 'goal'],
   displayWelcome: true

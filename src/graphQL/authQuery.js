@@ -53,6 +53,7 @@ const loginQuery = input => {
                           details
                           usedWalletId
                           transactionType
+                          status
                         }
                     }
                     expenses {

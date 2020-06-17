@@ -40,6 +40,7 @@ const initQuery = {
             details
             usedWalletId
             transactionType
+            status
           }
         }
         wallets {

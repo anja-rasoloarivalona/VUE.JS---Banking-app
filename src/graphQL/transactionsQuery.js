@@ -57,6 +57,7 @@ const queryResult = `
                   details
                   usedWalletId
                   transactionType
+                  status
                 }
               }
               wallets {

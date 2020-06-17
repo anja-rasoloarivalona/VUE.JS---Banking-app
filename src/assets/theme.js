@@ -1,6 +1,7 @@
 const theme = {
   default: {
     '--mainColor': '#027a66',
+    '--mainColor--2': 'rgba(2, 122, 102, 0.5)',
     '--secondaryColor': '#BA895D',
     '--textColor': 'black',
     '--textColor-dark': '#797979',
@@ -11,9 +12,12 @@ const theme = {
 
   'light-green': {
     '--mainColor': '#027a66',
+    '--mainColor--2': 'rgba(2, 122, 102, 0.315)',
     '--secondaryColor': '#BA895D',
+    '--secondaryColor--2': 'rgba(186, 136, 93, 0.5)',
     '--textColor': 'black',
     '--textColor-dark': '#797979',
+    '--textColor-dark--2': 'rgba(121, 121, 121, 0.6)',
     '--backgroundColor': '#f5f5f5',
     '--surfaceColor': '#fff',
     '--on-surfaceColor': '#b1afaf'

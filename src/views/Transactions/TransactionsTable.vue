@@ -4,7 +4,8 @@
             <thead>
                 <tr>
                     <th class="transactions__table--date">Date</th>
-                    <th class="transactions__table--name">Name</th>
+                    <th class="transactions__table--name">Category</th>
+                    <th class="transactions__table--name">Subcategory</th>
                     <th class="transactions__table--counterparty">Counterparty</th>
                     <th class="transactions__table--wallet">Used wallet</th>
                     <th class="transactions__table--details">Details</th>

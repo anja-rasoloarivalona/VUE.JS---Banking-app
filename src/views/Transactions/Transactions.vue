@@ -14,7 +14,7 @@
                <app-select-input v-model="name" :options="namesList" id="name" row/>
                <!-- <app-select-input v-model="category" :options="categorysList" id="category" row/> -->
             </div>
-            <transactions-table @editTransaction="edit" :period="period" :name="name"></transactions-table>
+            <transactions-table :transactions="userTransactions" />
         </div>
     </div>
   </keep-alive>
@@ -22,7 +22,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import TransactionTable from './TransactionsTable'
+import TransactionTable from '@/components/UI/Transaction/TransactionTable'
 export default {
   data () {
     return {

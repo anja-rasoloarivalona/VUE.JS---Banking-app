@@ -4,8 +4,8 @@
             <div class="expense-name__content__icon" :style="{backgroundColor: expensesList[categoryName].color}">
             <fa-icon :icon="icon" size="sm" :style="{ color: 'white' }"/>
             </div>
-            <div class="expense-name__content__text">
-                {{ type === 'category' ? $t(this.expensesList[this.categoryName].i18) : $t(this.expensesList[this.categoryName].subcategory[this.subcategoryName].i18) }}
+            <div class="expense-name__content__text" :class="{small: this.$i18n.locale === 'fr'}">
+                {{ type === 'category' ? $t(expensesList[categoryName].i18) : $t(expensesList[categoryName].subcategory[subcategoryName].i18) }}
             </div>
         </div>
     </td>
@@ -46,6 +46,13 @@ export default {
         display: flex;
         align-items: center;
         padding-left: 2rem;
+          &__text.small {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 50%;
+          // background: red;
+        }
         &__icon {
             width: 3rem;
             height: 3rem;

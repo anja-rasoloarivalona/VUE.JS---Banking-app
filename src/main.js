@@ -64,7 +64,22 @@ Vue.filter('short-date', function (value) {
   const month = d.getMonth() + 1 < 10 ? `0${d.getMonth() + 1}` : d.getMonth() + 1
   const day = d.getDate() < 10 ? `0${d.getDate()}` : d.getDate()
   const year = d.getFullYear()
-  const date = `${month}/${day}/${year}`
+  let date = `${month}/${day}/${year}`
+  if (i18n.locale === 'fr') {
+    date = `${day}/${month}/${year}`
+  }
+  return date
+})
+
+Vue.filter('really-short-date', function (value) {
+  const d = value.split('/')
+  let date
+  if (i18n.locale === 'en') {
+    date = `${i18n.t(`month${d[0]}`)} ${d[1]}`
+  }
+  if (i18n.locale === 'fr') {
+    date = `${d[0]} ${i18n.t(`month${d[1]}`)}`
+  }
   return date
 })
 

@@ -5,7 +5,7 @@
             <fa-icon :icon="icon" size="sm" :style="{ color: 'white' }"/>
             </div>
             <div class="income-name__content__text">
-                {{  type === 'category' ? $t('income') : $t(incomesList.category[this.income.subcategory].i18) }}
+                {{  type === 'income' ? $t('income') : $t(incomesList.category[income.subcategory].i18) }}
             </div>
         </div>
     </td>
@@ -48,6 +48,12 @@ export default {
         display: flex;
         align-items: center;
         padding-left: 2rem;
+        &__text {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 10ch;
+        }
         &__icon {
             width: 3rem;
             height: 3rem;

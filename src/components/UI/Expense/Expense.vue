@@ -46,11 +46,14 @@ export default {
         display: flex;
         align-items: center;
         padding-left: 2rem;
-          &__text.small {
+          &__text{
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          max-width: 50%;
+          max-width: 60%;
+          &.small {
+            max-width: 60%;
+          }
           // background: red;
         }
         &__icon {

@@ -41,7 +41,6 @@ const queryResult = `
                 income
                 expense
                 details {
-                  _id
                   category
                   subcategory
                   amount

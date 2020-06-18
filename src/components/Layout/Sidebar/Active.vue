@@ -1,11 +1,10 @@
 <template>
     <div class="active__sidenav">
-        <ul class="active__sidenav__list" key="dashboard">
+         <ul class="active__sidenav__list" key="dashboard">
                 <li class="active__sidenav__list__item"
                     v-for="(item, key) in items"
                     :key="key"
-                    :class="{'bg-surfaceColor ':  theme.isLight, 'bg-on-surfaceColor': theme.isDark}"
-                >
+                    :class="{'bg-surfaceColor ':  theme.isLight, 'bg-on-surfaceColor': theme.isDark}">
                     <div class="active__sidenav__list__item__title">
                         <h2>{{key}}</h2>
                         <div class="active__sidenav__list__item__subtitle">
@@ -17,7 +16,7 @@
                         <div class="active__sidenav__list__item__details__amount">{{ item.value | amount}}</div>
                     </div>
                 </li>
-            </ul>
+          </ul>
           <div
             class="active__sidenav__add"
             @click="openBackdrop('transactions')"
@@ -99,12 +98,12 @@ export default {
 .active {
     &__sidenav {
         width: 100%;
-        height: 100%;
+        height: 72%;
         display: flex;
         padding-top: 1rem;
         flex-direction: column;
         align-items: center;
-        // justify-content: space-between;
+        justify-content: space-between;
         &__list {
         list-style: none;
         width: 90%;
@@ -161,7 +160,7 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
-        transform: translateY(8rem);
+        // transform: translateY(-8rem);
         // position: absolute;
         // bottom: 5rem;
         // left: 0;

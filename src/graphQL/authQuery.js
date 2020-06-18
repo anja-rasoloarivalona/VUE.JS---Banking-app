@@ -39,7 +39,8 @@ const loginQuery = input => {
                         income
                         expense
                         details {
-                          _id
+                          category
+                          subcategory
                           amount
                           used
                         }

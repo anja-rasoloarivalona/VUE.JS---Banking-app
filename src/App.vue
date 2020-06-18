@@ -110,6 +110,7 @@ export default {
     position: relative;
     display: flex;
     justify-content: center;
+    overflow: hidden;
   }
 }
 .full-absolute {

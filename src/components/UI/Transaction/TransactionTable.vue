@@ -3,21 +3,26 @@
         <table>
             <thead>
                 <tr>
-                    <th class="transaction-table--date">Date</th>
-                    <th class="transaction-table--category">Category</th>
-                    <th class="transaction-table--subcategory">Subcategory</th>
-                    <th class="transaction-table--counterparty">Counterparty</th>
-                    <th class="transaction-table--wallet">Used wallet</th>
-                    <th class="transaction-table--details">Details</th>
-                    <th class="transaction-table--amount">Amount</th>
-                    <th class="transaction-table--status">Status</th>
+                    <th class="transaction-table--date">{{$t('date')}}</th>
+                    <th class="transaction-table--category">{{$t('category')}}</th>
+                    <th class="transaction-table--subcategory">{{$t('subcategory')}}</th>
+                    <th class="transaction-table--counterparty">{{$t('counterparty')}}</th>
+                    <th class="transaction-table--wallet">{{$t('usedWallet')}}</th>
+                    <th class="transaction-table--details">{{$t('details')}}</th>
+                    <th class="transaction-table--amount">{{$t('amount')}}</th>
+                    <th class="transaction-table--status">{{$t('status')}}</th>
                 </tr>
             </thead>
         </table>
         <div class="transaction-table__scroll">
             <table>
                 <tbody>
-                    <transaction-line-table v-for="transaction in transactions" :key="transaction._id" :transaction="transaction"/>
+                    <transaction-line-table
+                        v-for="(transaction, index) in transactions"
+                        :key="transaction._id"
+                        :transaction="transaction"
+                        :isLast="index === transactions.length - 1 || index === transactions.length - 2"
+                    />
                 </tbody>
             </table>
         </div>
@@ -38,20 +43,22 @@ export default {
 
 <style lang="scss">
 .transaction-table {
-    height: 100%;
+    // background: brown;
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     &--date {
         // background: red;
-        width: 5%;
+        padding-left: 1rem;
+        width: 7%;
     }
     &--category {
         // background: green;
-        width: 12.5%;
+        width: 14%;
     }
     &--subcategory {
         // background: salmon;
-        width: 12.5%;
+        width: 14%;
     }
     &--counterparty {
         // background: blue;
@@ -63,7 +70,7 @@ export default {
     }
     &--details {
         // background: orange;
-        width: 23%;
+        width: 20%;
     }
     &--amount {
         // background: brown;
@@ -74,23 +81,26 @@ export default {
         width: 7%;
     }
     &__scroll {
-        max-height: 100%;
-        min-height: 100%;
-        overflow-y: scroll;
+        flex-grow: 1;
+        // background: blue;
+        overflow: auto;
+        height: 10rem;
         &::-webkit-scrollbar{
             display: none;
         }
     }
     & table {
     width: 100%;
-    border-bottom: 1px solid var(--lineColor);
     border-collapse: collapse;
+        & thead {
+            // background: green;
+        }
         & th {
             height: 5rem;
             text-align: start;
-            // padding-left: 1rem;
+            border-bottom: 1px solid var(--lineColor);
             font-size: $font-s;
-            // background: var(--backgroundColor);
+            background: var(--backgroundColor);
             color: var(--textColor--dark);
                 &:first-child {
                     border-radius: 6px 0 0 0;

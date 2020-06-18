@@ -109,6 +109,10 @@ export default {
   &.row {
     flex-direction: row;
     align-items: center;
+    & span {
+      margin-bottom: 0;
+      margin-right: 1rem;
+    }
   }
   & span {
         margin-bottom: 0.5rem;

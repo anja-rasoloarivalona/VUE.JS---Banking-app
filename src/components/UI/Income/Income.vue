@@ -27,7 +27,7 @@ export default {
     }
   },
   mounted () {
-    console.log('income', this.income)
+    // console.log('income', this.income)
   },
   props: {
     income: Object,
@@ -52,7 +52,7 @@ export default {
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
-          max-width: 10ch;
+          max-width: 45%;
         }
         &__icon {
             width: 3rem;

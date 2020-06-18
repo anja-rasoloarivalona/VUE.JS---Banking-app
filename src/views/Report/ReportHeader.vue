@@ -10,7 +10,7 @@
                     Incomes
                 </div>
                 <div class="header__details__item__value">
-                    ${{currentReport.income | amount}}
+                    <!-- ${{currentReport.income | amount}} -->
                 </div>
             </div>
             <div class="header__details__item">
@@ -18,7 +18,7 @@
                     Expenses
                 </div>
                 <div class="header__details__item__value">
-                    ${{currentReport.expense | amount}}
+                    <!-- ${{currentReport.expense | amount}} -->
                 </div>
             </div>
             <div class="header__details__item">
@@ -26,7 +26,7 @@
                     Savings
                 </div>
                 <div class="header__details__item__value">
-                    ${{currentReport.income - currentReport.expense | amount}}
+                    <!-- ${{currentReport.income - currentReport.expense | amount}} -->
                 </div>
             </div>
         </div>

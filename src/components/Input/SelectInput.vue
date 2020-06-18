@@ -16,7 +16,7 @@
             class="select__value"
             :class="{active: showList, 'disabled': isDisabled,  'bg-white': bgWhite}"
             @click.stop="toggleList">
-              <div v-if="value !== ''">{{ i18 ? $t(value.i18) : value }}</div>
+              <div v-if="value !== ''">{{ i18 ?  value.custom ? `${$t(value.i18)} - ${value.custom}` :    $t(value.i18) : value }}</div>
               <div v-else class="select__value__placeholder">{{ placeholder }}</div>
           </div>
           <ul

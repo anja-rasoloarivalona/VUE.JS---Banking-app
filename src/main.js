@@ -27,8 +27,8 @@ import Calendar from 'v-calendar/lib/components/calendar.umd'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-import { faUtensils, faShoppingBag, faHome, faBusAlt, faUsers, faTv, faChartLine, faFirstAid, faShoppingCart, faGlassMartiniAlt, faStore, faHamburger, faBabyCarriage, faTshirt, faLaptop, faSeedling, faGift, faDove, faHouseDamage, faHammer, faKey, faMoneyCheckAlt, faLightbulb, faHotel, faCouch, faSubway, faTaxi, faPlane, faTrain, faCar, faCarAlt, faFileInvoiceDollar, faGasPump, faWrench, faCoins, faCocktail, faBook, faRunning, faMicrophone, faHandHoldingUsd, faDumbbell, faWifi, faMobileAlt, faMusic, faUserGraduate, faBuilding, faTruckPickup, faChartBar, faFileMedical, faPrescriptionBottle, faUserMd, faBaby, faCheckCircle, faFunnelDollar, faDiceThree, faWarehouse, faHandshake, faUndoAlt, faShare } from '@fortawesome/free-solid-svg-icons'
-library.add(faUtensils, faShoppingBag, faHome, faBusAlt, faUsers, faTv, faChartLine, faFirstAid, faShoppingCart, faGlassMartiniAlt, faStore, faHamburger, faBabyCarriage, faTshirt, faLaptop, faSeedling, faGift, faDove, faHouseDamage, faHammer, faKey, faMoneyCheckAlt, faLightbulb, faHotel, faCouch, faSubway, faTaxi, faPlane, faTrain, faCar, faCarAlt, faFileInvoiceDollar, faGasPump, faWrench, faCoins, faCocktail, faBook, faRunning, faMicrophone, faHandHoldingUsd, faDumbbell, faWifi, faMobileAlt, faMusic, faUserGraduate, faBuilding, faTruckPickup, faChartBar, faFileMedical, faPrescriptionBottle, faUserMd, faBaby, faCheckCircle, faFunnelDollar, faDiceThree, faWarehouse, faHandshake, faUndoAlt, faShare)
+import { faUtensils, faShoppingBag, faHome, faBusAlt, faUsers, faTv, faChartLine, faFirstAid, faShoppingCart, faGlassMartiniAlt, faStore, faHamburger, faBabyCarriage, faTshirt, faLaptop, faSeedling, faGift, faDove, faHouseDamage, faHammer, faKey, faMoneyCheckAlt, faLightbulb, faHotel, faCouch, faSubway, faTaxi, faPlane, faTrain, faCar, faCarAlt, faFileInvoiceDollar, faGasPump, faWrench, faCoins, faCocktail, faBook, faRunning, faMicrophone, faHandHoldingUsd, faDumbbell, faWifi, faMobileAlt, faMusic, faUserGraduate, faBuilding, faTruckPickup, faChartBar, faFileMedical, faPrescriptionBottle, faUserMd, faBaby, faCheckCircle, faFunnelDollar, faDiceThree, faWarehouse, faHandshake, faUndoAlt, faShare, faArrowsAlt, faTrash, faCheck, faPlus, faArrowRight } from '@fortawesome/free-solid-svg-icons'
+library.add(faUtensils, faShoppingBag, faHome, faBusAlt, faUsers, faTv, faChartLine, faFirstAid, faShoppingCart, faGlassMartiniAlt, faStore, faHamburger, faBabyCarriage, faTshirt, faLaptop, faSeedling, faGift, faDove, faHouseDamage, faHammer, faKey, faMoneyCheckAlt, faLightbulb, faHotel, faCouch, faSubway, faTaxi, faPlane, faTrain, faCar, faCarAlt, faFileInvoiceDollar, faGasPump, faWrench, faCoins, faCocktail, faBook, faRunning, faMicrophone, faHandHoldingUsd, faDumbbell, faWifi, faMobileAlt, faMusic, faUserGraduate, faBuilding, faTruckPickup, faChartBar, faFileMedical, faPrescriptionBottle, faUserMd, faBaby, faCheckCircle, faFunnelDollar, faDiceThree, faWarehouse, faHandshake, faUndoAlt, faShare, faArrowsAlt, faTrash, faCheck, faPlus, faArrowRight)
 Vue.component('fa-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false
@@ -53,10 +53,10 @@ axios.defaults.baseURL = 'http://localhost:8000/graphql'
 // }
 
 Vue.filter('amount', function (value) {
-  let res = value
-  if (res < 0) {
-    res = value * -1
-  }
+  const res = value
+  // if (res < 0) {
+  //   res = value * -1
+  // }
   return `${res.toLocaleString()} ${store.state.settings.currentCurrency.split('-')[0].trim()}`
 })
 Vue.filter('short-date', function (value) {

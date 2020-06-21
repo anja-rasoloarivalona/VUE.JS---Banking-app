@@ -8,21 +8,8 @@
       </ul>
 
       <div class="active__cta" v-click-outside="hideCtaList">
-        <!-- <app-icon name="eye" size="large" color="dark" v-if="!ghostModeIsEnabled" @click="activateGhostMode"/>
-        <app-icon name="eye-blocked" size="large" color="dark" v-else @click="deactivateGhostMode"/> -->
         <profile-toggler />
         <lang-switcher />
-        <!-- <app-icon name="settings" size="large" :color="isSettingsPannelShowed" @click="showList = !showList" />
-        <app-icon name="logout" size="large" color="dark" @click="logout"/>
-        <div
-          class="active__cta__list"
-          :style="{boxShadow: theme.isDark ? '1px 5px 12px -1px rgba(15,15,15,1)' : '1px 5px 12px -1px rgb(165, 165, 165)'}"
-          v-if="showList"
-        >
-            <div class="active__cta__list__item">Account</div>
-            <div class="active__cta__list__item" @click="openBackdrop('settings')">Settings</div>
-            <div class="active__cta__list__item">Logout</div>
-        </div>-->
       </div>
 
     </div>

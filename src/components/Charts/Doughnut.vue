@@ -9,7 +9,14 @@ export default {
         maintainAspectRatio: false,
         cutoutPercentage: 70,
         legend: {
-          position: 'right'
+          display: false
+        },
+        tooltips: {
+          callbacks: {
+            label: (item, data) => {
+              return `${data.labels[item.index]}: ${data.datasets[0].data[item.index]} ${this.$store.state.settings.currentCurrency.split('-')[0].trim()}`
+            }
+          }
         },
         elements: {
           arc: {

@@ -64,7 +64,11 @@ export default {
       'theme'
     ]),
     displayedOptions () {
-      return this.options.filter(option => option.value !== this.value)
+      if (this.i18) {
+        return this.options.filter(option => option.value !== this.value.value)
+      } else {
+        return this.options.filter(option => option !== this.value)
+      }
     }
   },
   props: {

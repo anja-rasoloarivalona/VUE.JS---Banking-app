@@ -95,4 +95,7 @@ export default {
     }
   }
 }
+ .vue-grid-item.vue-grid-placeholder {
+   background: green !important;
+ }
 </style>

@@ -3,14 +3,14 @@
         <div class="header__details">
             <div class="header__details__title">
                 <h1>Period</h1>
-                <app-select-input v-model="period" :options="periodLists"/>
+                <app-select-input v-model="period" :options="periodLists" i18/>
             </div>
             <div class="header__details__item">
                 <div class="header__details__item__key">
                     Incomes
                 </div>
                 <div class="header__details__item__value">
-                    <!-- ${{currentReport.income | amount}} -->
+                    {{data.totalIncome | amount}}
                 </div>
             </div>
             <div class="header__details__item">
@@ -18,7 +18,7 @@
                     Expenses
                 </div>
                 <div class="header__details__item__value">
-                    <!-- ${{currentReport.expense | amount}} -->
+                    {{data.totalExpense | amount}}
                 </div>
             </div>
             <div class="header__details__item">
@@ -26,22 +26,58 @@
                     Savings
                 </div>
                 <div class="header__details__item__value">
-                    <!-- ${{currentReport.income - currentReport.expense | amount}} -->
+                    {{data.totalIncome - data.totalExpense | amount}}
                 </div>
             </div>
+        </div>
+        <div class="header__chart">
+            <doughnut-chart :styles="chartStyles" :datacollection="chartData"></doughnut-chart>
         </div>
     </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import DoughnutChart from '@/components/Charts/Doughnut'
 export default {
   data () {
     return {
-      period: ''
+      period: '',
+      chartData: null,
+      chartStyles: {
+        height: '130px',
+        width: '100%',
+        position: 'relative'
+      }
     }
+  },
+  model: {
+    prop: 'currentPeriod',
+    event: 'click'
+  },
+  computed: {
+    ...mapGetters([
+      'expensesList'
+    ])
   },
   mounted () {
     this.period = this.currentPeriod
+  },
+  created () {
+    const labels = []
+    const data = []
+    const bg = []
+
+    for (const expense in this.data.expenseData) {
+      labels.push(expense)
+      data.push(this.data.expenseData[expense].total)
+      bg.push(this.expensesList[expense].color)
+    }
+
+    this.chartData = {
+      labels: labels,
+      datasets: [{ data: data, backgroundColor: bg }]
+    }
   },
   watch: {
     period: {
@@ -57,9 +93,12 @@ export default {
     }
   },
   props: {
-    currentPeriod: String,
-    currentReport: Object,
-    periodLists: Array
+    currentPeriod: Object,
+    periodLists: Array,
+    data: Object
+  },
+  components: {
+    DoughnutChart
   }
 }
 </script>
@@ -68,7 +107,12 @@ export default {
 .header {
     padding-left: 2rem;
     margin-bottom: 3rem;
+    // background: green;
+    display: flex;
+    align-items: center;
     &__details {
+      // background: red;
+      width: 100%;
         &__title {
             display: flex;
             align-items: center;

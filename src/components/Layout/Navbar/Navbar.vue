@@ -20,6 +20,7 @@ import { mapGetters, mapMutations } from 'vuex'
 import Auth from './Auth'
 import Setup from './Setup'
 import Active from './Active'
+import EditingDashboard from './EditingDashboard'
 export default {
   data () {
     return {
@@ -32,7 +33,8 @@ export default {
       'theme',
       'auth',
       'backdrop',
-      'isGhostModeActivated'
+      'isGhostModeActivated',
+      'dashboard'
     ]),
     isSettingsPannelShowed () {
       if (this.backdrop.isDisplayed && this.backdrop.active === 'settings') {
@@ -40,10 +42,14 @@ export default {
       } else return 'secondary'
     },
     currentNav () {
-      if (this.auth.appStatus.includes('setup')) {
-        return 'setup'
+      if (this.dashboard.isBeingEdited) {
+        return 'editing-dashboard'
       } else {
-        return this.auth.appStatus
+        if (this.auth.appStatus.includes('setup')) {
+          return 'setup'
+        } else {
+          return this.auth.appStatus
+        }
       }
     }
   },
@@ -65,7 +71,8 @@ export default {
   components: {
     Active,
     Auth,
-    Setup
+    Setup,
+    EditingDashboard
   }
 }
 </script>

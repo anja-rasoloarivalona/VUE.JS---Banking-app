@@ -30,7 +30,7 @@ import Quotes from './Quotes'
 import { mapGetters } from 'vuex'
 import Setup from './Setup'
 import Active from './Active'
-import EditingDashboard from './EditingDashboard'
+// import EditingDashboard from './EditingDashboard'
 export default {
   data () {
     return {
@@ -44,14 +44,10 @@ export default {
       'dashboard'
     ]),
     displayed () {
-      if (this.dashboard.isBeingEdited) {
-        return 'editingDashboard'
+      if (this.auth.appStatus.includes('setup')) {
+        return 'setup'
       } else {
-        if (this.auth.appStatus.includes('setup')) {
-          return 'setup'
-        } else {
-          return this.auth.appStatus
-        }
+        return this.auth.appStatus
       }
     }
   },
@@ -78,8 +74,8 @@ export default {
   components: {
     Active,
     Setup,
-    Quotes,
-    EditingDashboard
+    Quotes
+    // EditingDashboard
   }
 }
 </script>

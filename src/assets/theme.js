@@ -20,7 +20,8 @@ const theme = {
     '--textColor-dark--2': 'rgba(121, 121, 121, 0.6)',
     '--backgroundColor': '#f5f5f5',
     '--surfaceColor': '#fff',
-    '--on-surfaceColor': '#b1afaf'
+    '--on-surfaceColor': '#b1afaf',
+    '--warningColor': '#770101'
   },
   'light-blue': {
     '--mainColor': '#2790f3',

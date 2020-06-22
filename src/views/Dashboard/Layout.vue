@@ -47,16 +47,6 @@
 import VueGridLayout from 'vue-grid-layout'
 import { mapGetters, mapMutations } from 'vuex'
 export default {
-  data () {
-    return {
-      layout: []
-    }
-  },
-  mounted () {
-    // this.layout = this.dashboard.currentLayout
-    // console.log('prev', this.dashboard.previousLayout[6].x)
-    // console.log('layout mounted', this.dashboard)
-  },
   computed: {
     ...mapGetters([
       'dashboard',
@@ -88,10 +78,6 @@ export default {
       'tryNewLayout'
     ]),
     layoutUpdatedEvent: function (newLayout) {
-      // console.log('update', newLayout[6].x)
-      // console.log('check prev', this.dashboard.previousLayout[6].x)
-      // console.log('check def', this.dashboard.defaultLayout[6].x)
-      // this.layout = newLayout
       this.tryNewLayout(newLayout)
     }
   },

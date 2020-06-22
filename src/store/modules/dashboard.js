@@ -63,7 +63,11 @@ const mutations = {
     state.currentLayout = newLayout
   },
   saveNewLayout (state) {
-    state.previousLayout = [...state.currentLayout]
+    const layout = []
+    state.currentLayout.forEach(item => {
+      layout.push({ ...item })
+    })
+    state.previousLayout = layout
   },
   cancelNewLayout (state) {
     const prevLayout = []
@@ -73,8 +77,14 @@ const mutations = {
     state.currentLayout = prevLayout
   },
   resetDashboardLayout (state) {
-    state.currentLayout = state.defaultLayout
-    state.previousLayout = state.defaultLayout
+    const current = []
+    const prev = []
+    state.defaultLayout.forEach(item => {
+      current.push({ ...item })
+      prev.push({ ...item })
+    })
+    state.currentLayout = current
+    state.previousLayout = prev
   },
 
   // EDIT MUTATIONS
@@ -93,6 +103,7 @@ const actions = {
     try {
       await axios.post('/', graphqlQuery)
       commit('saveNewLayout')
+      return true
     } catch (err) {
       console.log('err edit dashboard layout', err.response)
     }

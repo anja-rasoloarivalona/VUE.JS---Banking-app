@@ -13,7 +13,7 @@
             </li>
         </ul>
         <ul class="editing-dashboard__list">
-          <li class="editing-dashboard__list__item editing-dashboard__list__item--warning">
+          <li class="editing-dashboard__list__item editing-dashboard__list__item--warning" @click="selectAction('reset')">
               <fa-icon icon="undo" size="lg"/>
               <span>Reset</span>
           </li>
@@ -27,7 +27,7 @@
 
 <script>
 import themes from '@/assets/theme'
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 export default {
   data () {
     return {
@@ -72,14 +72,30 @@ export default {
   methods: {
     ...mapMutations([
       'setDashboardIsBeingEditedTofalse',
-      'cancelNewLayout'
+      'cancelNewLayout',
+      'resetDashboardLayout'
     ]),
-    selectAction (action) {
+    ...mapActions([
+      'updateDashboardLayout'
+    ]),
+    selectAction: async function (action) {
       this.currentAction = action
       if (action === 'cancel') {
-        // console.log('start canceling')
         this.cancelNewLayout()
         this.setDashboardIsBeingEditedTofalse()
+      }
+      if (action === 'save') {
+        const success = await this.updateDashboardLayout(this.dashboard.currentLayout)
+        if (success) {
+          this.setDashboardIsBeingEditedTofalse()
+        }
+      }
+      if (action === 'reset') {
+        const success = await this.updateDashboardLayout(this.dashboard.defaultLayout)
+        if (success) {
+          this.resetDashboardLayout()
+          this.setDashboardIsBeingEditedTofalse()
+        }
       }
     }
   }

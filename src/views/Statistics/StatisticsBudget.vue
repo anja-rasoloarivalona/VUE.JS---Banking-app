@@ -1,8 +1,8 @@
 <template>
-    <div class="report-budget">
-        <h1 class="report-budget__title">Budget</h1>
-        <div class="report-budget__content">
-          <div class="report-budget__content__empty">
+    <div class="statistics-budget">
+        <h1 class="statistics-budget__title">Budget</h1>
+        <div class="statistics-budget__content">
+          <div class="statistics-budget__content__empty">
               <p>The statistics concerning your variable expenses will be displayed here</p>
           </div>
         </div>
@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.report-budget {
+.statistics-budget {
   min-height: 30vh;
   margin-top: 8rem;
   display: flex;

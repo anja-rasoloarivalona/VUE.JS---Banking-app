@@ -1,10 +1,10 @@
 <template>
     <div class="active">
       <ul class="active__list">
-        <router-link to="/" tag="div"><a>Dashboard</a></router-link>
-        <router-link to="/transactions" tag="div"><a>Transactions</a></router-link>
-        <router-link to="/profile" tag="div"><a>Profile</a></router-link>
-        <router-link to="/report" tag="div"><a>report</a></router-link>
+        <router-link to="/" tag="div"><a>{{$t('dashboard')}}</a></router-link>
+        <router-link to="/transactions" tag="div"><a>{{$t('transactions')}}</a></router-link>
+        <router-link to="/profile" tag="div"><a>{{$t('profile')}}</a></router-link>
+        <router-link to="/statistics" tag="div"><a>{{$t('statistics')}}</a></router-link>
       </ul>
 
       <div class="active__cta" v-click-outside="hideCtaList">

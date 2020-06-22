@@ -61,7 +61,7 @@ export default {
   },
   watch: {
     '$route' (to, from) {
-      const paths = ['/', '/transactions', '/profile', '/report']
+      const paths = ['/', '/transactions', '/profile', '/statistics']
       const toIndex = paths.indexOf(to.path)
       const fromIndex = paths.indexOf(from.path)
       if (fromIndex < toIndex) {

@@ -3,9 +3,9 @@ import VueRouter from 'vue-router'
 import Setup from '../views/Setup/Setup'
 // import Starter from '../views/Starter/Starter'
 import Dashboard from '../views/Dashboard/Dashboard'
-import Profile from '../views/Profile/Profile'
-import Report from '../views/Report/Report'
+import Statistics from '../views/Statistics/Statistics'
 import Transactions from '../views/Transactions/Transactions'
+import Profile from '../views/Profile/Profile'
 // import store from '../store'
 
 Vue.use(VueRouter)
@@ -19,16 +19,16 @@ const routes = [
     }
   },
   {
+    path: '/Profile',
+    component: Profile
+  },
+  {
     path: '/transactions',
     component: Transactions
   },
   {
-    path: '/profile',
-    component: Profile
-  },
-  {
-    path: '/report',
-    component: Report
+    path: '/statistics',
+    component: Statistics
   },
   {
     path: '*',

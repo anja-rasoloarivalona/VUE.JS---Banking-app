@@ -1,20 +1,19 @@
 <template>
-    <div class="report" :class="{isLight: theme.isLight, isDark: theme.isDark}">
-      <div class="report__content">
-          <report-header
+    <div class="statistics" :class="{isLight: theme.isLight, isDark: theme.isDark}">
+      <div class="statistics__content">
+          <statistics-header
               v-if="currentPeriod !== ''"
               :currentPeriod="currentPeriod"
               :periodLists="periodLists"
               :data="reportHeaderData"
               @changePeriod="currentPeriod = $event"
-          >
-          </report-header>
-          <report-table
+          />
+          <statistics-table
             :currentReport="currentReport"
             :totalIncome="totalIncome"
             :totalExpense="totalExpense"
           />
-          <report-budget />
+          <statistics-budget />
 
     </div>
       </div>
@@ -22,9 +21,9 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import ReportHeader from './ReportHeader'
-import ReportTable from './ReportTable'
-import ReportBudget from './ReportBudget'
+import StatisticsHeader from './StatisticsHeader'
+import StatisticsTable from './StatisticsTable'
+import StatisticsBudget from './StatisticsBudget'
 export default {
   data () {
     return {
@@ -137,16 +136,16 @@ export default {
     }
   },
   components: {
-    ReportHeader,
-    ReportTable,
-    ReportBudget
+    StatisticsHeader,
+    StatisticsTable,
+    StatisticsBudget
   }
 
 }
 </script>
 
 <style lang="scss">
-.report {
+.statistics {
   width: calc(100% - 2rem);
   max-width: 120rem;
   background: var(--surfaceColor);

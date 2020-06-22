@@ -2,81 +2,81 @@
     <div class="profile" :class="{isLight: theme.isLight, isDark: theme.isDark}">
         <profile-goal></profile-goal>
         <profile-header :userBudgetPlan="userBudgetPlan"></profile-header>
-        <div class="profile__item">
-            <div class="profile__item__title">
+
+        <div class="profile__section">
+            <div class="profile__section__title">
                 <h1>Incomes</h1>
-                <div class="profile__item__title__add" @click="openBackdrop('income')">
+                <div class="profile__section__title__add" @click="openBackdrop('income')">
                     <app-icon name="add" size="large" :color="theme.isDark ? 'surface' : 'white'"></app-icon>
                 </div>
             </div>
-            <div class="profile__item__details">
-                <div class="profile__item__details__header">
-                    <div>Name</div>
-                    <div>Frequency</div>
-                    <div>Amount / transaction</div>
-                    <div>Monthly average</div>
-                </div>
-                <ul class="profile__item__details__list">
+            <table class="profile__section__table">
+                <thead>
+                  <tr>
+                    <th>Category</th>
+                    <th>Frequency</th>
+                    <th>Amount per transaction</th>
+                    <th>Monthly average</th>
+                  </tr>
+                </thead>
+                <tbody>
                     <income-line-table
-                       v-for="(income, index) in user.incomes"
-                       :key="income._id"
-                       :income="income"
-                       :index="index"
-                       :lastIndex="user.incomes.length"
-                    >
-                    </income-line-table>
-                </ul>
-                <div class="profile__item__details__total">
-                  <div></div>
-                  <div></div>
-                  <div class="profile__item__details__total__item profile__item__details__total__item--key"><h3>Total</h3></div>
-                  <div class="profile__item__details__total__item"><h3>${{userBudgetPlan.monthlyIncomes | amount}}</h3></div>
-                </div>
-            </div>
+                        v-for="(income, index) in user.incomes"
+                        :key="index"
+                        :income="income"
+                    />
+                   <tr class="profile__section__table__total">
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>Total</td>
+                    <td><h3>{{userBudgetPlan.monthlyIncomes | amount}}</h3></td>
+                  </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="profile__item">
-            <div class="profile__item__title">
+
+        <div class="profile__section">
+            <div class="profile__section__title">
                 <h1>Expenses</h1>
-                <div class="profile__item__title__add" @click="openBackdrop('expense')">
+                <div class="profile__section__title__add" @click="openBackdrop('expense')">
                     <app-icon name="add" size="large" :color="theme.isDark ? 'surface' : 'white'"></app-icon>
                 </div>
             </div>
-            <div class="profile__item__details">
-                <div class="profile__item__details__header">
-                    <div>Name</div>
-                    <div>Type</div>
-                    <div>Category</div>
-                    <div>Monthly average</div>
-                </div>
-                <ul class="profile__item__details__list">
+            <table class="profile__section__table">
+                <thead>
+                  <tr>
+                    <th>Category</th>
+                    <th>Subcategory</th>
+                    <th>Type</th>
+                    <th>Monthly average</th>
+                  </tr>
+                </thead>
+                <tbody>
                     <expense-line-table
                         v-for="(expense, index) in user.expenses"
                         :key="index"
                         :expense="expense"
                         :index="index"
                         :lastIndex="user.expenses.length"
-                    >
-                    </expense-line-table>
-                </ul>
-                <div class="profile__item__details__total">
-                  <div></div>
-                  <div></div>
-                  <div class="profile__item__details__total__item profile__item__details__total__item--key"><h3>Total</h3></div>
-                  <div class="profile__item__details__total__item"><h3>${{userBudgetPlan.monthlyExpenses | amount}}</h3></div>
-                </div>
-            </div>
+                    />
+                   <tr class="profile__section__table__total">
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>Total</td>
+                    <td><h3>{{userBudgetPlan.monthlyExpenses | amount}}</h3></td>
+                  </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="profile__item">
-            <div class="profile__item__title">
+        <div class="profile__section">
+            <div class="profile__section__title">
                 <h1>Wallets</h1>
-                <div class="profile__item__title__add" @click="openBackdrop('wallet')">
+                <div class="profile__section__title__add" @click="openBackdrop('wallet')">
                     <app-icon name="add" size="large" :color="theme.isDark ? 'surface' : 'white'"></app-icon>
                 </div>
             </div>
-            <div class="profile__item__details">
-                <div class="profile__item__details__list profile__item__details__list--wallets">
-                  <wallet v-for="wallet in user.wallets" :wallet="wallet" :key="wallet._id" @click.native="clickWallet(wallet)"/>
-                </div>
+            <div class="profile__section__list profile__section__list--wallets">
+                <wallet v-for="wallet in user.wallets" :wallet="wallet" :key="wallet._id" @click.native="clickWallet(wallet)"/>
             </div>
         </div>
     </div>
@@ -151,94 +151,69 @@ export default {
   border-radius: .5rem;
   margin-bottom: 5rem;
   padding: 3rem;
-    &__item {
-        padding: 2rem;
-        // margin-bottom: 1rem;
-        border-radius: .5rem;
-        // background: var(--backgroundColor);
-        &__title {
-            margin-bottom: 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            & h1 {
-              color: var(--textColor--dark)
-            }
-            &__add {
-                border-radius: 50%;
-                background: var(--mainColor);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-        }
-        &__details {
-            &__header {
-                padding: 2rem 0;
-                display: flex;
-                font-size: $font-m;
-                padding-left: 2rem;
-                border-top-left-radius: .5rem;
-                border-top-right-radius: .5rem;
-                background: var(--on-surfaceColor);
-                & div {
-                    width: calc(100% / 4);
-                    color: var(--textColor--dark)
-                }
-            }
-            &__list {
-                list-style: none;
-                // background: red;
-                &--wallets {
-                  display: grid;
-                  grid-template-columns: repeat(auto-fit, 27rem);
-                  grid-template-rows: 14rem;
-                  grid-auto-rows: 14rem;
-                  column-gap: 2rem;
-                  row-gap: 2rem;
-                  // padding: 0 2rem;
-                  padding-bottom: 2rem;
-
-                }
-            }
-            &__total {
-              padding: 2rem 0;
-              padding-left: 2rem;
-              font-size: $font-m;
-              display: flex;
-              border-bottom-left-radius: .5rem;
-              border-bottom-right-radius: .5rem;
-              &__item {
-                font-size: $font-m;
-                &--key {
-                    color: var(--textColor--dark)
-                }
-              }
-              & div {
-                width: calc(100% / 4);
-              }
-            }
-        }
-    }
-    &.isDark {
-      & .profile__item {
-
+  &__section {
+    // background: red;
+    &__title {
+      // background: green;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--textColor--dark);
+      margin-bottom: 3rem;
+      &__add {
+        background: var(--secondaryColor);
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
     }
-    &.isLight {
-      & .profile__item {
-        &__details {
-          &__header {
-            background: var(--mainColor);
-            & div {
-              color: $color-white
-            }
+    &__table {
+      // background: blue;
+      width: 100%;
+      border-collapse: collapse;
+      & th {
+        height: 6rem;
+        width: calc(100% / 4);
+        text-align: start;
+        border-bottom: 1px solid var(--lineColor);
+        font-size: $font-s;
+        background: var(--backgroundColor);
+        color: var(--textColor--dark);
+        border-collapse: collapse;
+        padding-left: 2rem;
+          &:first-child {
+              border-radius: 6px 0 0 0;
           }
-          &__total {
-            border-top: 1px solid var(--lineColor);
+          &:last-child {
+              border-radius: 0 6px 0 0;
           }
+          &:only-child {
+              border-radius: 6px 6px 0 0;
+          }
+        }
+        & td {
+          padding-left: 2rem;
+          height: 6rem;
+          width: calc(100% / 5);
+          font-size: $font-s;
+           border-collapse: collapse;
         }
       }
     }
+    &__list {
+      &--wallets {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, 27rem);
+          grid-template-rows: 14rem;
+          grid-auto-rows: 14rem;
+          column-gap: 2rem;
+          row-gap: 2rem;
+          padding-bottom: 2rem;
+        }
+    }
+
 }
 </style>

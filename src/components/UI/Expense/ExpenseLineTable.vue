@@ -61,7 +61,6 @@ export default {
     if (this.index + 1 === this.lastIndex) {
       this.isLast = true
     }
-    console.log('expense', this.expense)
   },
   props: {
     expense: {

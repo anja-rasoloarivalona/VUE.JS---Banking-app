@@ -7,7 +7,8 @@
           Incomes
         </div>
         <div class="header__details__item__value">
-          $ {{userBudgetPlan.monthlyIncomes | amount}}
+          <span v-if="userBudgetPlan.monthlyIncomes !== 0">{{userBudgetPlan.monthlyIncomes | amount}}</span>
+          <span v-else>-</span>
         </div>
       </div>
       <div class="header__details__item">
@@ -15,7 +16,8 @@
           Expenses
         </div>
         <div class="header__details__item__value">
-          $ {{userBudgetPlan.monthlyExpenses | amount }}
+          <span v-if="userBudgetPlan.monthlyExpenses  !== 0">{{userBudgetPlan.monthlyExpenses | amount }}</span>
+          <span v-else>-</span>
         </div>
       </div>
       <div class="header__details__item">
@@ -23,7 +25,7 @@
           Savings
         </div>
         <div class="header__details__item__value">
-          $ {{ userBudgetPlan.monthlySavings | amount }}
+          {{ userBudgetPlan.monthlySavings | amount }}
         </div>
       </div>
     </div>
@@ -49,7 +51,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'user'
+      'user',
+      'expensesList'
     ])
   },
   created () {
@@ -57,9 +60,9 @@ export default {
     const data = []
     const bg = []
     this.user.expenses.forEach(expense => {
-      labels.push(expense.name)
+      labels.push(expense.category)
       data.push(expense.amount)
-      bg.push(expense.color)
+      bg.push(this.expensesList[expense.category].color)
     })
     this.data = {
       labels: labels,
@@ -81,7 +84,6 @@ export default {
   align-items: center;
   justify-content: center;
   margin-bottom: 3rem;
-  padding-left: 2rem;
   &__details {
     width: 65%;
     & h1 {

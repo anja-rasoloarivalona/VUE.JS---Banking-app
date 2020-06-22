@@ -113,6 +113,9 @@
 import Expense from '@/components/UI/Expense/Expense'
 import Income from '@/components/UI/Income/Income'
 export default {
+  mounted () {
+    console.log('current', this.currentReport)
+  },
   props: {
     currentReport: Object,
     totalIncome: Number,

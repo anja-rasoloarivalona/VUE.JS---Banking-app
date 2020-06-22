@@ -17,7 +17,7 @@
           <form class="setup__view__content__form expenses__form">
             <app-expense-input v-model="expense.genre"/>
             <app-select-input v-model="expense.expenseType" :id="$t('expenseType')"  :options="[{value: 'Variable', i18: 'variable'}, {value: 'Fixed', i18: 'fixed'}]" i18/>
-            <app-basic-input v-model="expense.amount" :id="expense.expenseType === 'Variable' ? $t('amountPerMonth') : $t('amountPerTransaction')"  v-if="expense.expenseType !== ''"/>
+            <app-basic-input v-model="expense.amount" :id="expense.expenseType.value === 'Variable' ? $t('amountPerMonth') : $t('amountPerTransaction')"  v-if="expense.expenseType !== ''"/>
             <app-basic-input v-model="expense.used" :id="$t('amountSpentThisMonth')"  v-if="expense.expenseType.value === 'Variable'"/>
             <app-frequency-input v-model="expense.frequency" :id="$t('frequency')" v-if="expense.expenseType.value === 'Fixed'"/>
             <app-date-input v-model="expense.lastPayout" :id="$t('lastPaymentDate')" v-if="expense.expenseType.value === 'Fixed'"/>

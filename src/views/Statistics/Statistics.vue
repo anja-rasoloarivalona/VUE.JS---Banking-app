@@ -46,7 +46,7 @@ export default {
   },
   watch: {
     'currentPeriod.value': function (val) {
-      console.log('oeriod changed', val)
+      // console.log('oeriod changed', val)
     }
   },
   computed: {
@@ -104,30 +104,33 @@ export default {
           return true
         }
       })
-      currentReport.details && currentReport.details.forEach((detail, index) => {
-        if (detail.category in this.expensesList) {
-          const expenseAmount = detail.used ? detail.used : detail.amount
-          currentReport.details[index].type = 'expense'
-          if (!(detail.category in currentReportExpense)) {
-            currentReportExpense[detail.category] = {
-              total: expenseAmount,
-              subcategories: {
-                [detail.subcategory]: expenseAmount
+      if (currentReport.details) {
+        currentReport.details.forEach((detail, index) => {
+          if (detail.category in this.expensesList) {
+            const expenseAmount = detail.used ? detail.used : detail.amount
+            currentReport.details[index].type = 'expense'
+            if (!(detail.category in currentReportExpense)) {
+              currentReportExpense[detail.category] = {
+                total: expenseAmount,
+                subcategories: {
+                  [detail.subcategory]: expenseAmount
+                }
+              }
+            } else {
+              currentReportExpense[detail.category].total += expenseAmount
+              if (!(detail.subcategory in currentReportExpense[detail.category].subcategories)) {
+                currentReportExpense[detail.category].subcategories[detail.subcategory] = expenseAmount
+              } else {
+                currentReportExpense[detail.category].subcategories[detail.subcategory] += expenseAmount
               }
             }
           } else {
-            currentReportExpense[detail.category].total += expenseAmount
-            if (!(detail.subcategory in currentReportExpense[detail.category].subcategories)) {
-              currentReportExpense[detail.category].subcategories[detail.subcategory] = expenseAmount
-            } else {
-              currentReportExpense[detail.category].subcategories[detail.subcategory] += expenseAmount
-            }
+            currentReport.details[index].type = 'income'
+            currentReportIncome.push(detail)
           }
-        } else {
-          currentReport.details[index].type = 'income'
-          currentReportIncome.push(detail)
-        }
-      })
+        })
+      }
+
       return {
         data: currentReport,
         incomeData: currentReportIncome,

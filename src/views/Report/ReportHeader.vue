@@ -10,7 +10,8 @@
                     Incomes
                 </div>
                 <div class="header__details__item__value">
-                    {{data.totalIncome | amount}}
+                    <span v-if="data.totalIncome !== 0">{{data.totalIncome | amount}}</span>
+                    <span v-else>-</span>
                 </div>
             </div>
             <div class="header__details__item">
@@ -18,7 +19,8 @@
                     Expenses
                 </div>
                 <div class="header__details__item__value">
-                    {{data.totalExpense | amount}}
+                    <span v-if="data.totalExpense !== 0">{{data.totalExpense | amount}}</span>
+                    <span v-else>-</span>
                 </div>
             </div>
             <div class="header__details__item">
@@ -74,9 +76,11 @@ export default {
       bg.push(this.expensesList[expense].color)
     }
 
-    this.chartData = {
-      labels: labels,
-      datasets: [{ data: data, backgroundColor: bg }]
+    if (labels.length > 0 && data.length > 0) {
+      this.chartData = {
+        labels: labels,
+        datasets: [{ data: data, backgroundColor: bg }]
+      }
     }
   },
   watch: {
@@ -105,7 +109,7 @@ export default {
 
 <style lang="scss" scoped>
 .header {
-    padding-left: 2rem;
+    // padding-left: 2rem;
     margin-bottom: 3rem;
     // background: green;
     display: flex;

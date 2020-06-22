@@ -9,98 +9,22 @@
               @changePeriod="currentPeriod = $event"
           >
           </report-header>
-          <div class="report__content__table">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Type</th>
-                    <th>Category</th>
-                    <th>Subcategory</th>
-                    <th>Amount</th>
-                    <th>Total</th>
-                  </tr>
-                </thead>
-              </table>
-              <div class="report__content__table__scroll">
-                <table>
-                  <tbody>
-                    <tr v-for="(detail, index) in currentReport.incomeData" :key="detail.Category" :class="{lastIncome: index === currentReport.incomeData.length - 1, notLastIncome: index !== currentReport.incomeData.length - 1,}">
-                      <template v-if="index === 0">
-                        <td :rowspan="currentReport.incomeData.length" :colspan="2" class="report__content__table__type">
-                            <div>{{$t('income')}}</div>
-                        </td>
-                        <income type="subcategory" :income="{subcategory: detail.subcategory}" />
-                        <td>{{detail.amount | amount}}</td>
-                        <td :rowspan="currentReport.incomeData.length" class="report__content__table__income__value">{{ totalIncome | amount }}</td>
-                      </template>
-                      <template v-else>
-                        <income type="subcategory" :income="{subcategory: detail.subcategory}" />
-                        <td>{{detail.amount | amount }}</td>
-                      </template>
-                    </tr>
-                    <tr class="report__content__table__total">
-                        <td :colspan="3">&nbsp;</td>
-                        <td>Total Income</td>
-                        <td>{{ totalIncome | amount }}</td>
-                    </tr>
+          <report-table
+            :currentReport="currentReport"
+            :totalIncome="totalIncome"
+            :totalExpense="totalExpense"
+          />
+          <report-budget />
 
-                    <tr v-for="(category, catKey, catIndex) in currentReport.expenseData" :key="catKey">
-                      <template v-if="catIndex === 0">
-                        <td :rowspan="Object.keys(currentReport.expenseData).length" class="report__content__table__type">
-                          <div>{{$t('expense')}}</div>
-                        </td>
-                        <expense type="category" :categoryName="catKey"/>
-                        <table v-for="(subcategory, subcatKey) in category.subcategories" :key="subcatKey" class="report__content__table__nested-table" >
-                           <tr>
-                            <expense type="subcategory" :categoryName="catKey" :subcategoryName="subcatKey"/>
-                            <td>{{ subcategory | amount}}</td>
-                          </tr>
-                        </table>
-                        <td>&nbsp;</td>
-                        <td>{{ category.total | amount}}</td>
-                      </template>
-
-                      <template v-else>
-                        <expense type="category" :categoryName="catKey"/>
-                        <table v-for="(subcategory, subcatKey) in category.subcategories" :key="subcatKey" class="report__content__table__nested-table">
-                          <tr>
-                              <expense type="subcategory" :categoryName="catKey" :subcategoryName="subcatKey"/>
-                              <td>{{ subcategory | amount}}</td>
-                          </tr>
-                        </table>
-                        <td>&nbsp;</td>
-                        <td>{{ category.total | amount}}</td>
-                      </template>
-
-                    </tr>
-                     <tr class="report__content__table__total">
-                        <td :colspan="3">&nbsp;</td>
-                        <td>Total Expense</td>
-                        <td>{{ totalExpense | amount}}</td>
-                    </tr>
-                    <tr class="report__content__table__total--savings">
-                        <td :colspan="3">&nbsp;</td>
-                        <td>Savings</td>
-                        <td>{{ totalIncome - totalExpense | amount}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-          </div>
-                <div class="test">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nisl ante, elementum quis fermentum id, fermentum et elit. Mauris interdum, sapien eget scelerisque facilisis, nisi turpis condimentum augue, et imperdiet mauris diam quis metus. Nam vel orci libero. Curabitur placerat justo viverra consequat porttitor. Ut lobortis elit nisl, ac congue ex auctor sed. Fusce auctor interdum justo molestie scelerisque. Duis nec ex tristique felis rutrum iaculis. In egestas dui eros, sit amet ultrices elit posuere vel. Morbi pulvinar lacus neque, id volutpat sapien tincidunt non. Vestibulum malesuada malesuada odio eu rutrum. In eget arcu est. Vivamus non tortor placerat, lacinia leo ac, eleifend lacus.
-
-Phasellus at urna felis. Quisque tincidunt massa eget nisi aliquet gravida. Duis nulla est, rutrum aliquet aliquet vitae, pretium nec ligula. Donec aliquam neque erat, a sodales nulla pulvinar a. Phasellus ornare eget lectus non aliquet. Cras tincidunt elit et est rutrum fermentum a sit amet ante. Fusce facilisis egestas tellus nec lacinia. Nulla lacinia, nunc et laoreet elementum, diam nunc efficitur ante, non venenatis libero lacus ac ex. Cras risus mi, tincidunt sit amet orci sit amet, accumsan auctor sapien. Aliquam erat volutpat. Praesent volutpat mauris at ex blandit aliquet. Fusce lobortis ultricies ligula ac aliquam.
-
-Suspendisse potenti. Donec cursus lacus ac nibh hendrerit, sit amet ullamcorper justo rutrum. In maximus tempus mauris, sed molestie odio laoreet eu. Cras iaculis ultrices leo, eget mattis ante molestie non. Maecenas vestibulum metus eget velit efficitur, porttitor pretium justo rutrum. Nam id sapien nibh. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nullam eleifend id augue eget viverra. Aliquam ullamcorper, turpis nec volutpat dapibus, ante nibh sollicitudin eros, non faucibus metus diam sed arcu. Praesent vitae tristique velit, nec congue lorem. Sed facilisis elit a enim vestibulum varius. Nulla dapibus neque faucibus fringilla posuere. Cras pretium rutrum cursus.</div>
     </div>
       </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import Expense from '@/components/UI/Expense/Expense'
-import Income from '@/components/UI/Income/Income'
 import ReportHeader from './ReportHeader'
+import ReportTable from './ReportTable'
+import ReportBudget from './ReportBudget'
 export default {
   data () {
     return {
@@ -147,6 +71,7 @@ export default {
           })
         }
       })
+      // console.log('periodsList', periods)
       return periods
     },
     reportHeaderData () {
@@ -171,7 +96,7 @@ export default {
       return totalExpense
     },
     currentReport () {
-      let currentReport = []
+      let currentReport = {}
       const currentReportIncome = []
       const currentReportExpense = {}
       this.user.monthlyReports.find((report, index) => {
@@ -180,7 +105,7 @@ export default {
           return true
         }
       })
-      currentReport.details.forEach((detail, index) => {
+      currentReport.details && currentReport.details.forEach((detail, index) => {
         if (detail.category in this.expensesList) {
           const expenseAmount = detail.used ? detail.used : detail.amount
           currentReport.details[index].type = 'expense'
@@ -211,19 +136,16 @@ export default {
       }
     }
   },
-  methods: {
-
-  },
   components: {
     ReportHeader,
-    Expense,
-    Income
+    ReportTable,
+    ReportBudget
   }
 
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .report {
   width: calc(100% - 2rem);
   max-width: 120rem;
@@ -285,6 +207,9 @@ export default {
             &--savings {
               background: var(--mainColor--light);
             }
+            & td {
+              width: calc(100% / 5);
+            }
           }
       }
   }
@@ -327,8 +252,4 @@ table, th, td {
   border-collapse: collapse;
 }
 
-.test {
-  height: 50vh;
-  margin-top: 8rem;
-}
 </style>

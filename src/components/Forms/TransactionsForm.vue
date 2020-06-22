@@ -67,11 +67,13 @@ export default {
             res.push({
               i18: type.i18,
               custom: wallet.name,
-              _id: wallet._id
+              _id: wallet._id,
+              value: wallet._id
             })
           }
         })
       })
+      console.log('wallets', res)
       return res
     }
   },

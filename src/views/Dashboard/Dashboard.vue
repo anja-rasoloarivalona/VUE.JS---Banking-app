@@ -78,7 +78,6 @@ export default {
 .dashboard {
   width: 100%;
   max-width: 120rem;
-  margin-bottom: 3rem;
   &__section {
       background: var(--surfaceColor);
       border-radius: .5rem;

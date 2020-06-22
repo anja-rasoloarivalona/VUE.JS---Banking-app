@@ -22,7 +22,8 @@ const updateDashboardLayoutQuery = (layout) => {
             history: {h: "${d.history.h}", w: "${d.history.w}", x: "${d.history.x}", y: "${d.history.y}", i: "${d.history.i}",  displayed: "${d.history.displayed}"},
             monthly: {h: "${d.monthly.h}", w: "${d.monthly.w}", x: "${d.monthly.x}", y: "${d.monthly.y}", i: "${d.monthly.i}", displayed: "${d.monthly.displayed}"},
             transactions: {h: "${d.transactions.h}", w: "${d.transactions.w}", x: "${d.transactions.x}", i: "${d.transactions.i}", y: "${d.transactions.y}", displayed: "${d.transactions.displayed}"},
-            wallet: {h: "${d.wallet.h}", w: "${d.wallet.w}", x: "${d.wallet.x}", y: "${d.wallet.y}", i: "${d.wallet.i}", displayed: "${d.wallet.displayed}"}
+            wallet: {h: "${d.wallet.h}", w: "${d.wallet.w}", x: "${d.wallet.x}", y: "${d.wallet.y}", i: "${d.wallet.i}", displayed: "${d.wallet.displayed}"},
+            calendar: {h: "${d.calendar.h}", w: "${d.calendar.w}", x: "${d.calendar.x}", y: "${d.calendar.y}", i: "${d.calendar.i}", displayed: "${d.calendar.displayed}"}
             }
         ) {
             x

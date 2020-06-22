@@ -1,4 +1,4 @@
-const editDashboardQuery = (layout) => {
+const updateDashboardLayoutQuery = (layout) => {
   const d = {}
   layout.forEach(item => {
     d[item.i] = {
@@ -38,4 +38,4 @@ const editDashboardQuery = (layout) => {
   }
 }
 
-export { editDashboardQuery }
+export { updateDashboardLayoutQuery }

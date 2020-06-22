@@ -1,6 +1,6 @@
 <template>
     <grid-layout
-        :layout.sync="currentLayout"
+        :layout="currentLayout"
         :col-num="12"
         :row-height="10"
         :is-draggable="dashboard.isBeingEdited"
@@ -49,8 +49,13 @@ import { mapGetters, mapMutations } from 'vuex'
 export default {
   data () {
     return {
-      updatedLayout: null
+      layout: []
     }
+  },
+  mounted () {
+    // this.layout = this.dashboard.currentLayout
+    // console.log('prev', this.dashboard.previousLayout[6].x)
+    // console.log('layout mounted', this.dashboard)
   },
   computed: {
     ...mapGetters([
@@ -62,37 +67,32 @@ export default {
     }
   },
   watch: {
-    user: {
-      handler: 'init',
-      immediate: true
-    }
+    // 'dashboard.currentLayout': function (layout) {
+    //   // console.log('watchd current changed', layout[6].x)
+    //   // this.layout = layout
+    // },
+    // 'dashboard.previousLayout': function (layout) {
+    //   // console.log('prev changed', layout[6].x)
+    //   // this.layout = layout
+    // }
+    // 'user.expenses': function (userExpenses) {
+    //   this.setDashboardLayout(null, userExpenses)
+    // },
+    // 'user.wallets': function (userWallets) {
+    //   this.setDashboardLayout(null, null, userWallets)
+    // }
   },
   methods: {
     ...mapMutations([
-      'initDashboardLayout'
+      'initDashboardLayout',
+      'tryNewLayout'
     ]),
-    init () {
-      const layout = this.dashboard.currentLayout
-      layout.find((item, index) => {
-        if (item.i === 'budget') {
-          let budgetHeight = 3
-          this.user.expenses.forEach(expense => {
-            if (expense.expenseType === 'variable') {
-              budgetHeight = budgetHeight + 3
-            }
-          })
-          layout[index].h = budgetHeight > 9 ? budgetHeight : 9
-        }
-        if (item.i === 'wallet') {
-          layout[index].h = this.user.wallets.length > 1 ? 4 + (this.user.wallets.length * 7) : 18
-        }
-      })
-      // console.log(layout)
-      this.initDashboardLayout(layout)
-    },
     layoutUpdatedEvent: function (newLayout) {
-      console.log('new la', newLayout)
-      this.updatedLayout = newLayout
+      // console.log('update', newLayout[6].x)
+      // console.log('check prev', this.dashboard.previousLayout[6].x)
+      // console.log('check def', this.dashboard.defaultLayout[6].x)
+      // this.layout = newLayout
+      this.tryNewLayout(newLayout)
     }
   },
   components: {

@@ -161,8 +161,6 @@ export default {
         }
       })
 
-      console.log('theme', themes[this.theme.currentTheme]['--mainColor'])
-
       this.datacollection.datasets = [
         {
           borderColor: themes[this.theme.currentTheme]['--textColor-dark'],

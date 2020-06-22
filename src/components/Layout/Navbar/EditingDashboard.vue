@@ -1,15 +1,27 @@
 <template>
     <div class="editing-dashboard">
-        <ul class="editing-dashboard__main">
-            <li class="editing-dashboard__main__item" v-for="action in dashboardCta" :key="action.value" :class="{active: action.value === currentAction, save: action.value === 'save'}">
+        <ul class="editing-dashboard__list">
+            <li
+              class="editing-dashboard__list__item"
+              v-for="action in dashboardCta"
+              :key="action.value"
+              :class="{active: action.value === currentAction, save: action.value === 'save'}"
+              @click="selectAction(action.value)"
+            >
                 <fa-icon :icon="action.icon" size="lg" />
                 <span>{{$t(action.i18)}}</span>
             </li>
         </ul>
-        <li class="editing-dashboard__cancel editing-dashboard__main__item" @click="setDashboardIsBeingEditedTofalse">
-            <fa-icon icon="arrow-right" size="lg"/>
-            <span>Cancel</span>
-        </li>
+        <ul class="editing-dashboard__list">
+          <li class="editing-dashboard__list__item editing-dashboard__list__item--warning">
+              <fa-icon icon="undo" size="lg"/>
+              <span>Reset</span>
+          </li>
+          <li class="editing-dashboard__list__item editing-dashboard__list__item--warning" @click="selectAction('cancel')">
+              <fa-icon icon="arrow-right" size="lg"/>
+              <span>Cancel</span>
+          </li>
+        </ul>
     </div>
 </template>
 
@@ -24,7 +36,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'theme'
+      'theme',
+      'dashboard'
     ]),
     dashboardCta () {
       return [
@@ -58,8 +71,17 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'setDashboardIsBeingEditedTofalse'
-    ])
+      'setDashboardIsBeingEditedTofalse',
+      'cancelNewLayout'
+    ]),
+    selectAction (action) {
+      this.currentAction = action
+      if (action === 'cancel') {
+        // console.log('start canceling')
+        this.cancelNewLayout()
+        this.setDashboardIsBeingEditedTofalse()
+      }
+    }
   }
 }
 </script>
@@ -71,7 +93,7 @@ export default {
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    &__main {
+    &__list {
         display: flex;
         align-items: center;
         list-style: none;
@@ -84,6 +106,14 @@ export default {
             height: 4rem;
             color: var(--textColor--dark);
             cursor: pointer;
+            &--warning {
+                margin-right: 0;
+                margin-left: 4rem;
+                justify-content: flex-end;
+                &:hover {
+                    color: var(--warningColor) !important
+                }
+            }
             &.active, &:hover {
                 color: var(--secondaryColor)
             }
@@ -95,15 +125,6 @@ export default {
             & span {
                     margin-left: 1rem;
             }
-        }
-    }
-    &__cancel {
-        &.editing-dashboard__main__item {
-            margin-right: 0;
-            justify-content: flex-end;
-        }
-        &:hover {
-            color: var(--warningColor)
         }
     }
 }

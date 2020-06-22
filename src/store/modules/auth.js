@@ -46,7 +46,6 @@ const mutations = {
       state.userEmail = authData.userEmail
       state.appStatus = authData.appStatus
       state.activeDate = authData.activeDate
-      console.log('init auth', state)
     }
   },
   setAuthMode (state, mode) {

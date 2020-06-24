@@ -1,15 +1,20 @@
 <template>
         <label :for="id" class="input" :class="{disabled: isDisabled}">
             <span v-if="id">{{ id }}</span>
-            <input
-              v-bind="$attrs"
-              :id="id"
-              :placeholder="placeholder"
-              :disabled="isDisabled"
-              @input="updateSelf($event.target.value)"
-              :value="value"
-              :class="{'bg-default': theme.isLight, 'bg-on-surfaceColor': theme.isDark, 'bg-white': bgWhite}"
-            />
+            <div class="input__container">
+              <input
+                v-bind="$attrs"
+                :id="id"
+                :placeholder="placeholder"
+                :disabled="isDisabled"
+                @input="updateSelf($event.target.value)"
+                :value="value"
+                :class="{'bg-default': theme.isLight, 'bg-on-surfaceColor': theme.isDark, 'bg-white': bgWhite}"
+              />
+              <div class="input__currency" v-if="type === 'number'">
+                {{ currency }}
+              </div>
+            </div>
         </label>
 </template>
 
@@ -25,13 +30,18 @@ export default {
     id: String,
     bgWhite: Boolean,
     isDisabled: Boolean,
-    placeholder: String
+    placeholder: String,
+    type: String
   },
   computed: {
     ...mapGetters([
       'theme',
-      'currentTheme'
-    ])
+      'currentTheme',
+      'currentCurrency'
+    ]),
+    currency () {
+      return this.currentCurrency.split('-')[0].trim()
+    }
   },
   methods: {
     updateSelf (name) {
@@ -46,6 +56,9 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
+  &__container {
+    position: relative;
+  }
     &.disabled {
       cursor: not-allowed;
       & input {
@@ -69,9 +82,27 @@ export default {
         border: none;
         padding-left: 1rem;
         border-radius: 0.5rem;
+        width: 100%;
         &:focus {
         outline: none;
         }
     }
+    &__currency {
+      position: absolute;
+      right: 2rem;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      font-size: $font-s;
+      color: var(--textColor--dark);
+      // background: red;
+    }
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 </style>

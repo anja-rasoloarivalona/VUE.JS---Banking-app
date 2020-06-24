@@ -6,7 +6,7 @@
             <app-date-input   :id="'Date'"  v-model="input.date" />
             <app-expense-input v-model="expense" v-if="input.transactionType.value === 'expense'"/>
             <app-income-input v-model="income" v-if="input.transactionType.value === 'income'"/>
-            <app-basic-input  :id="'Amount'" v-model="input.amount" />
+            <app-basic-input  :id="'Amount'" v-model="input.amount" type="number"/>
             <app-basic-input  :id="'Details'" v-model="input.details" />
             <app-select-input :id="'Wallet'" v-model="input.usedWallet" :options="displayedWalletsList"  v-if="input.transactionType.value" i18/>
             <app-basic-input  :id="'Counter party'" v-model="input.counterparty" v-if="input.transactionType.value && input.transactionType.value === 'expense'"/>
@@ -58,6 +58,9 @@ export default {
       'walletsNameAndId',
       'isEditingTransaction'
     ]),
+    transactionAmount (val) {
+      return `${this.val} CAD`
+    },
     displayedWalletsList () {
       const userWallets = [...this.user.wallets]
       const res = []

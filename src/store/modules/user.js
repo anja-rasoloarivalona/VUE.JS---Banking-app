@@ -32,51 +32,15 @@ const getters = {
   },
   userBalance: state => {
     let balance = 0
-    const creditCard = ['Visa', 'MasterCard']
     state.wallets.forEach(wallet => {
-      if (!creditCard.includes(wallet.walletType)) {
+      if (wallet.walletType === 'Debit card' || wallet.walletType === 'Cash') {
         balance += wallet.amount
-      } else {
+      }
+      if (wallet.walletType === 'Credit card') {
         balance -= wallet.amount
       }
     })
     return balance
-  },
-  usersIncomesAndExpenses: state => {
-    const usersIncomesAndExpenses = {}
-    state.incomes.forEach(income => {
-      usersIncomesAndExpenses[income.name] = {
-        ...income,
-        transactionType: 'income'
-      }
-    })
-    state.expenses.forEach(expense => {
-      usersIncomesAndExpenses[expense.name] = {
-        ...expense,
-        transactionType: 'expense'
-      }
-    })
-    const creditCards = ['Visa', 'MasterCard']
-    state.wallets.forEach(wallet => {
-      if (creditCards.includes(wallet.walletType)) {
-        usersIncomesAndExpenses[`${wallet.walletType} ${wallet.supplier}`] = {
-          ...wallet,
-          transactionType: 'expense'
-        }
-      }
-    })
-    return usersIncomesAndExpenses
-  },
-  walletsNameAndId: state => {
-    const wallets = {}
-    state.wallets.forEach(wallet => {
-      if (wallet.supplier) {
-        wallets[`${wallet.walletType} ${wallet.supplier}`] = wallet._id
-      } else {
-        wallets[`${wallet.walletType}`] = wallet._id
-      }
-    })
-    return wallets
   },
   userTransactions: state => {
     // console.log('user vuex tra', getters.usersIncomesAndExpenses())
@@ -90,6 +54,18 @@ const getters = {
       return new Date(a.date) - new Date(b.date)
     })
     return sortedTransactions
+  },
+  currentPeriodReport: state => {
+    let currentReport = {}
+    const d = new Date()
+    const currentPeriod = `${d.getMonth() + 1}-${d.getFullYear()}`
+    state.monthlyReports.find((report, index) => {
+      if (report.period === currentPeriod) {
+        currentReport = state.monthlyReports[index]
+        return true
+      }
+    })
+    return currentReport
   },
   upcoming: state => {
     const datedTransactions = [...state.incomes]
@@ -223,6 +199,7 @@ const actions = {
       return true
     } catch (err) {
       console.log(err.response)
+      commit('addError', err.response.data.errors[0].message)
       return false
     }
   },

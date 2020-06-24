@@ -36,13 +36,21 @@ export default {
 <style lang="scss" scoped>
 .expense {
   padding: 3rem;
-  width: 50vw;
+  // padding: 2rem;
+  // padding-bottom: 1rem;
+  width: 39vw;
+  // max-width: 60rem;
   border-radius: .5rem;
+  // background: red !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
    &__header {
         display: flex;
         align-items: center;
         justify-content: space-between;
         margin-bottom: 3rem;
+        width: 52rem;
         & h1 {
           color: var(--textColor--dark)
         }

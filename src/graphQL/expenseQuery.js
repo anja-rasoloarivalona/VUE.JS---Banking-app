@@ -27,7 +27,8 @@ const query = (action, input) => {
                       period: "${input.frequency.period.value}"
                   }
                   lastPayout: "${input.lastPayout.toString()}",
-                  color: "${input.color}"
+                  color: "${input.color}",
+                  alreadyUsedThisCurrentMonth: "${input.alreadyUsedThisCurrentMonth}"
               }) {
                 _id
                 category

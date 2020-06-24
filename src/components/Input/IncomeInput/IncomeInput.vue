@@ -52,7 +52,7 @@ export default {
     event: 'click'
   },
   mounted () {
-    console.log('income input', this.incomesList)
+    // console.log('income input', this.incomesList)
   },
   computed: {
     ...mapGetters([

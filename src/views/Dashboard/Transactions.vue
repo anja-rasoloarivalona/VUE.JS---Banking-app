@@ -19,13 +19,13 @@
             <div class="scroll" v-else>
               <table class="transactions__table">
                 <tbody>
-                  <app-transaction
+                  <!-- <app-transaction
                     :short="true"
                     v-for="(transaction, index) in userTransactions"
                     :key="transaction._id"
                     :index="index"
                     :transaction="transaction"
-                  ></app-transaction>
+                  ></app-transaction> -->
                 </tbody>
               </table>
             </div>
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import Transaction from '@/components/UI/Transaction'
+// import Transaction from '@/components/UI/Transaction'
 import { mapGetters, mapMutations } from 'vuex'
 export default {
   computed: {
@@ -47,7 +47,7 @@ export default {
     ])
   },
   components: {
-    appTransaction: Transaction
+    // appTransaction: Transaction
   }
 }
 </script>

@@ -37,39 +37,38 @@ export default {
     }
   },
   created () {
-    const transactions = []
-    const attrs = []
-    for (const i in this.usersIncomesAndExpenses) {
-      const transaction = this.usersIncomesAndExpenses[i]
-      if (transaction.lastPayout && transaction.nextPayout) {
-        transactions.push(transaction)
-      }
-    }
-    transactions.forEach(transaction => {
-      let customClass
-      if (transaction.color && transaction.color !== 'undefined') {
-        customClass = transaction.color.substring(1)
-      } else {
-        customClass = 'mainColor'
-      }
-      attrs.push({
-        key: transaction.name,
-        highlight: {
-          class: `bg-${customClass}`
-        },
-        popover: {
-          label: transaction.name
-          // hideIndicator: true
-        },
-        dates: [new Date(transaction.lastPayout), new Date(transaction.nextPayout)]
-      })
-    })
-    // console.log('attrs', attrs)
-    this.attrs = attrs
+    // const transactions = []
+    // const attrs = []
+    // for (const i in this.usersIncomesAndExpenses) {
+    //   const transaction = this.usersIncomesAndExpenses[i]
+    //   if (transaction.lastPayout && transaction.nextPayout) {
+    //     transactions.push(transaction)
+    //   }
+    // }
+    // transactions.forEach(transaction => {
+    //   let customClass
+    //   if (transaction.color && transaction.color !== 'undefined') {
+    //     customClass = transaction.color.substring(1)
+    //   } else {
+    //     customClass = 'mainColor'
+    //   }
+    //   attrs.push({
+    //     key: transaction.name,
+    //     highlight: {
+    //       class: `bg-${customClass}`
+    //     },
+    //     popover: {
+    //       label: transaction.name
+    //       // hideIndicator: true
+    //     },
+    //     dates: [new Date(transaction.lastPayout), new Date(transaction.nextPayout)]
+    //   })
+    // })
+    // // console.log('attrs', attrs)
+    // this.attrs = attrs
   },
   computed: {
     ...mapGetters([
-      'usersIncomesAndExpenses',
       'secondaryColors'
     ])
   }

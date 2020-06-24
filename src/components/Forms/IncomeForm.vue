@@ -2,13 +2,13 @@
   <div class="income-form">
       <slot />
       <form>
-          <app-basic-input v-model="income.name" id="Name"/>
-          <app-basic-input v-model="income.amount" id="Amount" />
-          <app-date-input v-model="income.lastPayout" id="Last payout" />
-          <app-basic-input v-model="income.from" id="From" />
-          <app-select-input v-model="income.autoWriting" id="Auto writing" :options="['yes', 'no']" />
-          <app-select-input v-model="income.notification" id="Notification" :options="['yes', 'no']" />
-          <app-frequency-input v-model="income.frequency" id="Frequency"/>
+            <app-income-input v-model="income.category"/>
+            <app-basic-input v-model="income.amount" :id="$t('amount')" />
+            <app-date-input v-model="income.lastPayout" :id="$t('lastPaymentDate')"/>
+            <app-basic-input v-model="income.from" :id="$t('details')"/>
+            <app-select-input v-model="income.autoWriting" :id="$t('automaticWriting')" :options="yesOrNoList" i18 />
+            <app-select-input v-model="income.notification" :id="$t('notification')" :options="yesOrNoList" i18/>
+            <app-frequency-input v-model="income.frequency" :id="$t('frequency')" />
       </form>
       <div class="income-form__cta">
             <app-btn normal secondary v-if="isCancelBtnDisplayed" @click.native="close">
@@ -24,22 +24,35 @@
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
+import AppIncomeInput from '@/components/Input/IncomeInput/IncomeInput'
 export default {
   data () {
     return {
       loading: false,
       income: {
-        name: '',
+        _id: '',
+        category: {},
         amount: 0,
+        details: '',
         lastPayout: new Date(),
-        from: '',
-        autoWriting: 'yes',
-        notification: 'yes',
+        autoWriting: { value: 'yes', i18: 'yes' },
+        notification: { value: 'yes', i18: 'yes' },
         frequency: {
-          counter: 'once',
-          period: 'a day'
+          counter: '',
+          period: ''
+        },
+        alreadyUsedThisCurrentMonth: false
+      },
+      yesOrNoList: [
+        {
+          value: 'yes',
+          i18: 'yes'
+        },
+        {
+          value: 'no',
+          i18: 'no'
         }
-      }
+      ]
     }
   },
   mounted () {
@@ -52,10 +65,17 @@ export default {
       }
     }
   },
+  watch: {
+    'income.category': {
+      handler: 'setData',
+      immediate: false
+    }
+  },
   computed: {
     ...mapGetters([
       'user',
-      'editedIncome'
+      'editedIncome',
+      'currentPeriodReport'
     ])
   },
   props: {
@@ -69,6 +89,17 @@ export default {
     ...mapMutations([
       'closeBackdrop'
     ]),
+    setData (category) {
+      const foundIncome = this.currentPeriodReport.details.find(detail => {
+        if (detail.category === 'Income' && detail.subcategory === category.value) {
+          this.income.alreadyUsedThisCurrentMonth = true
+          return true
+        }
+      })
+      if (!foundIncome) {
+        this.income.alreadyUsedThisCurrentMonth = false
+      }
+    },
     close () {
       this.closeBackdrop()
       this.$emit('hideForm')
@@ -88,6 +119,9 @@ export default {
         this.loading = false
       }
     }
+  },
+  components: {
+    AppIncomeInput
   }
 }
 </script>
@@ -101,7 +135,7 @@ export default {
       grid-auto-rows: max-content;
       column-gap: 2rem;
       row-gap: 1rem;
-      & .input.frequency {
+      & label.frequency {
         grid-column: 1 / 3;
       }
   }

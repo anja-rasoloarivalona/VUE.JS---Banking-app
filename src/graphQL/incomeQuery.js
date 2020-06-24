@@ -27,7 +27,8 @@ const query = (action, input) => {
                 lastPayout: "${input.lastPayout.toString()}",
                 autoWriting: "${input.autoWriting.value}",
                 notification: "${input.notification.value}",
-                color: "${input.color}"
+                color: "${input.color}",
+                alreadyUsedThisCurrentMonth: "${input.alreadyUsedThisCurrentMonth}"
             }) {
                 _id
                 category

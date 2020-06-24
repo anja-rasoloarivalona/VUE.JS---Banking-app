@@ -1,6 +1,6 @@
 <template>
     <label :for="id" class="label" :class="{row: row, showScrollBar: showScrollBar}" v-click-outside="closeList">
-      <span v-if="id">{{ id }}</span>
+      <span v-if="id" class="label__id">{{ id }}</span>
       <div
         :id="id"
         class="select"
@@ -116,6 +116,7 @@ export default {
     & span {
       margin-bottom: 0;
       margin-right: 1rem;
+      width: 7rem
     }
   }
   & span {

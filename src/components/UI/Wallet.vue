@@ -4,6 +4,7 @@
       :class="{'bg-on-surfaceColor': theme.isDark, light: theme.isLight }"
       v-bind="$attrs"
       :style="{boxShadow: boxShadow}"
+      @click="editWallet"
   >
     <div class="wallet__chip">
       <div class="wallet__chip__content" :class="{light: theme.isLight, dark: theme.isDark}">
@@ -24,7 +25,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -52,7 +53,7 @@ export default {
     walletType () {
       let walletType = ''
       this.user.walletTypeList.find((type, index) => {
-        if (type.value === this.wallet.walletType) {
+        if (type.value === this.wallet.walletType || type.value === this.wallet.walletType.value) {
           walletType = this.user.walletTypeList[index].i18
           return true
         }
@@ -60,15 +61,14 @@ export default {
       return walletType
     }
   },
-  watch: {
-    'theme.currentTheme': {
-      handler: 'setWalletStyle',
-      immediate: true
-    }
-  },
   methods: {
-    setWalletStyle () {
-
+    ...mapMutations([
+      'setEditedWallet',
+      'openBackdrop'
+    ]),
+    editWallet () {
+      this.setEditedWallet(this.wallet)
+      this.openBackdrop('wallet')
     }
   },
   props: {

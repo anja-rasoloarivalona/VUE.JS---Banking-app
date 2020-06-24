@@ -1,10 +1,10 @@
 <template>
   <div class="wallet-form">
-    <slot />
+    <!-- <slot /> -->
    <form>
-        <app-select-input v-model="walletInput.type" :id="$t('type')"  :options="user.walletTypeList" :isDisabled="typeIsDisabled" i18/>
+        <app-select-input v-model="walletInput.type" :id="$t('type')"  :options="user.walletTypeList" :isDisabled="disabledInput" i18/>
         <app-basic-input v-model="walletInput.name" :id="$t('name')" />
-        <app-basic-input v-model="walletInput.amount" :id="$t('amount')" :isDisabled="amountIsDisabled"/>
+        <app-basic-input v-model="walletInput.amount" :id="$t('amount')" :isDisabled="disabledInput"/>
         <app-basic-input v-model="walletInput.creditLimit" :id="$t('limit')" v-if="walletInput.type.value === 'Credit card'"/>
     </form>
     <div class="wallet-form__cta">
@@ -40,19 +40,37 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'user'
-    ])
+      'user',
+      'auth',
+      'editedWallet'
+    ]),
+    disabledInput () {
+      let res = true
+      if (this.auth.appStatus === 'setup') {
+        res = false
+      }
+      return res
+    }
   },
   props: {
-    editedWallet: Object,
-    isCancelBtnDisplayed: Boolean,
-    amountIsDisabled: Boolean,
-    typeIsDisabled: Boolean
+    isCancelBtnDisplayed: Boolean
   },
   mounted () {
     if (this.editedWallet) {
+      // console.log('edited', this.editedWallet)
+      let i18 = ''
+      this.user.walletTypeList.find(item => {
+        if (item.value === this.editedWallet.walletType) {
+          i18 = item.i18
+          return true
+        }
+      })
       this.walletInput = {
-        ...this.editedWallet
+        ...this.editedWallet,
+        type: {
+          value: this.editedWallet.walletType,
+          i18: i18
+        }
       }
     }
   },
@@ -95,7 +113,7 @@ export default {
         this.$emit('hideForm')
       } catch (err) {
         this.loading = false
-        console.log(err)
+        console.log(err.response)
       }
     }
   }
@@ -104,14 +122,15 @@ export default {
 
 <style lang="scss" scoped>
 .wallet-form {
+  // background: red !important;
   & form {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: max-content;
-    grid-auto-rows: max-content;
-    column-gap: 2rem;
-    row-gap: 1rem;
-    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    // margin-bottom: 3rem;
+    margin-bottom: 1.5rem;
+    & label {
+      margin-bottom: 1.5rem;
+    }
   }
    &__cta {
       display: flex;

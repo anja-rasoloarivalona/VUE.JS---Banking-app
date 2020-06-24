@@ -46,6 +46,7 @@ const mutations = {
     state.editedWallet = editedWallet
   },
   closeBackdrop (state) {
+    console.log('closing backdrop')
     state.displayBackdrop = false
     state.displaySettingsModal = false
     state.activeSettingsModal = 'general'

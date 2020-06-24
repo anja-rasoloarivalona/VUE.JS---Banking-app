@@ -17,7 +17,7 @@ const editWallet = input => {
 const query = (action, input) => {
   return `${action}(walletInput: {
         _id: "${input._id}",
-        walletType: "${input.type.value}",
+        walletType: "${input.walletType.value}",
         amount: "${input.amount}",
         name: "${input.name}",
         color: "${input.color}",

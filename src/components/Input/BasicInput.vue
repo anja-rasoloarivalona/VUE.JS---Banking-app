@@ -1,6 +1,6 @@
 <template>
-        <label :for="id" class="input" :class="{disabled: isDisabled}">
-            <span v-if="id">{{ id }}</span>
+        <label :for="id" class="input" :class="{disabled: isDisabled, row: row}">
+            <span v-if="id" class="input__id">{{ id }}</span>
             <div class="input__container">
               <input
                 v-bind="$attrs"
@@ -31,7 +31,8 @@ export default {
     bgWhite: Boolean,
     isDisabled: Boolean,
     placeholder: String,
-    type: String
+    type: String,
+    row: Boolean
   },
   computed: {
     ...mapGetters([
@@ -56,6 +57,18 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
+  &.row {
+    flex-direction: row;
+    align-items: center;
+     & .input__id {
+      margin-bottom: 0;
+      margin-right: 1rem;
+      width: 7rem
+    }
+    & .input__container {
+      width: 100%;
+    }
+  }
   &__container {
     position: relative;
   }

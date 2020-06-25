@@ -6,4 +6,12 @@ const setCurrency = currency => {
   }
 }
 
-export { setCurrency }
+const setThemeQuery = theme => {
+  return {
+    query: `mutation {
+        setTheme(theme: "${theme}")
+    }`
+  }
+}
+
+export { setCurrency, setThemeQuery }

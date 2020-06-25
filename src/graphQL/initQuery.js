@@ -11,6 +11,8 @@ const initQuery = {
             w
             h
             i
+            minH
+            minW
             displayed
             ghostMode
           }

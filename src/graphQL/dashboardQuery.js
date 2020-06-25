@@ -31,6 +31,8 @@ const updateDashboardLayoutQuery = (layout) => {
             h
             w
             i
+            minW
+            minH
             displayed
             ghostMode
           }

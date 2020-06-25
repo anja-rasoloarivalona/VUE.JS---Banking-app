@@ -22,6 +22,8 @@ const loginQuery = input => {
                         w
                         h
                         i
+                        minH
+                        minW
                         displayed
                         ghostMode
                       }

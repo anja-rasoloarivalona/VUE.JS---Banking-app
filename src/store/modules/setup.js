@@ -41,6 +41,8 @@ const actions = {
                 w
                 h
                 i
+                minW
+                minH
                 displayed
                 ghostMode
               }

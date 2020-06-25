@@ -17,6 +17,8 @@
         :w="item.w"
         :h="item.h"
         :i="item.i"
+        :minH="item.minH"
+        :minW="item.minW"
         :key="item.i"
         :isResizable="dashboard.isBeingEdited"
         >
@@ -53,6 +55,7 @@ export default {
       'user'
     ]),
     currentLayout () {
+      console.log('dashboad', this.dashboard.currentLayout)
       return this.dashboard.currentLayout.filter(i => i.displayed === true)
     }
   },
@@ -78,6 +81,7 @@ export default {
       'tryNewLayout'
     ]),
     layoutUpdatedEvent: function (newLayout) {
+      console.log(newLayout)
       this.tryNewLayout(newLayout)
     }
   },

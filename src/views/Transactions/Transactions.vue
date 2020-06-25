@@ -2,8 +2,8 @@
   <keep-alive>
     <div class="transactionsContainer">
         <div class="transactions-view__empty" v-if="this.$store.state.user.monthlyReports.length < 1">
-           <div>No  transaction</div>
-           <app-btn normal primary @click.native="showForm = true">New transaction</app-btn>
+           <div>You do not have transactions yet</div>
+           <app-btn normal primary @click.native="openBackdrop('transactions')">Add transaction</app-btn>
         </div>
         <div class="transactions-view" v-else>
             <div class="transactions-view__header">
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 import TransactionTable from '@/components/UI/Transaction/TransactionTable'
 export default {
   data () {
@@ -137,6 +137,9 @@ export default {
     }
   },
   methods: {
+    ...mapMutations([
+      'openBackdrop'
+    ]),
     load () {
       // SET PERIOD LIST
       const list = []
@@ -202,10 +205,13 @@ export default {
   flex-direction: column;
     &__empty {
         display: flex;
+        flex-direction: column;
         align-items: center;
+        justify-content: center;
         font-size: $font-m;
+        flex-grow: 1;
         & div:first-child {
-            margin-right: 2rem;
+          margin-bottom: 2rem;
         }
     }
     &__header {

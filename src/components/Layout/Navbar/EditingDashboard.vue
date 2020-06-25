@@ -82,7 +82,6 @@ export default {
       this.currentAction = action
       if (action === 'cancel') {
         this.cancelNewLayout()
-        this.setDashboardIsBeingEditedTofalse()
       }
       if (action === 'save') {
         const success = await this.updateDashboardLayout(this.dashboard.currentLayout)
@@ -94,7 +93,6 @@ export default {
         const success = await this.updateDashboardLayout(this.dashboard.defaultLayout)
         if (success) {
           this.resetDashboardLayout()
-          this.setDashboardIsBeingEditedTofalse()
         }
       }
     }

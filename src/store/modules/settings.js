@@ -86,6 +86,11 @@ const mutations = {
   },
   initCurrency (state, currency) {
     state.currentCurrency = currency
+  },
+  resetSettingsData (state) {
+    state.currentCurrency = ''
+    state.editingTransaction = false
+    state.ghostMode = false
   }
 
 }

@@ -159,6 +159,8 @@ const actions = {
   logout: function ({ commit }) {
     commit('setIsAuthToFalse')
     commit('clearUserData')
+    commit('resetDashboardLayout')
+    commit('resetSettingsData')
   }
 }
 

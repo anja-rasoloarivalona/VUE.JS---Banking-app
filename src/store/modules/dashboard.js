@@ -75,6 +75,7 @@ const mutations = {
       prevLayout.push({ ...item })
     })
     state.currentLayout = prevLayout
+    state.isBeingEdited = false
   },
   resetDashboardLayout (state) {
     const current = []
@@ -85,6 +86,7 @@ const mutations = {
     })
     state.currentLayout = current
     state.previousLayout = prev
+    state.isBeingEdited = false
   },
 
   // EDIT MUTATIONS

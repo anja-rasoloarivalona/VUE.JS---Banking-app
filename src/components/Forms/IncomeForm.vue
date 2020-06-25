@@ -3,9 +3,9 @@
       <slot />
       <form>
             <app-income-input v-model="income.category"/>
-            <app-basic-input v-model="income.amount" :id="$t('amount')" />
+            <app-basic-input v-model="income.amount" :id="$t('amount')" type="number"/>
             <app-date-input v-model="income.lastPayout" :id="$t('lastPaymentDate')"/>
-            <app-basic-input v-model="income.from" :id="$t('details')"/>
+            <app-basic-input v-model="income.details" :id="$t('details')"/>
             <app-select-input v-model="income.autoWriting" :id="$t('automaticWriting')" :options="yesOrNoList" i18 />
             <app-select-input v-model="income.notification" :id="$t('notification')" :options="yesOrNoList" i18/>
             <app-frequency-input v-model="income.frequency" :id="$t('frequency')" />
@@ -31,7 +31,9 @@ export default {
       loading: false,
       income: {
         _id: '',
-        category: {},
+        category: {
+
+        },
         amount: 0,
         details: '',
         lastPayout: new Date(),
@@ -40,8 +42,7 @@ export default {
         frequency: {
           counter: '',
           period: ''
-        },
-        alreadyUsedThisCurrentMonth: false
+        }
       },
       yesOrNoList: [
         {
@@ -59,23 +60,33 @@ export default {
     if (this.editedIncome) {
       this.income = {
         ...this.editedIncome,
+        category: {
+          value: this.editedIncome.subcategory,
+          i18: this.incomesList.category[this.editedIncome.subcategory].i18
+        },
+        frequency: {
+          counter: {
+            value: this.editedIncome.frequency.counter,
+            i18: this.frequencyOptionsi18.counter[this.editedIncome.frequency.counter]
+          },
+          period: {
+            value: this.editedIncome.frequency.period,
+            i18: this.frequencyOptionsi18.period[this.editedIncome.frequency.period]
+          }
+        },
         lastPayout: new Date(this.editedIncome.lastPayout),
-        autoWriting: this.editedIncome.autoWriting ? 'yes' : 'no',
-        notification: this.editedIncome.notification ? 'yes' : 'no'
+        autoWriting: this.editedIncome.autoWriting ? { value: 'yes', i18: 'yes' } : { value: 'no', i18: 'no' },
+        notification: this.editedIncome.notification ? { value: 'yes', i18: 'yes' } : { value: 'no', i18: 'no' }
       }
-    }
-  },
-  watch: {
-    'income.category': {
-      handler: 'setData',
-      immediate: false
     }
   },
   computed: {
     ...mapGetters([
       'user',
       'editedIncome',
-      'currentPeriodReport'
+      'currentPeriodReport',
+      'incomesList',
+      'frequencyOptionsi18'
     ])
   },
   props: {
@@ -89,17 +100,6 @@ export default {
     ...mapMutations([
       'closeBackdrop'
     ]),
-    setData (category) {
-      const foundIncome = this.currentPeriodReport.details.find(detail => {
-        if (detail.category === 'Income' && detail.subcategory === category.value) {
-          this.income.alreadyUsedThisCurrentMonth = true
-          return true
-        }
-      })
-      if (!foundIncome) {
-        this.income.alreadyUsedThisCurrentMonth = false
-      }
-    },
     close () {
       this.closeBackdrop()
       this.$emit('hideForm')
@@ -107,6 +107,7 @@ export default {
     submit: async function () {
       this.loading = true
       let result = false
+      console.log('sunbbmiyt', this.income)
       if (this.editedIncome) {
         result = await this.editIncome(this.income)
       } else {

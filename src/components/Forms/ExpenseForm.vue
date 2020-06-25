@@ -12,11 +12,13 @@
             v-model="expense.amount"
             :id="expense.expenseType.value === 'Variable' ? $t('amountPerMonth') : $t('amountPerTransaction')"
             v-if="expense.expenseType.value !== ''"
+            type="number"
         />
         <app-basic-input
             v-model="expense.used"
             :id="$t('amountSpentThisMonth')"
             v-if="expense.expenseType.value === 'Variable'  && showAmountSpentThisMonth"
+            type="number"
           />
         <app-frequency-input
             v-model="expense.frequency"
@@ -87,17 +89,45 @@ export default {
     ...mapGetters([
       'user',
       'editedExpense',
-      'currentPeriodReport'
+      'currentPeriodReport',
+      'frequencyOptionsi18',
+      'expensesList',
+      'auth'
     ])
   },
   mounted () {
     if (this.editedExpense) {
       this.expense = {
         ...this.editedExpense,
-        lastPayout: new Date(this.editedExpense.lastPayout),
+        genre: {
+          category: {
+            name: this.editedExpense.category,
+            i18: this.expensesList[this.editedExpense.category].i18
+          },
+          subcategory: {
+            name: this.editedExpense.subcategory,
+            i18: this.expensesList[this.editedExpense.category].subcategory[this.editedExpense.subcategory].i18
+          }
+        },
+        expenseType: {
+          value: this.editedExpense.expenseType,
+          i18: this.editedExpense.expenseType === 'Variable' ? 'variable' : 'fixed'
+        },
+        frequency: {
+          counter: {
+            value: this.editedExpense.frequency.counter,
+            i18: this.frequencyOptionsi18.counter[this.editedExpense.frequency.counter]
+          },
+          period: {
+            value: this.editedExpense.frequency.period,
+            i18: this.frequencyOptionsi18.period[this.editedExpense.frequency.period]
+          }
+        },
+        lastPayout: this.editedExpense.lastPayout ? new Date(this.editedExpense.lastPayout) : new Date(),
         autoWriting: this.editedExpense.autoWriting ? 'yes' : 'no',
         notification: this.editedExpense.notification ? 'yes' : 'no'
       }
+      console.log('edited data', this.expense)
     }
   },
   methods: {
@@ -113,25 +143,21 @@ export default {
       this.$emit('hideForm')
     },
     setData (expenseData) {
-      // console.log('expenseData', expenseData)
       const foundExpense = this.currentPeriodReport.details.find(detail => {
-        if (expenseData.genre.category.name === detail.category && expenseData.genre.subcategory.name === detail.subcategory && expenseData.expenseType.value === 'Variable') {
+        if (expenseData.genre.category.name === detail.category && expenseData.genre.subcategory.name === detail.subcategory && expenseData.expenseType.value === 'Variable' && !this.auth.appStatus.includes('setup')) {
           this.expense.used = detail.amount
           this.showAmountSpentThisMonth = false
           this.expense.alreadyUsedThisCurrentMonth = true
-          // console.log('setting')
           return true
         }
       })
       if (!foundExpense) {
         this.showAmountSpentThisMonth = true
-        // this.expense.used = 0
-        this.expense.alreadyUsedThisCurrentMonth = true
+        this.expense.alreadyUsedThisCurrentMonth = false
       }
     },
     submit: async function () {
       this.loading = true
-      // console.log('surbe', this.expense)
       let result = false
       if (this.editedExpense) {
         result = await this.editExpense(this.expense)

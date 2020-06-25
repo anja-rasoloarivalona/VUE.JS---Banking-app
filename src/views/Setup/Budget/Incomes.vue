@@ -14,17 +14,10 @@
                   <b>{{$t('addIncome')}}</b>
           </div>
           <form class="setup__view__content__form">
-
-            <!-- <app-select-input v-model="income.category" :id="$t('category')">
-              <template>
-                <income  v-for="(income, key) in incomesList.category" :key="key" :income="{...income, key: key}"/>
-              </template>
-            </app-select-input> -->
-
             <app-income-input v-model="income.category"/>
-            <app-basic-input v-model="income.amount" :id="$t('amount')" />
+            <app-basic-input v-model="income.amount" :id="$t('amount')" type="number"/>
             <app-date-input v-model="income.lastPayout" :id="$t('lastPaymentDate')"/>
-            <app-basic-input v-model="income.from" :id="$t('details')"/>
+            <app-basic-input v-model="income.details" :id="$t('details')"/>
             <app-select-input v-model="income.autoWriting" :id="$t('automaticWriting')" :options="yesOrNoList" i18 />
             <app-select-input v-model="income.notification" :id="$t('notification')" :options="yesOrNoList" i18/>
             <app-frequency-input v-model="income.frequency" :id="$t('frequency')" />

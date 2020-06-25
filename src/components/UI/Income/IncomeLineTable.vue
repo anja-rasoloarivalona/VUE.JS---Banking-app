@@ -12,16 +12,16 @@
         </div>
         <ul class="income__cta__list"
             v-if="showList"
-            :style="{boxShadow: theme.isDark ? 'box-shadow: 1px 5px 12px -1px rgba(15,15,15,1)' : '1px 5px 12px -1px rgb(165, 165, 165)'}">
+        >
                 <li class="income__cta__list__item" @click="editIncome(income)"> {{$t('edit')}} </li>
-                <li class="income__cta__list__item"> {{$t('delete')}} </li>
+                <li class="income__cta__list__item" @click="deleteIncome(income._id)"> {{$t('delete')}} </li>
         </ul>
     </td>
   </tr>
 </template>
 
 <script>
-import { mapMutations, mapGetters } from 'vuex'
+import { mapMutations, mapGetters, mapActions } from 'vuex'
 import Income from './Income'
 export default {
   data () {
@@ -48,6 +48,9 @@ export default {
     ...mapMutations([
       'openBackdrop',
       'setEditedIncome'
+    ]),
+    ...mapActions([
+      'deleteIncome'
     ]),
     editIncome (income) {
       this.setEditedIncome(income)
@@ -155,6 +158,7 @@ export default {
         list-style: none;
         width: 15rem;
         color: var(--textColor--dark);
+        box-shadow: var(--boxShadow);
         z-index: 100;
         &::after {
             content: "";

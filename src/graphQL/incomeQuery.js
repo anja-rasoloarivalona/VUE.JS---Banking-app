@@ -14,6 +14,14 @@ const editIncomeQuery = input => {
   }
 }
 
+const deleteIncomeQuery = incomeId => {
+  return {
+    query: `mutation {
+      deleteIncome(incomeInputId: "${incomeId}")
+    }`
+  }
+}
+
 const query = (action, input) => {
   return `${action}(incomeInput: {
                 _id: "${input._id}",
@@ -27,8 +35,7 @@ const query = (action, input) => {
                 lastPayout: "${input.lastPayout.toString()}",
                 autoWriting: "${input.autoWriting.value}",
                 notification: "${input.notification.value}",
-                color: "${input.color}",
-                alreadyUsedThisCurrentMonth: "${input.alreadyUsedThisCurrentMonth}"
+                color: "${input.color}"
             }) {
                 _id
                 category
@@ -47,4 +54,4 @@ const query = (action, input) => {
             }`
 }
 
-export { addIncomeQuery, editIncomeQuery }
+export { addIncomeQuery, editIncomeQuery, deleteIncomeQuery }

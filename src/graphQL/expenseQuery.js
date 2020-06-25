@@ -14,6 +14,17 @@ const editExpenseQuery = input => {
   }
 }
 
+const deleteExpenseQuery = expenseId => {
+  return {
+    query: `mutation {
+      deleteExpense(expenseInputId: "${expenseId}"){
+        success,
+        deletedId
+      }
+    }`
+  }
+}
+
 const query = (action, input) => {
   return `${action}(expenseInput: {
                   _id: "${input._id}",
@@ -47,4 +58,4 @@ const query = (action, input) => {
               }`
 }
 
-export { addExpenseQuery, editExpenseQuery }
+export { addExpenseQuery, editExpenseQuery, deleteExpenseQuery }

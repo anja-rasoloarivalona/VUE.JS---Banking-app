@@ -17,7 +17,7 @@
             <li class="expense__cta__list__item" @click="editExpense(expense)">
                 {{$t('edit')}}
             </li>
-            <li class="expense__cta__list__item">
+            <li class="expense__cta__list__item" @click="deleteExpense(expense._id)">
                 {{$t('delete')}}
             </li>
         </ul>
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters } from 'vuex'
+import { mapMutations, mapGetters, mapActions } from 'vuex'
 import Expense from './Expense'
 export default {
   data () {
@@ -51,6 +51,9 @@ export default {
     ...mapMutations([
       'openBackdrop',
       'setEditedExpense'
+    ]),
+    ...mapActions([
+      'deleteExpense'
     ]),
     editExpense (expense) {
       this.setEditedExpense(expense)

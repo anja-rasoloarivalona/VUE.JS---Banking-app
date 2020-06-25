@@ -37,13 +37,14 @@ export default {
 
 <style lang="scss" scoped>
 .income-table {
+    flex-grow: 1;
     height: 100%;
     display: flex;
     flex-direction: column;
     &__scroll {
-        max-height: 100%;
-        min-height: 100%;
-        overflow-y: scroll;
+        flex-grow: 1;
+        overflow: auto;
+         height: 10rem;
         &::-webkit-scrollbar{
             display: none;
         }

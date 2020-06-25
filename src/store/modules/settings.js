@@ -22,6 +22,23 @@ const state = {
       'a month': 1,
       'a year': 1 / 12
     }
+  },
+  frequencyOptionsi18: {
+    counter: {
+      once: 'once',
+      twice: 'twice',
+      'three times': 'threeTimes',
+      'four times': 'fourTimes',
+      'five times': 'fiveTimes',
+      'six times': 'sixTimes'
+    },
+    period: {
+      'a day': 'perDay',
+      'a week': 'perWeek',
+      'every two weeks': 'everyTwoWeeks',
+      'a month': 'perMonth',
+      'a year': 'perYear'
+    }
   }
 }
 
@@ -31,6 +48,9 @@ const getters = {
   },
   frequencyOptions: state => {
     return state.frequencyOptions
+  },
+  frequencyOptionsi18: state => {
+    return state.frequencyOptionsi18
   },
   ghostModeIsEnabled: state => {
     return state.ghostMode
@@ -77,6 +97,7 @@ const actions = {
       const response = await axios.post('/', graphqlQuery)
       const resData = response.data.data.setCurrency
       if (resData === 'success') {
+        commit('initCurrency', currency)
         return true
       }
     } catch (err) {

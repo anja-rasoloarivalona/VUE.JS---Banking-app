@@ -1,5 +1,5 @@
-import { editIncomeQuery, addIncomeQuery } from '@/graphQL/incomeQuery'
-import { editExpenseQuery, addExpenseQuery } from '@/graphQL/expenseQuery'
+import { editIncomeQuery, addIncomeQuery, deleteIncomeQuery } from '@/graphQL/incomeQuery'
+import { editExpenseQuery, addExpenseQuery, deleteExpenseQuery } from '@/graphQL/expenseQuery'
 import { addTransactionQuery, editTransactionQuery } from '@/graphQL/transactionsQuery'
 import axios from 'axios'
 import Vue from 'vue'
@@ -127,8 +127,8 @@ const mutations = {
     delete userItem.type
     state[userItemType] = [...state[userItemType], userItem]
   },
-
   editUserItem (state, data) {
+    console.log('editing', data)
     const userItemType = data.type
     const userItem = { ...data }
     let itemIndex
@@ -138,10 +138,14 @@ const mutations = {
       }
     })
     delete userItem.type
-    Vue.set(state[userItemType], itemIndex, data)
+    Vue.set(state[userItemType], itemIndex, userItem)
+    console.log('item edited')
     // state[userItemType][itemIndex] = data
   },
-
+  deleteUserItem (state, data) {
+    console.log('deleting user item')
+    state[data.userItemType] = state[data.userItemType].filter(i => i._id !== data._id)
+  },
   addGoal (state, goal) {
     state.goal = goal
   },
@@ -179,13 +183,29 @@ const actions = {
     try {
       const response = await axios.post('', graphqlQuery)
       const resData = response.data.data.editIncome
-      resData.type = 'incomes'
       resData.nextPayout = new Date(resData.nextPayout)
-      console.log('res data', resData)
+      resData.type = 'incomes'
       commit('editUserItem', resData)
       return true
     } catch (err) {
-      console.log(err)
+      console.log(err.response)
+      return false
+    }
+  },
+  deleteIncome: async function ({ commit }, expenseId) {
+    const graphqlQuery = deleteIncomeQuery(expenseId)
+    try {
+      const response = await axios.post('', graphqlQuery)
+      const resData = response.data.data.deleteIncome
+      if (resData === 'success') {
+        const data = {
+          userItemType: 'incomes',
+          _id: expenseId
+        }
+        commit('deleteUserItem', data)
+      }
+    } catch (err) {
+      console.log(err.response)
       return false
     }
   },
@@ -205,7 +225,6 @@ const actions = {
   },
   editExpense: async function ({ commit }, expense) {
     const graphqlQuery = editExpenseQuery(expense)
-    console.log(graphqlQuery)
     try {
       const response = await axios.post('', graphqlQuery)
       const resData = response.data.data.editExpense
@@ -213,7 +232,24 @@ const actions = {
       commit('editUserItem', resData)
       return true
     } catch (err) {
-      console.log(err)
+      console.log(err.response)
+      return false
+    }
+  },
+  deleteExpense: async function ({ commit }, expenseId) {
+    const graphqlQuery = deleteExpenseQuery(expenseId)
+    try {
+      const response = await axios.post('', graphqlQuery)
+      const resData = response.data.data.deleteExpense
+      if (resData.success === 'true') {
+        const data = {
+          userItemType: 'expenses',
+          _id: resData.deletedId
+        }
+        commit('deleteUserItem', data)
+      }
+    } catch (err) {
+      console.log(err.response)
       return false
     }
   },

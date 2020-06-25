@@ -14,10 +14,10 @@
                 <b>{{$t('addAWallet')}}</b>
             </div>
             <form class="setup__view__content__form wallets__form">
-                <app-select-input v-model="walletData.type" :options="user.walletTypeList" :id="$t('type')" i18/>
+                <app-select-input v-model="walletData.walletType" :options="user.walletTypeList" :id="$t('type')" i18/>
                 <app-basic-input v-model="walletData.name" :id="$t('name')" />
-                <app-basic-input v-model="walletData.amount"  :id="$t('amount')"/>
-                <app-basic-input v-model="walletData.creditLimit" :id="$t('limit')" v-if="walletData.type.value === 'Credit card'" />
+                <app-basic-input v-model="walletData.amount"  :id="$t('amount')" type="number"/>
+                <app-basic-input v-model="walletData.creditLimit" :id="$t('limit')" v-if="walletData.walletType.value === 'Credit card'" />
             </form>
             <div class="setup__view__content__text">
                 <div>{{ $t('aWalletIsTheAssetYouUse')}}</div>
@@ -57,7 +57,7 @@ export default {
     return {
       loading: false,
       walletData: {
-        type: {
+        walletType: {
           value: '',
           i18: ''
         },

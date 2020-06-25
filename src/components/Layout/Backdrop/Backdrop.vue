@@ -10,7 +10,6 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 import Transactions from './Transactions'
-import Settings from './Settings/Settings'
 import Income from './Income'
 import Expense from './Expense'
 import Wallet from './Wallet'
@@ -32,7 +31,6 @@ export default {
   },
   components: {
     Transactions,
-    Settings,
     Income,
     Expense,
     Wallet

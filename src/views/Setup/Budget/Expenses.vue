@@ -17,8 +17,8 @@
           <form class="setup__view__content__form expenses__form">
             <app-expense-input v-model="expense.genre"/>
             <app-select-input v-model="expense.expenseType" :id="$t('expenseType')"  :options="[{value: 'Variable', i18: 'variable'}, {value: 'Fixed', i18: 'fixed'}]" i18/>
-            <app-basic-input v-model="expense.amount" :id="expense.expenseType.value === 'Variable' ? $t('amountPerMonth') : $t('amountPerTransaction')"  v-if="expense.expenseType !== ''"/>
-            <app-basic-input v-model="expense.used" :id="$t('amountSpentThisMonth')"  v-if="expense.expenseType.value === 'Variable'"/>
+            <app-basic-input v-model="expense.amount" :id="expense.expenseType.value === 'Variable' ? $t('amountPerMonth') : $t('amountPerTransaction')"  v-if="expense.expenseType !== ''" type="number"/>
+            <app-basic-input v-model="expense.used" :id="$t('amountSpentThisMonth')"  v-if="expense.expenseType.value === 'Variable'" type="number"/>
             <app-frequency-input v-model="expense.frequency" :id="$t('frequency')" v-if="expense.expenseType.value === 'Fixed'"/>
             <app-date-input v-model="expense.lastPayout" :id="$t('lastPaymentDate')" v-if="expense.expenseType.value === 'Fixed'"/>
           </form>
@@ -96,15 +96,38 @@ export default {
       'addExpense'
     ]),
     addExpenseHandler: async function () {
+      this.loading = true
+      await this.addExpense(this.expense)
       this.loading = false
-      const result = await this.addExpense(this.expense)
-      console.log('expense added', result)
+      this.resetData()
     },
     setupExpenseAction () {
       if (this.user.expenses.length < 1) {
         this.addExpenseHandler()
       } else {
         this.setCurrentSetupStep('goal')
+      }
+    },
+    resetData () {
+      this.expense = {
+        genre: {
+          category: {
+
+          },
+          subcategory: {
+
+          }
+        },
+        name: '',
+        amount: 0,
+        used: 0,
+        expenseType: '',
+        lastPayout: new Date(),
+        frequency: {
+          counter: '',
+          period: ''
+        },
+        color: ''
       }
     }
   },

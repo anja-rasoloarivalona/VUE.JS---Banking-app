@@ -1,16 +1,20 @@
 <template>
     <div class="profile" :class="{isLight: theme.isLight, isDark: theme.isDark}">
-        <div class="profile__add">
-           <app-icon name="add" size="xxl" :color="theme.isDark ? 'secondary' : 'secondary'"></app-icon>
+        <div class="profile__add" @mouseenter="showList = true" @mouseleave="showList = false">
+           <app-icon name="add" size="extra-large" :color="theme.isDark ? 'secondary' : 'secondary'"></app-icon>
+           <div class="profile__add__bridge"></div>
+           <ul class="profile__add__list" v-if="showList">
+             <li class="profile__add__list__item" @click="openBackdrop('expense')">Add expense</li>
+             <li class="profile__add__list__item" @click="openBackdrop('income')">Add income</li>
+             <li class="profile__add__list__item">Add goal</li>
+             <li class="profile__add__list__item" @click="openBackdrop('wallet')">Wallet</li>
+           </ul>
         </div>
         <profile-goal></profile-goal>
         <profile-header :userBudgetPlan="userBudgetPlan"></profile-header>
         <div class="profile__section">
             <div class="profile__section__title">
                 <h1>Incomes</h1>
-                <!-- <div class="profile__section__title__add" @click="openBackdrop('income')">
-                    <app-icon name="add" size="large" :color="theme.isDark ? 'surface' : 'white'"></app-icon>
-                </div> -->
             </div>
             <table class="profile__section__table">
                 <thead>
@@ -39,9 +43,6 @@
         <div class="profile__section">
             <div class="profile__section__title">
                 <h1>Expenses</h1>
-                <!-- <div class="profile__section__title__add" @click="openBackdrop('expense')">
-                    <app-icon name="add" size="large" :color="theme.isDark ? 'surface' : 'white'"></app-icon>
-                </div> -->
             </div>
             <table class="profile__section__table">
                 <thead>
@@ -72,9 +73,6 @@
         <div class="profile__section">
             <div class="profile__section__title">
                 <h1>Wallets</h1>
-                <!-- <div class="profile__section__title__add" @click="openBackdrop('wallet')">
-                    <app-icon name="add" size="large" :color="theme.isDark ? 'surface' : 'white'"></app-icon>
-                </div> -->
             </div>
             <div class="profile__section__list profile__section__list--wallets">
                 <wallet v-for="wallet in user.wallets" :wallet="wallet" :key="wallet._id" @click.native="clickWallet(wallet)"/>
@@ -93,7 +91,8 @@ import ProfileGoal from './ProfileGoal'
 export default {
   data () {
     return {
-      data: null
+      data: null,
+      showList: false
     }
   },
   mounted () {
@@ -126,13 +125,8 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'openBackdrop',
-      'setEditedWallet'
-    ]),
-    clickWallet (wallet) {
-      this.setEditedWallet(wallet)
-      this.openBackdrop('wallet')
-    }
+      'openBackdrop'
+    ])
   },
   components: {
     ProfileHeader,
@@ -154,21 +148,50 @@ export default {
   padding: 3rem;
   position: relative;
   &__add {
-    position: fixed;
-    top: 15rem;
-    right: 8vw;
-    // background: var(--secondaryColor);
-    width: 3rem;
-    height: 3rem;
-    border-radius: 50%;
+    position: absolute;
+    // background: red;
+    top: 3rem;
+    right: 3rem;
     display: flex;
+    width: 15rem;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
+    cursor: pointer;
+    z-index: 2;
+    &__bridge {
+      // background: green;
+      position: absolute;
+      width: 100%;
+      height: 2rem;
+      top: 3rem;
+    }
+    &__list {
+      position: absolute;
+      top: 4rem;
+      right: 0rem;
+      width: 100%;
+      list-style: none;
+      background: $color-white;
+      border-radius: .5rem;
+      padding: 1rem 0;
+      box-shadow: var(--boxShadow);
+      z-index: 2;
+      &__item {
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        padding-left: 2rem;
+        font-size: $font-s;
+        color: var(--textColor--dark);
+        cursor: pointer;
+        &:hover {
+          color: var(--mainColor)
+        }
+      }
+    }
   }
   &__section {
-    // background: red;
     &__title {
-      // background: green;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -176,7 +199,6 @@ export default {
       margin-bottom: 3rem;
     }
     &__table {
-      // background: blue;
       width: 100%;
       border-collapse: collapse;
       & th {
@@ -219,6 +241,5 @@ export default {
           padding-bottom: 2rem;
         }
     }
-
 }
 </style>

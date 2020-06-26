@@ -206,6 +206,7 @@ export default {
   &__cta {
       display: flex;
       justify-content: center;
+      margin-top: 1rem;
       // position: relative;
       // z-index: 10;
   }

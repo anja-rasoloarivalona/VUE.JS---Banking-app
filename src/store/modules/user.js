@@ -273,7 +273,7 @@ const actions = {
       commit('addTransaction', resData)
       return true
     } catch (err) {
-      console.log(err)
+      console.log('error editing transaction', err.response)
       return false
     }
   }

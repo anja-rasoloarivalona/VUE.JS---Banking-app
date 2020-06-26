@@ -12,10 +12,10 @@
                     <span></span>
                     <span></span>
                 </div>
-               <app-select-input v-model="filters.period" :options="periodList" :id="$t('period')" row i18/>
-               <app-select-input v-model="filters.category" :options="displayedCategories" :id="$t('category')" row i18/>
-               <app-select-input v-model="filters.subcategory" :options="displayedSubcategories" :id="$t('subcategory')" row i18/>
-               <app-select-input v-model="filters.sort" :options="periodList" id="Sort" row/>
+               <app-select-input v-model="filters.period" :options="periodList" row i18/>
+               <app-select-input v-model="filters.category" :options="displayedCategories" row i18/>
+               <app-select-input v-model="filters.subcategory" :options="displayedSubcategories"  row i18/>
+               <app-select-input v-model="filters.sort" :options="periodList" row/>
             </div>
             <transactions-table :transactions="displayedTransactions" />
         </div>
@@ -37,11 +37,11 @@ export default {
         },
         category: {
           value: 'All',
-          i18: 'all-f'
+          i18: 'allCategories'
         },
         subcategory: {
           value: 'All',
-          i18: 'all-f'
+          i18: 'allSubcategories'
         },
         sort: ''
       },
@@ -87,7 +87,7 @@ export default {
         }
       }
       if (this.filters.category.value !== 'All') {
-        list = [{ value: 'All', i18: 'all-f' }, ...list]
+        list = [{ value: 'All', i18: 'allCategories' }, ...list]
       }
       return list
     },
@@ -102,7 +102,7 @@ export default {
         }
       }
       if (this.filters.subcategory.value !== 'All') {
-        list = [{ value: 'All', i18: 'all-f' }, ...list]
+        list = [{ value: 'All', i18: 'allSubcategories' }, ...list]
       }
       return list
     },

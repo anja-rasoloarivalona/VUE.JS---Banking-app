@@ -21,7 +21,7 @@
                         v-for="(transaction, index) in transactions"
                         :key="transaction._id"
                         :transaction="transaction"
-                        :isLast="index === transactions.length - 1 || index === transactions.length - 2"
+                        :isLast="index > transactions.length - 3 && index !== 0"
                     />
                 </tbody>
             </table>
@@ -85,6 +85,7 @@ export default {
         // background: blue;
         overflow: auto;
         height: 10rem;
+        // display: flex;
         &::-webkit-scrollbar{
             display: none;
         }

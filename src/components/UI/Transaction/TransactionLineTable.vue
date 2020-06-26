@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 import Income from '@/components/UI/Income/Income'
 import Expense from '@/components/UI/Expense/Expense'
 export default {
@@ -87,8 +87,16 @@ export default {
     }
   },
   methods: {
+    ...mapMutations([
+      'editTransaction',
+      'openBackdrop'
+    ]),
     closeList () {
       this.showList = false
+    },
+    edit () {
+      this.editTransaction(this.transaction)
+      this.openBackdrop('transactions')
     }
   },
   props: {

@@ -1,14 +1,16 @@
 <template>
     <div class="profile" :class="{isLight: theme.isLight, isDark: theme.isDark}">
+        <div class="profile__add">
+           <app-icon name="add" size="xxl" :color="theme.isDark ? 'secondary' : 'secondary'"></app-icon>
+        </div>
         <profile-goal></profile-goal>
         <profile-header :userBudgetPlan="userBudgetPlan"></profile-header>
-
         <div class="profile__section">
             <div class="profile__section__title">
                 <h1>Incomes</h1>
-                <div class="profile__section__title__add" @click="openBackdrop('income')">
+                <!-- <div class="profile__section__title__add" @click="openBackdrop('income')">
                     <app-icon name="add" size="large" :color="theme.isDark ? 'surface' : 'white'"></app-icon>
-                </div>
+                </div> -->
             </div>
             <table class="profile__section__table">
                 <thead>
@@ -34,13 +36,12 @@
                 </tbody>
             </table>
         </div>
-
         <div class="profile__section">
             <div class="profile__section__title">
                 <h1>Expenses</h1>
-                <div class="profile__section__title__add" @click="openBackdrop('expense')">
+                <!-- <div class="profile__section__title__add" @click="openBackdrop('expense')">
                     <app-icon name="add" size="large" :color="theme.isDark ? 'surface' : 'white'"></app-icon>
-                </div>
+                </div> -->
             </div>
             <table class="profile__section__table">
                 <thead>
@@ -71,9 +72,9 @@
         <div class="profile__section">
             <div class="profile__section__title">
                 <h1>Wallets</h1>
-                <div class="profile__section__title__add" @click="openBackdrop('wallet')">
+                <!-- <div class="profile__section__title__add" @click="openBackdrop('wallet')">
                     <app-icon name="add" size="large" :color="theme.isDark ? 'surface' : 'white'"></app-icon>
-                </div>
+                </div> -->
             </div>
             <div class="profile__section__list profile__section__list--wallets">
                 <wallet v-for="wallet in user.wallets" :wallet="wallet" :key="wallet._id" @click.native="clickWallet(wallet)"/>
@@ -151,6 +152,19 @@ export default {
   border-radius: .5rem;
   margin-bottom: 5rem;
   padding: 3rem;
+  position: relative;
+  &__add {
+    position: fixed;
+    top: 15rem;
+    right: 8vw;
+    // background: var(--secondaryColor);
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   &__section {
     // background: red;
     &__title {
@@ -160,15 +174,6 @@ export default {
       justify-content: space-between;
       color: var(--textColor--dark);
       margin-bottom: 3rem;
-      &__add {
-        background: var(--secondaryColor);
-        width: 3rem;
-        height: 3rem;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
     }
     &__table {
       // background: blue;

@@ -21,6 +21,9 @@ export default {
   props: {
     value: Object
   },
+  mounted () {
+    // console.log('main', this.value.category)
+  },
   components: {
     MainCategory,
     SubCategory

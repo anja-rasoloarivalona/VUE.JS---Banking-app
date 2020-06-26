@@ -35,7 +35,9 @@ export default {
         details: '',
         usedWallet: '',
         walletId: '',
-        transactionType: {},
+        transactionType: {
+
+        },
         counterparty: ''
       },
       expense: {
@@ -52,15 +54,21 @@ export default {
       loading: false
     }
   },
+  watch: {
+    'expense.category': function (next, prev) {
+      if (Object.keys(prev).length > 0 && next.name !== prev.name) {
+        this.expense.subcategory = {}
+      }
+    }
+  },
   computed: {
     ...mapGetters([
       'user',
       'walletsNameAndId',
-      'isEditingTransaction'
+      'isEditingTransaction',
+      'expensesList',
+      'incomesList'
     ]),
-    transactionAmount (val) {
-      return `${this.val} CAD`
-    },
     displayedWalletsList () {
       const userWallets = [...this.user.wallets]
       const res = []
@@ -76,13 +84,62 @@ export default {
           }
         })
       })
-      console.log('wallets', res)
       return res
     }
   },
-  watch: {
-    'input.date': function (val) {
-      // console.log('date', val)
+  mounted () {
+    if (this.isEditingTransaction) {
+      this.input._id = this.isEditingTransaction._id
+      this.input.transactionType = {
+        value: this.isEditingTransaction.transactionType,
+        i18: this.isEditingTransaction.transactionType
+      }
+      this.input.details = this.isEditingTransaction.details
+      this.input.counterparty = this.isEditingTransaction.counterparty
+      this.input.date = new Date(this.isEditingTransaction.date)
+
+      let walletCustom, walletI18, walletType
+
+      this.user.wallets.find(wallet => {
+        if (wallet._id === this.isEditingTransaction.usedWalletId) {
+          walletCustom = wallet.name
+          walletType = wallet.walletType
+          return true
+        }
+      })
+      this.user.walletTypeList.find(wallet => {
+        if (wallet.value === walletType) {
+          walletI18 = wallet.i18
+        }
+      })
+
+      this.input.usedWallet = {
+        i18: walletI18,
+        custom: walletCustom,
+        _id: this.isEditingTransaction.usedWalletId,
+        value: this.isEditingTransaction.usedWalletId
+      }
+
+      if (this.isEditingTransaction.transactionType === 'expense') {
+        this.input.amount = this.isEditingTransaction.amount * -1
+        this.expense = {
+          category: {
+            name: this.isEditingTransaction.category,
+            i18: this.expensesList[this.isEditingTransaction.category].i18
+          },
+          subcategory: {
+            name: this.isEditingTransaction.subcategory,
+            i18: this.expensesList[this.isEditingTransaction.category].subcategory[this.isEditingTransaction.subcategory].i18
+          }
+        }
+      }
+      if (this.isEditingTransaction.transactionType === 'income') {
+        this.input.amount = this.isEditingTransaction.amount
+        this.income = {
+          value: this.isEditingTransaction.subcategory,
+          i18: this.incomesList.category[this.isEditingTransaction.subcategory].i18
+        }
+      }
     }
   },
   methods: {

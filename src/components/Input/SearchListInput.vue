@@ -1,5 +1,5 @@
 <template>
-    <label :for="id" class="custom-label"  v-click-outside="closeList"  >
+    <label :for="id" class="custom-label"  @mouseenter="openList" @mouseleave="closeList">
       <span v-if="id">{{ id }}</span>
       <div
         :id="id"

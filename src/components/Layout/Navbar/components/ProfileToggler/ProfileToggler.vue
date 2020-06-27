@@ -8,6 +8,10 @@
                 <ul class="profile__list" :style="{boxShadow: theme.isDark ? 'box-shadow: 1px 5px 12px -1px rgba(15,15,15,1)' : '1px 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)'}">
                     <div class="profile__list__item">Account</div>
                     <div class="profile__list__item" @click="setDashboardIsBeingEditedToTrue">Edit Dashboard</div>
+                    <div class="profile__list__item profile__list__item profile__list__item--currency" @click="openBackdrop('currency')">
+                        <span>Currency</span>
+                        <span>{{displayedCurrency}}</span>
+                    </div>
                     <div class="profile__list__item profile__list__item--theme">
                         <span>Dark mode</span>
                         <div class="profile__list__item--theme__switch" @click="toggleDarkMode" :class="{active: theme.isDark}">
@@ -16,8 +20,8 @@
                         </div>
                     </div>
                     <div class="profile__list__item profile__list__item--logout" @click="$store.dispatch('logout')">
-                        <span>Log out</span>
-                        <app-icon name="logout" color="dark" size="large"/>
+                        <span>Log Out</span>
+                        <!-- <app-icon name="logout" color="dark" size="large"/> -->
                     </div>
                 </ul>
             </template>
@@ -33,13 +37,18 @@ export default {
   computed: {
     ...mapGetters([
       'auth',
-      'theme'
-    ])
+      'theme',
+      'currentCurrency'
+    ]),
+    displayedCurrency () {
+      return this.currentCurrency.split('-')[0].trim()
+    }
   },
   methods: {
     ...mapMutations([
       'setDashboardIsBeingEditedToTrue',
-      'setTheme'
+      'setTheme',
+      'openBackdrop'
     ]),
     toggleDarkMode: async function () {
       const nextTheme = this.theme.isLight ? `dark-${this.theme.mainColor}` : `light-${this.theme.mainColor}`
@@ -57,7 +66,6 @@ export default {
 
 <style lang="scss" scoped>
 .profile {
-    margin-left: 4rem;
     &__list {
         list-style: none;
         background: $color-white;
@@ -66,7 +74,7 @@ export default {
         width: 23rem;
         position: absolute;
         border-radius: .5rem;
-        padding-top: 1rem;
+        padding: 1rem 0;
         &__item {
         padding: 1rem 2rem;
         cursor: pointer;
@@ -85,6 +93,16 @@ export default {
 
                 }
             }
+            &--currency {
+                // background: red;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                & span:nth-child(2){
+                    // background: blue;
+                    width: 5rem
+                }
+            }
             &--theme {
                 // background: blue;
                 display: flex;
@@ -92,7 +110,7 @@ export default {
                 justify-content: space-between;
                 &__switch {
                     background: #f5f5f5;
-                    height: 1.5rem;
+                    height: 1rem;
                     width: 5rem;
                     position: relative;
                     border-radius: 1.5rem;

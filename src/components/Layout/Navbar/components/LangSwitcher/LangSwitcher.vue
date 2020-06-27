@@ -84,7 +84,7 @@ export default {
       width: 6rem;
   }
   &__list {
-    padding-top: 1rem;
+    padding: 1rem 0;
     list-style: none;
     background: $color-white;
     top: 3rem;

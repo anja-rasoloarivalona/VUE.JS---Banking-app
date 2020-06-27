@@ -1,6 +1,6 @@
 <template>
     <grid-layout
-        :layout="currentLayout"
+        :layout.sync="currentLayout"
         :col-num="12"
         :row-height="10"
         :is-draggable="dashboard.isBeingEdited"
@@ -55,25 +55,28 @@ export default {
       'user'
     ]),
     currentLayout () {
-      console.log('dashboad', this.dashboard.currentLayout)
+      // console.log('dashboad', this.dashboard.currentLayout)
+      // const data = []
+      // this.dashboard.currentLayout.forEach(item => {
+      //   data.push({ ...item })
+      // })
+
+      // let variableBudgetCounter = 0
+      // this.user.expenses.forEach(expense => {
+      //   if (expense.expenseType === 'Variable') {
+      //     variableBudgetCounter++
+      //   }
+      // })
+      // const budgetHeight = variableBudgetCounter > 3 ? 9 + ((variableBudgetCounter - 3) * 3) : 9
+      // data.find((item, index) => {
+      //   if (item.i === 'budget') {
+      //     data[index].h = budgetHeight
+      //     data[index].minH = budgetHeight
+      //   }
+      // })
+      // return data.filter(i => i.displayed === true)
       return this.dashboard.currentLayout.filter(i => i.displayed === true)
     }
-  },
-  watch: {
-    // 'dashboard.currentLayout': function (layout) {
-    //   // console.log('watchd current changed', layout[6].x)
-    //   // this.layout = layout
-    // },
-    // 'dashboard.previousLayout': function (layout) {
-    //   // console.log('prev changed', layout[6].x)
-    //   // this.layout = layout
-    // }
-    // 'user.expenses': function (userExpenses) {
-    //   this.setDashboardLayout(null, userExpenses)
-    // },
-    // 'user.wallets': function (userWallets) {
-    //   this.setDashboardLayout(null, null, userWallets)
-    // }
   },
   methods: {
     ...mapMutations([

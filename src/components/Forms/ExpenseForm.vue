@@ -191,7 +191,7 @@ export default {
       grid-template-rows: max-content;
       grid-auto-rows: max-content;
       column-gap: 1rem;
-      row-gap: 1rem;
+      row-gap: 1.5rem;
       align-items: center;
       justify-content: center;
       justify-items: center;

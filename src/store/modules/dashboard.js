@@ -22,15 +22,19 @@ const state = {
 const getters = {
   dashboard: (state, getters, rootState) => {
     const layout = [...state.defaultLayout]
+
+    let variableBudgetCounter = 0
+    rootState.user.expenses.forEach(expense => {
+      if (expense.expenseType === 'variable') {
+        variableBudgetCounter++
+      }
+    })
+    const budgetHeight = variableBudgetCounter > 3 ? 9 + ((variableBudgetCounter - 3) * 3) : 0
+
     layout.find((item, index) => {
       if (item.i === 'budget') {
-        let budgetHeight = 3
-        rootState.user.expenses.forEach(expense => {
-          if (expense.expenseType === 'variable') {
-            budgetHeight = budgetHeight + 3
-          }
-        })
-        layout[index].h = budgetHeight > 9 ? budgetHeight : 9
+        layout[index].h = budgetHeight
+        layout[index].minH = budgetHeight
       }
       if (item.i === 'wallet') {
         layout[index].h = rootState.user.wallets.length > 1 ? 4 + (rootState.user.wallets.length * 7) : 18

@@ -4,12 +4,14 @@
     <div class="budget__empty" v-if="variableBudgetCounter === 0">
       You do not have variable expenses.<div @click="openBackdrop('expense')">Click here</div>to add a new one.
     </div>
-    <div v-else v-for="item in budget" :key="item._id" class="budget__item">
+    <div v-else v-for="item in budgetData" :key="item._id" class="budget__item">
         <div class="budget__item__key">
           <div class="budget__item__key__icon" :style="{backgroundColor: expensesList[item.category].color}">
             <fa-icon :icon="expensesList[item.category].iconName" size="sm" :style="{ color: 'white' }"/>
           </div>
-          <!-- {{ item.category }} -->
+          <div class="budget__item__key__text">
+              {{$t(expensesList[item.category].subcategory[item.subcategory].i18)}}
+          </div>
         </div>
         <div class="budget__item__barContainer">
           <div class="budget__item__bar" :style="{ width:  item.amount / max * 100 + '%' }">
@@ -51,12 +53,14 @@ export default {
           this.budget.push({
             _id: expense._id,
             category: expense.category,
+            subcategory: expense.subcategory,
             amount: expense.amount,
             used: expense.used,
             color: expense.color
           })
         }
       })
+      console.log('budget', this.budget)
     }
   },
   computed: {
@@ -64,6 +68,24 @@ export default {
       'user',
       'expensesList'
     ]),
+    budgetData () {
+      const data = []
+      this.user.expenses.forEach(expense => {
+        if (expense.expenseType === 'Variable') {
+          this.variableBudgetCounter++
+          data.push({
+            _id: expense._id,
+            category: expense.category,
+            subcategory: expense.subcategory,
+            amount: expense.amount,
+            used: expense.used,
+            color: expense.color
+          })
+        }
+      })
+      data.sort((a, b) => (a.amount > b.amount) ? -1 : 1)
+      return data
+    },
     max () {
       let max = 0
       this.budget.forEach(item => {
@@ -106,16 +128,24 @@ export default {
     &__item {
     display: flex;
     align-items: center;
-    height: 6rem;
+    height: 4rem;
+    min-height: 4rem;
+    // background: chocolate;
+    // border-bottom: 1px solid grey;
         &__key {
             width: 10rem;
             min-width: 10rem;
-            text-transform: capitalize;
             font-size: $font-s;
             color: var(--textColor--dark);
             display: flex;
             align-items: center;
-            justify-content: center;
+            margin-right: 2rem;
+             &__text {
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              max-width: 70%;
+            }
             &__icon {
               width: 2rem;
               height: 2rem;
@@ -128,13 +158,13 @@ export default {
         }
         &__barContainer {
           height: 2rem;
-          width: 34vw;
+          width: 32vw;
           background: transparent
         }
         &__bar {
             height: 100%;
             max-width: 100%;
-            background: var(--on-surfaceColor);
+            background: var(--backgroundColor);
             position: relative;
             border-radius: .5rem;
             overflow: hidden;

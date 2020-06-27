@@ -135,7 +135,7 @@ export default {
       grid-template-rows: max-content;
       grid-auto-rows: max-content;
       column-gap: 2rem;
-      row-gap: 1rem;
+      row-gap: 1.5rem;
       & label.frequency {
         grid-column: 1 / 3;
       }
@@ -143,7 +143,7 @@ export default {
   &__cta {
       display: flex;
       justify-content: center;
-      margin-top: 3rem;
+      margin-top: 2rem;
       // position: relative;
       // z-index: 10;
   }

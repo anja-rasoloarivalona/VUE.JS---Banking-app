@@ -213,7 +213,7 @@ export default {
         grid-template-rows: max-content;
         grid-auto-rows: max-content;
         column-gap: 1rem;
-        row-gap: 1rem;
+        row-gap: 1.5rem;
         & label span:nth-child(2){
           // height: 4rem;
           & input {

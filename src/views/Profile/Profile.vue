@@ -6,7 +6,7 @@
            <ul class="profile__add__list" v-if="showList">
              <li class="profile__add__list__item" @click="openBackdrop('expense')">Add expense</li>
              <li class="profile__add__list__item" @click="openBackdrop('income')">Add income</li>
-             <li class="profile__add__list__item">Add goal</li>
+             <li class="profile__add__list__item" @click="openBackdrop('goal')">Add goal</li>
              <li class="profile__add__list__item" @click="openBackdrop('wallet')">Add Wallet</li>
            </ul>
         </div>

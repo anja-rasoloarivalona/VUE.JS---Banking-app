@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 import DashboardLayout from './Layout'
 
 import Budget from './Budget/Budget'
@@ -45,12 +45,25 @@ export default {
   computed: {
     ...mapGetters([
       'ghostModeIsEnabled',
-      'dashboard'
+      'dashboard',
+      'user'
     ]),
     balance () {
       if (this.ghostModeIsEnabled) {
         return 'ghost-balance'
       } else return 'balance'
+    }
+  },
+  methods: {
+    ...mapMutations([
+      'setDashboardLayout'
+    ])
+  },
+  watch: {
+    user: {
+      handler: 'setDashboardLayout',
+      immediate: true,
+      deep: true
     }
   },
   components: {

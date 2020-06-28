@@ -84,7 +84,6 @@ export default {
       'tryNewLayout'
     ]),
     layoutUpdatedEvent: function (newLayout) {
-      console.log(newLayout)
       this.tryNewLayout(newLayout)
     }
   },

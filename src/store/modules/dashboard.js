@@ -1,5 +1,6 @@
 import { updateDashboardLayoutQuery } from '@/graphQL/dashboardQuery'
 import axios from 'axios'
+import Vue from 'vue'
 
 const state = {
   defaultLayout: [
@@ -20,30 +21,8 @@ const state = {
 }
 
 const getters = {
-  dashboard: (state, getters, rootState) => {
-    const layout = [...state.defaultLayout]
-
-    let variableBudgetCounter = 0
-    rootState.user.expenses.forEach(expense => {
-      if (expense.expenseType === 'variable') {
-        variableBudgetCounter++
-      }
-    })
-    const budgetHeight = variableBudgetCounter > 3 ? 9 + ((variableBudgetCounter - 3) * 3) : 0
-
-    layout.find((item, index) => {
-      if (item.i === 'budget') {
-        layout[index].h = budgetHeight
-        layout[index].minH = budgetHeight
-      }
-      if (item.i === 'wallet') {
-        layout[index].h = rootState.user.wallets.length > 1 ? 4 + (rootState.user.wallets.length * 7) : 18
-      }
-    })
-    return {
-      ...state,
-      defaultLayout: layout
-    }
+  dashboard: (state) => {
+    return state
   }
 }
 
@@ -100,6 +79,43 @@ const mutations = {
   setDashboardIsBeingEditedTofalse (state) {
     state.isBeingEdited = false
     // state.currentLayout = state.previousLayout
+  },
+  setDashboardLayout (state, user) {
+    let variableBudgetCounter = 0
+    user.expenses.forEach(expense => {
+      if (expense.expenseType === 'Variable') {
+        variableBudgetCounter++
+      }
+    })
+    const budgetHeight = variableBudgetCounter > 3 ? 9 + ((variableBudgetCounter - 3) * 3) : 9
+    let budgetIndex
+    let walletIndex
+
+    state.currentLayout.find((item, index) => {
+      if (item.i === 'budget') {
+        budgetIndex = index
+      }
+      if (item.i === 'wallet') {
+        walletIndex = index
+      }
+    })
+    const budgetItemData = {
+      ...state.currentLayout[budgetIndex],
+      h: budgetHeight,
+      minH: budgetHeight
+    }
+    const walletItemData = {
+      ...state.currentLayout[walletIndex],
+      h: user.wallets.length > 1 ? 4 + (user.wallets.length * 7) : 18,
+      minH: user.wallets.length > 1 ? 4 + (user.wallets.length * 7) : 18
+    }
+    Vue.set(state.currentLayout, budgetIndex, budgetItemData)
+    Vue.set(state.previousLayout, budgetIndex, budgetItemData)
+    Vue.set(state.defaultLayout, budgetIndex, budgetItemData)
+
+    Vue.set(state.currentLayout, walletIndex, walletItemData)
+    Vue.set(state.previousLayout, walletIndex, walletItemData)
+    Vue.set(state.defaultLayout, walletIndex, walletItemData)
   }
 }
 

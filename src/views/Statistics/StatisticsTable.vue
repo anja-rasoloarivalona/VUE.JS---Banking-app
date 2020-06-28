@@ -45,7 +45,7 @@
           </tr>
 
           <tr v-for="(category, catKey, catIndex) in currentReport.expenseData" :key="catKey">
-            <template v-if="catIndex === 0">
+            <template v-if="catIndex === 0" >
               <td :rowspan="Object.keys(currentReport.expenseData).length" class="statistics__content__table__type">
                 <div>{{ $t("expense") }}</div>
               </td>
@@ -114,7 +114,7 @@ import Expense from '@/components/UI/Expense/Expense'
 import Income from '@/components/UI/Income/Income'
 export default {
   mounted () {
-    console.log('current', this.currentReport)
+    console.log('current', this.currentReport.expenseData)
   },
   props: {
     currentReport: Object,

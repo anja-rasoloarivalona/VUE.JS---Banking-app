@@ -107,21 +107,26 @@ export default {
       if (currentReport.details) {
         currentReport.details.forEach((detail, index) => {
           if (detail.category in this.expensesList) {
-            const expenseAmount = detail.used ? detail.used : detail.amount
+            // console.log('current report detail', detail)
+            // console.log(detail.used === null)
+            const expenseAmount = detail.used !== null ? detail.used : detail.amount
             currentReport.details[index].type = 'expense'
-            if (!(detail.category in currentReportExpense)) {
-              currentReportExpense[detail.category] = {
-                total: expenseAmount,
-                subcategories: {
-                  [detail.subcategory]: expenseAmount
+
+            if (expenseAmount > 0) {
+              if (!(detail.category in currentReportExpense)) {
+                currentReportExpense[detail.category] = {
+                  total: expenseAmount,
+                  subcategories: {
+                    [detail.subcategory]: expenseAmount
+                  }
                 }
-              }
-            } else {
-              currentReportExpense[detail.category].total += expenseAmount
-              if (!(detail.subcategory in currentReportExpense[detail.category].subcategories)) {
-                currentReportExpense[detail.category].subcategories[detail.subcategory] = expenseAmount
               } else {
-                currentReportExpense[detail.category].subcategories[detail.subcategory] += expenseAmount
+                currentReportExpense[detail.category].total += expenseAmount
+                if (!(detail.subcategory in currentReportExpense[detail.category].subcategories)) {
+                  currentReportExpense[detail.category].subcategories[detail.subcategory] = expenseAmount
+                } else {
+                  currentReportExpense[detail.category].subcategories[detail.subcategory] += expenseAmount
+                }
               }
             }
           } else {

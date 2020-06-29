@@ -11,7 +11,7 @@
         >
             <div
               class="category-input__select__value"
-              :class="{'bg-default': theme.isLight, 'bg-on-surfaceColor': theme.isDark}"
+              :class="{'bg-default': theme.isLight, 'bg-on-surfaceColor': theme.isDark, 'all-radius': !showList,'top-radius': showList,}"
               @click.stop="toggleList"
             >
                 <div class="category-input__select__value__icon" :style="{backgroundColor: value.color}" v-if="value.iconName">
@@ -19,7 +19,7 @@
                 </div>
                 <div>{{ $t( value.i18 ) }}</div>
             </div>
-            <ul class="category-input__select__list box-shadow" v-show="showList">
+            <ul class="category-input__select__list box-shadow" v-show="showList" :class="{light: theme.isLight, dark: theme.isDark}">
                 <li
                     class="category-input__select__list__item"
                     v-for="(item, key) in displayedExpensesList" :key="key"
@@ -118,6 +118,14 @@ export default {
             position: relative;
             font-size: $font-m;
             cursor: pointer;
+            &.all-radius {
+              border-radius: .5rem;
+            }
+            &.top-radius {
+              border-radius: 0;
+              border-top-left-radius: .5rem;
+              border-top-right-radius: .5rem;
+            }
             &__icon {
               border-radius: 50%;
               width: 2rem;
@@ -160,6 +168,15 @@ export default {
             overflow-y: scroll;
             overflow-x: hidden;
             z-index: 5;
+            &.dark {
+              & .category-input__select__list__item {
+                color: var(--textColor--dark);
+                &:hover {
+                   background: var(--mainColor--dark);
+                   color: var(--textColor);
+                }
+              }
+            }
             &__item {
                 // height: 5rem;
                 height: 4rem;
@@ -169,7 +186,7 @@ export default {
                 font-size: $font-m;
                 cursor: pointer;
                 &:hover {
-                background: var(--mainColor--light);
+                  background: var(--mainColor--light);
                 }
                 &__icon {
                     // width: 3rem;

@@ -8,7 +8,7 @@
             }">
             <div
               class="category-input__select__value"
-              :class="{'bg-default': theme.isLight, 'bg-on-surfaceColor': theme.isDark, disabled: !category }"
+              :class="{'bg-default': theme.isLight, 'bg-on-surfaceColor': theme.isDark, disabled: !category, 'all-radius': !showList,'top-radius': showList, }"
               @click.stop="toggleList"
             >
                 <div class="category-input__select__value__icon" :style="{backgroundColor: category.color}" v-if="value.iconName">
@@ -16,7 +16,7 @@
                 </div>
                <div>{{ $t(value.i18) }}</div>
             </div>
-            <ul class="category-input__select__list  box-shadow" v-if="showList && category">
+            <ul class="category-input__select__list  box-shadow" v-if="showList && category" :class="{light: theme.isLight, dark: theme.isDark}">
                 <li
                     class="category-input__select__list__item"
                     v-for="(item, key) in displayedSubcategoryList" :key="key"
@@ -116,6 +116,14 @@ export default {
             position: relative;
             font-size: $font-m;
             cursor: pointer;
+            &.all-radius {
+              border-radius: .5rem;
+            }
+            &.top-radius {
+              border-radius: 0;
+              border-top-left-radius: .5rem;
+              border-top-right-radius: .5rem;
+            }
             &.disabled {
               cursor: not-allowed;
             }
@@ -157,6 +165,15 @@ export default {
             overflow-y: scroll;
             overflow-x: hidden;
             z-index: 5;
+            &.dark {
+              & .category-input__select__list__item {
+                color: var(--textColor--dark);
+                &:hover {
+                   background: var(--mainColor--dark);
+                   color: var(--textColor);
+                }
+              }
+            }
             &__item {
                 height: 4rem;
                 display: flex;

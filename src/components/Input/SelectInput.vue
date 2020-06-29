@@ -5,6 +5,8 @@
         :id="id"
         class="select"
         :class="{
+          'light': theme.isLight,
+          'dark': theme.isDark,
           'bg-default': theme.isLight,
           'bg-on-surfaceColor': theme.isDark,
           'box-shadow': showList,
@@ -136,6 +138,15 @@ export default {
       border-radius: 0;
       border-top-left-radius: .5rem;
       border-top-right-radius: .5rem;
+    }
+    &.dark {
+      & .select__list__item {
+        // color: var(--textColor--dark);
+        &:hover {
+          color: var(--textColor);
+          background: var(--mainColor--dark);
+        }
+      }
     }
     &__value {
         height: 4rem;

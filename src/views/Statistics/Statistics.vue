@@ -107,11 +107,8 @@ export default {
       if (currentReport.details) {
         currentReport.details.forEach((detail, index) => {
           if (detail.category in this.expensesList) {
-            // console.log('current report detail', detail)
-            // console.log(detail.used === null)
             const expenseAmount = detail.used !== null ? detail.used : detail.amount
             currentReport.details[index].type = 'expense'
-
             if (expenseAmount > 0) {
               if (!(detail.category in currentReportExpense)) {
                 currentReportExpense[detail.category] = {

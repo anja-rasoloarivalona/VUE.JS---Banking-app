@@ -7,7 +7,7 @@
           Amount
         </div>
         <div class="profile-goal__details__item__value">
-          $ {{user.goal.amount | amount}}
+          {{user.goal.amount | amount}}
         </div>
       </div>
       <div class="profile-goal__details__item">
@@ -15,7 +15,8 @@
           Expected date
         </div>
         <div class="profile-goal__details__item__value">
-          {{user.goal.date | short-date }}
+          <span v-if="user.goal.date && user.goal.date !== 'null'">{{user.goal.date | short-date }}</span>
+          <span v-else>-</span>
         </div>
       </div>
     </div>
@@ -69,11 +70,13 @@ export default {
 .profile-goal {
   display: flex;
   align-items: center;
-  justify-content: center;
+  margin-top: 6rem;
   margin-bottom: 4rem;
-  padding-left: 2rem;
+  // background: red;
   &__details {
-    width: 65%;
+    // width: 65%;
+    // background: yellow;
+    margin-right: 5rem;
     & h1 {
       margin-bottom: 2rem;
       color: var(--textColor--dark)
@@ -93,7 +96,8 @@ export default {
     }
   }
   &__chart {
-    width: 35%;
+    // width: 35%;
+    // background: blue;
     display: flex;
     align-items: center;
     justify-content: center;

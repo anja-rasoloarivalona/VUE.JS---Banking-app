@@ -6,12 +6,11 @@
            <ul class="profile__add__list" v-if="showList">
              <li class="profile__add__list__item" @click="openBackdrop('expense')">Add expense</li>
              <li class="profile__add__list__item" @click="openBackdrop('income')">Add income</li>
-             <li class="profile__add__list__item" @click="openBackdrop('goal')">Add goal</li>
+             <li class="profile__add__list__item" @click="openBackdrop('goal')">{{ user.goal.amount ? 'Edit goal' : 'Add goal'}}</li>
              <li class="profile__add__list__item" @click="openBackdrop('wallet')">Add Wallet</li>
            </ul>
         </div>
-        <profile-goal></profile-goal>
-        <profile-header :userBudgetPlan="userBudgetPlan"></profile-header>
+        <profile-header :userBudgetPlan="userBudgetPlan" />
         <div class="profile__section">
             <div class="profile__section__title">
                 <h1>Incomes</h1>
@@ -78,6 +77,7 @@
                 <wallet v-for="wallet in user.wallets" :wallet="wallet" :key="wallet._id" @click.native="clickWallet(wallet)"/>
             </div>
         </div>
+        <profile-goal v-if="user.goal"/>
     </div>
 </template>
 

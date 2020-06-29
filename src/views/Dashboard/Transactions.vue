@@ -5,41 +5,39 @@
             <table class="transactions__table">
                 <thead>
                   <tr>
-                    <th class="transactions__table__date">Date</th>
-                    <th class="transactions__table__name">Name</th>
-                    <th class="transactions__table__wallet">Used wallet</th>
-                    <th class="transactions__table__amount">Amount</th>
-                    <th class="transactions__table__status">Status</th>
+                    <th class="transactions__table__date">{{$t('date')}}</th>
+                    <th class="transactions__table__category">{{$t('category')}}</th>
+                    <th class="transactions__table__subcategory">{{$t('subcategory')}}</th>
+                    <th class="transactions__table__amount">{{$t('amount')}}</th>
                   </tr>
                 </thead>
-            </table>
-            <div class="transactions__table--empty" v-if="userTransactions.length === 0">
-                You do not have transactions yet. <div @click="openBackdrop('transactions')">Click here</div> to add one
-            </div>
-            <div class="scroll" v-else>
-              <table class="transactions__table">
-                <tbody>
-                  <!-- <app-transaction
+                <div class="transactions__table--empty" v-if="userTransactions.length === 0">
+                    You do not have transactions yet. <div @click="openBackdrop('transactions')">Click here</div> to add one
+                </div>
+                <tbody v-else>
+                  <transaction-line-table
                     :short="true"
-                    v-for="(transaction, index) in userTransactions"
+                    v-for="(transaction, index) in displayedTransactions"
                     :key="transaction._id"
                     :index="index"
                     :transaction="transaction"
-                  ></app-transaction> -->
+                  />
                 </tbody>
-              </table>
-            </div>
+            </table>
         </div>
 </template>
 
 <script>
-// import Transaction from '@/components/UI/Transaction'
+import TransactionLineTable from '@/components/UI/Transaction/TransactionLineTable'
 import { mapGetters, mapMutations } from 'vuex'
 export default {
   computed: {
     ...mapGetters([
       'userTransactions'
-    ])
+    ]),
+    displayedTransactions () {
+      return this.userTransactions.slice(0, 3)
+    }
   },
   methods: {
     ...mapMutations([
@@ -47,19 +45,12 @@ export default {
     ])
   },
   components: {
-    // appTransaction: Transaction
+    TransactionLineTable
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.scroll {
-  max-height: 18.1rem;
-  overflow-y: scroll;
-  &::-webkit-scrollbar{
-    display: none;
-  }
-}
 .transactions {
     height: 31.1rem;
     display: flex;
@@ -70,19 +61,17 @@ export default {
     }
     &__table {
       &__date {
-         width: 10.5%;
+         width: 7%;
       }
-      &__name {
-        width: 10%;
+      &__category {
+        width: 14%;
       }
-      &__wallet {
-        width: 13%;
+      &__subcategory {
+        width: 14%;
+        padding-left: 1rem !important;
       }
       &__amount {
-        width: 10%;
-      }
-      &__status {
-        width: 10%;
+        width: 7%;
       }
     }
     &__table--empty {
@@ -112,7 +101,7 @@ table {
   & th {
     height: 5rem;
     text-align: start;
-    padding-left: 2rem;
+    padding-left: 1rem;
     font-size: $font-s;
     background: var(--mainColor);
     // background: $color-grey--main;

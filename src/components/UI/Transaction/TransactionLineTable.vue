@@ -1,5 +1,5 @@
 <template>
-    <tr class="transaction"  @mouseleave="closeList">
+    <tr class="transaction"  @mouseleave="closeList" :class="{short: short}">
         <td class="transaction-table--date">
             <div>{{transaction.date | short-date | really-short-date }}</div>
         </td>
@@ -13,19 +13,19 @@
             <expense type="subcategory" :categoryName="transaction.category" :subcategoryName="transaction.subcategory" class="transaction-table--subcategory"/>
         </template>
 
-        <td class="transaction-table--counterparty">
+        <td class="transaction-table--counterparty" v-if="!short">
             <div>{{ transaction.counterparty }}</div>
         </td>
-        <td class="transaction-table--wallet">
+        <td class="transaction-table--wallet" v-if="!short">
             <div>{{ $t(walletData.type)}} - {{ walletData.name}}</div>
         </td>
-        <td class="transaction-table--details">
+        <td class="transaction-table--details" v-if="!short">
             <div>{{ transaction.details }}</div>
         </td>
         <td class="transaction-table--amount">
             <div>{{ transaction.amount | amount }}</div>
         </td>
-        <td class="transaction-table--status" v-click-outside="closeList">
+        <td class="transaction-table--status" v-click-outside="closeList" v-if="!short">
             <div>{{ $t(transaction.status) }}</div>
             <div class="transaction__cta"  @mouseenter="showList = true">
                 <span></span>
@@ -101,7 +101,8 @@ export default {
   },
   props: {
     transaction: Object,
-    isLast: Boolean
+    isLast: Boolean,
+    short: Boolean
   },
   components: {
     Income,
@@ -119,15 +120,19 @@ export default {
         background: var(--mainColor--light);
     }
     td {
-         height: 6rem;
+        height: 6rem;
         text-align: start;
-        // padding-left: 1rem;
         border-collapse: collapse;
         font-size: $font-s;
         border-bottom: 1px solid var(--lineColor);
     }
+    &.short {
+      & .income-name__content, & .expense-name__content, & td {
+        padding-left: 1rem;
+    }
+    }
     & .income-name__content, & .expense-name__content {
-        padding-left: 0rem !important;
+        padding-left: 0rem;
     }
      &__cta {
         position: absolute;
@@ -146,22 +151,15 @@ export default {
         cursor: pointer;
         background: transparent;
         & span {
-        width: 3px;
-        height: 3px;
-        background: $color-grey--main;
-        border-radius: 50%;
-        margin: 1px;
-        transition: all .3s ease-in;
+            width: 3px;
+            height: 3px;
+            background: $color-grey--main;
+            border-radius: 50%;
+            margin: 1px;
+            transition: all .3s ease-in;
         }
-        // &:hover {
-        // background: $color-grey--main;
-        //     & span {
-        //         background: $color-white;
-        //     }
-        // }
         &__list {
             background: $color-white;
-            // box-shadow: 1px 5px 12px -1px rgba(15,15,15,1);
             border-radius: .5rem;
             padding: 1rem 0;
             position: absolute;

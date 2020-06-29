@@ -45,6 +45,9 @@ const mutations = {
   setEditedWallet (state, editedWallet) {
     state.editedWallet = editedWallet
   },
+  setEditedGoal (state, editedGoal) {
+    state.editedGoal = editedGoal
+  },
   closeBackdrop (state) {
     console.log('closing backdrop')
     state.displayBackdrop = false

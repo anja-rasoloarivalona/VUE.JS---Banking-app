@@ -1,94 +1,77 @@
 import { updateDashboardLayoutQuery } from '@/graphQL/dashboardQuery'
 import axios from 'axios'
+import Vue from 'vue'
 
 const state = {
-  defaultLayout: {
-    available: { x: 0, y: 6, w: 4, h: 6, minH: 6, minW: 3, displayed: true, ghostMode: 'hide', i: 'available' },
-    balance: { x: 0, y: 0, w: 4, h: 6, minH: 6, minW: 3, displayed: true, ghostMode: 'hide', i: 'balance' },
-    budget: { x: 0, y: 12, w: 8, h: 9, minH: 9, minW: 8, displayed: true, ghostMode: 'hide', i: 'budget' },
-    calendar: { x: 8, y: 30, w: 4, h: 20, minH: 20, minW: 4, displayed: true, ghostMode: 'display', i: 'calendar' },
-    expenses: { x: 8, y: 0, w: 4, h: 12, minH: 12, minW: 4, displayed: true, ghostMode: 'display', i: 'expenses' },
-    goal: { x: 4, y: 6, w: 4, h: 6, minH: 6, minW: 4, displayed: true, ghostMode: 'display', i: 'goal' },
-    history: { x: 0, y: 21, w: 8, h: 13, minH: 13, minW: 8, displayed: true, ghostMode: 'display', i: 'history' },
-    monthly: { x: 4, y: 0, w: 4, h: 6, minH: 6, minW: 3, displayed: true, ghostMode: 'hide', i: 'monthly' },
-    transactions: { x: 0, y: 34, w: 8, h: 16, minW: 8, minH: 16, displayed: true, ghostMode: 'hide', i: 'transactions' },
-    wallet: { x: 8, y: 12, w: 4, h: 18, minH: 18, minW: 4, displayed: true, ghostMode: 'hide', i: 'wallet' }
-  },
-  currentLayout: {},
-  previousLayout: {},
+  defaultLayout: [
+    { x: 0, y: 6, w: 4, h: 6, minH: 6, minW: 3, displayed: true, ghostMode: 'hide', i: 'available' },
+    { x: 0, y: 0, w: 4, h: 6, minH: 6, minW: 3, displayed: true, ghostMode: 'hide', i: 'balance' },
+    { x: 0, y: 12, w: 8, h: 9, minH: 9, minW: 8, displayed: true, ghostMode: 'hide', i: 'budget' },
+    { x: 8, y: 30, w: 4, h: 20, minH: 20, minW: 4, displayed: true, ghostMode: 'display', i: 'calendar' },
+    { x: 8, y: 0, w: 4, h: 12, minH: 12, minW: 4, displayed: true, ghostMode: 'display', i: 'expenses' },
+    { x: 4, y: 6, w: 4, h: 6, minH: 6, minW: 4, displayed: true, ghostMode: 'display', i: 'goal' },
+    { x: 0, y: 21, w: 8, h: 13, minH: 13, minW: 8, displayed: true, ghostMode: 'display', i: 'history' },
+    { x: 4, y: 0, w: 4, h: 6, minH: 6, minW: 3, displayed: true, ghostMode: 'hide', i: 'monthly' },
+    { x: 0, y: 34, w: 8, h: 16, minW: 8, minH: 16, displayed: true, ghostMode: 'hide', i: 'transactions' },
+    { x: 8, y: 12, w: 4, h: 18, minH: 18, minW: 4, displayed: true, ghostMode: 'hide', i: 'wallet' }
+  ],
+  currentLayout: [],
+  previousLayout: [],
   isBeingEdited: false
 }
 
 const getters = {
   dashboard: (state) => {
-    const defaultLayout = []
-    const current = []
-    const prev = []
-    for (const key in state.defaultLayout) {
-      defaultLayout.push({ ...state.defaultLayout[key] })
-    }
-    for (const key in state.currentLayout) {
-      current.push({ ...state.currentLayout[key] })
-    }
-    for (const key in state.prevLayout) {
-      prev.push({ ...state.prevLayout[key] })
-    }
-    return {
-      ...state,
-      defaultLayout: defaultLayout,
-      currentLayout: current,
-      previousLayout: prev
-    }
+    return state
   }
 }
 
 const mutations = {
   // LAYOUT MUTATIONS
   initDashboardLayout (state, layout) {
-    const current = {}
-    const prev = {}
+    const current = []
+    const prev = []
     layout.forEach(item => {
+      current.push({ ...item })
+      prev.push({ ...item })
       current[item.i] = { ...item }
       prev[item.i] = { ...item }
     })
-    state.currentLayout = { ...current }
-    state.previousLayout = { ...prev }
-    console.log('init layout')
+    state.currentLayout = current
+    state.previousLayout = prev
   },
   tryNewLayout (state, layout) {
-    console.log('layout', layout)
-    const newLayout = {}
+    const current = []
     layout.forEach(item => {
-      newLayout[item.i] = { ...item }
+      current.push({ ...item })
     })
-    console.log('trying new layout', newLayout)
-    state.currentLayout = newLayout
+    state.currentLayout = current
   },
   saveNewLayout (state) {
-    const newLayout = {}
-    for (const key in state.currentLayout) {
-      newLayout[key] = { ...state.currentLayout[key] }
-    }
-    state.previousLayout = newLayout
+    const layout = []
+    state.currentLayout.forEach(item => {
+      layout.push({ ...item })
+    })
+    state.previousLayout = layout
     state.isBeingEdited = false
   },
   cancelNewLayout (state) {
-    const layout = {}
-    for (const key in state.previousLayout) {
-      layout[key] = { ...state.previousLayout[key] }
-    }
-    state.currentLayout = { ...layout }
+    const layout = []
+    state.previousLayout.forEach(item => {
+      layout.push({ ...item })
+    })
+    state.currentLayout = layout
     state.isBeingEdited = false
   },
   resetDashboardLayout (state) {
-    const current = {}
-    const prev = {}
-    for (const key in state.defaultLayout) {
-      current[key] = { ...state.defaultLayout[key] }
-      prev[key] = { ...state.defaultLayout[key] }
-    }
-    state.currentLayout = { ...current }
-    state.previousLayout = { ...prev }
+    const current = []
+    const prev = []
+    state.defaultLayout.forEach(item => {
+      current.push({ ...item })
+      prev.push({ ...item })
+    })
+    state.currentLayout = current
+    state.previousLayout = prev
     state.isBeingEdited = false
   },
 
@@ -106,20 +89,52 @@ const mutations = {
       }
     })
     const budgetHeight = variableBudgetCounter > 3 ? 9 + ((variableBudgetCounter - 3) * 2) : 9
-    state.defaultLayout.budget.h = budgetHeight
-    state.defaultLayout.budget.minH = budgetHeight
-    state.currentLayout.budget.h = budgetHeight
-    state.currentLayout.budget.minH = budgetHeight
-    state.previousLayout.budget.h = budgetHeight
-    state.previousLayout.budget.minH = budgetHeight
-
     const walletHeight = user.wallets.length > 1 ? 4 + (user.wallets.length * 7) : 18
-    state.defaultLayout.wallet.h = walletHeight
-    state.defaultLayout.wallet.minH = walletHeight
-    state.currentLayout.wallet.h = walletHeight
-    state.currentLayout.wallet.minH = walletHeight
-    state.previousLayout.wallet.h = walletHeight
-    state.previousLayout.wallet.minH = walletHeight
+
+    let defBudgetIndex, curBudgetIndex, prevBudgetIndex
+    let defWalletIndex, curWalletIndex, prevWalletIndex
+
+    let defBudget, defWallet
+    state.defaultLayout.forEach((item, index) => {
+      if (item.i === 'budget') {
+        defBudgetIndex = index
+        defBudget = { ...state.defaultLayout[index], h: budgetHeight, minH: budgetHeight }
+      }
+      if (item.i === 'wallet') {
+        defWalletIndex = index
+        defWallet = { ...state.defaultLayout[index], h: walletHeight, minH: walletHeight }
+      }
+    })
+    Vue.set(state.defaultLayout, defBudgetIndex, defBudget)
+    Vue.set(state.defaultLayout, defWalletIndex, defWallet)
+
+    let curBudget, curWallet
+    state.currentLayout.forEach((item, index) => {
+      if (item.i === 'budget') {
+        curBudgetIndex = index
+        curBudget = { ...state.currentLayout[index], h: budgetHeight, minH: budgetHeight }
+      }
+      if (item.i === 'wallet') {
+        curWalletIndex = index
+        curWallet = { ...state.currentLayout[index], h: walletHeight, minH: walletHeight }
+      }
+    })
+    Vue.set(state.currentLayout, curBudgetIndex, curBudget)
+    Vue.set(state.currentLayout, curWalletIndex, curWallet)
+
+    let prevBudget, prevWallet
+    state.previousLayout.forEach((item, index) => {
+      if (item.i === 'budget') {
+        prevBudgetIndex = index
+        prevBudget = { ...state.previousLayout[index], h: budgetHeight, minH: budgetHeight }
+      }
+      if (item.i === 'wallet') {
+        prevWalletIndex = index
+        prevWallet = { ...state.previousLayout[index], h: walletHeight, minH: walletHeight }
+      }
+    })
+    Vue.set(state.previousLayout, prevBudgetIndex, prevBudget)
+    Vue.set(state.previousLayout, prevWalletIndex, prevWallet)
   }
 }
 

@@ -6,7 +6,7 @@
         :is-draggable="dashboard.isBeingEdited"
         :is-resizable="dashboard.isBeingEdited"
         :is-mirrored="false"
-        :vertical-compact="compact"
+        :vertical-compact="true"
         :margin="[10, 10]"
         :use-css-transforms="true"
         @layout-updated="layoutUpdatedEvent"
@@ -21,6 +21,7 @@
         :minW="item.minW"
         :key="item.i"
         :isResizable="true"
+        :is-draggable="dashboard.isBeingEdited"
         >
             <slot :name="item.i"></slot>
       </grid-item>
@@ -49,11 +50,6 @@
 import VueGridLayout from 'vue-grid-layout'
 import { mapGetters, mapMutations } from 'vuex'
 export default {
-  data () {
-    return {
-      compact: false
-    }
-  },
   computed: {
     ...mapGetters([
       'dashboard',
@@ -63,11 +59,6 @@ export default {
       return this.dashboard.currentLayout.filter(i => i.displayed === true)
     }
   },
-  mounted () {
-    setTimeout(() => {
-      this.compact = true
-    }, 100)
-  },
   methods: {
     ...mapMutations([
       'initDashboardLayout',
@@ -76,7 +67,6 @@ export default {
       'setCompactToTrue'
     ]),
     layoutUpdatedEvent: function (newLayout) {
-      console.log('new', newLayout[0])
       this.tryNewLayout(newLayout)
     }
   },

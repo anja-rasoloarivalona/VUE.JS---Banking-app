@@ -53,6 +53,7 @@ const mutations = {
     })
     state.currentLayout = { ...current }
     state.previousLayout = { ...prev }
+    console.log('init layout')
   },
   tryNewLayout (state, layout) {
     const newLayout = {}
@@ -102,7 +103,7 @@ const mutations = {
         variableBudgetCounter++
       }
     })
-    const budgetHeight = variableBudgetCounter > 3 ? 9 + ((variableBudgetCounter - 3) * 3) : 9
+    const budgetHeight = variableBudgetCounter > 3 ? 9 + ((variableBudgetCounter - 3) * 2) : 9
     state.defaultLayout.budget.h = budgetHeight
     state.defaultLayout.budget.minH = budgetHeight
     state.currentLayout.budget.h = budgetHeight

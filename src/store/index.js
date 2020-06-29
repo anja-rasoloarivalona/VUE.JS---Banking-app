@@ -34,8 +34,8 @@ export default new Vuex.Store({
       try {
         const response = await axios.post('/', graphqlQuery)
         const userData = response.data.data.user
-        commit('setUserData', userData)
         commit('initDashboardLayout', userData.settings.dashboardLayout)
+        commit('setUserData', userData)
         commit('initCurrency', userData.settings.currency)
         commit('setIsAppReadyToTrue')
       } catch (err) {

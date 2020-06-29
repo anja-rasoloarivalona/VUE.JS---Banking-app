@@ -13,8 +13,8 @@ const updateDashboardLayoutQuery = (layout) => {
       displayed: true
     }
   })
-  console.log('d', d)
-  console.log('calendar', d.calendar)
+  // console.log('d', d)
+  // console.log('calendar', d.calendar)
   return {
     query: `mutation {
         updateDashboardLayout(

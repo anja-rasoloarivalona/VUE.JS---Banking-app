@@ -4,26 +4,26 @@
     <div class="budget__empty" v-if="variableBudgetCounter === 0">
       You do not have variable expenses.<div @click="openBackdrop('expense')">Click here</div>to add a new one.
     </div>
-    <div v-else v-for="item in budgetData" :key="item._id" class="budget__item">
-        <div class="budget__item__key">
-          <div class="budget__item__key__icon" :style="{backgroundColor: expensesList[item.category].color}">
-            <fa-icon :icon="expensesList[item.category].iconName" size="sm" :style="{ color: 'white' }"/>
+    <ul class="budget__list" v-else>
+        <li v-for="item in budgetData" :key="item._id" class="budget__list__item">
+          <div class="budget__list__item__key">
+            <div class="budget__list__item__key__icon" :style="{backgroundColor: expensesList[item.category].color}">
+              <fa-icon :icon="expensesList[item.category].iconName" size="sm" :style="{ color: 'white' }"/>
+            </div>
+            <div class="budget__list__item__key__text">
+                {{$t(expensesList[item.category].subcategory[item.subcategory].i18)}}
+            </div>
           </div>
-          <div class="budget__item__key__text">
-              {{$t(expensesList[item.category].subcategory[item.subcategory].i18)}}
+          <div class="budget__list__item__barContainer">
+            <div class="budget__list__item__bar" :style="{ width:  item.amount / max * 100 + '%' }">
+                <div class="budget__list__item__usedbar" :style="{width: item.used * oneDollarWidth + 'vw', backgroundColor: expensesList[item.category].color}">
+                </div>
+            </div>
           </div>
-        </div>
-        <div class="budget__item__barContainer">
-          <div class="budget__item__bar" :style="{ width:  item.amount / max * 100 + '%' }">
-              <div class="budget__item__usedbar" :style="{width: item.used * oneDollarWidth + 'vw', backgroundColor: expensesList[item.category].color}">
-              </div>
-              <!-- <div class="budget__item__bar__value" v-if="!ghost">{{ item.used | amount }}</div>
-              <div class="budget__item__bar__value" v-else>$***</div> -->
-          </div>
-        </div>
-        <div class="budget__item__max" v-if="!ghost">{{ item.amount | amount }}</div>
-        <div class="budget__item__max" v-else>$***</div>
-    </div>
+          <div class="budget__list__item__max" v-if="!ghost">{{ item.amount | amount }}</div>
+          <div class="budget__list__item__max" v-else>$***</div>
+        </li>
+    </ul>
   </div>
 </template>
 
@@ -123,14 +123,18 @@ export default {
     display: flex;
     flex-direction: column;
     position: relative;
-    // overflow: hidden;
-    &__item {
-    display: flex;
-    align-items: center;
-    height: 4rem;
-    min-height: 4rem;
-    // background: chocolate;
-    // border-bottom: 1px solid grey;
+    &__list {
+      list-style: none;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      &__item {
+        display: flex;
+        align-items: center;
+        height: 3rem;
+        // min-height: 4rem;
+        // background: red;
         &__key {
             width: 10rem;
             min-width: 10rem;
@@ -156,7 +160,7 @@ export default {
             }
         }
         &__barContainer {
-          height: 2rem;
+          height: 1.5rem;
           width: 32vw;
           background: transparent
         }
@@ -195,6 +199,7 @@ export default {
             color: var(--textColor);
             // background: salmon;
         }
+    }
     }
     &__empty {
       // background: red;

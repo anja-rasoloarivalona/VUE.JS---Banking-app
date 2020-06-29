@@ -3,7 +3,7 @@ const state = {
     'Food & Drinks': {
       i18: 'food&Drinks',
       iconName: 'utensils',
-      color: '#059782',
+      color: '#ff3333',
       subcategory: {
         'Bar & Coffee': {
           i18: 'bar&Coffee',
@@ -57,7 +57,7 @@ const state = {
     Housing: {
       i18: 'housing',
       iconName: 'home',
-      color: '#3144af',
+      color: '#306BAC',
       subcategory: {
         'Home Insurance': {
           i18: 'homeInsurance',
@@ -93,7 +93,7 @@ const state = {
     Transport: {
       i18: 'transport',
       iconName: 'bus-alt',
-      color: '#B0BFC6',
+      color: '#4F6272',
       subcategory: {
         'Public transportation': {
           i18: 'publicTransportation',
@@ -120,7 +120,7 @@ const state = {
     Vehicle: {
       i18: 'vehicle',
       iconName: 'car-alt',
-      color: '#CD9713',
+      color: '#ffa31a',
       subcategory: {
         'Vehicle insurance': {
           i18: 'vehicleInsurance',
@@ -143,7 +143,7 @@ const state = {
     Leisure: {
       i18: 'leisure',
       iconName: 'users',
-      color: '#99a1d7',
+      color: '#79d279',
       subcategory: {
         'Alcohol & Tobacco': {
           i18: 'alcohol&Tobacco',
@@ -174,7 +174,7 @@ const state = {
     Multimedia: {
       i18: 'multimedia',
       iconName: 'tv',
-      color: '#2346A2',
+      color: '#A4648F',
       subcategory: {
         Internet: {
           i18: 'internet',
@@ -197,7 +197,7 @@ const state = {
     Investment: {
       i18: 'investment',
       iconName: 'chart-line',
-      color: '#E73F7A',
+      color: '#DD7596',
       subcategory: {
         Education: {
           i18: 'education',
@@ -220,7 +220,7 @@ const state = {
     Health: {
       i18: 'health',
       iconName: 'first-aid',
-      color: '#6BDD16',
+      color: '#5E4AE3',
       subcategory: {
         'Health insurance': {
           i18: 'healthInsurance',

@@ -2,7 +2,7 @@
     <div class="transactions dashboard__section">
             <h2 class="dashboard__section__title">Recent transactions</h2>
 
-            <table class="transactions__table">
+            <table class="transactions__table" :class="{light: theme.isLight}">
                 <thead>
                   <tr>
                     <th class="transactions__table__date">{{$t('date')}}</th>
@@ -33,7 +33,8 @@ import { mapGetters, mapMutations } from 'vuex'
 export default {
   computed: {
     ...mapGetters([
-      'userTransactions'
+      'userTransactions',
+      'theme'
     ]),
     displayedTransactions () {
       return this.userTransactions.slice(0, 3)
@@ -61,6 +62,9 @@ export default {
       margin-bottom: 2rem;
     }
     &__table {
+      .light th {
+        background: var(--backgroundColor);
+      }
       &__date {
          width: 7%;
       }
@@ -100,7 +104,7 @@ export default {
     }
 }
 table, table th {
-  border-bottom: 1px solid var(--on-surfaceColor);
+  // border-bottom: 1px solid var(--on-surfaceColor);
   border-collapse: collapse;
 }
 table {
@@ -110,9 +114,8 @@ table {
     text-align: start;
     padding-left: 1rem;
     font-size: $font-s;
-    background: var(--mainColor);
-    // background: $color-grey--main;
-    color: $color-white;
+    border-bottom: 1px solid var(--lineColor);// background: $color-grey--main;
+    color: var(--textColor--dark);
   }
   th:first-child {
     border-radius: 6px 0 0 0;

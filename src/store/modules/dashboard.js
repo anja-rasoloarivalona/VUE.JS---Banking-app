@@ -56,11 +56,13 @@ const mutations = {
     console.log('init layout')
   },
   tryNewLayout (state, layout) {
+    console.log('layout', layout)
     const newLayout = {}
     layout.forEach(item => {
       newLayout[item.i] = { ...item }
     })
-    state.currentLayout = { ...newLayout }
+    console.log('trying new layout', newLayout)
+    state.currentLayout = newLayout
   },
   saveNewLayout (state) {
     const newLayout = {}

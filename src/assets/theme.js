@@ -42,8 +42,12 @@ const theme = {
 
   'dark-green': {
     '--mainColor': '#2d9e8b',
+    '--mainColor--2': 'rgba(2, 122, 102, 0.315)',
+    '--secondaryColor': '#BA895D',
+    '--secondaryColor--2': 'rgba(186, 136, 93, 0.5)',
     '--textColor': '#ffffff',
     '--textColor-dark': '#797979',
+    '--textColor-dark--2': 'rgba(121, 121, 121, 0.6)',
     '--backgroundColor': 'rgb(20, 20, 20)',
     '--surfaceColor': 'rgb(29, 29, 29)',
     '--on-surfaceColor': 'rgb(46, 46, 46)'

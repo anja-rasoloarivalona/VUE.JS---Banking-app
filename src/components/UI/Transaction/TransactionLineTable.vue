@@ -1,5 +1,5 @@
 <template>
-    <tr class="transaction"  @mouseleave="closeList" :class="{short: short}">
+    <tr class="transaction"  @mouseleave="closeList" :class="{short: short, light: theme.isLight, dark: theme.isDark}">
         <td class="transaction-table--date">
             <div>{{transaction.date | short-date | really-short-date }}</div>
         </td>
@@ -116,9 +116,13 @@ export default {
     position: relative;
 }
 .transaction {
-    &:hover {
+    &.light:hover {
         background: var(--mainColor--light);
     }
+    &.dark:hover {
+      background: var(--mainColor--dark);
+    }
+
     td {
         height: 6rem;
         text-align: start;

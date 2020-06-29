@@ -1,6 +1,6 @@
 <template>
     <div class="transaction-table">
-        <table>
+        <table :class="{light: theme.isLight}">
             <thead>
                 <tr>
                     <th class="transaction-table--date">{{$t('date')}}</th>
@@ -31,7 +31,13 @@
 
 <script>
 import TransactionLineTable from './TransactionLineTable'
+import { mapGetters } from 'vuex'
 export default {
+  computed: {
+    ...mapGetters([
+      'theme'
+    ])
+  },
   components: {
     TransactionLineTable
   },
@@ -93,6 +99,9 @@ export default {
     & table {
     width: 100%;
     border-collapse: collapse;
+    &.light th {
+        background: var(--backgroundColor);
+    }
         & thead {
             // background: green;
         }
@@ -101,7 +110,6 @@ export default {
             text-align: start;
             border-bottom: 1px solid var(--lineColor);
             font-size: $font-s;
-            background: var(--backgroundColor);
             color: var(--textColor--dark);
                 &:first-child {
                     border-radius: 6px 0 0 0;

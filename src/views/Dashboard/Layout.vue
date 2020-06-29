@@ -4,13 +4,11 @@
         :col-num="12"
         :row-height="10"
         :is-draggable="dashboard.isBeingEdited"
-        :is-resizable="true"
+        :is-resizable="dashboard.isBeingEdited"
         :is-mirrored="false"
-        :autoSize="true"
         :vertical-compact="compact"
         :margin="[10, 10]"
         :use-css-transforms="true"
-        @layout-mounted="layoutMountedEvent"
         @layout-updated="layoutUpdatedEvent"
     >
     <grid-item v-for="item in currentLayout"
@@ -22,7 +20,7 @@
         :minH="item.minH"
         :minW="item.minW"
         :key="item.i"
-        :isResizable="dashboard.isBeingEdited"
+        :isResizable="true"
         >
             <slot :name="item.i"></slot>
       </grid-item>
@@ -77,11 +75,8 @@ export default {
       'setDashboardLayout',
       'setCompactToTrue'
     ]),
-    layoutMountedEvent: function (layout) {
-      console.log('mounted', layout)
-    },
     layoutUpdatedEvent: function (newLayout) {
-      console.log('new', newLayout)
+      console.log('new', newLayout[0])
       this.tryNewLayout(newLayout)
     }
   },

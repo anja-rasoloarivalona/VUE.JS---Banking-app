@@ -93,12 +93,12 @@ export default {
     // cursor: grab;
     & .axis {
         // opacity: 0;
+        background: var(--surfaceColor);
         position: fixed;
         left: 3rem;
         top: 4.5rem;
         width: 4rem;
         height: 16.5rem;
-        background: white;
         z-index: 2;
         display: flex;
         flex-direction: column;

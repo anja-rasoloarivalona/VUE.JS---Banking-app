@@ -55,26 +55,6 @@ export default {
       'user'
     ]),
     currentLayout () {
-      // console.log('dashboad', this.dashboard.currentLayout)
-      // const data = []
-      // this.dashboard.currentLayout.forEach(item => {
-      //   data.push({ ...item })
-      // })
-
-      // let variableBudgetCounter = 0
-      // this.user.expenses.forEach(expense => {
-      //   if (expense.expenseType === 'Variable') {
-      //     variableBudgetCounter++
-      //   }
-      // })
-      // const budgetHeight = variableBudgetCounter > 3 ? 9 + ((variableBudgetCounter - 3) * 3) : 9
-      // data.find((item, index) => {
-      //   if (item.i === 'budget') {
-      //     data[index].h = budgetHeight
-      //     data[index].minH = budgetHeight
-      //   }
-      // })
-      // return data.filter(i => i.displayed === true)
       return this.dashboard.currentLayout.filter(i => i.displayed === true)
     }
   },

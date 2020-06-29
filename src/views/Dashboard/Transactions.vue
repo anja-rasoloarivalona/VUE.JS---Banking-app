@@ -12,7 +12,7 @@
                   </tr>
                 </thead>
                 <div class="transactions__table--empty" v-if="userTransactions.length === 0">
-                    You do not have transactions yet. <div @click="openBackdrop('transactions')">Click here</div> to add one
+                    <span>You do not have transactions yet.</span><div @click="openBackdrop('transactions')">Click here</div><span> to add one</span>
                 </div>
                 <tbody v-else>
                   <transaction-line-table
@@ -52,9 +52,10 @@ export default {
 
 <style lang="scss" scoped>
 .transactions {
-    height: 31.1rem;
     display: flex;
     flex-direction: column;
+    // background: red;
+    position: relative;
     & h2 {
       margin-top: 1rem;
       margin-bottom: 2rem;
@@ -75,13 +76,19 @@ export default {
       }
     }
     &__table--empty {
+      position: absolute;
       width: 100%;
       height: 100%;
-      // background: red;
+      top: 0;
+      left: 0;
+      // background: yellow;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: $font-s;
+      & > * {
+        transform: translateY(3rem);
+      }
       & div {
         margin: 0 .35rem;
         cursor: pointer;

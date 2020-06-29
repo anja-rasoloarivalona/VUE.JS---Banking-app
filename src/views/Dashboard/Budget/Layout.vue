@@ -60,7 +60,6 @@ export default {
           })
         }
       })
-      console.log('budget', this.budget)
     }
   },
   computed: {

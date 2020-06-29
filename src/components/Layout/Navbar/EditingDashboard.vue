@@ -84,13 +84,11 @@ export default {
         this.cancelNewLayout()
       }
       if (action === 'save') {
-        const success = await this.updateDashboardLayout(this.dashboard.currentLayout)
-        if (success) {
-          this.setDashboardIsBeingEditedTofalse()
-        }
+        await this.updateDashboardLayout(this.dashboard.currentLayout)
       }
       if (action === 'reset') {
         const success = await this.updateDashboardLayout(this.dashboard.defaultLayout)
+        console.log('success', success)
         if (success) {
           this.resetDashboardLayout()
         }

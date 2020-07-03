@@ -38,7 +38,11 @@ export default {
       'currentLanguage'
     ]),
     displayedTransactions () {
-      return this.userTransactions.slice(0, 3)
+      const transactions = [...this.userTransactions]
+      transactions.sort((a, b) => (
+        new Date(a.date) > new Date(b.date) ? -1 : 1
+      ))
+      return transactions.slice(0, 3)
     }
   },
   methods: {

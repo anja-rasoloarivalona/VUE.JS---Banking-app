@@ -15,9 +15,12 @@
                <app-select-input v-model="filters.period" :options="periodList" row i18/>
                <app-select-input v-model="filters.category" :options="displayedCategories" row i18/>
                <app-select-input v-model="filters.subcategory" :options="displayedSubcategories"  row i18/>
-               <app-select-input v-model="filters.sort" :options="periodList" row/>
+               <app-select-input v-model="filters.sort" :options="sortList" row i18/>
             </div>
-            <transactions-table :transactions="displayedTransactions" />
+            <transactions-table
+              :transactions="displayedTransactions"
+              :sort="filters.sort.value"
+            />
         </div>
     </div>
   </keep-alive>
@@ -43,10 +46,14 @@ export default {
           value: 'All',
           i18: 'allSubcategories'
         },
-        sort: ''
+        sort: {
+          value: 'increase',
+          i18: 'increasingDate'
+        }
       },
       editedTransaction: false,
       incomesAndExpensesList: null,
+      sortList: [{ value: 'increase', i18: 'increasingDate' }, { value: 'decrease', i18: 'decreasingDate' }],
       periodList: []
     }
   },
@@ -150,9 +157,8 @@ export default {
         }
       })
       this.periodList = list
-      console.log('list', this.periodList)
-      // SET CURRENT PERIOD
 
+      // SET CURRENT PERIOD
       const d = new Date()
       const month = d.getMonth() + 1
       const period = `${month}-${d.getFullYear()}`
@@ -161,7 +167,6 @@ export default {
         i18: `month${month}--full`,
         custom: d.getFullYear()
       }
-      console.log('period', this.filters.period)
     },
     edit (transaction) {
       this.editedTransaction = transaction

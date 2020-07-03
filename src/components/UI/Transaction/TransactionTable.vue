@@ -18,10 +18,10 @@
             <table>
                 <tbody>
                     <transaction-line-table
-                        v-for="(transaction, index) in transactions"
+                        v-for="(transaction, index) in transactionsData"
                         :key="transaction._id"
                         :transaction="transaction"
-                        :isLast="index > transactions.length - 3 && index > 4 && index !== 0"
+                        :isLast="index > transactionsData.length - 3 && index > 4 && index !== 0"
                     />
                 </tbody>
             </table>
@@ -33,6 +33,11 @@
 import TransactionLineTable from './TransactionLineTable'
 import { mapGetters } from 'vuex'
 export default {
+  data () {
+    return {
+      transactionsData: []
+    }
+  },
   computed: {
     ...mapGetters([
       'theme'
@@ -41,8 +46,32 @@ export default {
   components: {
     TransactionLineTable
   },
+  watch: {
+    sort: function (sortValue) {
+      if (sortValue === 'decrease') {
+        this.transactionsData = this.transactionsData.sort((a, b) => (
+          new Date(a.date) > new Date(b.date) ? -1 : 1
+        ))
+      } else {
+        this.transactionsData = this.transactionsData.sort((a, b) => (
+          new Date(a.date) > new Date(b.date) ? 1 : -1
+        ))
+      }
+    },
+    transactions: {
+      immediate: true,
+      deep: true,
+      handler: 'loadData'
+    }
+  },
+  methods: {
+    loadData (data) {
+      this.transactionsData = data
+    }
+  },
   props: {
-    transactions: Array
+    transactions: Array,
+    sort: String
   }
 }
 </script>

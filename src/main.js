@@ -61,8 +61,8 @@ Vue.filter('amount', function (value) {
 })
 Vue.filter('short-date', function (value) {
   const d = new Date(value)
-  const month = d.getMonth() + 1 < 10 ? `0${d.getMonth() + 1}` : d.getMonth() + 1
-  const day = d.getDate() < 10 ? `0${d.getDate()}` : d.getDate()
+  const month = d.getMonth() + 1
+  const day = d.getDate()
   const year = d.getFullYear()
   let date = `${month}/${day}/${year}`
   if (i18n.locale === 'fr') {

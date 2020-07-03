@@ -105,10 +105,6 @@ export default {
         list = [{ value: 'All', i18: 'allSubcategories' }, ...list]
       }
       return list
-    },
-    currentPeriod () {
-      const period = {}
-      return period
     }
   },
   mounted () {
@@ -146,28 +142,26 @@ export default {
       this.user.monthlyReports.forEach(report => {
         if (report.transactions.length > 0) {
           const d = report.period.split('-')
-          let month = d[0]
-          if (d[0] < 10) {
-            month = `0${d[0]}`
-          }
           list.push({
             value: report.period,
-            i18: `month${month}--full`,
+            i18: `month${d[0]}--full`,
             custom: d[1]
           })
         }
       })
       this.periodList = list
+      console.log('list', this.periodList)
       // SET CURRENT PERIOD
 
       const d = new Date()
-      const month = d.getMonth + 1 > 9 ? d.getMonth() + 1 : `0${d.getMonth() + 1}`
+      const month = d.getMonth() + 1
       const period = `${month}-${d.getFullYear()}`
       this.filters.period = {
         value: period,
         i18: `month${month}--full`,
         custom: d.getFullYear()
       }
+      console.log('period', this.filters.period)
     },
     edit (transaction) {
       this.editedTransaction = transaction

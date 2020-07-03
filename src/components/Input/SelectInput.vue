@@ -16,7 +16,7 @@
         >
           <div
             class="select__value"
-            :class="{active: showList, 'disabled': isDisabled,  'bg-white': bgWhite}"
+            :class="{active: showList, 'disabled': isDisabled,  'bg-white': bgWhite, 'unclickable': displayedOptions.length < 1}"
             @click.stop="toggleList">
               <div v-if="value !== ''">{{ i18 ?  value.custom ? `${$t(value.i18)} - ${value.custom}` :    $t(value.i18) : value }}</div>
               <div v-else class="select__value__placeholder">{{ placeholder }}</div>
@@ -57,7 +57,11 @@ export default {
     },
     toggleList () {
       if (!this.isDisabled) {
-        this.showList = !this.showList
+        if (this.displayedOptions.length > 0) {
+          this.showList = !this.showList
+        } else {
+          this.showList = false
+        }
       }
     }
   },
@@ -156,6 +160,9 @@ export default {
         position: relative;
         font-size: $font-m;
         cursor: pointer;
+        &.unclickable {
+          cursor: unset;
+        }
         &__placeholder {
           color: var(--textColor--dark)
         }

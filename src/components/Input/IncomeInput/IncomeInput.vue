@@ -11,7 +11,7 @@
         >
             <div
               class="income-input__select__value"
-              :class="{'bg-default': theme.isLight, 'bg-on-surfaceColor': theme.isDark}"
+              :class="{'bg-default': theme.isLight, 'bg-on-surfaceColor': theme.isDark, 'all-radius': !showList,'top-radius': showList}"
               @click.stop="toggleList"
             >
                 <div class="income-input__select__value__icon" :style="{backgroundColor: incomesList.color}" v-if="value.iconName">
@@ -19,11 +19,12 @@
                 </div>
                 <div>{{ $t( value.i18 ) }}</div>
             </div>
-            <ul class="income-input__select__list box-shadow" v-show="showList">
+            <ul class="income-input__select__list box-shadow" v-show="showList" :class="{ dark: theme.isDark }">
                 <li
                     class="income-input__select__list__item"
-                    v-for="(item, key) in displayedIncomesList" :key="key"
-                     @click="selectIncome({value: key, ...item})"
+                    v-for="(item, key) in displayedIncomesList"
+                    :key="key"
+                    @click="selectIncome({value: key, ...item})"
                 >
                     <div class="income-input__select__list__item__icon" :style="{backgroundColor: incomesList.color}">
                          <fa-icon :icon="item.iconName" size="sm" :style="{ color: 'white' }"/>
@@ -121,6 +122,14 @@ export default {
             position: relative;
             font-size: $font-m;
             cursor: pointer;
+             &.all-radius {
+              border-radius: .5rem;
+            }
+            &.top-radius {
+              border-radius: 0;
+              border-top-left-radius: .5rem;
+              border-top-right-radius: .5rem;
+            }
             &__icon {
               border-radius: 50%;
               width: 2rem;
@@ -164,6 +173,15 @@ export default {
             overflow-x: hidden;
             z-index: 5;
             max-height: 24rem;
+            &.dark {
+              & .income-input__select__list__item {
+                color: var(--textColor--dark);
+                &:hover {
+                   background: var(--mainColor--dark);
+                   color: var(--textColor);
+                }
+              }
+            }
             &__item {
                 // height: 5rem;
                 height: 4rem;

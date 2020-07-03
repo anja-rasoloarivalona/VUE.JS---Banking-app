@@ -58,11 +58,6 @@ export default {
       showList: false
     }
   },
-  mounted () {
-    if (this.isLast) {
-      console.log('tes')
-    }
-  },
   computed: {
     ...mapGetters([
       'user',

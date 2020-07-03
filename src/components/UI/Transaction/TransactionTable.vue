@@ -21,7 +21,7 @@
                         v-for="(transaction, index) in transactions"
                         :key="transaction._id"
                         :transaction="transaction"
-                        :isLast="index > transactions.length - 3 && index !== 0"
+                        :isLast="index > transactions.length - 3 && index > 4 && index !== 0"
                     />
                 </tbody>
             </table>

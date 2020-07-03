@@ -11,7 +11,7 @@
         >
             <div
               class="category-input__select__value"
-              :class="{'bg-default': theme.isLight, 'bg-on-surfaceColor': theme.isDark, 'all-radius': !showList,'top-radius': showList,}"
+              :class="{'bg-default': theme.isLight, 'bg-on-surfaceColor': theme.isDark, 'all-radius': !showList,'top-radius': showList}"
               @click.stop="toggleList"
             >
                 <div class="category-input__select__value__icon" :style="{backgroundColor: value.color}" v-if="value.iconName">

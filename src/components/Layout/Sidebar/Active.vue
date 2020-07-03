@@ -13,7 +13,10 @@
                         </div>
                     </div>
                     <div class="active__sidenav__list__item__details">
-                        <div class="active__sidenav__list__item__details__amount">{{ item.value | amount}}</div>
+                        <div class="active__sidenav__list__item__details__amount">
+                          <span v-if="item.value > 0">{{ item.value | amount}}</span>
+                          <span v-else>-</span>
+                        </div>
                     </div>
                 </li>
           </ul>
@@ -34,7 +37,7 @@ export default {
     return {
       items: {
         balance: {
-          subtitle: 'Available',
+          subtitle: 'current',
           value: 0
         },
         credit: {
@@ -42,8 +45,8 @@ export default {
           value: 0
         },
         budget: {
-          subtitle: 'Remaining s',
-          value: 400
+          subtitle: 'Remaining',
+          value: 0
         }
       }
     }
@@ -68,6 +71,19 @@ export default {
       handler (credit) {
         this.items.credit.value = credit
       }
+    },
+    'user.expenses': {
+      immediate: true,
+      deep: true,
+      handler (expenses) {
+        let remaining = 0
+        this.user.expenses.forEach(expense => {
+          if (expense.expenseType === 'Variable' && expense.amount > expense.used) {
+            remaining += (expense.amount - expense.used)
+          }
+        })
+        this.items.budget.value = remaining
+      }
     }
   },
   methods: {
@@ -78,7 +94,7 @@ export default {
   computed: {
     ...mapGetters([
       'theme',
-
+      'user',
       'userBalance',
       'upcoming',
       'creditBalance'

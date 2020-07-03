@@ -1,9 +1,14 @@
 <template>
     <div class="chart dashboard__section">
-        <h2 class="dashboard__section__title">Planned expenditures</h2>
+        <h2 class="dashboard__section__title">Monthly expenses</h2>
         <div class="chart__expenses">
           <div class="chart__expenses__container">
-              <doughnut-chart :styles="chartStyles" :datacollection="data"></doughnut-chart>
+              <doughnut-chart
+                v-if="currentPeriodReport && Object.keys(currentPeriodReport).length > 0 && currentPeriodReport.transactions.length > 0"
+                :styles="chartStyles"
+                :datacollection="chartData"
+              />
+              <div class="chart__expenses__empty" v-else>You do not have expenses this month</div>
           </div>
         </div>
     </div>
@@ -15,7 +20,6 @@ import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      data: null,
       chartStyles: {
         height: '130px',
         width: '100%',
@@ -23,27 +27,49 @@ export default {
       }
     }
   },
+  mounted () {
+    console.log(this.currentPeriodReport.length)
+  },
   computed: {
     ...mapGetters([
       'user',
-      'expensesList'
-    ])
+      'expensesList',
+      'currentPeriodReport'
+    ]),
+    chartData () {
+      let expenseChartData = {}
+      const d = {}
+      this.currentPeriodReport.transactions.forEach(transaction => {
+        if (transaction.transactionType === 'expense') {
+          if (!([transaction.subcategory] in d)) {
+            d[transaction.subcategory] = {
+              amount: transaction.amount * -1,
+              category: transaction.category
+            }
+          } else {
+            d[transaction.subcategory].amount += (transaction.amount * -1)
+          }
+        }
+      })
+
+      const labels = []
+      const data = []
+      const bg = []
+
+      for (const expense in d) {
+        labels.push(expense)
+        data.push(d[expense].amount)
+        bg.push(this.expensesList[d[expense].category].color)
+      }
+      expenseChartData = {
+        labels: labels,
+        datasets: [{ data: data, backgroundColor: bg }]
+      }
+      return expenseChartData
+    }
   },
   created () {
-    const labels = []
-    const data = []
-    const bg = []
-    this.user.expenses.forEach(expense => {
-      if (!expense.walletType) {
-        labels.push(expense.category)
-        data.push(expense.amount)
-        bg.push(this.expensesList[expense.category].color)
-      }
-    })
-    this.data = {
-      labels: labels,
-      datasets: [{ data: data, backgroundColor: bg }]
-    }
+
   },
   components: {
     DoughnutChart
@@ -59,11 +85,17 @@ export default {
       display: flex;
       align-items: center;
       flex: 1;
+      &__empty {
+        font-size: $font-s;
+      }
       &__container {
           position: relative;
           width: 100%;
           height: 13rem;
           flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
     }
 }

@@ -1,7 +1,8 @@
 <script>
-import { Doughnut } from 'vue-chartjs'
+import { Doughnut, mixins } from 'vue-chartjs'
 export default {
   extends: Doughnut,
+  mixins: mixins.reactiveProp,
   data () {
     return {
       options: {
@@ -27,7 +28,18 @@ export default {
     }
   },
   mounted () {
-    this.renderChart(this.datacollection, this.options)
+    this.displayChart(this.datacollection)
+  },
+  watch: {
+    datacollection: function (data) {
+      this.displayChart(data)
+    }
+  },
+  methods: {
+    displayChart (data) {
+      console.log('rendeirng', data)
+      this.renderChart(data, this.options)
+    }
   },
   props: ['datacollection']
 }

@@ -1,6 +1,6 @@
 <template>
     <div class="chart dashboard__section">
-        <h2 class="dashboard__section__title">History</h2>
+        <h2 class="dashboard__section__title">{{$t('history')}}</h2>
         <div class="chart__container">
             <line-chart
               :data="datacollection"

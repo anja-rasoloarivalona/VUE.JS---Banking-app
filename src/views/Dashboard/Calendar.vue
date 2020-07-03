@@ -1,8 +1,8 @@
 <template>
     <div class="calendar dashboard__section">
-       <h2 class="dashboard__section__title">Calendar</h2>
+       <h2 class="dashboard__section__title">{{$t('calendar')}}</h2>
         <div class="calendar__content">
-            <app-calendar is-expanded  :attributes="attrs" locale="en"/>
+            <app-calendar is-expanded  :attributes="attrs" :locale="currentLanguage"/>
         </div>
     </div>
 </template>
@@ -69,7 +69,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'secondaryColors'
+      'secondaryColors',
+      'currentLanguage'
     ])
   }
 }

@@ -1,6 +1,6 @@
 <template>
     <div class="wallet dashboard__section">
-        <h2 class="dashboard__section__title">Wallet</h2>
+        <h2 class="dashboard__section__title">{{$t('wallets')}}</h2>
         <ul class="wallet__list">
             <app-wallet v-for="wallet in wallets" :key="wallet._id" :wallet="wallet" :ghost="ghost"></app-wallet>
             <li class="wallet__list__item" @mouseenter="addIconColor = 'primary'" @mouseleave="addIconColor = 'grey--dark'" @click="openBackdrop('wallet')" v-if="isAddDisplayed">

@@ -20,7 +20,7 @@
         :minH="item.minH"
         :minW="item.minW"
         :key="item.i"
-        :isResizable="true"
+        :isResizable="dashboard.isBeingEdited"
         :is-draggable="dashboard.isBeingEdited"
         >
             <slot :name="item.i"></slot>

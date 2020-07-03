@@ -1,13 +1,13 @@
 <template>
     <div class="goal dashboard__section">
         <div class="goal__detail">
-                <h2 class="dashboard__section__title">Goal</h2>
+                <h2 class="dashboard__section__title">{{$t('goal')}}</h2>
                 <div class="goal__detail__amount" v-if="user.goal && user.goal.amount">
-                    <h3 class="goal__detail__amount__key">Amount: </h3>
+                    <h3 class="goal__detail__amount__key">{{$t('amount')}}: </h3>
                     <h3 class="goal__detail__amount__value">{{user.goal.amount | amount}}</h3>
                 </div>
                  <div class="goal__detail__noGoal" v-else>
-                    <div>Click here</div>to set goal
+                    <div @click="openBackdrop('goal')">{{$t('clickHere')}}</div><span v-if="currentLanguage === 'en'">{{$t('toSetGoal')}}</span>
                 </div>
         </div>
          <div class="goal__circle">
@@ -23,14 +23,15 @@
 
 <script>
 import themes from '@/assets/theme'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 import Progress from 'easy-circular-progress'
 export default {
   computed: {
     ...mapGetters([
       'theme',
       'user',
-      'userBalance'
+      'userBalance',
+      'currentLanguage'
     ]),
     goalPercentage () {
       let percent = 0
@@ -42,6 +43,11 @@ export default {
     strokeColor () {
       return themes[this.theme.currentTheme]['--mainColor']
     }
+  },
+  methods: {
+    ...mapMutations([
+      'openBackdrop'
+    ])
   },
   mounted () {
     // console.log('goalmount', this.user.goal)

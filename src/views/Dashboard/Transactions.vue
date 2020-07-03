@@ -1,6 +1,6 @@
 <template>
     <div class="transactions dashboard__section">
-            <h2 class="dashboard__section__title">Recent transactions</h2>
+            <h2 class="dashboard__section__title">{{$t('recentTransactions')}}</h2>
 
             <table class="transactions__table" :class="{light: theme.isLight}">
                 <thead>
@@ -12,7 +12,7 @@
                   </tr>
                 </thead>
                 <div class="transactions__table--empty" v-if="userTransactions.length === 0">
-                    <span>You do not have transactions yet.</span><div @click="openBackdrop('transactions')">Click here</div><span> to add one</span>
+                    <span>{{$t('youDoNotHaveTransactionsYet')}}.</span><div @click="openBackdrop('transactions')">{{$t('clickHere')}}</div><span v-if="currentLanguage === 'en'"> to add one</span>
                 </div>
                 <tbody v-else>
                   <transaction-line-table
@@ -34,7 +34,8 @@ export default {
   computed: {
     ...mapGetters([
       'userTransactions',
-      'theme'
+      'theme',
+      'currentLanguage'
     ]),
     displayedTransactions () {
       return this.userTransactions.slice(0, 3)

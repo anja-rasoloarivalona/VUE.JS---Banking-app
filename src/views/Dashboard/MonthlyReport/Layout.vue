@@ -1,9 +1,9 @@
 <template>
     <div class="monthly dashboard__section">
-    <h2 class="dashboard__section__title">Monthly report</h2>
+    <h2 class="dashboard__section__title">{{$t('monthlyReport')}}</h2>
         <div class="monthly__details">
             <div class="monthly__details__item monthly__details__item--income">
-                <h3 :class="{primary: theme.isLight}">Income</h3>
+                <h3 :class="{primary: theme.isLight}">{{$t('income')}}</h3>
                 <div class="monthly__details__item__amount">
                     <app-icon name="arrow" color="primary" />
                     <div v-if="!ghost">{{report.income | amount}}</div>
@@ -11,7 +11,7 @@
                 </div>
             </div>
             <div class="monthly__details__item monthly__details__item--expense">
-                <h3 :class="{secondary: theme.isLight}">Expense</h3>
+                <h3 :class="{secondary: theme.isLight}">{{$t('expense')}}</h3>
                 <div class="monthly__details__item__amount">
                     <app-icon name="arrow" color="secondary" />
                     <div v-if="!ghost">{{report.expense | amount}}</div>

@@ -1,8 +1,8 @@
 <template>
   <div class="budget dashboard__section">
-    <h2 class="dashboard__section__title">Budget</h2>
+    <h2 class="dashboard__section__title">{{$t('budget')}}</h2>
     <div class="budget__empty" v-if="variableBudgetCounter === 0">
-      You do not have variable expenses.<div @click="openBackdrop('expense')">Click here</div>to add a new one.
+      {{$t('youDoNotHaveVariableExpenses')}}.<div @click="openBackdrop('expense')">Click here</div>to add a new one.
     </div>
     <ul class="budget__list" v-else>
         <li v-for="item in budgetData" :key="item._id" class="budget__list__item">

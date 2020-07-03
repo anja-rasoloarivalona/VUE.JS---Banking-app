@@ -6,9 +6,9 @@
                     :key="key"
                     :class="{'bg-surfaceColor ':  theme.isLight, 'bg-on-surfaceColor': theme.isDark}">
                     <div class="active__sidenav__list__item__title">
-                        <h2>{{key}}</h2>
+                        <h2>{{$t(key)}}</h2>
                         <div class="active__sidenav__list__item__subtitle">
-                            <div>{{item.subtitle}}</div>
+                            <div>{{$t(item.subtitle)}}</div>
                             <div v-if="item.date">{{item.date | short-date}}</div>
                         </div>
                     </div>
@@ -41,11 +41,11 @@ export default {
           value: 0
         },
         credit: {
-          subtitle: 'Used',
+          subtitle: 'used',
           value: 0
         },
         budget: {
-          subtitle: 'Remaining',
+          subtitle: 'remaining',
           value: 0
         }
       }

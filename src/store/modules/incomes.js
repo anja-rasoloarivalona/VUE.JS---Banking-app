@@ -2,7 +2,7 @@ const state = {
   incomesList: {
     i18: 'incomes',
     iconName: 'coins',
-    color: 'red',
+    color: '#027a66',
     category: {
       'Family Benefits': {
         i18: 'familyBenifits',

@@ -67,6 +67,8 @@ export default {
           shortDate: `${month}/${fullDate.getDate()}`,
           transactions: [],
           balanceVariation: 0,
+          incomesVariation: 0,
+          expensesVariation: 0,
           balance: 0
         }
         data.push(labelData)
@@ -83,6 +85,8 @@ export default {
           shortDate: `${month}/${fullDate.getDate()}`,
           transactions: [],
           balanceVariation: 0,
+          incomesVariation: 0,
+          expensesVariation: 0,
           balance: 0
         }
         data.push(labelData)
@@ -100,6 +104,14 @@ export default {
             if (label.shortDate === shortDate) {
               label.balanceVariation += transaction.amount
               label.transactions.push(transaction)
+              if (transaction.transactionType === 'expense') {
+                console.log('yes expense')
+                label.expensesVariation += (transaction.amount * -1)
+              }
+              if (transaction.transactionType === 'income') {
+                console.log('yes income')
+                label.incomesVariation += transaction.amount
+              }
             }
           })
         }
@@ -144,8 +156,8 @@ export default {
 
       fullData.forEach(label => {
         balanceData.push(label.balance)
-        expenseData.push(label.balanceVariation < 0 ? label.balanceVariation * -1 : 0)
-        incomeData.push(label.balanceVariation > 0 ? label.balanceVariation : 0)
+        expenseData.push(label.expensesVariation)
+        incomeData.push(label.incomesVariation)
         if (this.datacollection.labels.length < fullData.length) {
           if (!currentMonth) {
             currentMonth = Months[parseInt(label.shortDate.split('/')[0]) - 1]
@@ -163,19 +175,19 @@ export default {
 
       this.datacollection.datasets = [
         {
-          borderColor: themes[this.theme.currentTheme]['--textColor-dark'],
-          backgroundColor: themes[this.theme.currentTheme]['--textColor-dark--2'],
-          pointBackgroundColor: themes[this.theme.currentTheme]['--textColor-dark'],
-          label: 'Income',
-          data: incomeData,
-          fill: true
-        },
-        {
           borderColor: themes[this.theme.currentTheme]['--secondaryColor'],
           backgroundColor: themes[this.theme.currentTheme]['--secondaryColor--2'],
           pointBackgroundColor: themes[this.theme.currentTheme]['--secondaryColor'],
           label: 'Expense',
           data: expenseData,
+          fill: true
+        },
+        {
+          borderColor: themes[this.theme.currentTheme]['--textColor-dark'],
+          backgroundColor: themes[this.theme.currentTheme]['--textColor-dark--2'],
+          pointBackgroundColor: themes[this.theme.currentTheme]['--textColor-dark'],
+          label: 'Income',
+          data: incomeData,
           fill: true
         },
         {

@@ -93,6 +93,9 @@ export default {
     width: 5rem;
     background: var(--surfaceColor);
     z-index: 4;
+    @media (max-width: 1400px) {
+      display: none;
+    }
     &__inner {
       background: var(--backgroundColor);
       position: absolute;
@@ -120,6 +123,9 @@ export default {
     width: calc(100% - 25rem);
     display: grid;
     grid-template-columns: minmax(8rem, 1fr) minmax(70vw, 120rem) minmax(8rem, 1fr);
+    @media (max-width: 900px) {
+      grid-template-columns: minmax(2rem, 1fr) calc(100vw - 4rem) minmax(2rem, 1fr);
+    }
     grid-template-rows: 9rem;
     justify-items: center;
     & .nav {
@@ -137,4 +143,11 @@ export default {
     }
   }
 }
+
+@media (max-width: 1400px) {
+  .navContainer.authed {
+    width: 100%;
+  }
+}
+
 </style>

@@ -17,7 +17,31 @@ const state = {
   ],
   currentLayout: [],
   previousLayout: [],
-  isBeingEdited: false
+  isBeingEdited: false,
+  mediumLayout: [
+    { x: 0, y: 6, w: 4, h: 6, minH: 6, minW: 3, displayed: true, ghostMode: 'hide', i: 'available' },
+    { x: 0, y: 0, w: 4, h: 6, minH: 6, minW: 3, displayed: true, ghostMode: 'hide', i: 'balance' },
+    { x: 0, y: 41, w: 8, h: 9, minH: 9, minW: 8, displayed: true, ghostMode: 'hide', i: 'budget' },
+    { x: 0, y: 62, w: 4, h: 20, minH: 20, minW: 4, displayed: true, ghostMode: 'display', i: 'calendar' },
+    { x: 0, y: 50, w: 8, h: 12, minH: 12, minW: 8, displayed: true, ghostMode: 'display', i: 'expenses' },
+    { x: 4, y: 0, w: 4, h: 6, minH: 6, minW: 4, displayed: true, ghostMode: 'display', i: 'goal' },
+    { x: 0, y: 12, w: 8, h: 13, minH: 13, minW: 8, displayed: true, ghostMode: 'display', i: 'history' },
+    { x: 4, y: 6, w: 4, h: 6, minH: 6, minW: 3, displayed: true, ghostMode: 'hide', i: 'monthly' },
+    { x: 0, y: 25, w: 8, h: 16, minW: 8, minH: 16, displayed: true, ghostMode: 'hide', i: 'transactions' },
+    { x: 4, y: 62, w: 4, h: 20, minH: 20, minW: 4, displayed: true, ghostMode: 'hide', i: 'wallet' }
+  ],
+  smallLayout: [
+    { x: 2, y: 0, w: 2, h: 6, minH: 6, minW: 2, displayed: true, ghostMode: 'hide', i: 'available' },
+    { x: 0, y: 0, w: 2, h: 6, minH: 6, minW: 2, displayed: true, ghostMode: 'hide', i: 'balance' },
+    { x: 0, y: 31, w: 4, h: 9, minH: 9, minW: 4, displayed: true, ghostMode: 'hide', i: 'budget' },
+    { x: 0, y: 88, w: 4, h: 20, minH: 20, minW: 4, displayed: true, ghostMode: 'display', i: 'calendar' },
+    { x: 0, y: 40, w: 4, h: 12, minH: 12, minW: 4, displayed: true, ghostMode: 'display', i: 'expenses' },
+    { x: 0, y: 12, w: 4, h: 6, minH: 6, minW: 4, displayed: true, ghostMode: 'display', i: 'goal' },
+    { x: 0, y: 18, w: 4, h: 13, minH: 13, minW: 4, displayed: true, ghostMode: 'display', i: 'history' },
+    { x: 0, y: 6, w: 4, h: 6, minH: 6, minW: 4, displayed: true, ghostMode: 'hide', i: 'monthly' },
+    { x: 0, y: 52, w: 4, h: 16, minW: 4, minH: 16, displayed: true, ghostMode: 'hide', i: 'transactions' },
+    { x: 0, y: 68, w: 4, h: 20, minH: 20, minW: 4, displayed: true, ghostMode: 'hide', i: 'wallet' }
+  ]
 }
 
 const getters = {

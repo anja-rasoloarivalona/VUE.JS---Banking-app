@@ -81,6 +81,11 @@ export default {
 </script>
 
 <style lang="scss">
+@media (max-width: 1400px) {
+  .sidebar {
+    display: none;
+  }
+}
 .sidebar {
   position: fixed;
   left: 0;

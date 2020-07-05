@@ -1,7 +1,7 @@
 <template>
     <grid-layout
         :layout.sync="currentLayout"
-        :col-num="12"
+        :col-num="windowWith > 1160 ?  12  :  windowWith > 700 ?  8 : 4"
         :row-height="10"
         :is-draggable="dashboard.isBeingEdited"
         :is-resizable="dashboard.isBeingEdited"
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+// :col-num=" windowWith > 1160 ? 12 : 8"
+
 // one line : 10
 // two line : 20 + 10 = 30
 // three line : 30 + 20 = 50
@@ -50,13 +52,33 @@
 import VueGridLayout from 'vue-grid-layout'
 import { mapGetters, mapMutations } from 'vuex'
 export default {
+  data () {
+    return {
+      windowWith: 0
+    }
+  },
+  created () {
+    this.windowWith = window.innerWidth
+    window.addEventListener('resize', this.resize)
+  },
+  destroyed () {
+    window.removeEventListener('resize', this.resize)
+  },
   computed: {
     ...mapGetters([
       'dashboard',
       'user'
     ]),
     currentLayout () {
-      return this.dashboard.currentLayout.filter(i => i.displayed === true)
+      if (this.windowWith > 1160) {
+        return this.dashboard.currentLayout.filter(i => i.displayed === true)
+      } else {
+        if (this.windowWith > 700) {
+          return this.dashboard.mediumLayout.filter(i => i.displayed === true)
+        } else {
+          return this.dashboard.smallLayout.filter(i => i.displayed === true)
+        }
+      }
     }
   },
   methods: {
@@ -67,7 +89,12 @@ export default {
       'setCompactToTrue'
     ]),
     layoutUpdatedEvent: function (newLayout) {
+      console.log('new layiut', newLayout)
       this.tryNewLayout(newLayout)
+    },
+    resize () {
+      this.windowWith = window.innerWidth
+      console.log('resized', window.innerWidth)
     }
   },
   watch: {

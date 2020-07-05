@@ -95,15 +95,19 @@ export default {
 }
 .app {
   display: grid;
-  grid-template-columns: 25rem minmax(8rem, 1fr) minmax(70vw, 120rem) minmax(8rem, 1fr);
+  grid-template-columns: [full-start] 25rem [gap-start] minmax(8rem, 1fr) [main-start] minmax(70vw, 120rem) [main-end] minmax(8rem, 1fr) [full-end];
+  @media (max-width: 1400px) {
+    grid-template-columns: [gap-start] minmax(8rem, 1fr) [main-start] minmax(70vw, 120rem) [main-end] minmax(8rem, 1fr) [full-end];
+  }
+  @media (max-width: 900px) {
+    grid-template-columns: [gap-start] minmax(2rem, 1fr) [main-start] calc(100vw - 4rem) [main-end] minmax(2rem, 1fr) [full-end];
+  }
   grid-template-rows: 9rem max-content;
-  // background: #f5f5f5;
   max-width: 100vw;
   min-height: 100vh;
   &__view {
     grid-row: 2 / 3;
-    grid-column: 3 / 4;
-    // background: #f5f5f5;
+    grid-column: main-start / main-end;
     min-height: calc(100vh - 9rem);
     height: 100%;
     width: 100%;
@@ -115,6 +119,7 @@ export default {
     overflow: hidden;
   }
 }
+
 .full-absolute {
   position: absolute;
   top: 0;

@@ -124,6 +124,7 @@ const actions = {
         success: true
       }
     } catch (err) {
+      console.log(err)
       console.log(err.response)
       return {
         errors: err.response.data.errors

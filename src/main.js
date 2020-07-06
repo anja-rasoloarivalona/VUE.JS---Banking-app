@@ -44,7 +44,11 @@ export const i18n = new VueI18n({
 // Vue.http.options.root = 'http://localhost:8000/graphql'
 // Vue.http.headers.common.Authorization = 'Bearer ' + token
 
-axios.defaults.baseURL = 'http://localhost:8000/graphql'
+// axios.defaults.baseURL = 'http://localhost:8000/graphql'
+axios.defaults.baseURL = 'https://anja-nirina-bank.herokuapp.com/graphql'
+axios.defaults.headers['Content-Type'] = 'application/json'
+axios.defaults.headers['Access-Control-Allow-Origin'] = '*'
+axios.defaults.headers['Access-Control-Allow-Methods'] = 'GET, POST, PATCH, PUT, DELETE, OPTIONS'
 
 // const data = localStorage.getItem('bank-data')
 // if (data) {

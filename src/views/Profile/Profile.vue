@@ -4,24 +4,24 @@
            <app-icon name="add" size="extra-large" :color="theme.isDark ? 'secondary' : 'secondary'"></app-icon>
            <div class="profile__add__bridge"></div>
            <ul class="profile__add__list" v-if="showList">
-             <li class="profile__add__list__item" @click="openBackdrop('expense')">Add expense</li>
-             <li class="profile__add__list__item" @click="openBackdrop('income')">Add income</li>
-             <li class="profile__add__list__item" @click="openBackdrop('goal')">{{ user.goal.amount ? 'Edit goal' : 'Add goal'}}</li>
-             <li class="profile__add__list__item" @click="openBackdrop('wallet')">Add Wallet</li>
+             <li class="profile__add__list__item" @click="openBackdrop('expense')">{{$t('addExpense')}}</li>
+             <li class="profile__add__list__item" @click="openBackdrop('income')">{{$t('addEIncome')}}</li>
+             <li class="profile__add__list__item" @click="openBackdrop('goal')">{{ user.goal.amount ? $t('editGoal') : $t('addGoal') }}</li>
+             <li class="profile__add__list__item" @click="openBackdrop('wallet')">{{$t('addAWallet')}}</li>
            </ul>
         </div>
         <profile-header :userBudgetPlan="userBudgetPlan" />
         <div class="profile__section">
             <div class="profile__section__title">
-                <h1>Incomes</h1>
+                <h1>{{$t('incomes')}}</h1>
             </div>
             <table class="profile__section__table">
                 <thead>
                   <tr>
-                    <th>Category</th>
-                    <th>Frequency</th>
-                    <th>Amount per transaction</th>
-                    <th>Monthly average</th>
+                    <th>{{$t('incomes')}}</th>
+                    <th>{{$t('frequency')}}</th>
+                    <th>{{$t('amountPerTransaction')}}</th>
+                    <th>{{$t('monthlyAverage')}}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -33,7 +33,7 @@
                    <tr class="profile__section__table__total">
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
-                    <td>Total</td>
+                    <td>{{$t('total')}}</td>
                     <td><h3>{{userBudgetPlan.monthlyIncomes | amount}}</h3></td>
                   </tr>
                 </tbody>
@@ -41,15 +41,15 @@
         </div>
         <div class="profile__section">
             <div class="profile__section__title">
-                <h1>Expenses</h1>
+                <h1>{{$t('expenses')}}</h1>
             </div>
             <table class="profile__section__table">
                 <thead>
                   <tr>
-                    <th>Category</th>
-                    <th>Subcategory</th>
-                    <th>Type</th>
-                    <th>Monthly average</th>
+                    <th>{{$t('category')}}</th>
+                    <th>{{$t('subcategory')}}</th>
+                    <th>{{$t('type')}}</th>
+                    <th>{{$t('monthlyAverage')}}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -63,7 +63,7 @@
                    <tr class="profile__section__table__total">
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
-                    <td>Total</td>
+                    <td>{{$t('total')}}</td>
                     <td><h3>{{userBudgetPlan.monthlyExpenses | amount}}</h3></td>
                   </tr>
                 </tbody>
@@ -71,7 +71,7 @@
         </div>
         <div class="profile__section">
             <div class="profile__section__title">
-                <h1>Wallets</h1>
+                <h1>{{$t('wallets')}}</h1>
             </div>
             <div class="profile__section__list profile__section__list--wallets">
                 <wallet v-for="wallet in user.wallets" :wallet="wallet" :key="wallet._id" @click.native="clickWallet(wallet)"/>

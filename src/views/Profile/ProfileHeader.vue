@@ -1,10 +1,10 @@
 <template>
   <header class="header">
     <div class="header__details">
-      <h1>Monthly average</h1>
+      <h1>{{$t('monthlyAverage')}}</h1>
       <div class="header__details__item">
         <div class="header__details__item__key">
-          Incomes
+          {{$t('incomes')}}
         </div>
         <div class="header__details__item__value">
           <span v-if="userBudgetPlan.monthlyIncomes !== 0">{{userBudgetPlan.monthlyIncomes | amount}}</span>
@@ -13,7 +13,7 @@
       </div>
       <div class="header__details__item">
         <div class="header__details__item__key">
-          Expenses
+          {{$t('expenses')}}
         </div>
         <div class="header__details__item__value">
           <span v-if="userBudgetPlan.monthlyExpenses  !== 0">{{userBudgetPlan.monthlyExpenses | amount }}</span>
@@ -22,7 +22,7 @@
       </div>
       <div class="header__details__item">
         <div class="header__details__item__key">
-          Savings
+          {{$t('savings')}}
         </div>
         <div class="header__details__item__value">
           {{ userBudgetPlan.monthlySavings | amount }}

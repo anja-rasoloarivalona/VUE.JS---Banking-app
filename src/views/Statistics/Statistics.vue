@@ -13,8 +13,7 @@
             :totalIncome="totalIncome"
             :totalExpense="totalExpense"
           />
-          <statistics-budget />
-
+          <!-- <statistics-budget /> -->
     </div>
       </div>
 </template>
@@ -23,7 +22,7 @@
 import { mapGetters } from 'vuex'
 import StatisticsHeader from './StatisticsHeader'
 import StatisticsTable from './StatisticsTable'
-import StatisticsBudget from './StatisticsBudget'
+// import StatisticsBudget from './StatisticsBudget'
 export default {
   data () {
     return {
@@ -36,7 +35,7 @@ export default {
     window.scroll(0, 0)
     const d = new Date()
     const value = `${d.getMonth() + 1}-${d.getFullYear()}`
-    const month = d.getMonth() + 1 < 10 ? `month0${d.getMonth() + 1}--full` : `month${d.getMonth() + 1}--full`
+    const month = `month${d.getMonth() + 1}--full`
     const year = d.getFullYear()
     this.currentPeriod = {
       value: value,
@@ -59,9 +58,8 @@ export default {
     periodLists () {
       const periods = []
       this.user.monthlyReports.forEach(report => {
-        const month = parseInt(report.period.split('-')[0]) < 10 ? `month0${report.period.split('-')[0]}` : `month${report.period.split('-')[0]}`
+        const month = `month${report.period.split('-')[0]}`
         const year = report.period.split('-')[1]
-
         if (!periods.includes(report.period)) {
           periods.push({
             value: report.period,
@@ -70,7 +68,6 @@ export default {
           })
         }
       })
-      // console.log('periodsList', periods)
       return periods
     },
     reportHeaderData () {
@@ -142,8 +139,8 @@ export default {
   },
   components: {
     StatisticsHeader,
-    StatisticsTable,
-    StatisticsBudget
+    StatisticsTable
+    // StatisticsBudget
   }
 
 }

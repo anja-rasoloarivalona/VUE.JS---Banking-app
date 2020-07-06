@@ -1,14 +1,14 @@
 <template>
   <div class="statistics__content__table">
-    <h1 class="statistics__content__table__title">Summary</h1>
+    <h1 class="statistics__content__table__title">{{$t('summary')}}</h1>
     <table>
       <thead>
         <tr>
-          <th>Type</th>
-          <th>Category</th>
-          <th>Subcategory</th>
-          <th>Amount</th>
-          <th>Total</th>
+          <th>{{$t('type')}}</th>
+          <th>{{$t('category')}}</th>
+          <th>{{$t('subcategory')}}</th>
+          <th>{{$t('amount')}}</th>
+          <th>{{$t('total')}}</th>
         </tr>
       </thead>
     </table>
@@ -33,14 +33,13 @@
             </template>
           </tr>
 
-          <tr class="statistics__content__table__total">
+          <tr class="statistics__content__table__total" v-if="totalIncome > 0">
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>Total Income</td>
+            <td>{{$t('totalIncome')}}</td>
             <td>
-                <span v-if="totalIncome !== 0">{{ totalIncome | amount }}</span>
-                <span v-else>-</span>
+                <span>{{ totalIncome | amount }}</span>
             </td>
           </tr>
 
@@ -85,14 +84,13 @@
             </template>
           </tr>
 
-          <tr class="statistics__content__table__total">
+          <tr class="statistics__content__table__total" v-if="totalExpense > 0">
              <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>Total Expense</td>
+            <td>{{$t('totalExpense')}}</td>
             <td>
-                <span v-if="totalExpense !== 0">{{ totalExpense | amount }}</span>
-                <span v-else>-</span>
+                <span>{{ totalExpense | amount }}</span>
             </td>
           </tr>
 
@@ -100,7 +98,7 @@
              <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>Savings</td>
+            <td>{{$t('savings')}}</td>
             <td>{{ (totalIncome - totalExpense) | amount }}</td>
           </tr>
         </tbody>
@@ -128,9 +126,12 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .statistics__content__table__title {
     color: var(--textColor--dark);
     margin-bottom: 3rem;
+}
+.income-name__content {
+  padding-left: 1rem !important;
 }
 </style>

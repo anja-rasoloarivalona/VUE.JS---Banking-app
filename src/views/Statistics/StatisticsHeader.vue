@@ -2,12 +2,12 @@
     <div class="header">
         <div class="header__details">
             <div class="header__details__title">
-                <h1>Period</h1>
+                <h1>{{$t('period')}}</h1>
                 <app-select-input v-model="period" :options="periodLists" i18/>
             </div>
             <div class="header__details__item">
                 <div class="header__details__item__key">
-                    Incomes
+                    {{$t('incomes')}}
                 </div>
                 <div class="header__details__item__value">
                     <span v-if="data.totalIncome !== 0">{{data.totalIncome | amount}}</span>
@@ -16,7 +16,7 @@
             </div>
             <div class="header__details__item">
                 <div class="header__details__item__key">
-                    Expenses
+                    {{$t('expenses')}}
                 </div>
                 <div class="header__details__item__value">
                     <span v-if="data.totalExpense !== 0">{{data.totalExpense | amount}}</span>
@@ -25,7 +25,7 @@
             </div>
             <div class="header__details__item">
                 <div class="header__details__item__key">
-                    Savings
+                    {{$t('savings')}}
                 </div>
                 <div class="header__details__item__value">
                     {{data.totalIncome - data.totalExpense | amount}}

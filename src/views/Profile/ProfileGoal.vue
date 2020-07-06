@@ -1,10 +1,10 @@
 <template>
   <div class="profile-goal">
     <div class="profile-goal__details">
-      <h1>Goal</h1>
+      <h1>{{$t('goal')}}</h1>
       <div class="profile-goal__details__item">
         <div class="profile-goal__details__item__key">
-          Amount
+          {{$t('amount')}}
         </div>
         <div class="profile-goal__details__item__value">
           {{user.goal.amount | amount}}
@@ -12,7 +12,7 @@
       </div>
       <div class="profile-goal__details__item">
         <div class="profile-goal__details__item__key">
-          Expected date
+          {{$t('expectedDate')}}
         </div>
         <div class="profile-goal__details__item__value">
           <span v-if="user.goal.date && user.goal.date !== 'null'">{{user.goal.date | short-date }}</span>

@@ -51,15 +51,37 @@ export default {
       }
     }
   },
-  mounted () {
-    if (this.upcoming) {
-      this.items.upcoming = {
-        subtitle: this.upcoming.name,
-        value: this.upcoming.value
-      }
-    }
+  created () {
+    // console.log('upcoming', this.upcoming)
+    // if (this.upcoming) {
+    //   this.items.upcoming = {
+    //     subtitle: this.upcoming.subcategory,
+    //     value: this.upcoming.value
+    //   }
+    // }
   },
   watch: {
+    user: {
+      immediate: true,
+      deep: true,
+      handler () {
+        console.log('user changed', this.upcoming)
+        if (this.upcoming) {
+          const subtitle = this.upcoming.type === 'expense' ? this.expensesList[this.upcoming.category].subcategory[this.upcoming.subcategory].i18 : this.incomesList.category[this.upcoming.subcategory].i18
+          console.log('upcoming', this.upcoming)
+          const data = { ...this.items }
+          data.upcoming = {
+            subtitle: subtitle,
+            value: this.upcoming.value
+          }
+          this.items = data
+        } else {
+          const data = { ...this.items }
+          delete data.upcoming
+          this.items = data
+        }
+      }
+    },
     userBalance: {
       immediate: true,
       handler (balance) {
@@ -97,7 +119,9 @@ export default {
       'user',
       'userBalance',
       'upcoming',
-      'creditBalance'
+      'creditBalance',
+      'expensesList',
+      'incomesList'
     ]),
     addButtonBackground () {
       if (this.theme.isDark) {
@@ -154,6 +178,10 @@ export default {
                 font-size: $font-s;
                 & div:first-child {
                     margin-right: .5rem;
+                    max-width: 100%;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                 }
             }
             &__details {

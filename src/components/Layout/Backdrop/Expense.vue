@@ -2,7 +2,7 @@
     <div class="expense" :class="{'bg-white': theme.isLight, 'bg-surfaceColor': theme.isDark}">
         <expense-form isCancelBtnDisplayed>
             <div class="expense__header">
-                <h1 v-text="editedExpense ? 'Edit expense' : 'Add expense'"></h1>
+                <h1 v-text="editedExpense ? $t('editExpense') : $t('addExpense')"></h1>
                 <div class="expense__header__close" @click="closeBackdrop">
                     <app-icon name="close" size="large"/>
                 </div>

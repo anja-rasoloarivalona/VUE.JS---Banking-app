@@ -2,19 +2,19 @@
     <div class="transactions-form">
         <slot />
         <form>
-            <app-select-input v-model="input.transactionType" :options="[{value: 'income', i18: 'income'}, {value: 'expense', i18: 'expense'}]" :id="'Type'" i18/>
-            <app-date-input   :id="'Date'"  v-model="input.date" />
+            <app-select-input v-model="input.transactionType" :options="[{value: 'income', i18: 'income'}, {value: 'expense', i18: 'expense'}]" :id="$t('type')" i18/>
+            <app-date-input   :id="$t('date')"  v-model="input.date" />
             <app-expense-input v-model="expense" v-if="input.transactionType.value === 'expense'"/>
             <app-income-input v-model="income" v-if="input.transactionType.value === 'income'"/>
-            <app-basic-input  :id="'Amount'" v-model="input.amount" type="number"/>
-            <app-basic-input  :id="'Details'" v-model="input.details" />
-            <app-select-input :id="'Wallet'" v-model="input.usedWallet" :options="displayedWalletsList"  v-if="input.transactionType.value" i18/>
-            <app-basic-input  :id="'Counter party'" v-model="input.counterparty" v-if="input.transactionType.value && input.transactionType.value === 'expense'"/>
+            <app-basic-input  :id="$t('amount')" v-model="input.amount" type="number"/>
+            <app-basic-input  :id="$t('details')" v-model="input.details" />
+            <app-select-input :id="$t('wallet')" v-model="input.usedWallet" :options="displayedWalletsList"  v-if="input.transactionType.value" i18/>
+            <app-basic-input  :id="$t('counterparty')" v-model="input.counterparty" v-if="input.transactionType.value && input.transactionType.value === 'expense'"/>
         </form>
         <div class="transactions-form__cta">
-            <app-btn normal secondary v-if="isCancelBtnDisplayed" @click.native="close">Cancel</app-btn>
+            <app-btn normal secondary v-if="isCancelBtnDisplayed" @click.native="close">{{$t('cancel')}}</app-btn>
             <app-btn normal primary @click.native="submitForm">
-                    <span v-if="!loading" v-text="isEditingTransaction ? 'Edit': 'Add'"></span>
+                    <span v-if="!loading" v-text="isEditingTransaction ? $t('edit') : $t('add')"></span>
                     <app-spinner v-else></app-spinner>
             </app-btn>
         </div>

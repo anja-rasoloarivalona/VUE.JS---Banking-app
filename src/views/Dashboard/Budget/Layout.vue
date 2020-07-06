@@ -4,7 +4,7 @@
     <div class="budget__empty" v-if="variableBudgetCounter === 0">
       {{$t('youDoNotHaveVariableExpenses')}}.<div @click="openBackdrop('expense')">Click here</div>to add a new one.
     </div>
-    <ul class="budget__list" v-else>
+    <ul class="budget__list" v-else :style="{justifyContent: budgetData.length < 3 ? 'space-around': 'space-between'}">
         <li v-for="item in budgetData" :key="item._id" class="budget__list__item">
           <div class="budget__list__item__key">
             <div class="budget__list__item__key__icon" :style="{backgroundColor: expensesList[item.category].color}">
@@ -128,11 +128,13 @@ export default {
       flex-grow: 1;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      // justify-content: center;
       &__item {
         display: flex;
         align-items: center;
+        justify-content: space-between;
         height: 3rem;
+        // margin-bottom: 1rem;
         // min-height: 4rem;
         // background: red;
         &__key {
@@ -141,8 +143,8 @@ export default {
             font-size: $font-s;
             color: var(--textColor--dark);
             display: flex;
+            margin-right: 0rem;
             align-items: center;
-            margin-right: 2rem;
              &__text {
               white-space: nowrap;
               overflow: hidden;
@@ -195,7 +197,7 @@ export default {
             border-radius: .5rem;
         }
         &__max {
-            margin-left: 1rem;
+            // margin-left: 1rem;
             color: var(--textColor);
             // background: salmon;
         }

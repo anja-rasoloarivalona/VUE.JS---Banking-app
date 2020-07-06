@@ -70,27 +70,23 @@ const getters = {
   upcoming: state => {
     const datedTransactions = [...state.incomes]
     state.expenses.forEach(expense => {
-      if (expense.expenseType === 'fixed') {
+      if (expense.expenseType === 'Fixed') {
         datedTransactions.push(expense)
       }
     })
     if (datedTransactions.length < 1) {
       return false
     }
-    let result = {
-      name: datedTransactions[0].name,
+    datedTransactions.sort((a, b) => (
+      new Date(a.nextPayout) > new Date(b.nextPayout) ? -1 : 1
+    ))
+    const result = {
+      type: datedTransactions[0].category === 'Income' ? 'income' : 'expense',
+      category: datedTransactions[0].category,
+      subcategory: datedTransactions[0].subcategory,
       date: new Date(datedTransactions[0].nextPayout),
       value: datedTransactions[0].amount
     }
-    datedTransactions.forEach(transaction => {
-      if (new Date(transaction.nextPayout) < result.date) {
-        result = {
-          name: transaction.name,
-          date: new Date(transaction.nextPayout),
-          value: transaction.amount
-        }
-      }
-    })
     return result
   },
   creditBalance: state => {

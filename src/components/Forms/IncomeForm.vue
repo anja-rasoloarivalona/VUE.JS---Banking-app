@@ -12,10 +12,10 @@
       </form>
       <div class="income-form__cta">
             <app-btn normal secondary v-if="isCancelBtnDisplayed" @click.native="close">
-                Cancel
+                {{$t('cancel')}}
             </app-btn>
             <app-btn normal primary @click.native="submit" >
-                    <div v-if="!loading" v-text="editedIncome ? 'Edit' : 'Add'"></div>
+                    <div v-if="!loading" v-text="editedIncome ? $t('edit') : $t('add')"></div>
                     <app-spinner v-else></app-spinner>
             </app-btn>
         </div>

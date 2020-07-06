@@ -206,7 +206,12 @@ export default {
           &__total {
             background: var(--backgroundColor);
             &--savings {
-              background: var(--mainColor--light);
+              &.light {
+                  background: var(--mainColor--light);
+              }
+              &.dark {
+                  background: var(--mainColor--dark);
+              }
             }
             & td {
               width: calc(100% / 5);

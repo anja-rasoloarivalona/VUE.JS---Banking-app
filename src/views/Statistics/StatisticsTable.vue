@@ -94,7 +94,7 @@
             </td>
           </tr>
 
-          <tr class="statistics__content__table__total--savings">
+          <tr class="statistics__content__table__total--savings" :class="{light: theme.isLight, dark: theme.isDark}">
              <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
@@ -108,11 +108,14 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Expense from '@/components/UI/Expense/Expense'
 import Income from '@/components/UI/Income/Income'
 export default {
-  mounted () {
-    console.log('current', this.currentReport.expenseData)
+  computed: {
+    ...mapGetters([
+      'theme'
+    ])
   },
   props: {
     currentReport: Object,

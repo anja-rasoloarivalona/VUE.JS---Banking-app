@@ -2,8 +2,8 @@
   <keep-alive>
     <div class="transactionsContainer">
         <div class="transactions-view__empty" v-if="this.$store.state.user.monthlyReports.length < 1">
-           <div>You do not have transactions yet</div>
-           <app-btn normal primary @click.native="openBackdrop('transactions')">Add transaction</app-btn>
+           <div>{{$t('youDoNotHaveTransactionsYet')}}</div>
+           <app-btn normal primary @click.native="openBackdrop('transactions')">{{$t('add')}}</app-btn>
         </div>
         <div class="transactions-view" v-else>
             <div class="transactions-view__header">

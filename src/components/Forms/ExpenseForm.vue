@@ -33,7 +33,7 @@
       </form>
       <div class="expense-form__cta">
             <app-btn normal secondary v-if="isCancelBtnDisplayed" @click.native="$emit('hideForm')">
-                Cancel
+                {{$t('cancel')}}
             </app-btn>
             <app-btn normal primary @click.native="submit" >
                 <div v-if="!loading" v-text="editedExpense ? $t('edit') : $t('add')"></div>

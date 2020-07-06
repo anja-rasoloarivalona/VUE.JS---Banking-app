@@ -4,11 +4,11 @@
         <div class="chart__expenses">
           <div class="chart__expenses__container">
               <doughnut-chart
-                v-if="currentPeriodReport && Object.keys(currentPeriodReport).length > 0 && currentPeriodReport.transactions.length > 0"
+                v-if="currentPeriodReport && Object.keys(currentPeriodReport).length > 0 && currentPeriodExpenseTransactionCounter > 0"
                 :styles="chartStyles"
                 :datacollection="chartData"
               />
-              <div class="chart__expenses__empty" v-else>You do not have expenses this month</div>
+              <div class="chart__expenses__empty" v-else>{{$t('youHaveNotMadeAnyExpendituresThisMonth')}}</div>
           </div>
         </div>
     </div>
@@ -28,7 +28,7 @@ export default {
     }
   },
   mounted () {
-    console.log(this.currentPeriodReport.length)
+    console.log('chart', this.currentPeriodReport)
   },
   computed: {
     ...mapGetters([
@@ -36,6 +36,15 @@ export default {
       'expensesList',
       'currentPeriodReport'
     ]),
+    currentPeriodExpenseTransactionCounter () {
+      let counter = 0
+      this.currentPeriodReport.transactions.forEach(transaction => {
+        if (transaction.transactionType === 'expense') {
+          counter++
+        }
+      })
+      return counter
+    },
     chartData () {
       let expenseChartData = {}
       const d = {}

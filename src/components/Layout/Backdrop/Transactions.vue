@@ -2,7 +2,7 @@
     <div class="transactions" :class="{'bg-white': theme.isLight, 'bg-surfaceColor': theme.isDark}">
         <transactions-form isCancelBtnDisplayed>
             <div class="transactions__header">
-                <h1 v-text="isEditingTransaction ? 'Edit Transaction' : 'Add Transaction'">Add transaction</h1>
+                <h1 v-text="isEditingTransaction ? $t('editTransaction') : $t('addTransaction')"></h1>
                 <div class="transactions__header__close">
                     <app-icon name="close" size="large" @click="close"/>
                 </div>

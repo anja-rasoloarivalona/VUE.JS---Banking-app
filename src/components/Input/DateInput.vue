@@ -1,7 +1,7 @@
 <template>
         <label :for="id" class="label">
             <span class="label__id">{{ id }}</span>
-            <date-picker :id="id" :value="value" @input="updateSelf" />
+            <date-picker :id="id" :value="value" @input="updateSelf" :locale="currentLanguage"/>
         </label>
 </template>
 
@@ -18,7 +18,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'theme'
+      'theme',
+      'currentLanguage'
     ])
   },
   props: {

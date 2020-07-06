@@ -1,7 +1,7 @@
 <template>
     <div class="backdrop-wallet" :class="{'bg-white': theme.isLight, 'bg-surfaceColor': theme.isDark}">
         <div class="backdrop-wallet__header">
-                <h1 v-text="editedWallet ? 'Edit wallet' : 'Add wallet'">Add wallet</h1>
+                <h1 v-text="editedWallet ? $t('editWallet') : $t('addAWallet')"></h1>
                 <div class="backdrop-wallet__header__close" @click="closeBackdrop">
                     <app-icon name="close" size="large"/>
                 </div>
@@ -58,6 +58,9 @@ export default {
     disabledInput () {
       let res = true
       if (this.auth.appStatus === 'setup') {
+        res = false
+      }
+      if (!this.editedWallet) {
         res = false
       }
       return res

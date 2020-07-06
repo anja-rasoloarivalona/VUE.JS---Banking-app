@@ -2,7 +2,7 @@
     <div class="income" :class="{'bg-white': theme.isLight, 'bg-surfaceColor': theme.isDark}">
         <income-form isCancelBtnDisplayed>
             <div class="income__header">
-                <h1 v-text="editedIncome ? 'Edit income' : 'Add income'"></h1>
+                <h1 v-text="editedIncome ? $t('editIncome') : $t('addIncome')"></h1>
                 <div class="income__header__close" @click="closeBackdrop">
                   <app-icon name="close" size="large"/>
                 </div>

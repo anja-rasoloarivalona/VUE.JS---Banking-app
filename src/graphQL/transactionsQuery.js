@@ -14,10 +14,12 @@ const editTransactionQuery = (input) => {
   }
 }
 
-const deleteTransactionQuery = (input) => {
+const deleteTransactionQuery = (transactionId) => {
   return {
     query: `mutation {
-        ${query('deleteTransaction', input)}
+        deleteTransaction(transactionInput: {
+          _id: "${transactionId}"
+        }) { ${queryResult}}
       }`
   }
 }

@@ -1,6 +1,6 @@
 import { editIncomeQuery, addIncomeQuery, deleteIncomeQuery } from '@/graphQL/incomeQuery'
 import { editExpenseQuery, addExpenseQuery, deleteExpenseQuery } from '@/graphQL/expenseQuery'
-import { addTransactionQuery, editTransactionQuery } from '@/graphQL/transactionsQuery'
+import { addTransactionQuery, editTransactionQuery, deleteTransactionQuery } from '@/graphQL/transactionsQuery'
 import axios from 'axios'
 import Vue from 'vue'
 
@@ -143,7 +143,6 @@ const mutations = {
     // state[userItemType][itemIndex] = data
   },
   deleteUserItem (state, data) {
-    console.log('deleting user item')
     state[data.userItemType] = state[data.userItemType].filter(i => i._id !== data._id)
   },
   addGoal (state, goal) {
@@ -274,6 +273,18 @@ const actions = {
       return true
     } catch (err) {
       console.log('error editing transaction', err.response)
+      return false
+    }
+  },
+  deleteTransaction: async function ({ commit }, transactionId) {
+    const graphqlQuery = deleteTransactionQuery(transactionId)
+    try {
+      const response = await axios.post('', graphqlQuery)
+      const resData = response.data.data.deleteTransaction
+      commit('deleteTransaction', resData)
+      return true
+    } catch (err) {
+      console.log(err.response)
       return false
     }
   }

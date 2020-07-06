@@ -38,10 +38,10 @@
             :class="{isLast: isLast }"
             >
             <li class="transaction__cta__list__item" @click="edit">
-                Edit
+                {{$t('edit')}}
             </li>
-            <li class="transaction__cta__list__item" @click="deleteTransaction">
-                Delete
+            <li class="transaction__cta__list__item" @click="deleteTransaction(transaction._id)">
+                {{$t('delete')}}
             </li>
             </ul>
         </td>
@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 import Income from '@/components/UI/Income/Income'
 import Expense from '@/components/UI/Expense/Expense'
 export default {
@@ -85,6 +85,9 @@ export default {
     ...mapMutations([
       'editTransaction',
       'openBackdrop'
+    ]),
+    ...mapActions([
+      'deleteTransaction'
     ]),
     closeList () {
       this.showList = false

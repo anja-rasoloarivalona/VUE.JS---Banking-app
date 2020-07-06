@@ -42,7 +42,7 @@ export default {
           this.$emit('code-sent', this.email)
         }
       } catch (err) {
-        console.log(err.response)
+        // console.log(err.response)
         err.response.data.errors.forEach((err, index) => {
           setTimeout(() => this.addError(err.message), (index + 1) * 500)
         })

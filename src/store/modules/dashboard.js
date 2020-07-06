@@ -170,7 +170,7 @@ const actions = {
       commit('saveNewLayout')
       return true
     } catch (err) {
-      console.log('err edit dashboard layout', err.response)
+      // console.log('err edit dashboard layout', err.response)
     }
   }
 }

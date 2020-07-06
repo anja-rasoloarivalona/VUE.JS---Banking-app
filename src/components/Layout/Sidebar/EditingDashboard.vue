@@ -58,7 +58,7 @@ export default {
         await axios.post('/', graphqlQuery)
         this.setEditDashboardToFalse()
       } catch (err) {
-        console.log(err)
+        // console.log(err)
       }
     }
   }

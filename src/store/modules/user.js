@@ -167,7 +167,7 @@ const actions = {
       commit('addUserItem', resData)
       return true
     } catch (err) {
-      console.log(err.response)
+      // console.log(err.response)
       return false
     }
   },
@@ -181,7 +181,7 @@ const actions = {
       commit('editUserItem', resData)
       return true
     } catch (err) {
-      console.log(err.response)
+      // console.log(err.response)
       return false
     }
   },
@@ -198,7 +198,7 @@ const actions = {
         commit('deleteUserItem', data)
       }
     } catch (err) {
-      console.log(err.response)
+      // console.log(err.response)
       return false
     }
   },
@@ -211,7 +211,7 @@ const actions = {
       commit('addUserItem', resData)
       return true
     } catch (err) {
-      console.log(err.response)
+      // console.log(err.response)
       commit('addError', err.response.data.errors[0].message)
       return false
     }
@@ -225,7 +225,7 @@ const actions = {
       commit('editUserItem', resData)
       return true
     } catch (err) {
-      console.log(err.response)
+      // console.log(err.response)
       return false
     }
   },
@@ -242,7 +242,7 @@ const actions = {
         commit('deleteUserItem', data)
       }
     } catch (err) {
-      console.log(err.response)
+      // console.log(err.response)
       return false
     }
   },
@@ -254,7 +254,7 @@ const actions = {
       commit('addTransaction', resData)
       return true
     } catch (err) {
-      console.log(err.response)
+      // console.log(err.response)
       return false
     }
   },
@@ -266,7 +266,7 @@ const actions = {
       commit('addTransaction', resData)
       return true
     } catch (err) {
-      console.log('error editing transaction', err.response)
+      // console.log('error editing transaction', err.response)
       return false
     }
   },
@@ -278,7 +278,7 @@ const actions = {
       commit('deleteTransaction', resData)
       return true
     } catch (err) {
-      console.log(err.response)
+      // console.log(err.response)
       return false
     }
   }

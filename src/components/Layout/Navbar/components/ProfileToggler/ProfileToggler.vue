@@ -57,7 +57,7 @@ export default {
         await axios.post('/', query)
         this.setTheme(nextTheme)
       } catch (err) {
-        console.log(err.response)
+        // console.log(err.response)
       }
     }
   }

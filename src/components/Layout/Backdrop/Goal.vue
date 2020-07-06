@@ -178,7 +178,7 @@ export default {
         this.addGoal(resData)
         this.closeBackdrop()
       } catch (err) {
-        console.log(err.repsonse)
+        // console.log(err.repsonse)
       }
     }
   }

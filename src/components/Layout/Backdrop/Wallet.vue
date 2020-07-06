@@ -107,7 +107,7 @@ export default {
         this.closeBackdrop()
       } catch (err) {
         this.loading = false
-        console.log(err.response)
+        // console.log(err.response)
       }
     },
     editWalletHandler: async function () {
@@ -122,7 +122,7 @@ export default {
         this.closeBackdrop()
       } catch (err) {
         this.loading = false
-        console.log(err.response)
+        // console.log(err.response)
       }
     }
   },

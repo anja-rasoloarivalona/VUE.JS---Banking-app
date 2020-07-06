@@ -191,7 +191,7 @@ export default {
         const resData = response.data.data.addGoal
         this.addGoal(resData)
       } catch (err) {
-        console.log(err.repsonse)
+        // console.log(err.repsonse)
       }
     },
     completeSetup: async function () {
@@ -199,7 +199,7 @@ export default {
         await this.saveGoal()
         await this.finishSetup()
       } catch (err) {
-        console.log(err.response)
+        // console.log(err.response)
       }
     }
   }

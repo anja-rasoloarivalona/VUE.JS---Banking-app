@@ -58,7 +58,7 @@ const actions = {
       commit('setIsAppReadyToTrue')
       commit('setActiveDate', resData.activeDate)
     } catch (err) {
-      console.log(err.response)
+      // console.log(err.response)
     }
   }
 }

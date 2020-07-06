@@ -5,7 +5,7 @@
            <div class="profile__add__bridge"></div>
            <ul class="profile__add__list" v-if="showList">
              <li class="profile__add__list__item" @click="openBackdrop('expense')">{{$t('addExpense')}}</li>
-             <li class="profile__add__list__item" @click="openBackdrop('income')">{{$t('addEIncome')}}</li>
+             <li class="profile__add__list__item" @click="openBackdrop('income')">{{$t('addIncome')}}</li>
              <li class="profile__add__list__item" @click="openBackdrop('goal')">{{ user.goal.amount ? $t('editGoal') : $t('addGoal') }}</li>
              <li class="profile__add__list__item" @click="openBackdrop('wallet')">{{$t('addAWallet')}}</li>
            </ul>
@@ -77,7 +77,7 @@
                 <wallet v-for="wallet in user.wallets" :wallet="wallet" :key="wallet._id" @click.native="clickWallet(wallet)"/>
             </div>
         </div>
-        <profile-goal v-if="user.goal"/>
+        <profile-goal v-if="user.goal && user.goal.amount"/>
     </div>
 </template>
 

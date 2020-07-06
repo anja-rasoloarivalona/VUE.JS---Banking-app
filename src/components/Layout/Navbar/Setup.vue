@@ -61,6 +61,8 @@ export default {
     grid-row: 1 / 2;
     width: 100%;
     max-width: 120rem;
+    height: 100%;
+    border-bottom: 1px solid var(--lineColor);
     display: flex;
     align-items: center;
     justify-content: space-between;

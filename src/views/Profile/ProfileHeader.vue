@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="header__chart">
-      <doughnut-chart :styles="chartStyles" :datacollection="data"></doughnut-chart>
+      <doughnut-chart :styles="chartStyles" :datacollection="chartData"></doughnut-chart>
     </div>
   </header>
 </template>
@@ -41,7 +41,6 @@ import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      data: null,
       chartStyles: {
         height: '130px',
         width: '100%',
@@ -53,21 +52,25 @@ export default {
     ...mapGetters([
       'user',
       'expensesList'
-    ])
+    ]),
+    chartData () {
+      let chartData = {}
+      const labels = []
+      const data = []
+      const bg = []
+      this.user.expenses.forEach(expense => {
+        labels.push(this.$t(this.expensesList[expense.category].i18))
+        data.push(expense.amount)
+        bg.push(this.expensesList[expense.category].color)
+      })
+      chartData = {
+        labels: labels,
+        datasets: [{ data: data, backgroundColor: bg }]
+      }
+      return chartData
+    }
   },
   created () {
-    const labels = []
-    const data = []
-    const bg = []
-    this.user.expenses.forEach(expense => {
-      labels.push(expense.category)
-      data.push(expense.amount)
-      bg.push(this.expensesList[expense.category].color)
-    })
-    this.data = {
-      labels: labels,
-      datasets: [{ data: data, backgroundColor: bg }]
-    }
   },
   components: {
     DoughnutChart

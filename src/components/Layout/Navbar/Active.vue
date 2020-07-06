@@ -78,9 +78,11 @@ export default {
   // padding: 0 1rem;
   width: 100%;
   max-width: 120rem;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-bottom: 1px solid var(--lineColor);
   &__list {
     display: flex;
     div {

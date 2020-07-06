@@ -131,15 +131,14 @@ export default {
     & .nav {
         grid-column: 2 / 3;
         grid-row: 1 / 2;
-        width: calc(100% - 2rem);
+        width: 100%;
         max-width: 118rem;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        border-bottom: 1px solid var(--lineColor);
         position: relative;
         z-index: 3;
-        margin: 0 1rem;
+        padding: 0 1rem;
     }
   }
 }

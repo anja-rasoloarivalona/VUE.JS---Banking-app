@@ -1,7 +1,6 @@
 const updateDashboardLayoutQuery = (layout) => {
   const d = {}
   layout.forEach(item => {
-    console.log(item.i)
     d[item.i] = {
       h: item.h,
       w: item.w,
@@ -13,8 +12,6 @@ const updateDashboardLayoutQuery = (layout) => {
       displayed: true
     }
   })
-  // console.log('d', d)
-  // console.log('calendar', d.calendar)
   return {
     query: `mutation {
         updateDashboardLayout(

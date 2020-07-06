@@ -27,9 +27,6 @@ export default {
       }
     }
   },
-  mounted () {
-    console.log('chart', this.currentPeriodReport)
-  },
   computed: {
     ...mapGetters([
       'user',

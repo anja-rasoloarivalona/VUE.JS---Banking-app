@@ -49,9 +49,6 @@ export default {
       ]
     }
   },
-  mounted () {
-    // console.log('subaca', this.category)
-  },
   model: {
     prop: 'value',
     event: 'click'

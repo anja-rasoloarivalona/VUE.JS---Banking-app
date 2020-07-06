@@ -124,7 +124,6 @@ const mutations = {
     state[userItemType] = [...state[userItemType], userItem]
   },
   editUserItem (state, data) {
-    console.log('editing', data)
     const userItemType = data.type
     const userItem = { ...data }
     let itemIndex
@@ -135,7 +134,6 @@ const mutations = {
     })
     delete userItem.type
     Vue.set(state[userItemType], itemIndex, userItem)
-    console.log('item edited')
     // state[userItemType][itemIndex] = data
   },
   deleteUserItem (state, data) {

@@ -21,9 +21,6 @@ export default {
       'isEditingTransaction'
     ])
   },
-  mounted () {
-    console.log('theme', this.theme.isLight)
-  },
   methods: {
     ...mapMutations([
       'closeBackdrop',

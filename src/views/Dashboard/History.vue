@@ -105,11 +105,9 @@ export default {
               label.balanceVariation += transaction.amount
               label.transactions.push(transaction)
               if (transaction.transactionType === 'expense') {
-                console.log('yes expense')
                 label.expensesVariation += (transaction.amount * -1)
               }
               if (transaction.transactionType === 'income') {
-                console.log('yes income')
                 label.incomesVariation += transaction.amount
               }
             }
@@ -199,7 +197,6 @@ export default {
           data: balanceData
         }
       ]
-      // console.log('balance', balanceData)
     }
   },
   components: {

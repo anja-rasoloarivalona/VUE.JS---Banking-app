@@ -86,9 +86,6 @@ export default {
       return this.income.amount * this.frequencyOptions.period[this.income.frequency.period] * this.frequencyOptions.counter[this.income.frequency.counter]
     }
   },
-  mounted () {
-    // console.log('income', this.income)
-  },
   props: {
     income: {
       required: true,

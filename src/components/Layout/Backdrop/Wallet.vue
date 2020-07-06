@@ -68,7 +68,6 @@ export default {
   },
   mounted () {
     if (this.editedWallet) {
-      // console.log('edited', this.editedWallet)
       let i18 = ''
       this.user.walletTypeList.find(item => {
         if (item.value === this.editedWallet.walletType) {

@@ -89,12 +89,10 @@ export default {
       'setCompactToTrue'
     ]),
     layoutUpdatedEvent: function (newLayout) {
-      console.log('new layiut', newLayout)
       this.tryNewLayout(newLayout)
     },
     resize () {
       this.windowWith = window.innerWidth
-      console.log('resized', window.innerWidth)
     }
   },
   watch: {

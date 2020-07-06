@@ -165,7 +165,6 @@ const mutations = {
 const actions = {
   async updateDashboardLayout ({ commit }, layout) {
     const graphqlQuery = updateDashboardLayoutQuery(layout)
-    console.log('query', graphqlQuery)
     try {
       await axios.post('/', graphqlQuery)
       commit('saveNewLayout')

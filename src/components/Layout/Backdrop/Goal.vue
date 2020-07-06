@@ -52,7 +52,6 @@ export default {
     if (this.userBudgetPlan.monthlySavings > 0) {
       this.isMonthlySavingsPositive = true
     }
-    console.log('goal', this.user.goal)
     if (this.user.goal.amount) {
       this.goal = this.user.goal.amount
       this.result = this.user.goal.date

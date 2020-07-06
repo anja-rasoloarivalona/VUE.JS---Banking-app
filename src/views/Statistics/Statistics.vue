@@ -43,11 +43,6 @@ export default {
       custom: year
     }
   },
-  watch: {
-    'currentPeriod.value': function (val) {
-      // console.log('oeriod changed', val)
-    }
-  },
   computed: {
     ...mapGetters([
       'user',

@@ -88,7 +88,6 @@ export default {
       }
       if (action === 'reset') {
         const success = await this.updateDashboardLayout(this.dashboard.defaultLayout)
-        console.log('success', success)
         if (success) {
           this.resetDashboardLayout()
         }

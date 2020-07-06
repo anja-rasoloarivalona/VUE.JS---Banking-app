@@ -127,7 +127,6 @@ export default {
         autoWriting: this.editedExpense.autoWriting ? 'yes' : 'no',
         notification: this.editedExpense.notification ? 'yes' : 'no'
       }
-      console.log('edited data', this.expense)
     }
   },
   methods: {

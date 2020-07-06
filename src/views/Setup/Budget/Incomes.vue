@@ -91,10 +91,8 @@ export default {
       'addIncome'
     ]),
     addIncomeHandler: async function () {
-      // console.log('income', this.income)
       this.loading = true
-      const result = await this.addIncome(this.income)
-      console.log('income added', result)
+      await this.addIncome(this.income)
     },
     setupIncomeAction () {
       if (this.user.incomes.length < 1) {

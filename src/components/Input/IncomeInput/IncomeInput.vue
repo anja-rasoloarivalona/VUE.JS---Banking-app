@@ -52,9 +52,6 @@ export default {
     prop: 'value',
     event: 'click'
   },
-  mounted () {
-    // console.log('income input', this.incomesList)
-  },
   computed: {
     ...mapGetters([
       'theme',

@@ -62,11 +62,9 @@ export default {
   },
   mounted () {
     this.displayChart()
-    // console.log('user', this.user)
   },
   watch: {
     'user.monthlyReports': function (val) {
-      console.log('monthly changed')
       this.displayChart()
     },
     'theme.currentTheme': {

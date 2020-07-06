@@ -53,13 +53,10 @@ export default {
   },
   watch: {
     displayedOptions: function (v) {
-    //   console.log('options', v.length)
     }
   },
   mounted () {
     this.displayedOptions = this.options
-    // console.log('Mounted', this.options.length)
-    // console.log('Mounted', this.displayedOptions.length)
   },
   methods: {
     selectOption (value) {
@@ -81,13 +78,11 @@ export default {
     },
     openList () {
       if (!this.showList) {
-        // console.log('opening')
         this.showList = true
       }
     },
     closeList: function () {
       if (this.showList) {
-        // console.log('closing')
         this.showList = false
       }
     },

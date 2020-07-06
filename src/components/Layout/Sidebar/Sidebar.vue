@@ -53,7 +53,6 @@ export default {
   },
   mounted () {
     if (!this.auth.isAuth) {
-      console.log('setting to false')
       this.notDelayed = false
     }
   },

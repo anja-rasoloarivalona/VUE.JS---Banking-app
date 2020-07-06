@@ -39,9 +39,6 @@ import GhostAvailable from './Available/GhostAvailable'
 import Expenses from './ExpensesChart'
 
 export default {
-  mounted () {
-    // console.log('few', this.dashboard)
-  },
   computed: {
     ...mapGetters([
       'ghostModeIsEnabled',

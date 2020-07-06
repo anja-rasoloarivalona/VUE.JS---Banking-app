@@ -37,7 +37,6 @@ export default {
   },
   methods: {
     displayChart (data) {
-      console.log('rendeirng', data)
       this.renderChart(data, this.options)
     }
   },

@@ -26,9 +26,6 @@ export default {
       }
     }
   },
-  mounted () {
-    // console.log('income', this.income)
-  },
   props: {
     income: Object,
     type: String // category or subcategory

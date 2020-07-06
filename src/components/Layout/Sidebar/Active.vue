@@ -51,24 +51,13 @@ export default {
       }
     }
   },
-  created () {
-    // console.log('upcoming', this.upcoming)
-    // if (this.upcoming) {
-    //   this.items.upcoming = {
-    //     subtitle: this.upcoming.subcategory,
-    //     value: this.upcoming.value
-    //   }
-    // }
-  },
   watch: {
     user: {
       immediate: true,
       deep: true,
       handler () {
-        console.log('user changed', this.upcoming)
         if (this.upcoming) {
           const subtitle = this.upcoming.type === 'expense' ? this.expensesList[this.upcoming.category].subcategory[this.upcoming.subcategory].i18 : this.incomesList.category[this.upcoming.subcategory].i18
-          console.log('upcoming', this.upcoming)
           const data = { ...this.items }
           data.upcoming = {
             subtitle: subtitle,

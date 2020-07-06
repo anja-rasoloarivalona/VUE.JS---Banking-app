@@ -198,7 +198,6 @@ export default {
       try {
         await this.saveGoal()
         await this.finishSetup()
-        console.log('done')
       } catch (err) {
         console.log(err.response)
       }

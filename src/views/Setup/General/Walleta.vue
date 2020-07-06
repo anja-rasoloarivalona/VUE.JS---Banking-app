@@ -98,11 +98,6 @@ export default {
       }
     }
   },
-  watch: {
-    'user.wallets': function (v) {
-      console.log('user walles', v)
-    }
-  },
   computed: {
     ...mapGetters([
       'setup',

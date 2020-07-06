@@ -49,9 +49,6 @@ export default {
       'openBackdrop'
     ])
   },
-  mounted () {
-    // console.log('goalmount', this.user.goal)
-  },
   components: {
     Progress
   }

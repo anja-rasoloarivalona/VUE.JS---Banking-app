@@ -36,7 +36,6 @@ export default {
       const graphqlQuery = { query: `{sendCodeToResetPassword(email:"${this.email}")}` }
       try {
         const response = await axios.post('/', graphqlQuery)
-        console.log('response', response)
         const resData = response.data.data.sendCodeToResetPassword
         this.loading = false
         if (resData === 'Code sent') {

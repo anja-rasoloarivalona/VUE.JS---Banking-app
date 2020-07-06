@@ -107,7 +107,6 @@ export default {
     submit: async function () {
       this.loading = true
       let result = false
-      console.log('sunbbmiyt', this.income)
       if (this.editedIncome) {
         result = await this.editIncome(this.income)
       } else {
